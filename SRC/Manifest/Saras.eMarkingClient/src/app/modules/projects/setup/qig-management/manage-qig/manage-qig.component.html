@@ -1,0 +1,629 @@
+<div class="container">
+  <div class="row mb-1">
+    <button
+      type="button"
+      class="btn p-2 hide theme_button d-flex align-items-center float-start mx-0"
+      title="Manage QIG"
+      [routerLink]="['/projects', 'setup', 'QigManagement']"
+    >
+      <span class="icon-arrow_back "></span>
+      {{ "qigmanagement.manage-qig.bck" | translate }}
+    </button>
+    <div class="d-flex cust-margin">
+      <div class="mt-3 mx-4 ">
+        <div class="qut_hed">
+          <label>{{ "qigmanagement.manage-qig.noofqigs" | translate }}</label>
+          <strong>
+            {{ managedQigListDetails?.ManageQigsCountsList.TotalNoOfQIGs }}
+          </strong>
+        </div>
+      </div>
+      <div class="mt-3 ml">
+        <div class="qut_hed">
+          <label>
+            {{ "qigmanagement.manage-qig.noofquestions" | translate }}
+          </label>
+          <strong>
+            {{
+              managedQigListDetails?.ManageQigsCountsList.TotalNoOfQuestions
+            }}</strong
+          >
+        </div>
+      </div>
+      <div class="mt-3 ml">
+        <div class="qut_hed">
+          <label
+            >{{ "qigmanagement.manage-qig.nooftaggedquestions" | translate }}
+          </label>
+          <strong>
+            {{
+              managedQigListDetails?.ManageQigsCountsList
+                .TotalNoOfTaggedQuestions
+            }}
+          </strong>
+        </div>
+      </div>
+      <div class="mt-3  ml">
+        <div class="qut_hed">
+          <label
+            >{{ "qigmanagement.manage-qig.noofuntaggedquestions" | translate }}
+          </label>
+          <strong class="cust-untagques-cursor" *ngIf="managedQigListDetails?.ManageQigsCountsList
+          .TotalNoOfUnTaggedQuestions>0">
+            <a data-bs-toggle="modal"
+                data-bs-target="#qig_remarksdetails" (click)="NoOfUntaggedQuest()" title="Un-Tagged Questions" > {{
+              managedQigListDetails?.ManageQigsCountsList
+                .TotalNoOfUnTaggedQuestions
+            }}</a>
+            </strong>
+            <strong  *ngIf="managedQigListDetails?.ManageQigsCountsList
+            .TotalNoOfUnTaggedQuestions==0" > {{
+              managedQigListDetails?.ManageQigsCountsList
+                .TotalNoOfUnTaggedQuestions
+            }}</strong>
+        </div>
+      </div>
+      <div class="float-end mt-3 ms-auto ">
+        <div class="">
+          <button
+            type="button"
+            [disabled]="isClosed == 3"
+            [routerLink]="['/projects', 'setup', 'QigManagement', 'createqig']"
+            class="btn p-2 theme_button d-flex align-items-center float-end"
+            title="{{ 'qigmanagement.manage-qig.cretqig' | translate }}"
+            *ngIf="Isfinalized == 0"
+          >
+            <span class="icon-add "></span>
+            {{ "qigmanagement.manage-qig.cretqig" | translate }}
+          </button>
+          <button
+            class="padtb ach_highligt p-2 float-end theme_button_light cursor "
+            [disabled]="isClosed == 3"
+            *ngIf="Isfinalized <= 0"
+            title="{{
+              'qigmanagement.manage-qig.finalizeqigsetup' | translate
+            }}"
+            data-bs-toggle="modal"
+            data-bs-target="#qig_remarksdetails"
+            (click)="GetUntaggedQuestionsDetails(); showdiv = 0"
+          >
+            {{ "qigmanagement.manage-qig.finalizeqigsetup" | translate }}
+          </button>
+        </div>
+        <div
+          class="crtsufy  status_yes_new  float-end cursor"
+          title="{{ 'qigmanagement.manage-qig.qigsetupfinalized' | translate }}"
+          *ngIf="Isfinalized > 0"
+        >
+          <span class="icon-complete"></span>
+          {{ "qigmanagement.manage-qig.qigsetupfinalized" | translate }}
+        </div>
+
+        <div class="hide" aria-hidden="true">
+          <button
+            type="button"
+            title="Configuration"
+            class="btn theme_button d-flex align-items-center"
+            #openModalPopup
+            data-bs-toggle="modal"
+            data-bs-target="#proxy_modal"
+          >
+            Approve
+          </button>
+        </div>
+
+        <button
+          class="crtrest cust-reset padtb ach_highligt p-2 float-end theme_button_light cursor"
+          title="Reset QIG's"
+          (click)="QigReset()"
+          [disabled]="!managedQigListDetails.IsResetDisable"
+          *ngIf="
+            Isfinalized > 0 &&
+            managedQigListDetails.ManageQigsCountsList.IsProjectClosed != 3 &&
+            managedQigListDetails.ManageQigsCountsList.IsProjectClosed != 1 &&
+            managedQigListDetails.IsResetEnable
+          "
+        >
+          Reset QIG's
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card_box">
+    <div class="row-header_bg d-flex align-items-center">
+      <div class="col-2">
+        <strong> {{ "qigmanagement.manage-qig.qname" | translate }}</strong>
+      </div>
+      <div class="col-2">
+        <strong>{{ "qigmanagement.manage-qig.ques" | translate }}</strong>
+      </div>
+      <div class="col-2">
+        <strong>{{ "qigmanagement.manage-qig.totmrks" | translate }}</strong>
+      </div>
+      <div class="col-2 ">
+        <strong>{{
+          "qigmanagement.manage-qig.questiontype" | translate
+        }}</strong>
+      </div>
+      <div class="col-2">
+        <strong>{{ "qigmanagement.manage-qig.mantryques" | translate }}</strong>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1"></div>
+    </div>
+    <div
+      class="row-childrow d-flex align-items-center card_box ng-star-inserted"
+      *ngFor="let lst of managedQigListDetails?.ManageQigsList"
+    >
+      <div class="col-2 word_wrpa c_pr_20">
+        {{ lst?.QigName }}
+      </div>
+      <div class="col-2">{{ lst.NoOfQuestions }}</div>
+      <div class="col-2">{{ lst.TotalMarks }}</div>
+      <div class="col-2">
+        <div *ngIf="lst.QigType == 2">
+          {{ "qigmanagement.qns-qig-mapping.composition" | translate }}
+        </div>
+        <div *ngIf="lst.QigType == 3">
+          {{ "qigmanagement.qns-qig-mapping.noncomposition" | translate }}
+        </div>
+        <div *ngIf="lst.QigType == 1">Automatic</div>
+      </div>
+
+      <div class="col-2">{{ lst.MandtoryQuestions }}</div>
+      <div class="col-1">
+        <button
+          [disabled]="isClosed == 3"
+          *ngIf="lst.QigType != 1"
+          (click)="DeleteQig(lst.projectqigId,lst.QigName,lst.QigType)"
+          type="button"
+          class="btn p-2 theme_button d-flex align-items-center float-end "
+          [disabled]="Isfinalized > 0"
+          title="Delete QIG"
+        >
+          <span class="icon-delete"></span>
+        </button>
+      </div>
+      <div class="col-1">
+        <button
+          [disabled]="isClosed == 3"
+          (click)="NavigatetoCreateQIG(lst.projectqigId)"
+          type="button"
+          class="btn p-2 theme_button d-flex align-items-center float-end "
+          title="{{ Isfinalized > 0 ? 'QIG Finalised' : 'Edit QIG' }} "
+        >
+          <span class="icon-tag"></span>
+        </button>
+      </div>
+    </div>
+   
+  </div>
+  <div class="text-center mt-1 card_box nodatafound" *ngIf="nullqig == 0">
+    No QIG's Found.
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  [class.shimmer]="Ispageloading"
+  id="qig_viewdetails"
+  data-bs-backdrop="static"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
+          {{ "qigmanagement.manage-qig.qigdetls" | translate }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          #qnspopmodel
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          title="{{ 'shared.close' | translate }}"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-4">
+          <div class="col-3">
+            <span class=""
+              ><strong>
+                {{
+                  "qigmanagement.qns-qig-mapping.qigname" | translate
+                }}</strong
+              ></span
+            >
+            <span class="col-12 d-block">{{ Qigdetails?.QigName }}</span>
+          </div>
+          <div class="col-3">
+            <span class=""
+              ><strong>{{
+                "qigmanagement.qns-qig-mapping.noqns" | translate
+              }}</strong></span
+            >
+            <span class="col-12 d-block">
+              {{ Qigdetails?.NoOfQuestions }}
+            </span>
+          </div>
+          <div class="col-3">
+            <span class=""
+              ><strong>{{
+                "qigmanagement.qns-qig-mapping.totmarks" | translate
+              }}</strong></span
+            >
+            <span class="col-12 d-block"> {{ Qigdetails?.TotalMarks }}</span>
+          </div>
+          <div class="col-3 ">
+            <span class=""
+              ><strong>{{
+                "qigmanagement.qns-qig-mapping.markingtype" | translate
+              }}</strong></span
+            >
+            <span class="col-12 d-block">
+              <span *ngIf="Qigdetails?.MarkingType == 'HOLSTC'">{{
+                "qigmanagement.qns-qig-mapping.holistic" | translate
+              }}</span>
+              <span *ngIf="Qigdetails?.MarkingType == 'DSCRT'">{{
+                "qigmanagement.qns-qig-mapping.discrete" | translate
+              }}</span>
+            </span>
+          </div>
+        </div>
+        <div class="row-header_bg d-flex align-items-center">
+          <div class="col-8">
+            <strong>
+              {{ "qigmanagement.qns-qig-mapping.qnslabel" | translate }}</strong
+            >
+          </div>
+          <div class="col-4">
+            <strong>
+              {{ "qigmanagement.qns-qig-mapping.marks" | translate }}</strong
+            >
+          </div>
+        </div>
+        <div
+          class="text-center mt-2   nodatafound"
+          *ngIf="Qigdetails?.qigQuestions.length == 0"
+        >
+          {{ "qigmanagement.manage-qig.nodatafound" | translate }}
+        </div>
+        <div
+          class="row-childrow d-flex align-items-center card_box ng-star-inserted"
+          *ngFor="let questions of Qigdetails?.qigQuestions"
+        >
+          <div class="col-8">{{ questions?.QigQuestionName }}</div>
+          <div class="col-4">{{ questions?.TotalMarks }}</div>
+        </div>
+      </div>
+      <div class="modal-footer_dil">
+        <div class="float-start mt-2">
+          {{ "qigmanagement.qns-qig-mapping.mandatoryqns" | translate }}
+
+          <input
+            type="number"
+            #mandatoryquestion
+            min="0"
+            [max]="Qigdetails?.qigQuestions.length"
+            (keypress)="keyPressAlphaNumericWithCharacters($event)"
+            matInput
+            (ngModel)="(Qigdetails?.MandatoryQuestion)"
+            class="mat-form-field-autofill-control ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored p-1"
+            [value]="Qigdetails?.MandatoryQuestion"
+            (change)="Qigdetails.MandatoryQuestion = mandatoryquestion.value"
+            oncut="return false"
+            onDrop="return false"
+            onPaste="return false"
+            [disabled]="
+              Qigdetails?.IsQigSetup ||
+              Qigdetails?.qigQuestions.length == 0 ||
+              Isfinalized <= 0 ||
+              Isfinalized > 0
+            "
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade  "
+  [class.shimmer]="Ispageloading"
+  id="qig_remarksdetails"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel1" *ngIf="!isShowDiv">
+          {{ "qigmanagement.create-qig.finalizeqigsetup" | translate }}
+        </h1>
+        <h1 class="modal-title fs-5" *ngIf="isShowDiv">
+          Un-Tagged Questions
+        </h1>
+        <button
+          type="button"
+          [disabled]="isClosed == 3"
+          class="btn-close"
+          #qigpopmodel
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          title="{{ 'shared.close' | translate }}"
+        ></button>
+      </div>
+      <div *ngIf="showdiv==3" [class.shrimmer]="Ispageloading">
+          <div class="text-center mt-1 card_box nodatafound">
+            No Questions Found.
+        </div>
+      </div>
+      <div
+        class="modal-body"
+        *ngIf="
+          managedQigListDetails?.ManageQigsCountsList
+            .TotalNoOfUnTaggedQuestions == 0 && emptyQigs.length == 0 && !isShowDiv"
+        [class.shimmer]="Ispageloading"
+      >
+        <div class="col-12 mb-3">
+          <strong
+            >{{ "qigmanagement.manage-qig.disclaimer" | translate }} </strong
+          >{{ "qigmanagement.manage-qig.onceufinalizedtagoruntag" | translate }}
+        </div>
+        <div class="col-12">
+          <mat-checkbox #Aggreed ngDefaultControl class="example-margin mb-1">
+          </mat-checkbox
+          ><strong>{{
+            "qigmanagement.manage-qig.agreetermsconditions" | translate
+          }}</strong>
+
+          <div class="remarks cust-padding-top float-start w-100">
+            <label class="p-2 hide">
+              {{ "qigmanagement.manage-qig.remarks" | translate
+              }}<span class="remarkslbl required"> </span>
+            </label>
+            <textarea
+              oncut="return false"
+              onDrop="return false"
+              onPaste="return false"
+              [disabled]="Isfinalized > 0"
+              matInput
+              placeholder="Remarks *"
+              class="text_ares "
+              (input)="remarks = $event.target.value"
+              rows="4"
+              cols="50"
+              maxlength="250"
+              [(ngModel)]="remarks"
+              value="{{ remarks }}"
+              required
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="modal-footer_dil">
+          <button
+            type="button"
+            class="btn p-2 theme_button d-flex align-items-center float-start mt-3 mx-0"
+            (click)="SaveQigQuestions(remarks)"
+            [class.shimmer]="Ispageloading"
+            [disabled]="Isfinalized > 0 || !Aggreed.checked"
+          >
+            <span class="icon-save-1"></span
+            >{{ "qigmanagement.qns-qig-mapping.save" | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="modal-body"
+        *ngIf="
+          managedQigListDetails?.ManageQigsCountsList
+            .TotalNoOfUnTaggedQuestions != 0 || emptyQigs?.length != 0
+        "
+        [class.shimmer]="Ispageloading"
+      >
+        <div
+          class="row"
+          *ngIf="
+            (managedQigListDetails?.ManageQigsCountsList
+              .TotalNoOfUnTaggedQuestions != 0 || emptyQigs?.length != 0)
+          && !isShowDiv"
+        >
+          <strong>{{
+            "qigmanagement.manage-qig.notemessage" | translate
+          }}</strong>
+        </div>
+        <br />
+
+        <div
+          *ngIf="
+            managedQigListDetails?.ManageQigsCountsList
+              .TotalNoOfUnTaggedQuestions > 0
+              && !isShowDiv"
+        >
+          Question's(
+          <strong>{{
+            managedQigListDetails?.ManageQigsCountsList
+              .TotalNoOfUnTaggedQuestions
+          }}</strong
+          >) not tagged to any QIG, please configure and then set as
+          finalise.<br />
+          <a href="javascript:void(0)" (click)="showdiv = 1">{{
+            "qigmanagement.manage-qig.clickheretoviewquestions" | translate
+          }}</a>
+        </div>
+        <div *ngIf="emptyQigs?.length > 0 && !isShowDiv">
+          QIG's(<strong> {{ emptyQigs?.length }}</strong
+          >) have zero questions, please configure and then set as finalise.<br /><a
+            href="javascript:void(0)"
+            (click)="showdiv = 2"
+            >Click here to view QIG's</a
+          >
+        </div>
+
+        <div *ngIf="showdiv == 1" [class.shimmer]="Ispageloading">
+          <div class="row-header_bg d-flex align-items-center pt-2">
+            <div class="col-md-4">
+              {{ "qigmanagement.create-qig.qsnlbl" | translate }}
+            </div>
+            <div class="col-md-3">
+              {{ "qigmanagement.manage-qig.totmrks" | translate }}
+            </div>
+            <div class="col-md-3">Question Type</div>
+          </div>
+          <div class="qigdiv">
+            <div
+              class="row-childrow d-flex align-items-center card_box ng-star-inserted"
+              *ngFor="let lsts of mappedqigs"
+            >
+              <div class="col-md-4">
+                {{ lsts?.QigQuestionName }}
+              </div>
+              <div class="col-md-3">{{ lsts.TotalMarks }}</div>
+              <div class="col-md-3">
+                <div *ngIf="lsts?.QuestionType == 10">
+                  <span class="col-12 d-block">
+                    {{ "qigmanagement.create-qig.essay" | translate }}
+                  </span>
+                </div>
+                <div *ngIf="lsts?.QuestionType == 11">
+                  <span class="col-12 d-block">
+                    {{ "qigmanagement.create-qig.mcq" | translate }}
+                  </span>
+                </div>
+                <div *ngIf="lsts?.QuestionType == 20">
+                  <span class="col-12 d-block">
+                    {{ "qigmanagement.create-qig.fib" | translate }}
+                  </span>
+                </div>
+                <div *ngIf="lsts?.QuestionType == 85">
+                  <span class="col-12 d-block">
+                    FIB-Drag & Drop
+                  </span>
+                </div>
+                <div *ngIf="lsts?.QuestionType == 152">
+                  <span class="col-12 d-block">
+                    {{ "qigmanagement.create-qig.sorefinger" | translate }}
+                  </span>
+                </div>
+
+                <div *ngIf="lsts?.QuestionType == 154">
+                  <span class="col-12 d-block">
+                   Email Writing
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+
+        <div *ngIf="showdiv == 2" [class.shimmer]="Ispageloading">
+          <div class="row-header_bg d-flex align-items-center pt-2">
+            <div class="col-md-4">
+              {{ "qigmanagement.manage-qig.qname" | translate }}
+            </div>
+          </div>
+          <div class="qigdiv">
+            <div
+              class="row-childrow d-flex align-items-center card_box ng-star-inserted"
+              *ngFor="let lsts of emptyQigs"
+            >
+              <div class="col-md-4">
+                {{ lsts?.QigName }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="proxy_modal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="true"
+  tabindex="-1"
+  aria-labelledby="proxy_modal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Authentication</h5>
+        <span
+          class="icon-close-1 close_custom"
+          #closeAddExpenseModal
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          title="Close"
+        ></span>
+      </div>
+      <div class="modal-body">
+        <form
+          class="form-signin"
+          [formGroup]="signinForm"
+          (ngSubmit)="loginUser()"
+        >
+          <mat-form-field appearance="outline" class="w-100 mb-4">
+            <mat-label>{{ "Login.EmailLabel" | translate }}</mat-label>
+            <input
+              autocomplete="off"
+              matInput
+              placeholder="{{ 'Login.LoginPlaceHolder' | translate }}"
+              formControlName="loginname"
+              autofocus="autofocus"
+            />
+            <mat-error class="login_err">{{
+              "Login.loginerrormessage" | translate
+            }}</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100 mb-4">
+            <mat-label>{{ "Login.PwdLabel" | translate }}</mat-label>
+            <input
+              autocomplete="off"
+              matInput
+              placeholder="{{ 'Login.PwdPlaceHolder' | translate }}"
+              formControlName="password"
+              type="password"
+              maxlength="50"
+            />
+            <mat-error class="login_err">{{
+              "Login.passworderrormessage" | translate
+            }}</mat-error>
+          </mat-form-field>
+
+          <div *ngIf="ValidationErrMsg">
+            <div class="login_erromsg defult_err">
+              Please enter the valid login credentials.
+            </div>
+          </div>
+
+          <div>
+            <span>Note: </span>Please enter other service admin credential
+          </div>
+          <div class="login_action">
+            <button
+              title="Login"
+              mat-raised-button
+              [class.shimmer]="Ispageloading == true"
+              [disabled]="Ispageloading"
+              class="btn autoringuser_button theme_curve float-end shimmer"
+            >
+              {{ "Login.SubmitLabel" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="container_pad">
+  <div class="mt-2">
+    <div class="card_box project_summary pt-4">
+      <div class="row d-flex align-items-center">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4" *ngIf="!IsProjectSame">
+              <mat-form-field appearance="fill" class="selct_sel float-end"
+                title="{{'FrequencyDist.SelProj' | translate}}">
+                <mat-label>{{'FrequencyDist.SelProj' | translate}}</mat-label>
+                <mat-select #matSelect (selectionChange)="Ischecked($event)">
+                  <div>
+                    <mat-option [value]='0' selected>--- {{'FrequencyDist.Select' | translate}} ---</mat-option>
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Search by Project" [(ngModel)]="ProjectSearchValue"
+                        (keyup)="SearchProjects()" (blur)="clearSearch()">
+                      <mat-icon matSuffix title="Search by Project"><span class="icon-search"
+                          (click)="SearchProjects()"></span></mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <mat-option *ngFor="let proj of projectList" [value]="proj?.ProjectId"
+                    ngDefaultControl>{{proj?.ProjectName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="IsProjectSame">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FrequencyDist.SelProj' | translate}}</mat-label>
+                <input matInput *ngFor="let proj of projectList" [value]="proj?.ProjectName" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <button type="button" title="{{'FrequencyDist.Submit' | translate}}" (click)="getFIDIDetails();"
+                class="btn theme_button" *ngIf="!IsProjectSame">{{'FrequencyDist.Submit'
+                | translate}}</button>
+              <button type="button" title="{{'FrequencyDist.Export' | translate}}" class="btn theme_button"
+                (click)="exportAsExcel()"><span class="icon-download m-0"></span>{{'FrequencyDist.Export' |
+                translate}}</button>
+                <button type="button" title="{{'FrequencyDist.ExportFiDi' | translate}}" class="btn theme_button"
+                (click)="exportFiDi()"><span class="icon-download m-0"></span>{{'FrequencyDist.ExportFiDi' |
+                translate}}</button>
+
+                <button type="button" title="{{'FrequencyDist.SyncMetaData' | translate}}" class="btn theme_button"
+                (click)="SyncMetaData()"><span class="icon-upload m-0"></span>SyncMetaData</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table_data">
+      <table class="table" *ngIf="(fidiiddetails?.length > 0 && Isprojectclosed)" #excelTable id="excelTableId"
+        aria-hidden="true" border="1" [class.shimmer]="">
+        <tr style="vertical-align: center;">
+          <th colspan="2" rowspan="2" scope="col" style="text-align: center;">Item Label</th>
+          <th rowspan="2" colspan="3" scope="col">&nbsp;</th>
+          <th rowspan="2" colspan="3" scope="col" style="text-align: center;">Subject mark&nbsp;</th>
+          <th  scope="col" [attr.colspan]="fidimaxmarks" style="text-align: center;">Item:Marks Scored</th>
+        </tr>
+        <tr>
+          <td style="font-size: x-large;">.&nbsp;</td>
+          <td>0</td>
+          <td *ngFor="let lst of Scorelist">&nbsp;{{lst}}</td>
+        </tr>
+        <tr>
+          <td colspan="2">&nbsp;</td>
+          <td >&nbsp;ProductCode</td>
+          <td>&nbsp;T&A QuestionCode</td>        
+          <td>&nbsp; QuestionCode</td>
+          <td>&nbsp;No of candidates</td>
+          <td>&nbsp;Mean</td>
+          <td>&nbsp;Standard Deviation</td> 
+          <td>%</td>
+          <td>%</td>
+          <td *ngFor="let lst of Scorelist">%&nbsp;</td>
+          <td style="width:20px">Item Mean Mark</td>
+          <td style="width:20px">Max Marks</td>
+          <td style="width:20px">Percent total scored full mark</td>
+          <td style="width:20px">FI</td>
+          <td style="width:20px">DI</td>
+        </tr>
+
+        <tr *ngFor="let fidi of fidiiddetails;let i = index;">
+          <td colspan="1">&nbsp;{{fidi?.SectionName}}</td>
+          <td>&nbsp;{{fidi?.ComponentName != '' ? fidi?.ComponentName : fidi?.QuestionType == 10 ? "Essay" 
+            : fidi?.QuestionType == 20 ? "FIB" : fidi.QuestionType==12 ?"Multiple Response Static" 
+            : fidi.QuestionType==152 ? "Sore Finger" : fidi.QuestionType==92 ? "Image Labelling Drag and Drop"
+            :fidi?.QuestionType == 11 ? "MCQ" : fidi.QuestionType==156 ? "Matching Draw Line" : fidi.QuestionType==16 ? "Matrix" : "FIB Drag & Drop"}}</td>
+          <td>{{fidi?.ProductCode}}</td>
+          <td>{{fidi?.TNAQuestionCode}}</td>
+         
+          <td>{{fidi?. QuestionCode}}</td>
+          <td>&nbsp;{{fidi?.TotalNoOfCandidates}}</td>
+          <td>{{fidi?.Mean}}</td>
+          <td>{{fidi?.SD}}</td>
+          <td>{{fidi?.Nullresponsepercentage}}</td>
+          <td>{{fidi?.Zeromarkspercentage}}</td>
+          <td *ngFor="let percentage of fidi.subjectMarksItemScoresModels;">{{percentage?.Subpercentage}}</td>
+          <ng-container *ngIf="fidi.subjectMarksItemScoresModels?.length < MaxMarks">
+            <td *ngFor="let extracolum of fidi.ExtraScorelist;">{{extracolum}}</td>
+          </ng-container>
+          <td style="width:20px">{{fidi?.ItemMeanMark}}</td>
+          <td style="width:20px">{{fidi?.ComponentName == '' ? fidi?.QuestionMarks : fidi?.ComponentMarks}}</td>
+          <td style="width:20px">{{fidi?.PercentTotScoredFullMark}}</td>
+          <td style="width:20px">{{fidi?.FI}}</td>
+          <td style="width:20px">{{fidi?.DI}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="text-center mt-1 card_box nodatafound" *ngIf="fidiiddetails?.length == 0">
+      {{'fidireport.NoRecAlt' | translate}}
+    </div>
+    <mat-paginator #paginator class="demo-paginator hide" (page)="handlePageEvent($event)" [length]="length"
+      [pageSize]="pageSize" [disabled]="false" [showFirstLastButtons]="true"
+      [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="false" [pageIndex]="pageIndex"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

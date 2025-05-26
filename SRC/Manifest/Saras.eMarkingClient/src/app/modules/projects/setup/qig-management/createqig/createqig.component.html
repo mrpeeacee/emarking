@@ -1,0 +1,263 @@
+<div class="container">
+  <div class="row mt-2">
+
+    <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 left_qig_creation">
+      <ng-container>
+        <div class="col-md-12 mb-3">
+          <strong>{{'qigmanagement.create-qig.enterqigname' | translate}}</strong>
+          <div class="card_box_qu" ngDefaultControl>
+            <mat-form-field appearance="outline" [class.shimmer]="isloadingpage">
+              <mat-label>{{'qigmanagement.create-qig.qigname' | translate}} </mat-label>
+              <input [disabled]="Isfinalized > 0" [(ngModel)]="qigdetails.QigName" maxlength="25" (keypress)="keyPressAlphaNumericWithCharacters($event)"
+                (input)="qigdetails.QigName = $event.target.value;" matInput oncut="return false" onDrop="return false"
+                onPaste="return false" placeholder="QigName" required ngDefaultControl>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <div class="card_box_qu">
+            <strong>{{'qigmanagement.create-qig.qsntype' | translate}} </strong>
+            <div class="toggle_menu ng-star-inserted">
+
+              <div class="d-flex" [class.shimmer]="isloadingpage || IsQuestionsLoading">
+                <button [class.shimmer]="isloadingpage" class="btn flex-fill posrht" id="Composite" title="{{'qigmanagement.create-qig.compstn' | translate}}"
+                  [(ngModel)]="qigdetails.QigMarkingType" (click)="fnapprovalType(2)" [ngClass]="qigdetails.QigMarkingType == 2 ? 'theme_toggle' : 'theme_toggle_light'"
+                  [value]="2" ngDefaultControl [disabled]="qigdetails.QigMarkingType==1">
+                  {{'qigmanagement.create-qig.compstn' | translate}}
+                </button>
+                <button [class.shimmer]="isloadingpage || IsQuestionsLoading" class="btn flex-fill poslet" id="NonComposite"
+                  (click)="fnapprovalType(3)" [(ngModel)]="qigdetails.QigMarkingType" title="{{'qigmanagement.create-qig.ncompstn' | translate}}"
+                  [ngClass]="qigdetails.QigMarkingType == 3 ? 'theme_toggle' : 'theme_toggle_light'" [value]="3"
+                  ngDefaultControl [disabled]="qigdetails.QigMarkingType==1">
+                  {{'qigmanagement.create-qig.ncompstn' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 mb-3">
+          <div class="card_box_qu" [class.shimmer]="isloadingpage || IsQuestionsLoading">
+
+            <strong>{{'qigmanagement.create-qig.mantryqsn' | translate}}</strong>
+            <input class="number_inp" [disabled]="Isfinalized > 0 || qigdetails.QigMarkingType==1" (keypress)="keyPressonlyNumeric($event)"
+              id="mandatoryquestion" name="mandatoryquestion" onwheel="return false;" (keydown.arrowup)="(false)"
+              (keydown.arrowdown)="(false)" title="{{'qigmanagement.create-qig.mantryqsn' | translate}}" min="0" type="number"
+              oncut="return false" onDrop="return false" [(ngModel)]="qigdetails.ManadatoryQuestions" onPaste="return false" />
+
+          </div>
+        </div>
+
+        <div [class.shimmer]="isloadingpage">
+
+          <button type="button" [class.shimmer]="isloadingpage || IsQuestionsLoading" (click)="CreateQigs()" [disabled]="Isfinalized > 0"
+            title="{{'qigmanagement.qns-qig-mapping.save' | translate}}" class="btn theme_button d-flex align-items-center float-start  mx-0">
+            <span class="icon-save-1"></span>{{'qigmanagement.qns-qig-mapping.save' | translate}}
+          </button>
+
+
+          <button type="button" [routerLink]="['/projects','setup','QigManagement','manage-qig']" title="{{'qigmanagement.create-qig.cancel' | translate}}"
+            class="btn theme_button_light d-flex align-items-center float-start  mx-3">
+            <span class="icon-close"></span>{{'qigmanagement.create-qig.cancel' | translate}}
+          </button>
+
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="col-md-9 col-lg-9 col-sm-8 col-xs-12">
+      <div class="card_box mb-0">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card_box_qu ">
+                <div class="qut_hed">
+                  <label>{{'qigmanagement.create-qig.noselectdqsn' | translate}}</label>
+                  <strong> {{SelectedquesntnCount}}</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card_box_qu ">
+                <div class="bd-highlight btnovride mat-button float-end">
+                  <button class="btn filter filter_btn" mat-button [matMenuTriggerFor]="beforeMenu" title="Filter Questions">
+                    <span class="icon-filter"></span>
+                  </button>
+                  <mat-menu #beforeMenu="matMenu" xPosition="before" class="filter_drd">
+                    <div class="filter_content">
+                      <mat-checkbox class="example-margin" [(ngModel)]="activechecked" (change)="SetfilterValue($event,1)"
+                        (click)="$event.stopPropagation();"></mat-checkbox>
+                      <span class="mt-1 ml-4">{{'qigmanagement.create-qig.tagged' | translate}}</span>
+                    </div>
+                    <div class="filter_content">
+                      <mat-checkbox class="example-margin" [(ngModel)]="activechecked1" (change)="SetfilterValue($event,2)"
+                        (click)="$event.stopPropagation();"></mat-checkbox>
+                      <span class="mt-1 ml-4">{{'qigmanagement.create-qig.untagged' | translate}}</span>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <button class="btn theme_button d-flex align-items-center float-end" (click)="FilterQuestions(qigdetails.QigMarkingType)">
+                        {{'qigmanagement.create-qig.apply' | translate}}
+                      </button>
+                    </div>
+                  </mat-menu>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 row-header card_container ">
+          <div class="p-2 d-flex bd-highlight align-items-center col-md-12 al">
+            <div class="col-md-4"> {{'qigmanagement.create-qig.qsnlbl' | translate}}</div>
+            <div class="col-md-2 cust-right">{{'qigmanagement.create-qig.qigname' | translate}}</div>
+            <div class="col-md-2">{{'qigmanagement.create-qig.qtype' | translate}}</div>
+            <div class="col-md-2">{{'qigmanagement.manage-qig.totmrks' | translate}}</div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </div>
+        <div class="qig_create" *ngFor="let qigqns of Qigquestions;  let i = index;" [class.shimmer]="isloadingpage"
+          ngDefaultControl>
+          <div class="d-flex">
+            <div class="col-md-4">
+              <span class="col-12 d-block">
+                <mat-checkbox *ngIf="!qigqns?.IsChildExist" (change)="onQuestionChecked(qigqns)" [checked]="qigqns.IsSelected"
+                  [(ngModel)]="qigqns.IsSelected" ngDefaultControl class="example-margin" [value]="qigqns.ProjectQuestionId"
+                  [disabled]="(((selectedquestiontype != 0) && (selectedquestiontype!=qigqns.QuestionType)) ||
+              (qigqns.IsSetupCompleted) || (Isfinalized > 0) || (qigdetails.QigMarkingType==1) )">
+                </mat-checkbox>
+                <span class="lbl_span">{{qigqns?.QuestionCode}}</span>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class="col-12 d-block word_wrpa cust-right">
+                {{qigqns?.QigName}}
+              </span>
+              <button type="button" (click)=showUndoBtn(qigqns.ProjectQuestionId) *ngIf="qigqns?.QuestionType == 20 || qigqns?.QuestionType == 85|| qigqns?.QuestionType == 92 
+                || qigqns?.QuestionType == 156 || qigqns?.QuestionType == 152|| qigqns?.QuestionType == 16 "
+                [class.shimmer]=" isloadingpage" class="btn theme_button d-flex align-items-center   mx-0">
+                <span></span>{{showBtn== true && blankProjectQuestionId==qigqns.ProjectQuestionId ? 'Hide Blanks':
+                'View Blanks'}}
+              </button>
+            </div>
+            <div class="col-md-2">
+              <div *ngIf="qigqns?.QuestionType == 10 || qigqns?.QuestionType == 154">
+                <span class="col-12 d-block">
+                  {{'qigmanagement.create-qig.essay' | translate}}
+                </span>
+              </div>
+              <div *ngIf="qigqns?.QuestionType == 92">
+                <span class="col-12 d-block">
+                  {{'qigmanagement.create-qig.ildad' | translate}}
+                </span>
+              </div>
+              <div *ngIf="qigqns?.QuestionType == 156">
+                <span class="col-12 d-block">
+                  {{'qigmanagement.create-qig.matchDL' | translate}}
+                </span>
+              </div>
+              <div *ngIf="qigqns?.QuestionType == 16">
+                <span class="col-12 d-block">
+                  {{'qigmanagement.create-qig.matrix' | translate}}
+                </span>
+              </div>
+              <div *ngIf="qigqns?.QuestionType == 11">
+                <span class="col-12 d-block">
+                  {{'qigmanagement.create-qig.mcq' | translate}}
+                </span>
+              </div>
+              <div *ngIf="qigqns?.QuestionType == 12">
+                <span class="col-12 d-block">
+                  {{'qigmanagement.create-qig.mrs' | translate}}
+                </span>
+              </div>
+              <div *ngIf="qigqns?.QuestionType == 85">
+                <span class="col-12 d-block">
+                  {{'qigmanagement.create-qig.dad' | translate}}
+                </span>
+              </div>           
+              <div *ngIf="qigqns?.QuestionType == 20">
+                <span class="col-12 d-block word_wrpa">
+                  {{'qigmanagement.create-qig.fib' | translate}}
+                </span>
+              </div>
+              <div *ngIf="qigqns?.QuestionType == 152">
+                <span class="col-12 d-block">
+                  {{'qigmanagement.create-qig.sorefinger' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <span class="col-12 d-block">
+                {{qigqns?.QuestionMarks}}
+              </span>
+            </div>
+            <div class="col-md-2">
+
+              <button type="button" (click)="ViewQuestion(qigqns?.ProjectQigId,qigqns?.ProjectQuestionId,mytemplate)"
+                class="btn  theme_button_light d-flex align-items-center float-end " title="{{'qigmanagement.qns-qig-mapping.viewquestion' | translate}}">
+                {{'qigmanagement.qns-qig-mapping.viewquestion' | translate}}</button>
+            </div>
+            <ng-template #mytemplate >
+              <div  class="custom-viewquestion-popup">
+            
+                  <div class="modal-header ">
+                    <h4 class="modal-title"> {{'qigmanagement.create-qig.viewqus' | translate}}</h4>
+                    <button mat-button [mat-dialog-close]="false" class="btn-close" title="{{'shared.close' | translate}}"></button>
+                  </div>
+                  <div class="modal-body">
+                    <perfct-scrollbar  >
+                    
+                    <div [innerHTML]="getTrustedHtml(QuestionText )  "></div> 
+                  </perfct-scrollbar>
+                  </div>
+                  <div class="modal-footer">
+                    <button mat-button [mat-dialog-close]="false" class="btn theme_button_light mt-1" title="{{'shared.close' | translate}}"> 
+                      {{'qigmanagement.create-qig.close' | translate}}</button>
+                  </div>
+                
+              </div>
+            </ng-template>
+          </div>
+
+          <div class="fib_show" *ngIf="qigqns?.IsChildExist" [ngClass]="showBtn && blankProjectQuestionId==qigqns.ProjectQuestionId?'show':'hide'">
+            <div class="row-header_bg d-flex align-items-center">
+              <div class="col-md-5">{{'qigmanagement.create-qig.qsnlbl' | translate}}</div>
+              <div class="col-md-4">{{'qigmanagement.create-qig.qigname' | translate}}</div>
+              <div class="col-md-2">{{'qigmanagement.manage-qig.totmrks' | translate}}</div>
+            </div>
+
+            <div class="row-childrow d-flex align-items-center card_box" *ngFor="let blankques of qigqns.QigFibQuestions">
+
+              <div class="bd-highlight col-md-5 marauto">
+                <mat-checkbox (change)="onQuestionChecked(blankques)" [checked]="blankques.IsSelected" [(ngModel)]="blankques.IsSelected"
+                  ngDefaultControl class="example-margin" [value]="blankques.ParentQuestionId" [disabled]="((selectedquestiontype!=0 && selectedquestiontype!= blankques.QuestionType)||
+                   (selectedparentquestionid!=0 && selectedparentquestionid!=blankques.ParentQuestionId)|| 
+                   (qigqns.IsSetupCompleted)||  (Isfinalized > 0) || (qigqns.QuestionType == 85)) ">
+                </mat-checkbox> {{blankques?.QuestionCode}}
+              </div>
+              <div class="bd-highlight col-md-4 marauto word_wrpa">
+                <span class="word_wrpa">
+                           {{blankques?.QigName}}
+                </span>
+       
+              </div>
+              <div class="bd-highlight col-md-2 marauto">
+                {{blankques?.QuestionMarks}}
+              </div>
+
+            </div>
+            <div class="text-center mt-3 card_box nodatafound" [class.shimmer]="isloadingpage" *ngIf="!isloadingpage && Qigquestions[0]?.QigFibQuestions?.length == 0 || Qigquestions?.length == 0  ">
+              {{'qigmanagement.create-qig.ndf' | translate}}.
+            </div>
+          </div>
+        </div>
+        <mat-spinner diameter="50" class="matspinnercenter" *ngIf="IsQuestionsLoading"></mat-spinner>
+        <div class="text-center mt-3 card_box nodatafound" [class.shimmer]="IsQuestionsLoading" *ngIf=" Qigquestions?.length == 0 ">
+          {{'qigmanagement.create-qig.ndf' | translate}}.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="card_box project_summary" *ngIf="IsQIGVal">
+  <div class="row d-flex align-items-center">
+    <div class="col-md-12 col-xs-12">
+      <div class="row ng-tns-c252-2 user_counts">
+
+        <div class="col" title="{{'SetUp.UserManagement.totaluser' | translate}}">
+          <span [ngClass]="!totcountbtnstyle ? 'anchorclick' : ''" (click)="FilterUserslist('',false)"> {{'SetUp.UserManagement.totaluser' |
+            translate}}
+          </span>
+          <strong [class.shimmer]="countsloading"><a [ngClass]="!totcountbtnstyle ? 'anchorclick' : ''"
+              (click)="FilterUserslist('',false)">{{projectuserscount?.Totuserscount}}</a></strong>
+        </div>
+
+        <div class="col" title="{{'SetUp.UserManagement.tao' | translate}}">
+          <span [ngClass]="!aobtnstyle ? 'anchorclick' : ''" (click)="FilterUserslist('ao',false)"> {{'SetUp.UserManagement.ao' | translate}}</span>
+          <strong [class.shimmer]="countsloading"><a [ngClass]="!aobtnstyle ? 'anchorclick' : ''"
+              (click)="FilterUserslist('ao',false)">{{projectuserscount?.Aocount}}</a></strong>
+        </div>
+
+        <div class="col" title="{{'SetUp.UserManagement.tcm' | translate}}">
+          <span [ngClass]="!cmbtnstyle ? 'anchorclick' : ''"  (click)="FilterUserslist('cm',false)"> {{'SetUp.UserManagement.cm' | translate}}</span>
+          <strong [class.shimmer]="countsloading"><a [ngClass]="!cmbtnstyle ? 'anchorclick' : ''"
+              (click)="FilterUserslist('cm',false)">{{projectuserscount?.Cmcount}}</a></strong>
+        </div>
+
+        <div class="col" title="{{'SetUp.UserManagement.tacm' | translate}}">
+          <span [ngClass]="!acmbtnstyle ? 'anchorclick' : ''" (click)="FilterUserslist('acm',false)">{{'SetUp.UserManagement.acm' | translate}}</span>
+          <strong [class.shimmer]="countsloading"><a [ngClass]="!acmbtnstyle ? 'anchorclick' : ''"
+              (click)="FilterUserslist('acm',false)">{{projectuserscount?.Acmcount}}</a></strong>
+        </div>
+
+        <div class="col" title="{{'SetUp.UserManagement.ttl' | translate}}">
+          <span [ngClass]="!tlbtnstyle ? 'anchorclick' : ''"   (click)="FilterUserslist('tl',false)"> {{'SetUp.UserManagement.tl' | translate}}</span>
+          <strong [class.shimmer]="countsloading"><a [ngClass]="!tlbtnstyle ? 'anchorclick' : ''"
+              (click)="FilterUserslist('tl',false)">{{projectuserscount?.Tlcount}}</a></strong>
+        </div>
+
+        <div class="col" title="{{'SetUp.UserManagement.tatl' | translate}}">
+          <span [ngClass]="!atlbtnstyle ? 'anchorclick' : ''" (click)="FilterUserslist('atl',false)">{{'SetUp.UserManagement.atl' | translate}}</span>
+          <strong [class.shimmer]="countsloading"><a [ngClass]="!atlbtnstyle ? 'anchorclick' : ''"
+              (click)="FilterUserslist('atl',false)">{{projectuserscount?.Atlcount}}</a></strong>
+        </div>
+
+        <div class="col" title="{{'SetUp.UserManagement.marker' | translate}}">
+          <span [ngClass]="!markerbtnstyle ? 'anchorclick' : ''" (click)="FilterUserslist('marker',false)">{{'SetUp.UserManagement.marker' |
+            translate}}</span>
+          <strong [class.shimmer]="countsloading"><a [ngClass]="!markerbtnstyle ? 'anchorclick' : ''"
+              (click)="FilterUserslist('marker',false)">{{projectuserscount?.Markercount}}</a></strong>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

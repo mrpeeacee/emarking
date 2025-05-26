@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.EFCore.Extensions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Saras.eMarking.Business\Saras.eMarking.Business.csproj" />
+    <ProjectReference Include="..\Saras.eMarking.Domain\Saras.eMarking.Domain.csproj" />
+    <ProjectReference Include="..\Saras.eMarking.RCScheduler.Jobs\Saras.eMarking.RCScheduler.Jobs.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DbContext\" />
+    <Folder Include="Project\Setup\ProjectUsers\" />
+    <Folder Include="Project\Standardisation\S3\" />
+    <Folder Include="Standardisation\QualifyingAssessment\" />
+    <Folder Include="Standardisation\TrailMarking\" />
+  </ItemGroup>
+
+</Project>

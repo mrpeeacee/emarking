@@ -1,0 +1,210 @@
+<div class="container">
+    <div class="body_box">
+        <emarking-qig-tab [OnlyIsKpTab]="true" (selectQigEvent)="getQigDetails($event)">
+        </emarking-qig-tab>
+        <div class="row" *ngIf="!IsS1Available" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+            <div class="col-md-12 bd-highligh">
+                <div class="card_box" role="alert" ngDefaultControl>
+                    <div class="no_std_req"> <strong class="icon-info-1"></strong>
+                        <span>{{'Std.SetUp.IsS1Req' | translate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 d-flex align-items-stretch" *ngIf="IsS1Available">
+            <div class="text-center mt-3 card_box nodatafound" *ngIf="qigloading == false && activeQig?.QigId <= 0">
+                {{'General.NotFound' | translate}}
+            </div>
+
+            <div class="col-md-4 d-flex align-items-stretch" *ngIf="activeQig?.QigId > 0">
+                <div [class.shimmer]="stasticsloading" class="card_box project_summary cat_st_hegt">
+                    <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                        [type]="barChartType" (chartClick)="chartClicked($event)">
+                    </canvas>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-stretch" *ngIf="activeQig?.QigId > 0">
+                <div class="card_box project_summary cat_st_hegt">
+                    <div class="col-md-12 col-xs-12">
+                        <span>{{'cat.notrlmrkd' | translate}}</span>
+                        <span [class.shimmer]="stasticsloading"> <strong id="trmsrpt">{{ stasticsloading ?
+                                'Totalcount':qigsummary?.TrialMarkedScript}}</strong></span>
+                    </div>
+
+                    <div class="col-md-12 col-xs-12 mt-3 ">
+                        <span>{{'cat.nocatsc' | translate}}</span>
+                        <span [class.shimmer]="stasticsloading"> <strong id="trctscrpt">{{ stasticsloading ?
+                                'Totalcount':qigsummary?.CategorisedScript}}</strong></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-5 d-flex align-items-stretch" *ngIf="activeQig?.QigId > 0">
+
+                <div class="card_box cat_summary cat_st_hegt">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 brd_script">
+                            <span>{{'cat.stdscpt' | translate}}</span>
+                            <span [class.shimmer]="stasticsloading" *ngIf="stasticsloading == true">
+                                <strong>Totalcount</strong></span>
+                            <strong *ngIf="stasticsloading != true" class="mt-1">{{qigsummary?.StandardisedScript}}/<span
+                                    class="lowcase">{{qigsummary?.QigStandardisedScript}}</span></strong>
+                            <div role="alert" *ngIf="stasticsloading != true && qigsummary?.QigStandardisedScript > 0 && qigsummary?.StandardisedScript >= qigsummary?.QigStandardisedScript">
+                                <div class="target_cont">{{'cat.trgrcd' | translate}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-xs-12 brd_script">
+                            <span>{{'cat.adstscpt' | translate}}</span>
+                            <span [class.shimmer]="stasticsloading" *ngIf="stasticsloading == true">
+                                <strong>Totalcount</strong></span>
+                            <strong *ngIf="stasticsloading != true" class="mt-1">{{qigsummary?.AdlStandardisedScript}}/<span
+                                    class="lowcase">{{qigsummary?.QigAdlStandardisedScript}}</span></strong>
+                            <div role="alert" *ngIf="stasticsloading != true && qigsummary?.QigAdlStandardisedScript >= 0 && qigsummary?.AdlStandardisedScript >= qigsummary?.QigAdlStandardisedScript">
+                                <div class="target_cont">{{'cat.trgrcd' | translate}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-xs-12">
+                            <span>{{'cat.bncscpt' | translate}}</span>
+                            <span [class.shimmer]="stasticsloading" *ngIf="stasticsloading == true">
+                                <strong>Totalcount</strong></span>
+                            <strong *ngIf="stasticsloading != true" class="mt-1">{{qigsummary?.BenchMarkScript}}/<span
+                                    class="lowcase">{{qigsummary?.QigBenchMarkScript}}</span></strong>
+                            <div role="alert" *ngIf="stasticsloading != true && qigsummary?.QigBenchMarkScript >= 0 && qigsummary?.BenchMarkScript >= qigsummary?.QigBenchMarkScript">
+                                <div class="target_cont">{{'cat.trgrcd' | translate}}</div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div *ngIf="stasticsloading != true && qigsummary?.QigStandardisedScript > 0 && qigsummary?.StandardisedScript >= qigsummary?.QigStandardisedScript
+                            && qigsummary?.QigAdlStandardisedScript >= 0 && qigsummary?.AdlStandardisedScript >= qigsummary?.QigAdlStandardisedScript
+                            && qigsummary?.QigBenchMarkScript >= 0 && qigsummary?.BenchMarkScript >= qigsummary?.QigBenchMarkScript">
+
+                        <a (click)="BtnQualifyingAssessment()" class="atag" title="Navigate to Qualifying Assessment">Navigate to Qualifying Assessment<span
+                                class="icon-pointed_arrow"></span> </a>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-end mb-2"  *ngIf="activeQig?.QigId > 0">
+                <div class="search_dash mt-1 m-0 col-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Search</mat-label>
+                        <input matInput title="Search" placeholder="Search by Script ID" [(ngModel)]="ScriptSearchValue"
+                            (keyup.enter)="SearchScript()" ngDefaultControl autocomplete="off" oncut="return false" onDrop="return false">
+                        <mat-icon matSuffix title=""><span title="Search" class="icon-search" (click)="SearchScript()"></span></mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div *ngIf="activeQig?.QigId > 0 && IsS1Available">
+            <div class="mt-2 row-header card_container ">
+                <div class="p-2 d-flex row justify-content-between bd-highlight align-items-center col-md-12 al">
+                    <div class="col-md-2"><strong>{{'cat.scid' | translate}}</strong></div>
+                    <div class="col-md-2 px-2"><strong>{{'cat.nokpmrkd' | translate}}</strong></div>
+                    <div class="col-md-2 px-1"><strong>{{'cat.catpl' | translate}}</strong></div>
+                    <div class="col-md-2 px-4"></div>
+                    <div class="col-md-3 "><strong>{{'cat.catplDef' | translate}}</strong></div>
+                    <div class="col-md-1">
+                        <div class="bd-highlight btnovride mat-button float-end filter">
+                            <button class="btn filter filter_btn" title="{{'General.Filter' | translate}}" mat-button
+                                [matMenuTriggerFor]="beforeMenu"><span class="icon-filter"></span></button>
+                            <mat-menu #beforeMenu="matMenu" xPosition="before" class="filter_drd" (keydown.tab)="$event.stopPropagation()">
+
+                                <div class="filter_content" *ngFor="let pType of pooltypes">
+                                    <mat-checkbox [(ngModel)]="pType.Selected" [checked]="pType.Selected" (change)="selectPoolFilter()"
+                                        class="example-margin" (click)="$event.stopPropagation();">
+                                    </mat-checkbox>
+                                    {{'cat.' + pType.Text | translate}}
+                                </div>
+
+                                <div class="d-flex justify-content-end"><button class="btn theme_button d-flex align-items-center float-end"
+                                        (click)="applyfilter()" title="{{'cat.aply' | translate}}">{{'cat.aply' |
+                                        translate}} </button>
+                                </div>
+                            </mat-menu>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div *ngIf="scriptsloading == true">
+                <div [class.shimmer]="scriptsloading" *ngFor="let scload of scriptsloadingdata" class="p-2 d-flex justify-content-between bd-highlight align-items-center col-md-12 al">
+                    <div class="col-md-2"><strong>Cat Script Name</strong></div>
+                    <div class="col-md-2"> <span>Total Kp Marked</span></div>
+                    <div class="col-md-2">
+                        <span> Categorisation</span>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <span> Categorisation</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <span> Mark</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container_box" *ngIf="scriptsloading == false && !(categorisationScripts == null || categorisationScripts == undefined || categorisationScripts?.length <= 0)">
+                <div class="row-childrow d-flex justify-content-between p-2" *ngFor="let script of categorisationScripts">
+                    <div class="col-md-2"><span>{{script.ScriptName}}</span></div>
+                    <div class="col-md-2"> {{script.TotalKpMarked}}</div>
+                    <div class="col-md-2">
+                        <div [ngSwitch]="script.PoolType" style="margin-left: -15px;">
+                            <ng-container *ngSwitchCase="'1'">
+                                {{'cat.stdscptd' | translate}}
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'2'">
+                                {{'cat.adstscptd' | translate}}
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'3'">
+                                {{'cat.bncscptd' | translate}}
+                            </ng-container>
+                            <ng-container *ngSwitchDefault>
+                                -
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div *ngIf="script.FinalizedMarks != null" class="">
+                            [{{'cat.mrk' |
+                            translate}}: <strong> {{script.FinalizedMarks}}</strong>]
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="btn status_yes_nw" *ngIf="script.PoolType > 0"><span class="icon-complete"></span>
+                            {{'cat.yes' | translate}}</span>
+                        <span class="btn status_no_nw" *ngIf="script.PoolType <= 0"><span class="icon-close-1"></span>
+                            {{'cat.no' | translate}}</span>
+                    </div>
+                    <div class="col-md-1">
+                    <button class="btn theme_button d-flex align-items-center" [disabled]="qigpause" title="Unrecommend"
+                            (click)="UnrecommandScript(script.ScriptId)" *ngIf="s1closure == false && script.IsUnRecommandEnable && script.IsCategorization">
+                            Unrecommend
+                        </button>
+                    </div>
+                    <div class="col-md-1 text-end">
+                        
+                        <button class="nxt_btn" mat-button title="View Details" (click)="categorisationredirect({ScriptId: script.ScriptId,PoolType:script.PoolType});">
+                            <span class="icon-arrow next_arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3 card_box nodatafound" *ngIf="(categorisationScripts == null || categorisationScripts == undefined || categorisationScripts?.length <= 0) && scriptsloading == false && trialmrkloading == false">
+                {{'General.NotFound' | translate}}
+            </div>
+        </div>
+    </div>
+</div>

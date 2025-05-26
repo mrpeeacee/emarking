@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://LicensingAndTransfer.ServiceContracts/2010/01" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="LicensingAndTransfer" targetNamespace="http://LicensingAndTransfer.ServiceContracts/2010/01" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://LicensingAndTransfer.ServiceContracts/2010/01/Imports">
+      <xsd:import schemaLocation="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd0" namespace="http://LicensingAndTransfer.ServiceContracts/2010/01" />
+      <xsd:import schemaLocation="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd2" namespace="http://LicensingAndTransfer.DataContracts/2010/01" />
+      <xsd:import schemaLocation="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="TestCenterRegistrationRequest">
+    <wsdl:part name="parameters" element="tns:TestCenterRegistrationRequest" />
+  </wsdl:message>
+  <wsdl:message name="TestCenterRegistrationResponse">
+    <wsdl:part name="parameters" element="tns:TestCenterRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateFTPSessionRequest">
+    <wsdl:part name="parameters" element="tns:CreateFTPSessionRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateFTPSessionResponse">
+    <wsdl:part name="parameters" element="tns:CreateFTPSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CompleteFTPSessionRequest">
+    <wsdl:part name="parameters" element="tns:CompleteFTPSessionRequest" />
+  </wsdl:message>
+  <wsdl:message name="CompleteFTPSessionResponse">
+    <wsdl:part name="parameters" element="tns:CompleteFTPSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackageReTransferReGenerateRequest">
+    <wsdl:part name="parameters" element="tns:PackageReTransferReGenerateRequest" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingAndTransfer_PackageReTransferOrReGenerate_OutputMessage" />
+  <wsdl:message name="UpdatePackageStatisticsRequest">
+    <wsdl:part name="parameters" element="tns:UpdatePackageStatisticsRequest" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingAndTransfer_UpdatePackageStatistics_OutputMessage" />
+  <wsdl:message name="UpdatePackageLoadedDateRequest">
+    <wsdl:part name="parameters" element="tns:UpdatePackageLoadedDateRequest" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingAndTransfer_UpdatePackageLoadedDate_OutputMessage" />
+  <wsdl:message name="ValidateTestCenterRequest">
+    <wsdl:part name="parameters" element="tns:ValidateTestCenterRequest" />
+  </wsdl:message>
+  <wsdl:message name="ValidateTestCenterResponse">
+    <wsdl:part name="parameters" element="tns:ValidateTestCenterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingAndTransfer_GetDXUTCDateTime_InputMessage" />
+  <wsdl:message name="DXUTCDateTimeResponse">
+    <wsdl:part name="parameters" element="tns:DXUTCDateTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingAndTransfer_SynchronizeDBData_InputMessage" />
+  <wsdl:message name="ScriptResponse">
+    <wsdl:part name="parameters" element="tns:ScriptResponse" />
+  </wsdl:message>
+  <wsdl:message name="BatchEndTimeUpdateRequest">
+    <wsdl:part name="parameters" element="tns:BatchEndTimeUpdateRequest" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingAndTransfer_UpdateBatchEndTime_OutputMessage" />
+  <wsdl:message name="UserRequest">
+    <wsdl:part name="parameters" element="tns:UserRequest" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingAndTransfer_ManageUser_OutputMessage" />
+  <wsdl:message name="RoleRequest">
+    <wsdl:part name="parameters" element="tns:RoleRequest" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingAndTransfer_ManageRole_OutputMessage" />
+  <wsdl:message name="OrganizationRequest">
+    <wsdl:part name="parameters" element="tns:OrganizationRequest" />
+  </wsdl:message>
+  <wsdl:message name="ILicensingAndTransfer_ManageOrganization_OutputMessage" />
+  <wsdl:portType name="ILicensingAndTransfer">
+    <wsdl:operation name="TestCenterRegistration">
+      <wsdl:input wsaw:Action="TestCenterRegistratiom" name="TestCenterRegistrationRequest" message="tns:TestCenterRegistrationRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/TestCenterRegistrationResponse" name="TestCenterRegistrationResponse" message="tns:TestCenterRegistrationResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateFTPSession">
+      <wsdl:input wsaw:Action="CreateFTPSession" name="CreateFTPSessionRequest" message="tns:CreateFTPSessionRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/CreateFTPSessionResponse" name="CreateFTPSessionResponse" message="tns:CreateFTPSessionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CompleteFTPSession">
+      <wsdl:input wsaw:Action="CompleteFTPSession" name="CompleteFTPSessionRequest" message="tns:CompleteFTPSessionRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/CompleteFTPSessionResponse" name="CompleteFTPSessionResponse" message="tns:CompleteFTPSessionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="PackageReTransferOrReGenerate">
+      <wsdl:input wsaw:Action="PackageReTransferOrReGenerate" name="PackageReTransferReGenerateRequest" message="tns:PackageReTransferReGenerateRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/PackageReTransferOrReGenerateResponse" message="tns:ILicensingAndTransfer_PackageReTransferOrReGenerate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePackageStatistics">
+      <wsdl:input wsaw:Action="UpdatePackageStatistics" name="UpdatePackageStatisticsRequest" message="tns:UpdatePackageStatisticsRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/UpdatePackageStatisticsResponse" message="tns:ILicensingAndTransfer_UpdatePackageStatistics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePackageLoadedDate">
+      <wsdl:input wsaw:Action="UpdatePackageLoadedDate" name="UpdatePackageLoadedDateRequest" message="tns:UpdatePackageLoadedDateRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/UpdatePackageLoadedDateResponse" message="tns:ILicensingAndTransfer_UpdatePackageLoadedDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateTestCenter">
+      <wsdl:input wsaw:Action="ValidateTestCenter" name="ValidateTestCenterRequest" message="tns:ValidateTestCenterRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/ValidateTestCenterResponse" name="ValidateTestCenterResponse" message="tns:ValidateTestCenterResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDXUTCDateTime">
+      <wsdl:input wsaw:Action="GetDXUTCDateTime" message="tns:ILicensingAndTransfer_GetDXUTCDateTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/GetDXUTCDateTimeResponse" name="DXUTCDateTimeResponse" message="tns:DXUTCDateTimeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="SynchronizeDBData">
+      <wsdl:input wsaw:Action="SynchronizeDBData" message="tns:ILicensingAndTransfer_SynchronizeDBData_InputMessage" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/SynchronizeDBDataResponse" name="ScriptResponse" message="tns:ScriptResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBatchEndTime">
+      <wsdl:input wsaw:Action="UpdateBatchEndTime" name="BatchEndTimeUpdateRequest" message="tns:BatchEndTimeUpdateRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/UpdateBatchEndTimeResponse" message="tns:ILicensingAndTransfer_UpdateBatchEndTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ManageUser">
+      <wsdl:input wsaw:Action="ManageUser" name="UserRequest" message="tns:UserRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/ManageUserResponse" message="tns:ILicensingAndTransfer_ManageUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ManageRole">
+      <wsdl:input wsaw:Action="ManageRole" name="RoleRequest" message="tns:RoleRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/ManageRoleResponse" message="tns:ILicensingAndTransfer_ManageRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ManageOrganization">
+      <wsdl:input wsaw:Action="ManageOrganization" name="OrganizationRequest" message="tns:OrganizationRequest" />
+      <wsdl:output wsaw:Action="http://LicensingAndTransfer.ServiceContracts/2010/01/ILicensingAndTransfer/ManageOrganizationResponse" message="tns:ILicensingAndTransfer_ManageOrganization_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ILicensingAndTransfer" type="tns:ILicensingAndTransfer">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TestCenterRegistration">
+      <soap:operation soapAction="TestCenterRegistratiom" style="document" />
+      <wsdl:input name="TestCenterRegistrationRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="TestCenterRegistrationResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFTPSession">
+      <soap:operation soapAction="CreateFTPSession" style="document" />
+      <wsdl:input name="CreateFTPSessionRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateFTPSessionResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompleteFTPSession">
+      <soap:operation soapAction="CompleteFTPSession" style="document" />
+      <wsdl:input name="CompleteFTPSessionRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CompleteFTPSessionResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageReTransferOrReGenerate">
+      <soap:operation soapAction="PackageReTransferOrReGenerate" style="document" />
+      <wsdl:input name="PackageReTransferReGenerateRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePackageStatistics">
+      <soap:operation soapAction="UpdatePackageStatistics" style="document" />
+      <wsdl:input name="UpdatePackageStatisticsRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePackageLoadedDate">
+      <soap:operation soapAction="UpdatePackageLoadedDate" style="document" />
+      <wsdl:input name="UpdatePackageLoadedDateRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateTestCenter">
+      <soap:operation soapAction="ValidateTestCenter" style="document" />
+      <wsdl:input name="ValidateTestCenterRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ValidateTestCenterResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDXUTCDateTime">
+      <soap:operation soapAction="GetDXUTCDateTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="DXUTCDateTimeResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SynchronizeDBData">
+      <soap:operation soapAction="SynchronizeDBData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ScriptResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBatchEndTime">
+      <soap:operation soapAction="UpdateBatchEndTime" style="document" />
+      <wsdl:input name="BatchEndTimeUpdateRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ManageUser">
+      <soap:operation soapAction="ManageUser" style="document" />
+      <wsdl:input name="UserRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ManageRole">
+      <soap:operation soapAction="ManageRole" style="document" />
+      <wsdl:input name="RoleRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ManageOrganization">
+      <soap:operation soapAction="ManageOrganization" style="document" />
+      <wsdl:input name="OrganizationRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LicensingAndTransfer">
+    <wsdl:port name="BasicHttpBinding_ILicensingAndTransfer" binding="tns:BasicHttpBinding_ILicensingAndTransfer">
+      <soap:address location="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

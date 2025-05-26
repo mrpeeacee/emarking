@@ -1,0 +1,9 @@
+.row-header_bg {
+  padding: 10px;
+  font-weight: bold!important;
+}
+.row-float{
+    position: absolute;
+    top: 24%;
+    left: 90%;
+} 

@@ -1,0 +1,167 @@
+.date_range .lable {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.project_sche {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding-bottom: 20px
+}
+
+  .project_sche strong {
+    margin-bottom: 20px;
+    display: block;
+  }
+
+
+.proj_bx {
+  padding: 10px;
+  min-height: 210px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+
+
+.sel_date {
+  font-weight: bold;
+  color: #3f51b5;
+}
+
+
+.active_btn {
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.25);
+  border-radius: 4px 4px 0 0;
+  background: #fff;
+  transition: all 0.2s linear;
+}
+
+.popup_dropdown h3 {
+  font-size: 14px;
+  font-weight: normal
+}
+
+.toggle_menu button {
+  float: left;
+  min-width: 140px;
+}
+
+.listsof_annotation {
+  border-bottom: 1px solid #ccc
+}
+
+.card_box h4 {
+  font-size: 16px;
+  margin-top: 11px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.toggle_menu {
+  float: left;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.wkg_days_chx {
+  padding-left: 30px;
+}
+
+.theme_toggle {
+  background: var(--theme-dark);
+  border-radius: 0px;
+  color: #fff;
+  transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  font-size: 15px;
+  padding: 2px 20px;
+  position: relative;
+}
+
+  .theme_toggle:hover {
+    color: #fff;
+  }
+
+.data_comtainer_QIG {
+  min-height: 350px;
+}
+
+.theme_toggle_light {
+  background: #fff;
+  border-radius: 0px;
+  color: var(--theme-dark);
+  transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  font-size: 15px;
+  padding: 2px 20px;
+  border: 1px solid #ccc;
+}
+
+.form-control {
+  border: none !important;
+}
+
+.mat-form-field-infix .mat-input-element {
+  display: none !important
+}
+
+.selectedinput {
+  display: none;
+}
+
+.hide {
+  display: none !important;
+}
+
+.curdefault {
+  cursor: default !important;
+}
+
+input[type="time"i]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+.theme_button span {
+  margin-top: -2px;
+}
+
+::ng-deep.mat-calendar-body-selected {
+  background-color: #3f51b5 !important;
+}
+
+::ng-deep.special-date .mat-calendar-body-cell-content {
+  background-color: rgba(219, 212, 212, 0.774);
+}
+
+::ng-deep.mat-calendar-body-today.mat-calendar-body-selected {
+  box-shadow: none !important;
+}
+
+
+.card_box_body h4 {
+  font-size: 12px;
+  margin-top: 11px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.text_are {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  max-height: 100px;
+  height: 100px !important;
+}
+
+::ng-deep #DayWiseCalendar mat-year-view td button:not(.mat-calendar-body-disabled) .mat-calendar-body-cell-content {
+  background-color: #3f51b5 !important;
+  color: #fff !important;
+}
+
+::ng-deep #DayWiseCalendar mat-multi-year-view td button:not(.mat-calendar-body-disabled) .mat-calendar-body-cell-content {
+  background-color: #3f51b5 !important;
+  color: #fff !important;
+}

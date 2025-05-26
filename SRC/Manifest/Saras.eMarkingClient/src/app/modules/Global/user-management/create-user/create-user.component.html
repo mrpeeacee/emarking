@@ -1,0 +1,155 @@
+<div class="container">
+        <div class="card_box">
+                <div class="w-100 float-start mb-4">
+                        <button type="button" title="Back" class="btn theme_button align-items-center float-start mt-0 mx-0"
+                                (click)="Gotobacktoapp()"><span class="icon-arrow_back"></span></button>
+                </div>
+                <div class="row col-8" [class.shimmer]="createuserformloading">
+                        <div class="col-6 mb-3">
+                                <mat-form-field appearance="outline">
+                                        <mat-label>{{'usermanage.username' | translate}}</mat-label>
+                                        <input matInput id="name" pattern="^(?!\d\s+$)(?:[a-zA-Z][a-zA-Z0-9 .,()'\&\@\/\-\_]*)?$"
+                                                placeholder="{{'usermanage.username' | translate}}" required
+                                                [(ngModel)]="Roleschoolst && Roleschoolst.Username" name="name" #name="ngModel"
+                                                maxlength="100">
+                                </mat-form-field>
+                                <div *ngIf="name?.touched && !name?.valid" class="error">
+                                        <span [hidden]="!name.hasError('required')" ngDefaultControl>{{'usermanage.usernamereq'
+                                                | translate}}</span>
+                                        <span [hidden]="!name.hasError('pattern')" ngDefaultControl>{{'usermanage.usernamepattern'
+                                                | translate}}</span>
+                                </div>
+                        </div>
+
+                        <div class="col-6 mb-3">
+                                <mat-form-field appearance="outline">
+                                        <mat-label>{{'usermanage.email' | translate}}</mat-label>
+                                        <input matInput placeholder="{{'usermanage.email' | translate}}" id="email"
+                                                required pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"
+                                                [(ngModel)]="Roleschoolst && Roleschoolst.Loginname" title="{{Roleschoolst?.Loginname}}" [disabled]="Roleschoolst?.UserId > 0"
+                                                name="email" #email="ngModel"  maxlength="320">
+                                </mat-form-field>
+                                <div *ngIf="email?.touched && !email?.valid" class="error">
+                                        <span [hidden]="!email.hasError('required')" ngDefaultControl>{{'usermanage.emailreq'
+                                                | translate}}</span>
+                                        <span [hidden]="!email.hasError('pattern')" ngDefaultControl>{{'usermanage.emailformat'
+                                                | translate}}
+                                                <small><strong>{{'usermanage.emailex' |
+                                                                translate}}</strong></small></span>
+                                </div>
+                        </div>
+
+                        <div class="col-6 mb-3">
+                                <mat-form-field appearance="fill">
+                                        <mat-label>{{'usermanage.role' | translate}}</mat-label>
+                                        <mat-select #matSelectrole 
+                                                (selectionChange)="onRoleSelChange($event,true)" required [value]="Roleschoolst?.RoleCode"
+                                                [disabled]="IsDisabledRoleUser">
+                                                <span *ngIf="Roleschoolst?.roles != null">
+                                                        <mat-option *ngFor="let role of Roleschoolst?.roles" [value]="role?.RoleCode"
+                                                                ngDefaultControl>
+                                                                {{role?.RoleName}}</mat-option>
+
+                                                </span>
+                                                <mat-option *ngIf="Roleschoolst?.roles == null" [value]="Roleschoolst?.RoleCode"
+                                                        ngDefaultControl>
+                                                        {{Roleschoolst?.RoleName}}</mat-option>
+                                        </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="!matSelectrole?.valid || matSelectrole?.touched" class="error">
+                                        <span *ngIf="isRoleClicked && matSelectrole.value == null">{{'usermanage.rolereq'
+                                                | translate}}</span>
+                                </div>
+                        </div>
+
+                        <div class="col-6 mb-3 position-relative" *ngIf="Roleschoolst?.Examlevels?.length > 0 && (this.selectedrole == 'EO' || this.selectedrole == 'EM'
+                                || Roleschoolst?.RoleCode == 'EO' || Roleschoolst?.RoleCode == 'EM')">
+                                <mat-form-field appearance="fill">
+                                        <mat-label>{{'usermanage.examlevel' | translate}}</mat-label>
+                                        <mat-select #matSelectexamlevel  *ngIf="Roleschoolst?.UserId > 0"
+                                                  multiple [(ngModel)]="ExamselectedValue">
+                                                <mat-option *ngFor="let examlevel of Roleschoolst?.Examlevels;let i = index" [value]="examlevel"
+                                                (onSelectionChange)="Ischecked($event, examlevel)" >
+                                                                {{examlevel?.ExamLevelName}}
+                                                </mat-option>
+                                        </mat-select>
+                                         
+                                        <mat-select #matSelectexamlevel  *ngIf="Roleschoolst?.UserId == 0"
+                                                 multiple [(ngModel)]="ExamselectedValue">
+                                                <mat-option *ngFor="let examlevel of Roleschoolst?.Examlevels;let i = index" 
+                                                        (onSelectionChange)="Ischecked($event, examlevel)" [value]="examlevel"
+                                                         [disabled]="Roleschoolst.checkdataexist" >
+                                                                {{examlevel?.ExamLevelName}}
+                                                </mat-option> 
+                                        </mat-select>
+                                </mat-form-field>
+                        </div>
+
+                        <div class="col-6 mb-3" *ngIf="Roleschoolst?.schools?.length > 0 && (this.selectedrole == 'MARKINGPERSONNEL' || Roleschoolst?.RoleCode == 'MARKINGPERSONNEL')">
+                                <mat-form-field appearance="fill">
+                                        <mat-label>{{'usermanage.sendingschool' | translate}}</mat-label>
+                                        <mat-select #matSelectschool [value]="Roleschoolst?.SchooolCode" (click)="onSchoolClick($event)"
+                                                [disabled]="Roleschoolst?.schools == null">
+                                                <span *ngIf="Roleschoolst?.schools != null">
+                                                        <mat-option *ngFor="let school of Roleschoolst?.schools"
+                                                                [value]="school?.SchoolName" ngDefaultControl>
+                                                                {{school?.SchoolName}}
+                                                        </mat-option>
+                                                </span>
+                                                <mat-option *ngIf="Roleschoolst?.schools == null" [value]="Roleschoolst?.SchoolName"
+                                                        ngDefaultControl>
+                                                        {{Roleschoolst?.SchoolName}}
+                                                </mat-option>
+                                        </mat-select>
+                                </mat-form-field>
+                        </div>
+
+                        <div class="col-6 mb-3">
+                                <mat-form-field appearance="outline">
+                                        <mat-label>{{'usermanage.nricnum' | translate}}</mat-label>
+                                        <input matInput placeholder="{{'usermanage.nric' | translate}}" [(ngModel)]="Roleschoolst && Roleschoolst.Nric"
+                                                id="Nric" Nric="Nric" required pattern="^$|^[A-Za-z0-9]+$" #Nric="ngModel"
+                                                maxlength="9" minlength="9">
+                                </mat-form-field>
+                                <div *ngIf="Nric?.touched && !Nric?.valid" class="error">
+                                        <span [hidden]="!Nric.hasError('minlength')" ngDefaultControl>{{'usermanage.nricdigit'
+                                                | translate}}</span>
+                                        <span [hidden]="!Nric.hasError('maxlength')" ngDefaultControl>{{'usermanage.nricdigit'
+                                                | translate}}</span>
+                                        <span [hidden]="!Nric.hasError('required')" ngDefaultControl>{{'usermanage.nricreq'
+                                                | translate}}</span>
+                                        <span [hidden]="!Nric.hasError('pattern')" ngDefaultControl>{{'usermanage.nricalpha'
+                                                | translate}}
+                                        </span>
+                                </div>
+                        </div>
+
+                        <div class="col-6 mb-3">
+                                <mat-form-field appearance="outline">
+                                        <mat-label>{{'usermanage.phone' | translate}}</mat-label>
+                                        <input matInput placeholder="{{'usermanage.phone' | translate}}" [(ngModel)]="Roleschoolst && Roleschoolst.PhoneNum"
+                                                id="PhoneNum" name="PhoneNum" pattern="[0-9]*" minlength="10" maxlength="13"
+                                                #PhoneNum="ngModel">
+                                </mat-form-field>
+                                <div *ngIf="PhoneNum?.touched && !PhoneNum.valid" class="error">
+                                        <span [hidden]="!PhoneNum.hasError('minlength')" ngDefaultControl>{{'usermanage.phonedigit'
+                                                | translate}}</span>
+                                        <span [hidden]="!PhoneNum.hasError('maxlength')" ngDefaultControl>{{'usermanage.phonedigit'
+                                                | translate}}</span>
+                                        <span [hidden]="!PhoneNum.hasError('pattern')" ngDefaultControl>{{'usermanage.phoneformat'
+                                                | translate}}</span>
+                                </div>
+                        </div>
+                </div>
+
+                <div class="float-end">
+                        <button type="submit" title="{{'usermanage.saveuser' | translate}}" [class.shimmer]="createuserformloading"
+                                [disabled]="(name.hasError('required') || name.hasError('pattern')) ||  
+                        (email.hasError('required') || email.hasError('pattern'))  || (Nric.hasError('required') || Nric.hasError('pattern') || Nric.hasError('minlength') || Nric.hasError('maxlength')) || 
+                        (PhoneNum.hasError('minlength') || PhoneNum.hasError('maxlength') ||PhoneNum.hasError('pattern')) || (matSelectrole.value == null) || (createuserformloading)"
+                                class="btn theme_button align-items-center float-end mt-2" mat-raised-button (click)="CreateEditUser(Roleschoolst)"><span
+                                        class="icon-save-1"></span>
+                                {{'usermanage.save' | translate}} </button>
+                </div>
+        </div>
+</div>

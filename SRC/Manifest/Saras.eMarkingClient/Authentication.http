@@ -1,0 +1,25 @@
+###
+# Login User 
+# @name loginAuth
+
+@baseUrl = https://localhost:44330
+@apiVersion = v1.0
+
+@ContentType = application/json
+
+POST {{baseUrl}}/api/public/{{apiVersion}}/authenticate/login HTTP/1.1
+content-type: {{ContentType}}
+
+{
+  "loginname":"ganeshr@excelindia.com",
+  "password": ""
+}
+####
+@accessToken = {{loginAuth.response.body.$.token}}
+######
+POST {{baseUrl}}/api/public/{{apiVersion}}/authenticate/LogoutAsync?TokenId={{accessToken}}  HTTP/1.1
+Content-Type: application/json
+###
+POST {{baseUrl}}/api/public/{{apiVersion}}/authenticate/Logout?UserId={{accessToken}} HTTP/1.1
+Content-Type: application/json
+

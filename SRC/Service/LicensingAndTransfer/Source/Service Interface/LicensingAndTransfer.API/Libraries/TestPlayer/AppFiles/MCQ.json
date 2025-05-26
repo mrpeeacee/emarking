@@ -1,0 +1,32 @@
+{
+  "ItemDetails": 
+  {
+    "GUID": "7c73a196-ee0a-4fed-bcb7-18d4076785be",
+    "Choice": [
+      {
+        "Ident": "1",
+        "CorrectScore": 1.0000,
+        "WrongScore": 0.0000,
+        "IsCorrect": 1
+      },
+      {
+        "Ident": "2",
+        "CorrectScore": 0.0000,
+        "WrongScore": 0.0000,
+        "IsCorrect": 0
+      },
+      {
+        "Ident": "3",
+        "CorrectScore": 0.0000,
+        "WrongScore": 0.0000,
+        "IsCorrect": 0
+      },
+      {
+        "Ident": "4",
+        "CorrectScore": 0.0000,
+        "WrongScore": 0.0000,
+        "IsCorrect": 0
+      }
+    ]
+  }
+}

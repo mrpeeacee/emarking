@@ -1,0 +1,41 @@
+.remarks {
+    min-height: 120px;
+}
+
+.qig_cofi_container {
+    float: left;
+    width: 100%;
+    padding-bottom: 60px;
+}
+
+.card_box {
+    font-size: 14px
+}
+
+.completedIconcolor {
+    color: #2DAD00;
+    font-size: 24px;
+    border-radius: 50px;
+    margin-right: 8px;
+    padding: 2px;
+    font-weight: bold;
+    float: right;
+    margin-top: 5px;
+  }
+  
+.icon-close-1 {
+
+    color: red;
+    font-size: 24px;
+    border-radius: 50px;
+    margin-right: 8px;
+    padding: 2px;
+    font-weight: bold;
+    float: right;
+    margin-top: 5px;
+
+  }
+  
+  .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+    display: inline-flex !important;
+}

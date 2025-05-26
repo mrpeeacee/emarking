@@ -1,0 +1,191 @@
+<div class="container">
+    <div class="body_box">
+   
+        <div>
+            <div>
+                <div class="card_box row_card">
+                    <div class="row d-flex align-items-center">
+
+                        <div class="col-md-2 col-xs-12">
+                                <button type="button" title="Back" (click)="BacktoCat();"
+                                class="btn theme_button d-flex align-items-center back_btn"><span class="icon-arrow_back"></span>
+                                Back</button>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <span>{{'reCat.qigname' | translate}}</span>
+                            <span [class.shimmer]="trialmrkloading"> <strong class="mx-2 ">{{ trialmrkloading ?
+                                    'QIG Name':trialMarkedScript?.QigName}}</strong></span>
+                        </div>
+
+                        <div class="col-md-3 col-xs-12">
+                            <span>{{'reCat.srpname' | translate}}</span>
+                            <span [class.shimmer]="trialmrkloading"> <strong class="mx-2">{{ trialmrkloading ?
+                                    'Script Name':trialMarkedScript?.ScriptName}}</strong></span>
+                        </div>
+                        <div class="col-md-2 col-xs-12">
+                            <span>{{'reCat.totmrk' | translate}}</span>
+                            <span [class.shimmer]="trialmrkloading"> <strong class="mx-2">{{ trialmrkloading ?
+                                    'Mark':trialMarkedScript?.TotalMark}}</strong></span>
+                        </div>
+                        <div class="col-md-2 col-xs-12">
+                            <span>{{'reCat.nokps' | translate}}</span>
+                            <span [class.shimmer]="trialmrkloading"> <strong class="mx-2">{{ trialmrkloading ?
+                                    'No Kp':trialMarkedScript?.NoKps}}</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <div class="" [class.shimmer]="trialmrkloading">
+                            <button title="{{'General.Save' | translate}}" (click)="scriptCategorise()" type="button"
+                                class="btn theme_button d-flex align-items-center p-2 float-end mt-1"
+                                [class.shimmer]="scrpbtnloading"
+                                [disabled]="trialMarkedScript?.IsInQfAsses == true || trialMarkedScript?.IsQigPaused || trialMarkedScript?.IsS1Completed">
+                                <span class="icon-save-1"></span>{{'General.Save' | translate}}
+                            </button>
+                            <mat-form-field appearance="fill" class="selct_sel float-end"
+                                title="{{'reCat.catas' | translate}}">
+                                <mat-label>{{'reCat.catas' | translate}}</mat-label>
+                                <mat-select
+                                    [disabled]="trialMarkedScript?.IsInQfAsses == true || trialMarkedScript?.IsQigPaused || trialMarkedScript?.IsS1Completed == true"
+                                    [(value)]="selectedPoolType">
+                                    <mat-option value="0">{{'reCat.uncat' | translate}}</mat-option>
+                                    <mat-option value="3">{{'reCat.bncscpt' | translate}}</mat-option>
+                                    <mat-option value="1">{{'reCat.stdscpt' | translate}}</mat-option>
+                                    <mat-option value="2">{{'reCat.adstscpt' | translate}}</mat-option>
+
+                                </mat-select>
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="row">
+                    <div class="mt-2 row-header card_container ">
+                        <div class="p-2 d-flex bd-highlight align-items-center col-md-12 al">
+                            <div class="bd-highlight px-1"
+                                [ngClass]="{'col-md-2': trialMarkedScript?.ContentScores?.length > 0 ,'col-md-3': trialMarkedScript?.ContentScores?.length <= 0}">
+                                {{'reCat.kpnme' | translate}}</div>
+                            <div class="bd-highlight"
+                                [ngClass]="{'col-md-2': trialMarkedScript?.ContentScores?.length > 0 ,'col-md-3': trialMarkedScript?.ContentScores?.length <= 0}">
+                                {{'reCat.phase' | translate}}</div>
+                           
+
+                            <div [class.shimmer]="kplstloading" class="bd-highlight col-md-2">
+                                {{'reCat.mrkawd' | translate}} </div>
+
+                            <div [class.shimmer]="kplstloading" class="bd-highlight col-md-2 text-center">
+                                {{'reCat.finasdef' | translate}}</div>
+                            <div class="bd-highlight col-md-2"></div>
+
+                        </div>
+
+                    </div>
+                    <div class="container_box">
+                        <div *ngIf="trialmrkloading === true">
+                            <div [class.shimmer]="trialmrkloading" *ngFor="let scload of loaddata"
+                                class="p-2 d-flex bd-highlight col-md-12 pad10">
+                                <div class="col-md-3"><strong> Cat Script Kp Name</strong></div>
+                                <div class="col-md-3"><span> Cat Phase</span></div>
+                                <div class="col-md-2"><span> Marks Awarded</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>
+                                        <span> Finalise as Definitive</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2"><span> Mark</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-childrow d-flex align-items-center justify-content-between p-2"
+                            *ngFor="let data of trialMarkedScript?.TrailMarkedScripts">
+                            <div [class.shimmer]="trialmrkloading" class="bd-highlight marauto"
+                                [ngClass]="{'col-md-2':  trialMarkedScript?.ContentScores?.length > 0 ,'col-md-3':  trialMarkedScript?.ContentScores?.length <= 0}">
+                                <span>{{data.FirstName}}
+                                    {{data.LastName}}</span>
+                            </div>
+                            <div [class.shimmer]="trialmrkloading" class="bd-highlight marauto"
+                                [ngClass]="{'col-md-2':  trialMarkedScript?.ContentScores?.length > 0 ,'col-md-3':  trialMarkedScript?.ContentScores?.length <= 0}">
+                                <span>{{data.Phase === 'CTGRTN'
+                                    ? ('reCat.phaCate' | translate) : ('reCat.phaTril' | translate)}}</span>
+                            </div>
+
+                            <a class="bd-highlight col-md-2 marauto cursor"
+                                *ngIf="data?.QuestionDetails.length>0" (click)="ViewQuestionDetails(data)"
+                                data-bs-toggle="modal"
+                                data-bs-target="#QuestionModal"><strong title="View Question wise report">{{data.MarkAwarded}}</strong></a>
+                            <span class="qaremarks pad20" *ngIf="!(data?.QuestionDetails.length>0)"></span>
+
+
+                            <div [class.shimmer]="trialmrkloading" class="bd-highlight marauto text-center col-md-2">
+                                <span title="{{'reCat.finasdef' | translate}}" class="icon-complete"
+                                    (click)="SetAsDefinitive(data, trialMarkedScript?.TrailMarkedScripts, trialMarkedScript?.IsInQfAsses, trialMarkedScript?.PoolType > 0)"
+                                    [ngClass]="{'marked' : data?.SelectAsDefinitive == true, 'nonmarked' : data?.SelectAsDefinitive == false}"></span>
+                            </div>
+                            <div [class.shimmer]="trialmrkloading || playerOpening" class="bd-highlight col">
+                                <button title="{{'reCat.vwmrkg' | translate}}"
+                                    *ngIf="trialMarkedScript.IsS1Completed != true && trialMarkedScript?.IsQigPaused != true"
+                                    [disabled]="trialMarkedScript.IsS1Completed"
+                                    (click)="trailmarking(data, {ScriptId: trialMarkedScript?.ScriptId, Workflowid: trialMarkedScript?.WorkFlowId, Markedby:data.MarkerId, UserScriptMarkingRefId: data.MarkingRefId})"
+                                    class="btn theme_button d-flex float-end">{{'reCat.vwmrkg'
+                                    | translate}}</button>
+
+                                <button title="{{'reCat.vwmrkg' | translate}}"
+                                    *ngIf="trialMarkedScript?.IsS1Completed == true || trialMarkedScript?.IsQigPaused == true"
+                                    (click)="remarking(data, {ScriptId: trialMarkedScript?.ScriptId, IsViewMode: true, Workflowid: trialMarkedScript.WorkFlowId, Markedby:data.MarkerId, UserScriptMarkingRefId: data.MarkingRefId})"
+                                    class="btn theme_button d-flex float-end">{{'reCat.vwmrkg' |
+                                    translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--Modal-->
+
+<div class="modal fade" id="QuestionModal" tabindex="-1" aria-labelledby="QuestionModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">View Question wise report</h1>
+                <button type="button" title="Close" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table_cat mb-6" aria-hidden="true">                  
+                    <tr>
+                        <th scope="col">Question</th>
+                        <th scope="col"> Max. Marks</th>
+                        <th class="col-3" scope="col"> Awarded Marks</th>
+                        <th scope="col"> Scoring components</th>
+                    </tr>
+                    <tr *ngFor="let qns of trialMarkedScript?.QuestionDetails" style="border-bottom: 1px solid #ccc">
+                        <td> {{qns?.QuestionCode}}</td>
+                        <td>{{qns?.MaxMarks}} </td>
+                        <td>{{getMrkforQuestion(qns,trialMarkedScript?.QuestionDetails)}}</td>
+                        <td class="catgr">
+                            <div *ngFor="let score of qns?.ContentScores" class="child_cat">
+                                {{score?.Name}} : {{getMrkforcomp(score,qns?.ContentScores)}} /
+                                {{score?.MaxMarks}}
+                                <span class="mx-2">|</span>
+                            </div>
+                            <div *ngIf="qns?.ContentScores.length == 0" class="child_cat">                                
+                                NA
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

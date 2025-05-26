@@ -1,0 +1,13 @@
+{
+    "ManageQig": {
+        "title":"Manage QIG Component",
+        "qname" : "QIG Name",
+        "ques": "#Questions",
+        "totmrks" : "Total Marks",
+        "mrktype": "Marking Type",
+        "mantryques" : "#Mandatory Questions",
+        "holystc" : "Holistic",
+        "cretqig" : "Create QIG ",
+        "bck" : "Back"
+    }
+}

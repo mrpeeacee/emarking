@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="container_box mt-1">
+    <button class="btn theme_button float-end d-flex align-items-center"
+      title="{{'SetUp.UserManagement.back' | translate}}" (click)="back()"><span class="icon-arrow_back"></span>
+      {{'SetUp.UserManagement.back' | translate}}</button>
+    <div class="row">
+      <div class="mt-2 bd-highlight mb-3">
+        <div class="newroll justify-content-between w-100">
+          <div> <strong class="heading">{{'SetUp.UserManagement.instruction' | translate}}</strong> </div>
+          <ol>
+            <li>{{'SetUp.UserManagement.step1' | translate}}</li>
+            <li>{{'SetUp.UserManagement.step2' | translate}}</li>
+            <li>{{'SetUp.UserManagement.step3' | translate}}</li>
+            <li>  {{'SetUp.UserManagement.DownloadSample' | translate}}<strong> {{'SetUp.UserManagement.CSV' | translate}} </strong> {{'SetUp.UserManagement.Filehere' | translate}}
+              <div class="mt-2"><button mat-button class="download_btn"
+                  title="{{'SetUp.UserManagement.download' | translate}}" (click)="download(0)"><span
+                    class="icon-document"></span> {{'SetUp.UserManagement.download' | translate}} <span
+                    class="icon-download float-end f30"></span></button>
+              </div>
+     
+     <li> {{'SetUp.UserManagement.Download' | translate}}<strong> {{'SetUp.UserManagement.CSV' | translate}} </strong> {{'SetUp.UserManagement.TemplatewithProjectUsers' | translate}}
+              <div class="mt-2"><button mat-button class="download_btn"
+                  title="{{'SetUp.UserManagement.download' | translate}}" (click)="download(1)"><span
+                    class="icon-document"></span> {{'SetUp.UserManagement.download' | translate}} <span
+                    class="icon-download float-end f30"></span></button>
+              </div>
+          </ol>
+        </div>
+        <hr />
+        <div class="newroll justify-content-between w-100">
+          <div><strong>{{'SetUp.UserManagement.uploadfile' | translate}}</strong></div>
+          <input type="file" #myFile class="upload" name="filename" (change)="onChange($event)">
+          <input type="submit" class="theme_button custom_pad" title="{{'SetUp.UserManagement.upload' | translate}}"
+            value="{{'SetUp.UserManagement.upload' | translate}}" (click)="QIGLevelUpload()">
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <mat-spinner diameter="50" *ngIf="loading" class="matspinnercenter"></mat-spinner>
+    </div>
+
+    <div id="uploaddata" class="mt-4"
+      *ngIf="qiguserslist.length > 0 && invaliddata.length == 0 && emptyfile.length == 0">
+      <div class="text_delux mb-2"><span>{{'SetUp.UserManagement.total' | translate}}: {{qiguserslist.length}}</span></div>
+      <div class="row-header_bg">
+        <div class="col-2 mb-1"> {{'SetUp.UserManagement.row' | translate}}</div>
+        <div class="col-3 mb-1"> {{'SetUp.UserManagement.loginname' | translate}}</div>
+        <div class="col-3 mb-1"> {{'SetUp.UserManagement.role' | translate}} </div>
+        <div class="col-3 mb-1"> {{'SetUp.UserManagement.reportingto' | translate}}</div>
+        <div class="col-2 mb-1 hide"> {{'SetUp.UserManagement.remarks' | translate}}</div>
+        <div class="col-2 mb-1"> {{'SetUp.UserManagement.statuscol' | translate}}</div>
+      </div>
+      <perfect-scrollbar class="scroll_roles scrollbar">
+        <div class="row-childrow pos_rel" *ngFor="let userdata of qiguserslist">
+          <div class="col-2">{{userdata.Rownum}}</div>
+          <div class="col-3 text-break">
+            {{userdata.LoginName}}
+            <div class="error_txt">{{userdata.loginnamemsg}}</div>
+          </div>
+          <div class="col-3">
+            {{userdata.Role}}
+            <div class="error_txt">{{userdata.roleidmsg}}</div>
+          </div>
+          <div class="col-3 text-break">
+            {{userdata.ReportingTo}}
+            <div class="error_txt">{{userdata.reportingtomsg}}</div>
+          </div>
+          <div class="col-2 hide">
+            <div class="error_txt">
+              {{userdata.Remarks}}
+            </div>
+          </div>
+          <div class="col-2 px-1">{{userdata.returnstatus}}</div>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>

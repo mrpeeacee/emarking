@@ -1,0 +1,267 @@
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+.drag-icon {
+    position: relative;
+}
+
+
+.drag-icon .icon-drag {
+    font-size: 30px;
+    right: 0;
+}
+
+.nav-tabs .nav-link {
+    min-width: auto;
+}
+
+.active_btn {
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.25);
+    border-radius: 4px 4px 0 0;
+    background: #fff;
+    transition: all 0.2s linear;
+}
+
+.popup_dropdown h3 {
+    font-size: 14px;
+    font-weight: normal
+}
+
+.toggle_menu button:hover {
+    color: #fff;
+}
+
+.toggle_menu .theme_toggle_light:hover {
+    color: #000 !important;
+}
+
+.disabled-btn {
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+
+.listsof_annotation {
+    border-bottom: 1px solid #ccc
+}
+
+button:focus:not(:focus-visible) {
+    outline: 0px solid #fff;
+  }
+  
+.card_box_qu label {
+    font-size: 13px;
+}
+
+.data_comtainer_QIG {
+    min-height: 350px;
+}
+
+.qut_hed {
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.qut_hed input {
+    width: 100px;
+
+    border: 1px solid #818E9B;
+    border-radius: 2px;
+}
+
+.card_box_qu {
+    background: #fff;
+    padding: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    min-height: 60px;
+    align-items: center;
+}
+
+.toggle_menu label {
+    margin-right: 5px;
+}
+
+.qutstion_no_strip {
+    background: #F0EAFF;
+    padding: 20px 10px;
+}
+
+.row-header {
+
+    border-bottom: none;
+}
+
+.row-childrow {
+    border-radius: 5px;
+    border: #ACB9FF solid 1px;
+    background: #fff;
+    cursor: move;
+    margin-bottom: 5px;
+}
+
+.row-childrowRandom {
+    cursor: default !important;
+}
+
+.example-list {
+    width: 100%;
+    max-width: 100%;
+
+    min-height: 60px;
+    display: block;
+
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.example-box {
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    background: white;
+    font-size: 14px;
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+    border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-custom-placeholder {
+    background: #ccc;
+    border: dotted 3px #999;
+    min-height: 60px;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+
+
+.drag-icon i {
+    cursor: move;
+}
+
+i.disable {
+    position: absolute;
+    cursor: not-allowed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: transparent;
+}
+
+.theme_toggle {
+    background: var(--theme-dark);
+    border-radius: 0px;
+    color: #fff;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    font-size: 15px;
+    padding: 2px 20px;
+    position: relative;
+}
+
+.theme_toggle:hover {
+    color: #fff;
+}
+
+.theme_toggle_light {
+    background: #fff;
+    border-radius: 0px;
+    color: var(--theme-dark);
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    font-size: 15px;
+    padding: 2px 20px;
+    border: 1px solid #ccc;
+}
+
+.fltright {
+    float: right;
+}
+
+.qul_tbl {
+    background: #fff;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.qul_tbl table {
+    width: 100%;
+}
+
+.qul_tbl table th {
+    background: #f7f7f7;
+    padding: 10px;
+}
+
+.qul_tbl table td {
+    padding: 10px;
+}
+
+.marked {
+    background: #06CF02;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.nonmarked {
+    background: #C4C4C4;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.custm-margin {
+    margin-left: 11px;
+    margin-top: 7px;
+}
+
+.text_are {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 100px;
+    height: 100px !important;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

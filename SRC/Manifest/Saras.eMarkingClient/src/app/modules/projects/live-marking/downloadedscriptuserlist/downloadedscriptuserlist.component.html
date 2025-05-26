@@ -1,0 +1,57 @@
+<div class="container mt-1">
+    <div class="card_box_sticky">
+        <div class="">
+            <div class="row p-0" style="justify-content: end;">
+                <div class="col-md-3 col-xs-12">
+                    <div class="d-flex flex-row bd-highlight align-items-center">
+                        <mat-checkbox #chkbox (change)="GetInprogressScript($event)">
+                            Showing In-progress Script
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="d-flex flex-row bd-highlight align-items-center">
+                        <button type="button" class="btn  d-flex theme_button align-items-center float-end"
+                         title="Send Live Pool" (click)="sendscriptstolivepool()">Send Live Pool</button>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="d-flex flex-row bd-highlight align-items-center">
+                        <mat-form-field appearance="outline">
+                            <mat-label>User Name</mat-label>
+                            <input matInput #indexnumber placeholder="Search user name" maxlength="50" oncut="return false"
+                                onDrop="return false" autocomplete="off" [(ngModel)]="ScriptSearchValue" (keyup)="SearchScript()">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row-header card_container">
+                <div class="p-2 hr_head d-flex row justify-content-between bd-highlight align-items-center col-md-12 al">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">Script Name</div>
+                    <div class="col-md-4">Downloaded By</div>
+                    <div class="col-md-4">Role Name</div>
+                </div>
+            </div>
+
+            <div class="row-childrow_bg card_box" *ngFor="let script of UserList">
+                <div class="p-2 d-flex row justify-content-between bd-highlight align-items-center col-md-12 al">
+                    <div class="col-md-1">
+                        <mat-checkbox value="script.ScriptId" [(ngModel)]="script.IsChecked">
+                        </mat-checkbox>
+                    </div>
+                    <div class="col-md-3" [class.shimmer]="IsPageLoading">{{script.ScriptName}}</div>
+                    <div class="col-md-4" [class.shimmer]="IsPageLoading">{{script.UserName}}</div>
+                    <div class="col-md-4" [class.shimmer]="IsPageLoading">{{script.UserRole}}</div>
+                </div>
+            </div>
+
+            <div *ngIf="IsPageLoading == false && UserList.length <= 0" class="text-center mt-2" [class.shimmer]="IsPageLoading">
+                <strong>{{'LiveMarking.NoRecordFound' | translate}} </strong>
+            </div>
+
+        </div>
+    </div>
+</div>

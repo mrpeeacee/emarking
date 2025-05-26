@@ -1,0 +1,172 @@
+<div class="card_box">
+
+  <button class="padtb pool_btn p-2 theme_button_light " title="{{'Quality-Check.ScriptListView.undo' | translate}}" *ngIf="tabindex == 3 && IsLivePoolEnable && nodedetails.role == 'AO' && activetabfilter == 1 && CheckoutCount"
+  (click)="RevertscripttoPreviousstate()" [disabled]="qascriptlist.length == 0 || IsQigPause || PClosed || Ispageloading" [class.shimmer]="Ispageloading">
+  {{'Quality-Check.ScriptListView.undo' | translate}}
+  </button>
+
+  <button class="padtb pool_btn p-2 theme_button_light " title="{{'Quality-Check.ScriptListView.rtntolivepool' | translate}}" *ngIf="tabindex == 3 && IsLivePoolEnable && nodedetails.role == 'AO' && (activetabfilter == 8 || activetabfilter == 7)"
+          (click)="sendscriptstolivepool();" [disabled]="qascriptlist.length == 0 || IsQigPause || PClosed || Ispageloading" [class.shimmer]="Ispageloading">
+    {{'Quality-Check.ScriptListView.rtntolivepool' | translate}}
+  </button>
+
+  <button class="padtb pool_btn p-2 theme_button_light " title="{{'Quality-Check.ScriptListView.rmvrcpooltitle' | translate}}" *ngIf="tabindex == 3 && activetabfilter == 3 && IsLivePoolEnable && nodedetails.role == 'AO'"
+          (click)="ScriptToBeSubmit();" [disabled]="qascriptlist.length == 0 || Ispageloading || IsQigPause || PClosed" [class.shimmer]="Ispageloading">
+    {{'Quality-Check.ScriptListView.rmvrcpool' | translate}}
+  </button>
+  <div class="srchrigth">
+
+    <div class="col-md-10">
+      <!-- cust_srch -->
+      <div class="search_dash">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'Quality-Check.ScriptListView.srch' | translate}}</mat-label>
+          <input matInput placeholder="{{'Quality-Check.ScriptListView.srch' | translate}}" [(ngModel)]="ScriptSearchValue" onDrop="return false" onPaste="return false"
+                 (keyup.enter)="SearchScript()" #txtsrch autocomplete="off" maxlength="50">
+          <mat-icon matSuffix title="{{'Quality-Check.ScriptListView.srch' | translate}}"><span class="icon-search" (click)="SearchScript()"></span></mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="filter_custom">
+      <div class="bd-highlight btnovride mat-button float-end filter">
+        <button class="btn filter filter_btn" title="{{'Quality-Check.ScriptListView.Filter' | translate}}" mat-button [matMenuTriggerFor]="beforeMenu">
+          <span class="icon-filter"></span>
+        </button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before" class="filter_drd" (keydown.tab)="$event.stopPropagation()">
+          
+          <div class="filter_content" *ngFor="let pType of Checkedtypes">
+            <mat-checkbox  *ngIf="activetabfilter != 8 " [(ngModel)]="pType.Selected" [checked]="pType.Selected" [value]="pType.ID" class="example-margin"
+                          (click)="$event.stopPropagation();">
+            </mat-checkbox>
+            {{pType.Text | translate}}
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn theme_button d-flex align-items-center float-end"
+                    (click)="Filterdata($event)" title="{{'Quality-Check.ScriptListView.aply' | translate}}">
+              {{'Quality-Check.ScriptListView.aply' | translate}}
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+  <div class="row-header card_container p-2">
+    <div [ngClass]="rclevel <= 1 ? 'col-md-3' : 'col-md-2'">
+      <mat-checkbox #chkbox value="script.ScriptId" *ngIf="tabindex == 3 && IsLivePoolEnable && nodedetails.role == 'AO'  "
+                    [(ngModel)]="IsHeaderCheck" (change)="CheckAll($event)" [disabled]="qascriptlist.length == 0">
+
+      </mat-checkbox> {{
+'Quality-Check.ScriptListView.scriptId' |
+            translate
+      }}
+    </div>
+    <div class="col-md-1" *ngIf="rclevel >=1"> {{'Quality-Check.ScriptListView.inrc1' | translate}} </div>
+    <div class="col-md-1" *ngIf="rclevel >=1">{{'Quality-Check.ScriptListView.rcdone1?' | translate}} </div>
+    <div class="col-md-1" *ngIf="rclevel ==2"> {{'Quality-Check.ScriptListView.inrc2' | translate}} </div>
+    <div class="col-md-1" *ngIf="rclevel ==2"> {{'Quality-Check.ScriptListView.rcdone2?' | translate}} </div>
+    <div class="col-md-2"> {{'Quality-Check.ScriptListView.adhocchked' | translate}}</div>
+    <div class="col-md-2"> {{'Quality-Check.ScriptListView.lockedby' | translate}}</div>  
+    <div class="col-md-2">
+      <span class="float-start ">Modified date</span><span class="float-start mx-3">
+        <span [ngClass]="sortupclicked ? 'icon-download sorticon sort_up sorton' : 'icon-download sorticon sort_up'"
+              (click)="SortList(1)"></span>
+        <span [ngClass]="sortdownclicked ? 'icon-download sorticon sorton' : 'icon-download sorticon'" (click)="SortList(0)"></span>
+      </span>
+    </div>
+  </div>
+  <perfect-scrollbar class="scroll_qu_check" *ngIf="qascriptlist?.length > 0 && qascriptloading == false">
+    <div class="row-childrow d-flex " [class.shimmer]="qascriptloading" *ngFor="let script of qascriptlist">
+      <div [ngClass]="rclevel <= 1 ? 'col-md-3' : 'col-md-2'">
+        <mat-checkbox #chkbox value="script.ScriptId" [(ngModel)]="script.IsChecked" 
+        *ngIf="tabindex == 3 && IsLivePoolEnable && nodedetails.role == 'AO' " (change)="UnCheck($event)">
+        </mat-checkbox>
+        <span class="text-wrap"> {{script?.ScriptName}}</span>
+      </div>
+
+      <div class="col-md-1" *ngIf="rclevel >=1">
+        <span *ngIf="script?.SampledRc1 == 1">Yes</span>
+        <span *ngIf="script?.SampledRc1 == 0"> No</span>
+        <span *ngIf="script?.SampledRc1 == 2"> NA</span>
+      </div>
+
+      <div class="col-md-1" *ngIf="rclevel >=1">
+        <span *ngIf="script?.RC1Done == 1"> Yes</span>
+        <span *ngIf="script?.RC1Done == 0"> No</span>
+        <span *ngIf="script?.RC1Done == 2"> NA</span>
+      </div>
+
+      <div class="col-md-1" *ngIf="rclevel ==2">
+        <span *ngIf="script?.SampledRc2 == 1"> Yes</span>
+        <span *ngIf="script?.SampledRc2 == 0"> No</span>
+        <span *ngIf="script?.SampledRc2 == 2"> NA</span>
+      </div>
+
+      <div class="col-md-1" *ngIf="rclevel ==2">
+        <span *ngIf="script?.RC2Done == 1"> Yes</span>
+        <span *ngIf="script?.RC2Done == 0"> No</span>
+        <span *ngIf="script?.RC2Done == 2"> NA</span>
+      </div>
+
+      <div class="col-md-2">
+        <span *ngIf="script?.AdhocChecked == 1"> Yes</span>
+        <span *ngIf="script?.AdhocChecked == 0"> No</span>
+        <span *ngIf="script?.AdhocChecked == 2"> NA</span>
+      </div>
+      <div class="col-md-2">
+        <span *ngIf="script.IsScriptCheckedOut && script.CheckedOutName != ''">
+          {{script.CheckedOutName}} <br />({{script.RoleName}})
+        </span>
+        <span *ngIf="!script.IsScriptCheckedOut || script.CheckedOutName == ''"> -- </span>
+      </div>
+      <div class="col-md-1">
+        <span> {{script?.ACTIONDATE | date: 'dd-MMM-YYYY h:mm:ss a' }}</span>
+      </div>
+      <div class="">
+
+        <div title="View Marking History" class="view_m_b d-flex align-items-center float-end detail-icon"
+             *ngIf="activetabfilter != 7" (click)="ViewscriptDetails(script);">
+          <span class="icon-view_edit qalistviedetails"></span>
+        </div>
+
+
+      </div>
+    </div>
+  </perfect-scrollbar>
+  <div *ngIf="qascriptlist?.length <= 0 && qascriptloading == false" class="text-center mt-2">
+    {{'Quality-Check.ScriptListView.norcdfound' | translate}}
+  </div>
+
+</div>
+
+
+<div class="modal fade" [class.shimmer]="Ispageloading" id="qig_remarksdetails" tabindex="-1" data-bs-backdrop="static"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel1">
+                    Checked by users</h1>
+                <button type="button" class="btn-close" #qigpopmodel data-bs-dismiss="modal" aria-label="Close" title="Close"></button>
+            </div>
+            <div class="modal-body" [class.shimmer]="Ispageloading">
+                <div class="row-header_new">
+                    <div class="row">
+                        <div class="col-md-4"><strong>Script Name</strong></div>
+                        <div class="col-md-4"><strong>User Name</strong></div>
+                        <div class="col-md-4"><strong>Role</strong></div>
+                    </div>
+                </div>
+                <div *ngFor="let users of Qualitycheckedbyusers">
+                    <div class="row">
+                        <div class="col-md-4 row-childrow_new" [class.shimmer]="Ispageloading">{{users.ScriptName}}</div>
+                        <div class="col-md-4 row-childrow_new" [class.shimmer]="Ispageloading">{{users.UserName}}</div>
+                        <div class="col-md-4 row-childrow_new" [class.shimmer]="Ispageloading">{{users.UserRole}}</div>
+                    </div>
+                </div>
+                <div *ngIf="Qualitycheckedbyusers?.length <= 0 && Ispageloading == false" class="text-center mt-2">
+                    {{'Quality-Check.ScriptListView.norcdfound' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

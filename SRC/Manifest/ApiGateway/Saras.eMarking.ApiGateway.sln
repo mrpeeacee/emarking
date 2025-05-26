@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saras.eMarking.ApiGateway", "Saras.eMarking.ApiGateway\Saras.eMarking.ApiGateway.csproj", "{96446750-BA3C-4A39-8D39-DE21EA569A53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96446750-BA3C-4A39-8D39-DE21EA569A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96446750-BA3C-4A39-8D39-DE21EA569A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96446750-BA3C-4A39-8D39-DE21EA569A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96446750-BA3C-4A39-8D39-DE21EA569A53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46F3953E-A605-4E94-8C9D-31EC40985531}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://estfs.excelindia.com/tfs/saras
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Saras.eMarking.ApiGateway\\Saras.eMarking.ApiGateway.csproj
+		SccProjectName1 = Saras.eMarking.ApiGateway
+		SccLocalPath1 = Saras.eMarking.ApiGateway
+	EndGlobalSection
+EndGlobal

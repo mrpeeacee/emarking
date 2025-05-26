@@ -1,0 +1,103 @@
+<div class="d-flex mlr-0 justify-content-evenly">
+  <div class="col-sm col-md-6 pl0">
+    <div class="left_graphic"></div>
+  </div>
+    <div class="col-sm col-md-6">
+        <div class="logincard " *ngIf="!status">
+            <div class="logo"> <img src="{{brand?.Branding?.LogoPath}}" alt="logo" title="organizationLogo" /></div>
+            <div class="login_system">
+
+
+                <h2>{{'Login.Title' | translate}}</h2>
+                <h3 class="del_col">{{'Login.Title1' | translate}}</h3>
+                <form class="form-signin" [formGroup]="signinForm" (ngSubmit)="loginUser()">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{'Login.EmailLabel' | translate}}</mat-label>
+                    <input autocomplete="off" matInput placeholder="{{'Login.LoginPlaceHolder' | translate}}"
+                           formControlName="loginname" autofocus="autofocus">
+                           <mat-error *ngIf="signinForm.get('loginname').hasError('required') && signinForm.get('loginname').touched">
+                            {{ 'Login.loginerrormessage' | translate }}
+                          </mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="w-100 mb-0">
+                    <mat-label>{{'Login.PwdLabel' | translate}}</mat-label>
+                    <input autocomplete="off" matInput placeholder="{{'Login.PwdPlaceHolder' | translate}}" formControlName="password"
+                           type="password" minlength="12" maxlength="50">
+                           <mat-error *ngIf="signinForm.get('password')?.errors">
+                            <mat-error *ngIf="signinForm.get('password').errors.required" class="login_err">{{'Login.passworderrormessage' | translate}}</mat-error>
+                            <mat-error *ngIf="
+                            signinForm
+                              .get('password')
+                              .hasError('passwordStrengthlength')
+                          " class="login_err">
+                          {{'Login.passworderrormessage' | translate}}</mat-error>
+                            <mat-error *ngIf="signinForm.get('password').errors?.cannotContainSpace" class="login_err">
+                              {{ "Login.passwordwhitespaceerror" | translate }}</mat-error>
+                          </mat-error>
+                  </mat-form-field>
+
+                  <div *ngIf="ValidationErrMsgUserBlock">
+                    <div class="login_erromsg defult_err">{{'Login.UserBlocked' | translate}}</div>
+                  </div>
+
+                  <div *ngIf="ValidationErrMsg">
+                    <div class="login_erromsg defult_err">{{'Login.Pleaseentervalidlogincredentials' | translate}}</div>
+                  </div>
+                
+                  <div class="form_build" [hidden]="!IsCaptchaEnabled">
+                    <mat-form-field appearance="outline" class="w-50 float-start">
+                        <mat-label>{{'Login.CaptchaText' | translate}}</mat-label>
+                        <input name="CaptchaText" id="CaptchaText" oncut="return false" onDrop="return false"
+                            onPaste="return false" matInput placeholder="{{'Login.CaptchaText' | translate}}"
+                            type="text" formControlName="CaptchaText" maxlength="4"> 
+                            
+                            <mat-error *ngIf="signinForm.get('CaptchaText')?.errors">
+                                <mat-error *ngIf="signinForm.get('CaptchaText').errors.required"
+                                    class="login_err">{{'Login.captchaerrormessage'
+                                    | translate}}</mat-error>
+                            </mat-error>
+                    </mat-form-field>
+          
+                    <div class="w-50" style="display:inline;margin-left: 10px;">
+                        <img [src]="captchaimage" alt="Captcha Code">
+                    </div>
+                </div>
+                  <div class="login_action">
+                      <button title="Login" [ngClass]="logininprogress == true ? 'disabled':''" mat-raised-button class="btn autoringuser_button theme_curve float-end" routerLink="./Dashboard">
+                        <span class="icon-pointed_arrow"></span> {{'Login.SubmitLabel' | translate}}
+                      </button>
+                      <a class="mt-2 mx-3" href="#" onclick="return false;" (click)="RedirecttoForgotPassword()" title="Forgot Password"> Forgot Password ?</a>
+
+
+                  </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="changes_password_suess mt-5" *ngIf="status">
+
+          <div class="dummy-positioning">
+
+            <div class="icon warning">
+              <span class="body"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="change_pw_data mt-3">
+              <strong class="mb-2">{{'Login.Yourpasswordexpired' | translate}} <br/>{{'Login.pleasechangeurpassword' | translate}}</strong>
+
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <button title="Change Password" mat-raised-button class="btn autoringuser_button_lo theme_curve" routerLink="./login"
+              (click)="Btnchangepassword()">
+              {{'Login.ChangePassword' | translate}}
+            </button>
+          </div>
+
+        </div>
+    
+
+    </div>
+</div>

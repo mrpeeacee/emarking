@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="mt-2">
+
+    <div class="card_box project_summary pt-4">
+
+      <div class="row d-flex align-items-center">
+
+
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4" *ngIf="!IsProjectSame">
+              <mat-form-field appearance="fill" class="selct_sel float-end"
+                title="{{'LiveMarking.SelProj' | translate}}">
+                <mat-label>{{'LiveMarking.SelProj' | translate}}</mat-label>
+                <mat-select #matSelect (selectionChange)="Ischecked($event)">
+                  <div>
+                    <mat-option [value]="0" selected>--- {{'QuaCheck.Select' | translate}} ---</mat-option>
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Search" [(ngModel)]="ProjectSearchValue" (blur)="clearSearch()" (keyup)="SearchProjects()">
+                      <mat-icon matSuffix title="Search"><span class="icon-search"
+                          (click)="SearchProjects()"></span></mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <mat-option *ngFor="let proj of projectList" [value]="proj?.ProjectId"
+                    ngDefaultControl>{{proj?.ProjectName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="IsProjectSame">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'LiveMarking.SelProj' | translate}}</mat-label>
+                <input matInput *ngFor="let proj of projectList" [value]="proj?.ProjectName" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <button type="button" title="{{'LiveMarking.Submit' | translate}}" (click)="getLiveMarkingProgress()"
+                class="btn theme_button" *ngIf="!IsProjectSame">{{'LiveMarking.Submit' | translate}}</button>
+              <button type="button" title="{{'LiveMarking.Export' | translate}}" class="btn theme_button"
+                (click)="download()"><span class="icon-download m-0"></span>{{'LiveMarking.Export' |
+                translate}}</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="getLiveMarkingProgressList != null">
+      <div class="card_box">
+        <div class="row-header_bg mt-2">
+          <div class="col-1">{{'LiveMarking.Slno' | translate}}</div>
+          <div class="col-1">{{'LiveMarking.QigName' | translate}}</div>
+          <div class="col-2">{{'LiveMarking.TotManualScp' | translate}}</div>
+          <div class="col-2">{{'LiveMarking.DownloadScp' | translate}}</div>
+          <div class="col-2">{{'LiveMarking.ActNeeded' | translate}}</div>
+          <div class="col-1">{{'LiveMarking.TotPending' | translate}}</div>
+          <div class="col-1">{{'LiveMarking.TotMarked' | translate}}</div>
+          <div class="col-2">{{'LiveMarking.CompRate' | translate}}</div>
+        </div>
+
+        <perfect-scrollbar class="table_list_scroll">
+          <div class="row-childrow_em card_box" *ngIf="getLiveMarkingProgressList != null">
+            <div class="row-childrow d-flex px-0" *ngFor="let live of getLiveMarkingProgressList; let i=index">
+              <div class="col-1">{{i + 1}}</div>
+              <div class="col-1 word_wrpa">{{live?.QIGName}}</div>
+              <div class="col-2 word_wrpa">{{live?.TotalManualMarkingScript}}</div>
+              <div class="col-2 word_wrpa">{{live?.DownloadedScripts}}</div>
+              <div class="col-2 word_wrpa">{{live?.ActionNeeded}}</div>
+              <div class="col-1 word_wrpa">{{live?.TotalPending}}</div>
+              <div class="col-1 word_wrpa">{{live?.TotalMarked}}</div>
+              <div class="col-2 word_wrpa">{{live?.CompletionRate}}</div>
+            </div>
+          </div>
+          <div class="text-center mt-1 card_box nodatafound"
+            *ngIf="projectId == 0 || getLiveMarkingProgressList == null || getLiveMarkingProgressList.length <= 0">
+            {{'LiveMarking.NoRecAlt' | translate}}
+          </div>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </div>
+
+</div>

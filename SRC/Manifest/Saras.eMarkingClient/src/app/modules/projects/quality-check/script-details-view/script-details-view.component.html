@@ -1,0 +1,135 @@
+<div *ngIf="qaScriptModel != null" [class.shimmer]="qadtlsloading || statusUpdloading">
+    <div class="row-childrowRandom row-childrow" *ngFor="let item of qaScriptModel.ScriptChildModel">
+        <div class="d-flex bd-highlight col-md-12 align-items-center">
+            <div class="bd-highlight col-md-2 marauto" *ngIf="item.Phase == 1">
+                <span> {{'Quality-Check.ScriptDetailsView.phase' | translate}} </span>
+                <strong>{{'Quality-Check.ScriptDetailsView.lveMrkg' | translate}}</strong>
+            </div>
+            <div class="bd-highlight col-md-2 marauto" *ngIf="item.Phase == 2">
+                <span> {{'Quality-Check.ScriptDetailsView.phase' | translate}} </span>
+                <strong>{{'Quality-Check.ScriptDetailsView.rc1' | translate}}</strong>
+            </div>
+            <div class="bd-highlight col-md-2 marauto" *ngIf="item.Phase == 3">
+                <span> {{'Quality-Check.ScriptDetailsView.phase' | translate}} </span>
+                <strong>{{'Quality-Check.ScriptDetailsView.rc2' | translate}}</strong>
+            </div>
+            <div class="bd-highlight col-md-2 marauto" *ngIf="item.Phase == 4">
+                <span> {{'Quality-Check.ScriptDetailsView.phase' | translate}} </span>
+                <strong>{{'Quality-Check.ScriptDetailsView.adhocchked' | translate}}</strong>
+            </div>
+
+
+            <div class="bd-highlight col-md-3 marauto">
+                <span *ngIf="item.Phase != 1"> {{'Quality-Check.ScriptDetailsView.mrkdby' | translate}} </span>
+                <span *ngIf="item.Phase == 1"> {{'Quality-Check.ScriptDetailsView.mrkedby' | translate}} </span>
+                <strong *ngIf="item.MarkedBy != null">{{item.MarkedBy}} ({{item.RoleCode}})</strong>
+                <strong *ngIf="item.MarkedBy == null">--</strong>
+            </div>
+
+            <div class="bd-highlight col-md-1 marauto">
+                <span> {{'Quality-Check.ScriptDetailsView.mrkawaded' | translate}} </span>
+                <strong *ngIf="item.MarkedBy != null">{{item.MarksAwarded}}</strong>
+                <strong *ngIf="item.MarkedBy == null">--</strong>
+            </div>
+
+
+            <div class="bd-highlight col-md-3 marauto">
+                <strong> <span *ngIf="item.Status == 2"> {{'Quality-Check.ScriptDetailsView.inprogress' | translate}}
+                    </span>
+                    <span *ngIf="item.Status == 3"> {{'Quality-Check.ScriptDetailsView.submtd' | translate}} </span>
+                    <span *ngIf="item.Status == 4"> {{'Quality-Check.ScriptDetailsView.inrcpool' | translate}} </span>
+                    <span *ngIf="item.Status == 5"> {{'Quality-Check.ScriptDetailsView.approvd' | translate}} </span>
+                    <span *ngIf="item.Status == 6"> {{'Quality-Check.ScriptDetailsView.remrkng' | translate}} </span>
+                    <span *ngIf="item.Status == 7"> {{'Quality-Check.ScriptDetailsView.resubmted' | translate}} </span>
+                    <span *ngIf="item.Status == 8"> {{'Quality-Check.ScriptDetailsView.escalute' | translate}}
+                    </span></strong>
+                <span *ngIf="item.Submitted != null">{{item.Submitted | date: 'dd-MMM-YYYY h:mm:ss a' }}</span>
+                <span *ngIf="item.Submitted == null">--</span>
+
+            </div>
+
+
+            <span class="icon-comment_3 qaremarks cursor" title="{{'Quality-Check.ScriptDetailsView.remark' | translate}}" [disabled]="IsQigPause || PClosed"
+                *ngIf="item.Remarks != null && item.Remarks != ''" [matMenuTriggerFor]="beforeMenu"></span>
+            <span class="qaremarks pad20" *ngIf="!(item.Remarks != null && item.Remarks != '')"></span>
+
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+                {{item.Remarks}}
+            </mat-menu>
+
+            <div class="bd-highlight col-md-2 marauto">
+                <button type="button" [disabled]="viewbuttondisabled"
+                    class="btn float-end theme_button_light d-flex align-items-center"
+                    (click)="RedirectToTrialMarking({ScriptId: item.ScriptId,Markedby: item.UserScriptMarkingRefId,
+                    Status: item.Submitted,RcType: item.Phase,PhaseStatusTrackingId: item.PhaseStatusTrackingId,
+                    Workflowid: qaScriptModel.WorkflowStatusID, UserScriptMarkingRefId: item.UserScriptMarkingRefId}, item.IsActive)" title="{{'Quality-Check.ScriptDetailsView.viewscript' | translate}}">
+                    {{'Quality-Check.ScriptDetailsView.viewscript' | translate}} </button>
+            </div>
+
+        </div>
+    </div>
+
+    <button type="button" class="btn theme_button d-flex align-items-center cs_tn" title="{{'Quality-Check.ScriptDetailsView.checkout' | translate}} {{activephase}}"
+        *ngIf="!qaScriptModel.CheckedOutByMe"
+        [disabled]="!qaScriptModel.CheckoutEnabled || qadtlsloading == true || IsQigPause || PClosed || statusUpdloading == true"
+        (click)="Updatescriptstatus(true, true)" [class.shimmer]="qadtlsloading || statusUpdloading">
+        <span style="pointer-events: none;"></span>
+        {{'Quality-Check.ScriptDetailsView.checkout' | translate}} {{activephase}}
+    </button>
+
+</div>
+
+
+
+<div class="container_box" *ngIf="qaScriptModel != null && qaScriptModel.CheckedOutByMe">
+    <div class="mt-3">
+        <div class="row">
+            <div class="bd-highlight col-md-2 marauto text-center" [class.shimmer]="qadtlsloading || statusUpdloading">
+                <mat-radio-button [disabled]="IsQigPause || PClosed" title="{{'Quality-Check.ScriptDetailsView.appve' | translate}}" ngDefaultControl
+                    [ngModel]="qaScriptModel.Status" (change)="qaScriptModel.Status = 5"
+                    [checked]="qaScriptModel.Status == 5"> {{'Quality-Check.ScriptDetailsView.appve' | translate}}
+                </mat-radio-button>
+            </div>
+            <div class="bd-highlight col-md-2 marauto text-center"
+                *ngIf="(!(qaScriptModel.IsRc2Adhoc ||activeMarking.Phase == 3 || (activeMarking.Phase == 2 && activeMarking.Status == 5) || (activeMarking.Phase == 4 && activeMarking.Status == 5)) && !qaScriptModel.RettomarEnable)"
+                [class.shimmer]="qadtlsloading || statusUpdloading">
+                <mat-radio-button [disabled]="IsQigPause || PClosed" title="{{'Quality-Check.ScriptDetailsView.rtntomrkr' | translate}}" ngDefaultControl
+                    [ngModel]="qaScriptModel.Status" (change)="qaScriptModel.Status = 6"
+                    [checked]="qaScriptModel.Status == 6">
+                    {{'Quality-Check.ScriptDetailsView.rtntomrkr' | translate}}
+                </mat-radio-button>
+            </div>
+            <div class="bd-highlight col-md-2 marauto text-center hide"
+                [class.shimmer]="qadtlsloading || statusUpdloading">
+                <mat-radio-button title="{{'Quality-Check.ScriptDetailsView.escalate' | translate}}" ngDefaultControl [ngModel]="qaScriptModel.Status"
+                    (change)="qaScriptModel.Status = 8" [checked]="qaScriptModel.Status == 8" [disabled]="IsQigPause || PClosed">
+                    {{'Quality-Check.ScriptDetailsView.escalate' | translate}}
+                </mat-radio-button>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="bd-highlight col-md-6 marauto text-center" [class.shimmer]="qadtlsloading || statusUpdloading">
+                <textarea placeholder="Your text goes here" id="w3review" name="w3review" rows="4" cols="50" [readonly]="qadtlsloading || statusUpdloading"
+                    class="text_are mt-3" oncut="return false" maxlength="500" [(ngModel)]="qaScriptModel.Remarks"
+                    ngDefaultControl [disabled]="IsQigPause || PClosed">
+                </textarea>
+            </div>
+        </div>
+        <div class="d-flex justify-content-left mt-3">
+            <button title="{{'Quality-Check.ScriptDetailsView.save' | translate}}" type="button" class="btn theme_button d-flex align-items-center  cs_tn"
+                (click)="Updatescriptstatus(false, true)" [class.shimmer]="qadtlsloading || statusUpdloading"
+                [disabled]="qadtlsloading == true || IsQigPause || PClosed || statusUpdloading == true">
+                <span class="icon-save-1" style="pointer-events: none;"></span>
+                {{'Quality-Check.ScriptDetailsView.save' | translate}}
+            </button>
+            <button type="button" title="{{'Quality-Check.ScriptDetailsView.cancel' | translate}}" class="btn theme_button d-flex align-items-center cs_tn"
+                *ngIf="qaScriptModel.CheckedOutByMe && activeMarking.Status != 7 && qaScriptModel.Checkstatus != 7"
+                (click)="Updatescriptstatus(true, false)" [class.shimmer]="qadtlsloading || statusUpdloading"
+                [disabled]="qadtlsloading == true || IsQigPause || PClosed || statusUpdloading == true">
+                <span class="icon-close" style="pointer-events: none;"></span>
+                {{'Quality-Check.ScriptDetailsView.cancel' | translate}}
+            </button>
+        </div>
+    </div>
+</div>

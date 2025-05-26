@@ -1,0 +1,109 @@
+<div class="container">
+    <emarking-qig-tab (selectQigEvent)="getQigDetails($event)">
+    </emarking-qig-tab>
+    <div class="row" *ngIf="QigId <= 0">
+        <div class="text-center mt-3 card_box nodatafound">
+            {{'General.NotFound' | translate}}
+        </div>
+    </div>
+    <emarking-standardisation-assessments [QigId]="QigId" [process]="2" [QigIsKp]="IsKp" [QIgName]="QIgName"
+        (assessmentStatusEmit)="setAssessmentStatus($event)">
+    </emarking-standardisation-assessments>
+    <div class="row">
+        <div class="col-md-8">
+          <div class="card_box mt-1 project_summary">
+            <div class="row">
+              <div class="col-md-6 col-sm-12 col-xs-12 border_rt">
+                <div class="row">
+                  <strong class="text-start">Team Overview</strong>
+                  <div class="col-md-12 col-xs-12">
+                    <span>Downloaded</span>
+                    <strong>{{TodayOverviews?.TotalScripts}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                    <span>Submitted</span>
+                    <strong>{{TodayOverviews?.Submitted}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                    <span>RC Done</span>
+                    <strong>{{TodayOverviews?.RandomChecked}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                    <span>In-Grace Period</span>
+                    <strong>{{TodayOverviews?.InGracePeriod}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                    <span>Required Action</span>
+                    <strong>{{TodayOverviews?.Reallocated}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                    <span>Ad hoc Checked</span>
+                    <strong>{{TodayOverviews?.AdhocChecked}}</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="project_summary">
+                  <div class="row">
+                    <div class="d-flex justify-content-between">
+                      <strong class="text-start p-0">Today’s Overview </strong> <span class="pt-1">
+                        [{{TodayOverviews?.TodayOverview?.Today |date:'d-MMM-y' | uppercase}}]
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                      <span>Downloaded</span>
+                      <strong>{{TodayOverviews?.TodayOverview.Downloaded}}</strong>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                      <span>Submitted</span>
+                      <strong>{{TodayOverviews?.TodayOverview.Submitted}}</strong>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                      <span>RC Done</span>
+                      <strong>{{TodayOverviews?.TodayOverview.RCDone}}</strong>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                      <span>In-Grace Period</span>
+                      <strong>{{TodayOverviews?.TodayOverview.InGracePeriod}}</strong>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                      <span>Pending Submission</span>
+                      <strong>{{TodayOverviews?.TodayOverview.PendingSubmission}}</strong>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                      <span>Required Action</span>
+                      <strong>{{TodayOverviews?.TodayOverview.Reallocated}}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+              
+            </div>
+            
+
+          </div>
+        <div class="col-md-4 bd-highlight">
+            <div class="card_box mt-1 project_summary quick_over">
+                <div class="quick-links">
+                    <strong class="mb-1 float-start">Quick Links</strong>
+                    <ul>
+                        <li [class.shimmer]="linksloading" class="mt-2 d-flex ml-0 custom-ml" *ngFor="let qlink of quicklinks">
+                            <button *ngIf="qlink.PrivilegeCode == 'QL_LIVEMARKING' || qlink.PrivilegeCode == 'QL_QUALITYCHECK'"
+                                [disabled]="!enablelivemarking || IsQigPause || !TodayOverviews?.IsLiveMarkingStart"
+                                type="button" title="{{qlink?.Name}}" class="btn theme_button_light  ml-0 mr-2 theme_button_light" (click)="navtoQuickLink(qlink)">
+                                <span class="icon-pointed_arrow"></span>{{qlink?.Name}}
+                            </button>
+                            <button *ngIf="qlink.PrivilegeCode == 'QL_APPROVALS' && IsS1Required" type="button" title="{{qlink?.Name}}"
+                                class="btn theme_button_light  ml-0 mr-2 theme_button_light" (click)="navtoQuickLink(qlink)">
+                                <span class="icon-pointed_arrow"></span>{{qlink?.Name}}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

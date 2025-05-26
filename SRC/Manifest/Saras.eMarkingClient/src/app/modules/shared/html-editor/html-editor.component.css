@@ -1,0 +1,10 @@
+.htmleditor {
+    width: 120vh;
+    height: 60vh;
+}
+
+.NgxEditor {
+    height: 45vh;
+    overflow-y: scroll;
+}
+ 

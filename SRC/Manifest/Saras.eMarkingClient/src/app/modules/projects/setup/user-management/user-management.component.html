@@ -1,0 +1,28 @@
+<div class="container" ngDefaultControl>
+
+  <emarking-qig-tab (selectQigEvent)="getQigDetails($event)">
+  </emarking-qig-tab>
+
+    <emarking-user-counts (FilterUsersClick)="FilterUserslist($event)"></emarking-user-counts>
+
+
+
+    <emarking-user-viewlist (createuserclick)="CallCounter()"></emarking-user-viewlist>
+    <emarking-user-data-view (ShowHierarchyClick)="ShowHierarchyView($event)" (ShowDataClick)="ShowDataView($event)"
+      (DeleteClick)="CallCounter()">
+    </emarking-user-data-view>
+
+    <div class="data_tree">
+      <emarking-user-hierarchical-view></emarking-user-hierarchical-view>
+    </div>
+
+    <div class="mt-2 d-flex bd-highlight mb-3 " *ngIf="IsQIG">
+      <div class="d-flex justify-content-start">
+        <button title="{{'SetUp.UserManagement.cancel' |
+      translate}}" type="button" class="btn theme_button_light d-flex align-items-center " routerLink="/projects">
+          <span class="icon-close"></span> {{'SetUp.UserManagement.cancel' |
+          translate}}</button>
+      </div>
+
+    </div>
+  </div>

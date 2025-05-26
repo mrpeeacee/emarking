@@ -1,0 +1,30 @@
+.shimmer span {
+    margin: 1px !important;
+}
+
+.disable_btn{
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.ems_dash{ margin-bottom:20px}
+
+.ems_dash button {
+  margin-right: 20px;
+}
+
+.ems_dash a {
+  text-decoration: underline;
+  color: #133ac9;
+  cursor:pointer
+}
+
+.schdrop{
+  padding: 0px 750px 0px 0px;
+}
+
+a:not([href]):not([class]), a:not([href]):not([class]):hover {
+
+  text-decoration: underline;
+}
+

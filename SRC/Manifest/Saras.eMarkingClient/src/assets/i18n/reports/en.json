@@ -1,0 +1,159 @@
+{
+  "StdDetails": {
+    "stdres": "Students Results",
+    "pgedesc": "Students Results",
+    "ovrviw": "Overview",
+    "exmyr": "Exam Year",
+    "proj": "Project",
+    "srchstdid": "Search By Student ID",
+    "srchsch": "Search By School",
+    "mrkrange": "Marks Range",
+    "submit": "Submit",
+    "totstds": "Total Students",
+    "totsch": "Total Schools",
+    "maxmark": "Max Marks",
+    "stdId": "Student ID",
+    "school": "School",
+    "marksec": "Marks Secured",
+    "norec": "No records found"
+  },
+
+  "EmsReport": {
+    "title": "Outbound Reports",
+    "pgedesc": "EMS1 and EMS2 are the reports in CSV and Text formats having the details of the candidate index number, the question and the marks awarded in the evaluation. EMS1 is for Composition and EMS2 is for MCQ and Non-Composition type of questions in the question paper.",
+    "omsdesc": "OMS reports provide details of the oral examination results. There is a provision to download the report in CSV and Text formats for verification, and finally, all the details are pushed to the iExams2 system.",
+    "ems1": "EMS1 Report",
+    "ems2": "EMS2 Report",
+    "downloadcsv": "Download CSV",
+    "downloadtxt": "Download Text",
+    "nodata1": "No records found in EMS1 Report.",
+    "nodata2": "No records found in EMS2 Report.",
+    "nodataoms": "No records found in OMS Report.",
+    "iExams2": "Upload to iExams2",
+    "viewlog": "View Logs",
+    "oms": "OMS Report",
+    "prjnotcls": "This project is not yet closed.",
+    "prjcls": "This project is closed.",
+    "prjomssyc": "OMS report data is not ready. After results syncing to eMarking system, the download result data and upload to iExams2 will be enabled.",
+    "ems1headers": [
+      "ExamYear",
+      "ExamLevel",
+      "ExamSeries",
+      "SubjectCode",
+      "PaperCode",
+      "MOACode",
+      "IndexNumber",
+      "Attendance",
+      "QuestionID",
+      "ContentMark",
+      "LanguageOrganisationMark",
+      "TotalMark"
+    ],
+    "ems2headers": [
+      "ExamYear",
+      "ExamLevel",
+      "ExamSeries",
+      "SubjectCode",
+      "PaperCode",
+      "MOACode",
+      "IndexNumber",
+      "Attendance",
+      "MarkerGroup",
+      "QuestionID",
+      "Mark",
+      "SupervisorIndicator"
+    ],
+    "omsheader": [
+      "ExamYear",
+      "ExamLevel",
+      "ExamSeries",
+      "SubjectCode",
+      "PaperCode",
+      "MOACode",
+      "IndexNumber",
+      "Attendance",
+      "Mark"
+    ],
+    "process": "The upload file process is initiated. You may check the status by clicking \"View Logs\".",
+    "nodata": "No data found.",
+    "wrong": "Something went wrong.",
+    "norecal": "No records found.",
+    "norecdeloms": "No Delta records found in OMS Report.",
+    "norecdelems1": "No Delta records found in EMS1 Report.",
+    "norecdelems2": "No Delta records found in EMS2 Report.",
+    "uploadcancel":"Upload to iExams2 aborted. Some present candidates have missing or NULL scores."
+  },
+  
+  "AuditReport": {
+    "title": "Audit Report",
+    "pgedesc": "Actions performed by a user within a date range and in a particular module of the eMarking are detailed out in this report which contains the Number of sessions per user, User Name, Login Date and Time, Logout Date and Time, IP Address, Duration and the Function Performed.",
+    "frmdate":"From Date",
+    "todate":"To Date",
+    "modulename":"Module Name",
+    "loginnameoremail":"Login Name / Email",
+    "actionperformed":"Action Performed",
+    "login/logout":"Login / Logout",
+    "failed":"Failed",
+    "view":"View",
+    "reset":"Reset",
+    "session":"Session",
+    "usrname":"UserName",
+    "logindateandtime":"Login Date and Time",
+    "logoutdateandtime":"Logout Date and Time",
+    "ipaddress":"IP Address",
+    "duration":"Duration",
+    "functionperformed":"Function Performed",
+    "usrloginsuccessfulat":"User login successful at ",
+    "user":"User",
+    "changedpaswdsuccessflyat":" changed password successfully at ",
+    "notloggedoutproperlyorsessiontimedout":" Not logged out properly or session timed out.",
+    "usrlogoutsuccessfulyat":" User logout successful at",
+    "usrlogin":"User login failed at ",
+    "nodatafound":" No data found.",
+    "plseselctfrmdateandenddatetogettheauditlogs":"Please Select From date and To date to get the Audit Logs."
+    
+
+  
+},
+
+  "StdResultReport": {
+    "title": "Student Result Reports"
+  },
+
+  "DataReport": {
+    "headername": "Data Report",
+    "pgdesc": "The Data Report provides the details of the each candidate's responses,  with several other important details along with the journey of the script if there is any.",
+    "dwnldbtn": "Click here to download report in Excel",
+    "txtReport": "Click here to download report in CSV"
+  },
+
+  "RptOutbound":{
+    "cancel": "Cancel",
+    "correlation": "Correlation ID",
+    "request": "Requested On",
+    "page": "Page Index",
+    "file": "File Name",
+    "processed": "Processed On",
+    "status": "Status",
+    "remarks": "Remarks",
+    "requestby": "Requested By",
+    "log": "API Logs",
+    "norec": "No Records Found",
+    "ems1": "EMS1",
+    "ems2": "EMS2",
+    "oms": "OMS",
+    "inprogress": "In Progress",
+    "success": "Success",
+    "failed": "Failed",
+    "download": "Download Text"
+  },
+  "UserResponse": {
+    "desc": "Page Description",
+    "title": "Download Responses",
+    "selectschool": "Select School",
+    "download": "Download as PDF",
+    "Clear": "Clear",
+    "Cancel": "Cancel",
+    "nodata": "No data found."
+  }
+}

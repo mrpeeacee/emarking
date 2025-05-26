@@ -1,0 +1,473 @@
+<!-- <div class="project_summary card_box_sticky btm_shadow">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-form-field appearance="fill"  class="pointer_disable">
+            <mat-label class="lable">{{'AuditReport.frmdate' | translate}}</mat-label>
+            <input tabindex="-1" #from onDrop="return false" oncut="return false" onPaste="return false" matInput
+              [matDatepicker]="frompicker" id="FromDate" [(ngModel)]="pickfromdate" [value]="pickfromdate" readonly
+              [max]="maxDate" ngDefaultControl >
+            <mat-datepicker-toggle matSuffix [for]="frompicker"  class="pointer_enable" title="{{'AuditReport.frmdate' | translate}}">
+            </mat-datepicker-toggle>
+            <mat-datepicker #frompicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-2">
+          <mat-form-field appearance="fill"  class="pointer_disable">
+            <mat-label class="lable">{{'AuditReport.todate' | translate}}</mat-label>
+            <input tabindex="-1" #to onDrop="return false" oncut="return false" onPaste="return false" matInput
+              [matDatepicker]="topicker" id="ToDate" [(ngModel)]="picktodate" [value]="picktodate" readonly [max]="tominimumdate"
+              ngDefaultControl >
+            <mat-datepicker-toggle matSuffix [for]="topicker" title="{{'AuditReport.todate' | translate}}"  class="pointer_enable">
+            </mat-datepicker-toggle>
+            <mat-datepicker #topicker></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+
+        <div class="col-md-2">
+          <mat-form-field appearance="fill">
+            <mat-label>{{'AuditReport.modulename' | translate}}</mat-label>
+            <mat-select #matSelect [(value)]="selected">
+              <mat-option *ngFor="let catalog of Modulesentries" [value]="catalog?.value" ngDefaultControl>
+                {{catalog.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="col-md-2">
+          <div>
+            <mat-form-field appearance="fill">
+              <mat-label class="lable">{{'AuditReport.loginnameoremail' | translate}}</mat-label>
+              <input [(ngModel)]="loginname" maxlength="25" (input)="loginname = $event.target.value;" matInput
+                placeholder="{{'AuditReport.loginnameoremail' | translate}}" ngDefaultControl>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-2" *ngIf="false">
+          <mat-form-field appearance="fill">
+            <mat-label>{{'AuditReport.actionperformed' | translate}}</mat-label>
+            <mat-select>
+              <mat-option ngDefaultControl>
+              {{'AuditReport.login/logout' | translate}}
+              </mat-option>
+              <mat-option ngDefaultControl>
+              {{'AuditReport.failed' | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+        </div>
+
+        <div class="col-md-2">
+          <div class="row">
+            <div class="col-md-3">
+              <button type="button" (click)="onDataChange()" title="View" class="btn theme_button mt-1 d-flex align-items-center float-center  mx-0">
+              {{'AuditReport.view' | translate}}
+              </button>
+            </div>
+            <div class="col-md-3">
+              <button type="button" (click)="Reset()" title="Reset" class="btn theme_button  mt-1 d-flex align-items-center float-left  mx-0 ">
+              {{'AuditReport.reset' | translate}}
+              </button>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<div class="container-xxl mb-5 ">
+  <perfect-scrollbar class="table_list_scroll1 ">
+  <div *ngFor="let lst of auditreportList;">
+    <mat-accordion>
+
+      <mat-expansion-panel [class.shimmer]="Isloading" (opened)="lst.panelOpenState = true" (closed)="lst.panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="row d-flex align-items-center p-2 w-100 active_report">
+              <div class="col-md-2 col-xs-12"><span><strong>{{'AuditReport.session' | translate}}</strong> </span>
+                <span class="">{{lst.SlNo}}</span></div>
+              <div class="col-md-3 col-xs-12 word_wrpa"><span><strong>{{'AuditReport.usrname' | translate}}</strong></span>
+                <span class="">{{lst.UserName}}</span></div>
+
+              <div class="col-md-2 col-xs-12"><span><strong>{{'AuditReport.logindateandtime' | translate}}</strong></span>
+                <span class="">{{lst.LogInDateTime != null? (lst.LogInDateTime | date: 'dd-MMM-YYYY h:mm a') :'-----'}}</span></div>
+
+              <div class="col-md-2 col-xs-12"><span><strong>{{'AuditReport.logoutdateandtime' | translate}}</strong></span>
+                <span class="">{{lst.LogOutDateTime != null ? (lst.LogOutDateTime | date: 'dd-MMM-YYYY h:mm a')
+                  :'-----'}}</span></div>
+
+              <div class="col-md-2 col-xs-12"><span><strong>{{'AuditReport.duration' | translate}}</strong></span>
+                <span class="">{{lst.Duration != null ? lst.Duration :'-----'}}</span></div>
+            </div>
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <div class="mb-2"><strong>{{'AuditReport.functionperformed' | translate}}</strong></div>
+        <p *ngIf="lst.Status == 1 && lst.LogInDateTime != '' && lst.LogInDateTime != null">
+        {{'AuditReport.usrloginsuccessfulat' | translate}}<strong>{{lst.LogInDateTime | date:
+            'dd-MMM-YYYY h:mm a'}}.</strong>
+        </p>
+       <p [innerHTML]="lst.Testdata"></p>
+        <div *ngFor="let child of lst.activitiesperformedModels;">
+        </div>
+        <p *ngIf=" lst.Status == 1 && (lst.LogOutDateTime == ''  || lst.LogOutDateTime == null)">
+        {{'AuditReport.notloggedoutproperlyorsessiontimedout' | translate}}
+        </p>
+        <p *ngIf="(lst.Status == 1 && lst.LogOutDateTime != '' && lst.LogOutDateTime != null) ">
+        {{'AuditReport.usrlogoutsuccessfulyat' | translate}} <strong>{{lst.LogOutDateTime | date:
+            'dd-MMM-YYYY h:mm a'}}.</strong>
+        </p>
+        <p *ngIf="lst.Status == 4">
+        {{'AuditReport.usrlogin' | translate}} <strong>{{lst.LogInDateTime | date: 'dd-MMM-YYYY
+            h:mm a'}}.</strong>
+        </p>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </div>
+  <div class="text-center mt-3 card_box nodatafound" *ngIf=" Ispageactive == false && auditreportList?.length == 0 || auditreportList == null ||  auditreportList == undefined">
+  {{'AuditReport.nodatafound' | translate}}
+  </div>
+
+  <div class="text-center mt-3 card_box nodatafound" *ngIf="Ispageactive == true" >
+  {{'AuditReport.plseselctfrmdateandenddatetogettheauditlogs' | translate}}
+  </div>
+
+</perfect-scrollbar>
+</div>
+ -->
+
+
+
+ <div class="project_summary card_box_sticky btm_shadow">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-md-2">
+          <mat-form-field appearance="fill" class="pointer_disable">
+            <mat-label class="lable">{{
+              "AuditReport.frmdate" | translate
+            }}</mat-label>
+            <input
+              tabindex="-1"
+              #from
+              onDrop="return false"
+              oncut="return false"
+              onPaste="return false"
+              matInput
+              [matDatepicker]="frompicker"
+              id="FromDate"
+              [(ngModel)]="pickfromdate"
+              [value]="pickfromdate"
+              readonly
+              [max]="maxDate"
+              ngDefaultControl
+              title="{{ 'AuditReport.frmdate' | translate }}"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="frompicker"
+              class="pointer_enable"
+              title="{{ 'AuditReport.frmdate' | translate }}"
+            >
+            </mat-datepicker-toggle>
+            <mat-datepicker #frompicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-2">
+          <mat-form-field appearance="fill" class="pointer_disable">
+            <mat-label class="lable">{{
+              "AuditReport.todate" | translate
+            }}</mat-label>
+            <input
+              tabindex="-1"
+              #to
+              onDrop="return false"
+              oncut="return false"
+              onPaste="return false"
+              matInput
+              [matDatepicker]="topicker"
+              id="ToDate"
+              [(ngModel)]="picktodate"
+              [value]="picktodate"
+              readonly
+              [max]="tominimumdate"
+              ngDefaultControl
+              title="{{ 'AuditReport.todate' | translate }}"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="topicker"
+              class="pointer_enable"
+              title="{{ 'AuditReport.todate' | translate }}"
+            >
+            </mat-datepicker-toggle>
+            <mat-datepicker #topicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div hidden>
+          <button 
+            type="button"
+            (click)="SetReportLevel()"
+            title="{{ IsUserLevel ? 'User Level' : 'Module Level' }}"
+            class="btn theme_button mt-1 d-flex align-items-center float-center  mx-0"
+          >
+            {{ IsUserLevel ? "User Level" : "Module Level" }}
+          </button>
+        </div>
+
+        <div class="col-md-2" *ngIf="IsUserLevel == false">
+          <mat-form-field appearance="fill">
+            <mat-label>Select User</mat-label>
+            <input
+              [(ngModel)]="auditReportRequest.LoginId"
+              maxlength="25"
+              (input)="loginname = $event.target.value"
+              matInput
+              title="Select user"
+              placeholder="{{ 'AuditReport.loginnameoremail' | translate }}"
+              ngDefaultControl
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Module</mat-label>
+            <mat-select #matSelect [(value)]="selected">
+              <mat-option *ngFor="let catalog of Modulesentries" [value]="catalog?.value" ngDefaultControl>
+                {{catalog.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-2">
+              <button
+                type="button"
+                (keyup.enter)="ViewReport()"
+                (click)="ViewReport()"
+                title="View"
+                class="btn theme_button mt-1 d-flex align-items-center float-center  mx-0"
+              >
+                {{ "AuditReport.view" | translate }}
+              </button>
+            </div>
+            <div class="col-md-2 cust-ml">
+              <button
+                type="button"
+                (click)="Reset()"
+                title="Reset"
+                class="btn theme_button  mt-1 d-flex align-items-center float-left  mx-0 "
+              >
+                {{ "AuditReport.reset" | translate }}
+              </button>
+            </div>
+            <div class="col-md-2 cust-ml">
+              <button
+                type="button"
+                (click)="Export()"
+                title="Export"
+                class="btn theme_button  mt-1 d-flex align-items-center float-left  mx-0 "
+              >
+              Export
+              </button>
+            </div>
+            <div
+            class="toggle_exp col-md-5 "
+            *ngIf="Isloading == false && auditreportList?.length > 0"
+          >
+            <mat-slide-toggle class="mt-2"
+              title="{{ IsExpanded ? 'Collapse All' : 'Expand All' }}"
+              [(ngModel)]="IsExpanded"
+              (change)="ExpandorCollapse()"
+              >{{ IsExpanded ? "Collapse All" : "Expand All" }}</mat-slide-toggle
+            >
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-xxl pb-5">
+  <div>
+    <mat-accordion multi>
+      <mat-expansion-panel
+        *ngFor="let lst of auditreportList"
+        [class.shimmer]="Isloading"
+        (opened)="lst.panelOpenState = true"
+        (closed)="lst.panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="row d-flex align-items-center p-2 w-100 active_report">
+              <div class="col-md-2 col-xs-12">
+                <span
+                  ><strong>{{ "AuditReport.session" | translate }}</strong>
+                </span>
+                <span class="">{{ lst.SlNo }}</span>
+              </div>
+              <div class="col-md-2 col-xs-12 word_wrpa">
+                <span
+                  ><strong>{{
+                    "AuditReport.usrname" | translate
+                  }}</strong></span
+                >
+                <span class="">{{ lst.UserName }}</span>
+              </div>
+
+              <div class="col-md-2 col-xs-12">
+                <span
+                  ><strong>{{
+                    "AuditReport.logindateandtime" | translate
+                  }}</strong></span
+                >
+                <span class="">{{
+                  lst.LogInDateTime != null
+                    ? (lst.LogInDateTime | date: "dd-MMM-YYYY h:mm a")
+                    : "-----"
+                }}</span>
+              </div>
+
+              <div class="col-md-2 col-xs-12">
+                <span
+                  ><strong>{{
+                    "AuditReport.logoutdateandtime" | translate
+                  }}</strong></span
+                >
+                <span class="">{{
+                  lst.LogOutDateTime != null
+                    ? (lst.LogOutDateTime | date: "dd-MMM-YYYY h:mm a")
+                    : "-----"
+                }}</span>
+              </div>
+              <div class="col-md-2 col-xs-12">
+                <span
+                  ><strong>{{
+                    "AuditReport.ipaddress" | translate
+                  }}</strong></span
+                >
+                <span class="">{{ lst.IPAddress }}</span>
+              </div>
+
+              <div class="col-md-2 col-xs-12">
+                <span
+                  ><strong>{{
+                    "AuditReport.duration" | translate
+                  }}</strong></span
+                >
+                <span class="">{{
+                  lst.Duration != null ? lst.Duration : "-----"
+                }}</span>
+              </div>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="mb-2">
+          <strong>{{ "AuditReport.functionperformed" | translate }}</strong>
+        </div>
+        <p
+          *ngIf="
+            lst.Status == 1 &&
+            lst.LogInDateTime != '' &&
+            lst.LogInDateTime != null
+          "
+        >
+          {{ "AuditReport.usrloginsuccessfulat" | translate
+          }}<strong
+            >{{ lst.LogInDateTime | date: "dd-MMM-YYYY h:mm a" }}.</strong
+          >
+        </p>
+        <div *ngFor="let child of lst.FunctionPerformed">
+          <p [innerHTML]="child"></p>
+        </div>
+        <p
+          *ngIf="
+            lst.Status == 1 &&
+            (lst.LogOutDateTime == '' || lst.LogOutDateTime == null)
+          "
+        >
+          {{ "AuditReport.notloggedoutproperlyorsessiontimedout" | translate }}
+        </p>
+        <p
+          *ngIf="
+            lst.Status == 1 &&
+            lst.LogOutDateTime != '' &&
+            lst.LogOutDateTime != null
+          "
+        >
+          {{ "AuditReport.usrlogoutsuccessfulyat" | translate }}
+          <strong
+            >{{ lst.LogOutDateTime | date: "dd-MMM-YYYY h:mm a" }}.</strong
+          >
+        </p>
+        <p *ngIf="lst.Status == 4">
+          {{ "AuditReport.usrlogin" | translate }}
+          <strong
+            >{{
+              lst.LogInDateTime | date: "dd-MMM-YYYY
+              h:mm a"
+            }}.</strong
+          >
+        </p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div
+    class="text-center mt-3 card_box nodatafound"
+    *ngIf="
+      (Ispageactive == false &&
+        Isloading == false &&
+        auditreportList?.length == 0) ||
+      auditreportList == null ||
+      auditreportList == undefined
+    "
+  >
+    {{ "AuditReport.nodatafound" | translate }}
+  </div>
+
+  <div
+    class="text-center mt-3 card_box nodatafound"
+    *ngIf="Ispageactive == true"
+  >
+    {{ "AuditReport.plseselctfrmdateandenddatetogettheauditlogs" | translate }}
+  </div>
+
+  <mat-paginator
+    #paginator
+    [hidePageSize]="false"
+    aria-label="Select page"
+    class="demo-paginator"
+    (page)="handlePageEvent($event)"
+    [pageIndex]="pageIndex"
+    [length]="length"
+    [pageSize]="pageSize"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+    [hidden]="!(Isloading == false && auditreportList?.length > 0)"
+    >
+  </mat-paginator>
+</div>

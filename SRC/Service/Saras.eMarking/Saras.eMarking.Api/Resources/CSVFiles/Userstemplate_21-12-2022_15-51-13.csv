@@ -1,0 +1,14 @@
+LoginName,Role,ReportingTo,Remarks,Status
+Krishnannb,CMmn,Zhuang,User is not mapped to this projectRole doesn't exist,Not OK
+Sheng,,Krishnan,Role of LoginName is empty,Not OK
+Ali,ATL,Kwok,User already mapped to this QIG,Not OK
+,,Sheng,Login Name and Role are empty,Not OK
+,MARKER,,Login Name and Reporting To are empty,Not OK
+Seah,,,Role and Reporting To are empty,Not OK
+Lu,MARKER,Kwok,User already mapped to this QIG,Not OK
+Lau,,Ali,Role of LoginName is empty,Not OK
+Cai,MARKER,Cai,User already mapped to this QIG,Not OK
+Kwok,MARKER,Poh,User already mapped to this QIG,Not OK
+Tay,MARKER,Zhuang,User already mapped to this QIG,Not OK
+Tay,MARKER,Zhuang,,Not OK
+Poh,CM,Zhuang,User is not belongs to this Role,Not OK

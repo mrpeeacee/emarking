@@ -1,0 +1,285 @@
+
+<div id="mainDiv" [ngClass]="{'bndpop-disable': recminhide == true}">
+  <div class="container-fluid">
+
+    <div class="row p-4 mark_rtlft">
+      <div class="left_tool mark_rtlft col-md-1"  >
+        <h2 class="mb-2"> Annotations</h2>
+       
+        <div id="disableNR" >
+        <span class="icon-close close_anno hide" title="annotation close" ></span>
+        <perfect-scrollbar #perfectScrolla [scrollIndicators]="true" class="scroll_respns_annotations">
+   
+              <div class="majoricons mb-3" *ngIf="!_stasticsloading && _IsScoreComponentExists != null" >
+                <div class="an_card">
+                  <a href="javascript:void(0);" title="Pen" id="Pen" alt="Pen" icontype="class" subject="Pencil"
+                  isclicked="0" onclick="ToolSelected(this,event);return false"><span class="icon-pen"></span></a>
+                            </div>  
+          
+                                 <div *ngFor="let item of Group1B;" class="an_card"  >
+
+                                  
+                                    <div *ngIf="item.Path.indexOf('arrow') > -1" >
+                                        <a href="javascript:void(0);" icontype="class" title="Drawlinearrow" alt="Arrow" subject="drawLineArrow" isclicked="0" onclick="ToolSelected(this,event);return false"><img [src] = item.Path  alt="BoxClose" /></a>
+                                    </div>
+                                              <div *ngIf="item.Path.indexOf('ellipse') > -1"  >
+                                      <a href="javascript:void(0);"title="Oval" alt="Oval" icontype="class" subject="drawOval" isclicked="0"  onclick="ToolSelected(this,event);return false">  <img [src] = item.Path  alt="BoxClose" /></a>
+                                  </div>
+                                  <div *ngIf="item.Path.indexOf('h_wavy') > -1" >
+                                    <a href="javascript:void(0);" title="Horizontal Waveline"   alt="Waveline" icontype="class" subject="drawWavyLineH" isclicked="0" onclick="ToolSelected(this,event);return false">  <img [src] = item.Path  alt="BoxClose" /></a>
+                                </div>
+                                
+                                    <div  *ngIf="item.Path.indexOf('v_wavy') > -1"  >
+                                    <a href="javascript:void(0);"  title="Vertical Waveline"  icontype="class" subject="drawWavyLineV" isclicked="0" onclick="ToolSelected(this,event);return false">  <img [src] = item.Path  alt="BoxClose" /></a>
+                                </div>
+                                      <div *ngIf="item.Path.indexOf('offpage_comment') > -1"  style="display:none" >
+                                    <a href="javascript:void(0);"   title="view/hide Comments" alt="Comments"    onclick="changeView(this,event);return false"  id="ap_7"><img [src] = item.Path  alt="BoxClose" /></a>
+                                  </div>
+                             
+                                      <div  *ngIf="item.Path.indexOf('onpage_comment') > -1" >
+                                    <a href="javascript:void(0);"  title="Drawtext" alt="Text" icontype="class" subject="drawText"  isclicked="0" onclick="ToolSelected(this,event);return false"><img [src] = item.Path  alt="BoxClose" /></a>
+                                  </div>
+                              </div>
+                              <div *ngFor="let item of Group1A;" class="an_card">
+                                <a href="javascript:void(0);" onclick="SymbolSelected(this,event);return false" icontype="image" [title]=item.AnnotationToolName [attr.value]=item.Path>
+                                  <img [src]=item.Path alt="BoxClose" />
+                                </a>
+                              </div>
+
+        </div>
+        <div class="descreteicons mb-3" *ngIf="discrete && !_stasticsloading && _IsScoreComponentExists != null" >
+          <div *ngFor="let item of Group2;" class="an_card">
+            <a href="javascript:void(0);" [title]=item.AnnotationToolName [attr.marks]=item.AssociatedMark onclick="SymbolSelected(this,event);return false" icontype="image" [attr.value]=item.Path>
+              <img [src]=item.Path alt="BoxClose" />
+            </a>
+          </div>
+
+        </div>
+
+        <div class="minoricons mb-3" *ngIf="!_stasticsloading && _IsScoreComponentExists != null"  >
+          <div *ngFor="let item of Group3;" class="an_card">
+            <a href="javascript:void(0);" [title]=item.AnnotationToolName onclick="SymbolSelected(this,event);return false" icontype="image" [attr.value]=item.Path>
+              <img [src]=item.Path alt="BoxClose" />
+            </a>
+          </div>
+
+        </div>
+        <div class="descreteicons mb-3"   >
+         
+          <div class="an_card">
+            <a href="javascript:void(0);"  id="Selector"  title="Selector" icontype="class" alt="Moveing"
+                    subject="drawSelectMove" isclicked="0" onclick="ToolSelected(this,event);return false"><span
+                        class="icon-move"></span></a>
+          </div>  
+          <div class="an_card">
+            <a href="javascript:void(0);" id="eraser" title="Delete Selected" icontype="class" alt="Eraser" subject="remove"
+                    onclick="RemoveSelected(this,event);return false" class=""><span class="icon-erase"></span></a>
+          </div>  
+          <div class="an_card">
+              <a href="javascript:void(0);"  [attr.data-dis]="discrete" id="deleteall" alt="Delete All" title="Delete All" onclick="ClearAllManual(event);return false"><span
+                class="icon-Delete_2" ></span></a>  
+          </div> 
+        </div>
+      </perfect-scrollbar>
+    </div>
+      </div>
+      <div class="plyer_data_stimu col-md-9">
+        <div class="comments_section slidingDiv" id="dvComments">
+          <h2>Comments</h2>
+
+
+          <textarea ondrop="return false;" ondrag="return false"
+                    style="resize: none;height: 90%; width:100%; background-color: #fff; color:#000" id="txtAnnotate"
+                    name="txtAnnotate" rows="30" cols="33"></textarea>
+
+
+
+        </div>
+
+        <div class="col-md-12 pad">
+          
+              <div id="qtext" style="height:50px; padding-top:12px;color:black">
+                  
+                  <perfect-scrollbar #perfectScrollq [scrollIndicators]="true" class="scroll_respns_read">
+                   
+                    <div class="row mb4">
+                      <span style="color:black;line-height: 3;" id ="questiontext">
+                      
+                      </span>
+                    </div>
+                    
+                    <strong><div [innerHtml] = "correctanswer"></div></strong>                 
+                    <div class="float-start w-100 pb-3" style="margin-top:15px">
+                        <button  ngDefaultControl class="btn theme_button d-flex align-items-center float-start" [disabled]="disaplepassage" title="View Stimulus" data-bs-toggle="modal" data-bs-target="#view_stimulus" (click)="loadcf()"> <span class="icon-view_items"></span> View Stimulus </button>
+                      </div>
+                      <div class="clear"></div>
+                  </perfect-scrollbar>
+            
+               </div>
+          
+               <a style="color:blue"  id="readmre" *ngIf="readmore" role="button" (click)="Readmore($event)">Read More...</a>
+             
+       
+          <div class="accordion accordion-flush " style="display:none" id="accordionFlushExample">
+            <div class="accordion-item acordin_bx">
+              
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                
+              </div>
+            </div>
+           
+          </div>
+
+       
+
+          
+            <h2 class="mt-2">Candidate Response<span class="cand_count" *ngIf="!matches">Word count: {{ _wordcount }} </span><span class="cand_count" *ngIf="matches">Characters count: {{ _wordcount }} </span> </h2>
+ 
+            <perfect-scrollbar #perfectScroll [scrollIndicators]="true" class="scroll_respns">
+ 
+              <div class="containerDiv"  id="container">
+
+              </div>
+              
+            </perfect-scrollbar>
+         
+        </div>
+      </div>
+
+      <div class="right_tool mark_rtlft col-md-2">
+          <div *ngIf="_IsScoreComponentExists">
+      
+        <h2>Scoring Components</h2>
+        <div style="max-height:260px; overflow:auto">
+        <div class="scroring_box" *ngFor="let item of scorecompnentdetail1; let i = index;">
+          <div class="d-flex scroring_head justify-content-between"> {{ item.ComponentName }} <span>{{ item.MaxMarks }}</span></div>
+          <div class="score_data mt-2" >
+            <div [id]= "item.ScoreComponentId"  class="d-flex justify-content-between mb-2"> <span [style.display]="item.band.length == 0 ? 'none' : 'block'"   >Band</span> <span class="col-7"> 
+             
+              <select ngDefaultControl [style.display]="item.band.length == 0 ? 'none' : 'block'"   [disabled]="item.band.length == 0 || _IsScoreComponentbandExists"   (change)='getminmaxnoscorecomponent($event)' class="formsin w-100"  name="optionname" [id]= "item.ScoreComponentId + 'S'"  >
+              <option value ="-1"  >
+                      Select Band
+                    </option>
+                      <option  *ngFor="let itm of item.band"  [value]="itm.BandId" >
+                        {{ itm.BandName }}
+                      </option> 
+                    </select>
+                  </span>
+                </div>
+            <div class="d-flex justify-content-between mb-2"> <span>Score</span> <span class="col-7"> <input class="w-100" ngDefaultControl name="myInput" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" ondrop="return false;" 
+            [disabled]="isDisabledsc"   (change)= "onChange($event)"  [id]= "item.ScoreComponentId + 'I'" name="compmarks"  min="0" max="{{ item.MaxMarks  }}"></span></div>
+          </div>
+        </div>
+     </div>
+    
+      </div>
+      <div *ngIf="!_IsScoreComponentExists && _IsScoreComponentExists != null && !discrete">
+              <h2>Scoring </h2>
+             
+        <div class="scroring_box" >
+          <div class="d-flex scroring_head justify-content-between"> <strong></strong> <span> Max Score: {{ maxmarks_score }}</span></div>
+          <div class="score_data mt-2" >
+            <div class="d-flex justify-content-between mb-2" *ngIf = "questiontype != 20 && questiontype != 152 && _banddet.length > 0"> <span>Band</span> <span class="col-7"> <select ngDefaultControl id="_banddet"  (change)='getminmaxno($event)'   [disabled]="isDisabledband" class="formsin">
+               
+              <option value ="-1">
+                Select Band
+              </option>
+                  <option *ngFor="let item of _banddet"  [selected]="item.id == this._selectedid" [value]="item.id">
+                    {{ item.name }}
+                  </option>
+      
+                </select>
+              </span>
+            </div>
+            <div class="d-flex justify-content-between mb-2"> <span>Score</span> <span class="col-7"> <input ngDefaultControl id="marks" name="myInput1"  [disabled]="isDisabled" ondrop="return false;" 
+               min= "{{ min_score }}" max="{{ max_score  }}" ngDefaultControl  [(ngModel)]="score_awarded" onkeydown="javascript: return event.keyCode == 69 ? false : true" (change)= "onChange($event)"  
+              type="number" /></span></div>
+          </div>
+        </div>
+   
+      </div>
+      <div *ngIf="discrete">
+        <h2 style="text-align:left;padding-left:8px">Marking Type: Discrete </h2>
+      </div>
+        <div class="d-flex" *ngIf="_IsScoreComponentExists != null">
+          <div class="mb-2 mx-2"><span>Max. Marks: </span> <br /><strong id = "maxmar_score">{{ maxmarks_score }}</strong></div>
+          <div class="mb-2" style="margin-left:30px"><span>Score Awarded:</span> <br /><strong id="score_assigned">{{ score_assigned }}</strong></div>
+          
+        </div>
+        <div class="score_mark" *ngIf="_IsScoreComponentExists != null" >
+          <textarea style="resize: none" ondrop="return false" ondrag="return false" placeholder="Comments" maxlength="250" [disabled]="isDisabledSave" ngDefaultControl  [(ngModel)]="Remarks"></textarea>
+          <div class="d-flex scroring_head justify-content-between mt-2 mb-2 align-items-center" style="float:right" > <a role="button" *ngIf = "!discrete && (questiontype != 20)" (click)="viewmarksscheme()" >Mark Scheme> </a>
+            <a *ngIf="_IsTestPlayerView == false" role="button" style="color: #0d6efd;" title="View Response" (click)="viewresponse()" >View Response> </a>
+            <a *ngIf="_IsTestPlayerView == true" role="button" style="color: #0d6efd;"  target="_blank" title="View Response" (click)="GetUserScheduleDetails()" >View all answer scripts> </a> 
+
+            <button (click)="onSave()" ngDefaultControl [disabled]="isDisabledSave" type="button" title="Save" class="btn theme_button float-end" ><span style="padding-top:2px" class="icon-save-1 ng-tns-c247-5"></span>Save </button></div>
+          <!-- && questiontype != 152 -->
+
+        </div>
+        
+
+        </div>
+    </div>
+  </div>
+
+  <div class="header_an hide">
+
+    <div class="logo_an">
+      <div class="previewOut">
+        <div class="preview">
+          
+        </div>
+        <div class="divsel" title="selected">Selected</div>
+      </div>
+    </div>
+
+    
+
+
+    <div class="logo_an ">
+      <div class="previewOut">
+        <label id="colorid" ></label>
+        <label id="markedby" >{{ ProjectUserRoleId }}</label>
+        <button id="alertannotate" (click)="alertannotate()"></button>
+          <button id="alertdeleteannotate" (click)="alertdeleteannotate()"></button>
+          <button id="getchangeddetails" (click)="updatedchange()"></button>
+        
+        <p id='totl'></p>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+
+  </div>
+
+
+
+</div>
+
+
+
+
+
+<div class="modal fade" id="view_stimulus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+ 
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+           
+            <div class="modal-body">
+                <strong style="padding-left:16px">Passage</strong>
+            <button ngDefaultControl type="button" class="btn-close" title="Close" style="float: right" data-bs-dismiss="modal" aria-label="Close"></button>
+            <perfect-scrollbar #perfectScrollp [scrollIndicators]="true" class="scroll_respns_passage">
+            <div >
+           
+            <div id="innerpassage"></div>
+          </div>
+          </perfect-scrollbar>  
+ 
+ 
+            </div>
+         
+          </div>
+        </div>
+    
+
+    </div>

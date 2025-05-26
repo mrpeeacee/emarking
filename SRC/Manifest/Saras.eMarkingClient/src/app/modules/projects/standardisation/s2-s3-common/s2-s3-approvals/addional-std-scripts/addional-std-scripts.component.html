@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="body_box">
+    <div class="card_box">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="headline_bak">
+            <button type="button" title="Back" class="btn theme_button d-flex align-items-center float-start" (click)="backToMarkerComplete()"><span
+                class="icon-arrow_back"></span></button>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="headline_bak " *ngIf="(AddstdscriptsList != null && AddstdscriptsList.length > 0)">
+            <button (click)="AssignAddScripts()" type="button" title="{{'addscp.assign' | translate}}" class="btn theme_button row-float d-flex align-items-center"
+              [disabled]="IsQigPaused == 4 || QidPaused == true">{{'addscp.assign' | translate}}<span class="icon-arrow_next float-end"></span></button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row-header_bg">
+      <div class="col-3">{{'addscp.sname' | translate}}</div>
+      <div class="col-3">{{'addscp.defscr' | translate}}</div>
+      <div class="col-6"></div>
+    </div>
+
+    <div>
+      <div class="" *ngFor="let addstdscripts of AddstdscriptsList">
+        <div class="row-childrow">
+          <div class=" d-flex justify-content-between bd-highlight col-md-12 ">
+            <div class="bd-highlight col-3 ">
+              <mat-checkbox [disabled]="AddstdscriptsList.IsQigpause" [checked]="addstdscripts.IsSelected == true"
+                (change)="addstdscripts.IsSelected = (addstdscripts.IsSelected == null || addstdscripts.IsSelected == undefined )? true : !addstdscripts.IsSelected"
+                class="example-margin" style="cursor: pointer;">
+                </mat-checkbox><span>{{addstdscripts.ScriptName}}</span>
+            </div>
+            <div class="bd-highlight col-3 "><span class="example-margin"> {{addstdscripts.FinalizedMarks}}</span></div>
+            <div class="bd-highlight col-6 "><button _type="button" title="{{'addscp.view' | translate}}" class="btn theme_button_light float-end example-margin"
+                (click)="NavigateToMarkingPlayer({ ScriptId: addstdscripts.ScriptId, IsViewMode:true, IsCompleted: addstdscripts.IsCompleted, Markedby: addstdscripts.UserMarkedBy, Workflowid: 22, UserScriptMarkingRefId: addstdscripts.UserScriptMarkingRefId})">{{'addscp.view'
+                | translate}}</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-1 card_box nodatafound" *ngIf="AddstdscriptsList == null || AddstdscriptsList.length == 0">
+        {{'markcomp.norcdforaddsrc' | translate}}
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,157 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.Api", "Saras.eMarking.Api\Saras.eMarking.Api.csproj", "{8D25DF00-9D8F-4C70-84FF-D87A81F111AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{F95AF0E8-8CE8-43B9-A619-C81533E5AF11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.xUnit.Test", "Saras.eMarking.xUnit.Test\Saras.eMarking.xUnit.Test.csproj", "{DA1D1E40-ECEC-4955-A3B6-42EDD5CCB793}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{81AAEBE2-04A5-4352-975A-5224573731AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{CAB221BB-8BAF-44F7-A3FB-A6CCEEEF95F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B887E5D4-2632-45E2-B040-C5CCE9DBBB09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOC", "IOC", "{F9B657F6-CBD2-4D10-8D3B-F3BFB91B65D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.IOC", "Saras.eMarking.IOC\Saras.eMarking.IOC.csproj", "{2D0BC878-E6A8-43B6-A991-A803D8BDD903}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.Business", "Saras.eMarking.Business\Saras.eMarking.Business.csproj", "{D60D4EB4-67DA-4187-A3D2-AEE73EE8DC19}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.Business.xUnit.Test", "Saras.eMarking.Business.xUnit.Test\Saras.eMarking.Business.xUnit.Test.csproj", "{9D8A9F08-227C-407D-AF13-AAA803E553DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.Infrastructure", "Saras.eMarking.Infrastructure\Saras.eMarking.Infrastructure.csproj", "{89878F85-5F0A-4B78-B813-59FA73E19579}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.Domain", "Saras.eMarking.Domain\Saras.eMarking.Domain.csproj", "{E98089B1-6F90-4C30-8FC9-C039935F5718}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{31D34356-E221-4344-B266-5A3621D17986}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TokenLibrary", "JwtToken\TokenLibrary.csproj", "{318C6ED3-F9E0-4DE2-BF8A-15DF9D744FB0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.RCScheduler.Jobs", "Saras.eMarking.RCScheduler.Jobs\Saras.eMarking.RCScheduler.Jobs.csproj", "{F3F05E2D-E53A-49E1-80A2-1B71796C5323}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaLibrary", "MediaService\MediaLibrary.csproj", "{3290E32E-6016-4649-AA42-D43CDC8E0663}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integrations", "Integrations", "{CB6B896B-FB64-45F9-A903-3A51003D799F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Outbound", "Outbound", "{84159D60-92A3-486F-9CF8-19FFE309FB1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inbound", "Inbound", "{B81E9D15-BD7D-4400-AF34-F152F6445375}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D25DF00-9D8F-4C70-84FF-D87A81F111AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D25DF00-9D8F-4C70-84FF-D87A81F111AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D25DF00-9D8F-4C70-84FF-D87A81F111AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D25DF00-9D8F-4C70-84FF-D87A81F111AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA1D1E40-ECEC-4955-A3B6-42EDD5CCB793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA1D1E40-ECEC-4955-A3B6-42EDD5CCB793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA1D1E40-ECEC-4955-A3B6-42EDD5CCB793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA1D1E40-ECEC-4955-A3B6-42EDD5CCB793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0BC878-E6A8-43B6-A991-A803D8BDD903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0BC878-E6A8-43B6-A991-A803D8BDD903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0BC878-E6A8-43B6-A991-A803D8BDD903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0BC878-E6A8-43B6-A991-A803D8BDD903}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D60D4EB4-67DA-4187-A3D2-AEE73EE8DC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D60D4EB4-67DA-4187-A3D2-AEE73EE8DC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D60D4EB4-67DA-4187-A3D2-AEE73EE8DC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D60D4EB4-67DA-4187-A3D2-AEE73EE8DC19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D8A9F08-227C-407D-AF13-AAA803E553DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D8A9F08-227C-407D-AF13-AAA803E553DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D8A9F08-227C-407D-AF13-AAA803E553DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D8A9F08-227C-407D-AF13-AAA803E553DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89878F85-5F0A-4B78-B813-59FA73E19579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89878F85-5F0A-4B78-B813-59FA73E19579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89878F85-5F0A-4B78-B813-59FA73E19579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89878F85-5F0A-4B78-B813-59FA73E19579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E98089B1-6F90-4C30-8FC9-C039935F5718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E98089B1-6F90-4C30-8FC9-C039935F5718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E98089B1-6F90-4C30-8FC9-C039935F5718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E98089B1-6F90-4C30-8FC9-C039935F5718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{318C6ED3-F9E0-4DE2-BF8A-15DF9D744FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{318C6ED3-F9E0-4DE2-BF8A-15DF9D744FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{318C6ED3-F9E0-4DE2-BF8A-15DF9D744FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{318C6ED3-F9E0-4DE2-BF8A-15DF9D744FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3F05E2D-E53A-49E1-80A2-1B71796C5323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3F05E2D-E53A-49E1-80A2-1B71796C5323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3F05E2D-E53A-49E1-80A2-1B71796C5323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3F05E2D-E53A-49E1-80A2-1B71796C5323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3290E32E-6016-4649-AA42-D43CDC8E0663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3290E32E-6016-4649-AA42-D43CDC8E0663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3290E32E-6016-4649-AA42-D43CDC8E0663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3290E32E-6016-4649-AA42-D43CDC8E0663}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8D25DF00-9D8F-4C70-84FF-D87A81F111AB} = {81AAEBE2-04A5-4352-975A-5224573731AD}
+		{DA1D1E40-ECEC-4955-A3B6-42EDD5CCB793} = {F95AF0E8-8CE8-43B9-A619-C81533E5AF11}
+		{2D0BC878-E6A8-43B6-A991-A803D8BDD903} = {F9B657F6-CBD2-4D10-8D3B-F3BFB91B65D6}
+		{D60D4EB4-67DA-4187-A3D2-AEE73EE8DC19} = {81AAEBE2-04A5-4352-975A-5224573731AD}
+		{9D8A9F08-227C-407D-AF13-AAA803E553DB} = {81AAEBE2-04A5-4352-975A-5224573731AD}
+		{89878F85-5F0A-4B78-B813-59FA73E19579} = {CAB221BB-8BAF-44F7-A3FB-A6CCEEEF95F2}
+		{E98089B1-6F90-4C30-8FC9-C039935F5718} = {B887E5D4-2632-45E2-B040-C5CCE9DBBB09}
+		{318C6ED3-F9E0-4DE2-BF8A-15DF9D744FB0} = {31D34356-E221-4344-B266-5A3621D17986}
+		{F3F05E2D-E53A-49E1-80A2-1B71796C5323} = {31D34356-E221-4344-B266-5A3621D17986}
+		{3290E32E-6016-4649-AA42-D43CDC8E0663} = {31D34356-E221-4344-B266-5A3621D17986}
+		{84159D60-92A3-486F-9CF8-19FFE309FB1D} = {CB6B896B-FB64-45F9-A903-3A51003D799F}
+		{B81E9D15-BD7D-4400-AF34-F152F6445375} = {CB6B896B-FB64-45F9-A903-3A51003D799F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5764AD73-83C6-4886-A22C-212D0981B82E}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 11
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://estfs.excelindia.com/tfs/saras
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Saras.eMarking.Api\\Saras.eMarking.Api.csproj
+		SccProjectTopLevelParentUniqueName1 = Saras.eMarking.sln
+		SccProjectName1 = Saras.eMarking.Api
+		SccLocalPath1 = Saras.eMarking.Api
+		SccProjectUniqueName2 = Saras.eMarking.xUnit.Test\\Saras.eMarking.xUnit.Test.csproj
+		SccProjectTopLevelParentUniqueName2 = Saras.eMarking.sln
+		SccProjectName2 = Saras.eMarking.xUnit.Test
+		SccLocalPath2 = Saras.eMarking.xUnit.Test
+		SccProjectUniqueName3 = Saras.eMarking.Business\\Saras.eMarking.Business.csproj
+		SccProjectTopLevelParentUniqueName3 = Saras.eMarking.sln
+		SccProjectName3 = Saras.eMarking.Business
+		SccLocalPath3 = Saras.eMarking.Business
+		SccProjectUniqueName4 = Saras.eMarking.Business.xUnit.Test\\Saras.eMarking.Business.xUnit.Test.csproj
+		SccProjectTopLevelParentUniqueName4 = Saras.eMarking.sln
+		SccProjectName4 = Saras.eMarking.Business.xUnit.Test
+		SccLocalPath4 = Saras.eMarking.Business.xUnit.Test
+		SccProjectUniqueName5 = Saras.eMarking.Infrastructure\\Saras.eMarking.Infrastructure.csproj
+		SccProjectTopLevelParentUniqueName5 = Saras.eMarking.sln
+		SccProjectName5 = Saras.eMarking.Infrastructure
+		SccLocalPath5 = Saras.eMarking.Infrastructure
+		SccProjectUniqueName6 = Saras.eMarking.Domain\\Saras.eMarking.Domain.csproj
+		SccProjectTopLevelParentUniqueName6 = Saras.eMarking.sln
+		SccProjectName6 = Saras.eMarking.Domain
+		SccLocalPath6 = Saras.eMarking.Domain
+		SccProjectUniqueName7 = Saras.eMarking.IOC\\Saras.eMarking.IOC.csproj
+		SccProjectTopLevelParentUniqueName7 = Saras.eMarking.sln
+		SccProjectName7 = Saras.eMarking.IOC
+		SccLocalPath7 = Saras.eMarking.IOC
+		SccProjectUniqueName8 = JwtToken\\TokenLibrary.csproj
+		SccProjectTopLevelParentUniqueName8 = Saras.eMarking.sln
+		SccProjectName8 = JwtToken
+		SccLocalPath8 = JwtToken
+		SccProjectUniqueName9 = Saras.eMarking.RCScheduler.Jobs\\Saras.eMarking.RCScheduler.Jobs.csproj
+		SccProjectTopLevelParentUniqueName9 = Saras.eMarking.sln
+		SccProjectName9 = Saras.eMarking.RCScheduler.Jobs
+		SccLocalPath9 = Saras.eMarking.RCScheduler.Jobs
+		SccProjectUniqueName10 = MediaService\\MediaLibrary.csproj
+		SccProjectTopLevelParentUniqueName10 = Saras.eMarking.sln
+		SccProjectName10 = MediaService
+		SccLocalPath10 = MediaService
+	EndGlobalSection
+EndGlobal

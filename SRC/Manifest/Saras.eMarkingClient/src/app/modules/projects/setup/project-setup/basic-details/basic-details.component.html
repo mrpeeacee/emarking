@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="container_box mt-3">
+
+        <form class="form-horizontal" [formGroup]="ProjectForm">
+            <div class="row">
+                <div class="col-md-8 row">
+                    <div class="col-md-6 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.Code' | translate}}</mat-label>
+                            <input matInput [value]="BasicDetails?.ProjectCode" disabled ngDefaultControl>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.Name' | translate}}</mat-label>
+                            <input matInput [value]="BasicDetails?.ProjectName" disabled ngDefaultControl>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.Year' | translate}} </mat-label>
+                            <input matInput [value]="BasicDetails?.ExamYear" disabled ngDefaultControl>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="clear"></div>
+                    <div class="col-md-6 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.Level' | translate}}</mat-label>
+                            <input matInput [value]="BasicDetails?.ExamLevelName" disabled ngDefaultControl>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.Series' | translate}}</mat-label>
+                            <input matInput [value]="BasicDetails?.ExamSeriesName" disabled ngDefaultControl>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.SubName' | translate}}</mat-label>
+                            <input matInput [value]="BasicDetails?.SubjectName" disabled ngDefaultControl>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.PaperNo' | translate}}</mat-label>
+                            <input matInput [value]="BasicDetails?.PaperName" disabled ngDefaultControl>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.SubCode' | translate}}</mat-label>
+                            <input matInput [value]="BasicDetails?.SubjectCode" disabled ngDefaultControl>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.MoA' | translate}}</mat-label>
+                            <input matInput [value]="BasicDetails?.MOAName" disabled ngDefaultControl>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 col-xs-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'SetUp.Basic.Info' | translate}} <span class="mat-placeholder-required ">*</span></mat-label>
+                            <textarea matInput formControlName="txtProjectInfo" minlength="1" maxlength="250"
+                                [value]="BasicDetails?.ProjectInfo" ngDefaultControl></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="mt-2 d-flex bd-highlight mb-3 " [class.shimmer]="ispageloading">
+                    <div class="d-flex newroll justify-content-between w-100">
+                        <div class="d-flex"> <button type="button"
+                                class="btn theme_button_light d-flex align-items-center " routerLink="/projects"
+                                title="Cancel"> <span class="icon-close"></span>{{'General.Cancel' | translate}}
+                            </button> <button type="button" class="btn theme_button d-flex align-items-center"
+                                (click)="AddUpdateProjectDetails()" title="Save"><span
+                                    class="icon-save-1"></span>{{'General.Save' |
+                                translate}} </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

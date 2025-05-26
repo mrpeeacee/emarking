@@ -1,0 +1,125 @@
+.mat-tab-group {
+    margin-bottom: 48px;
+  }
+
+  .tab_qch{
+
+    padding: 1px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 2px;
+    position: relative;
+    /* border-bottom: 1px solid #ccc!important; */
+    /* min-height: 60px; */
+    width: 100%;
+    margin-bottom: 1px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #ccc;
+  }
+  .active_tab_qch{background: #ccc;
+    padding: 2px;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    
+    border-radius: 5px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+    color: #000;}
+
+    ::ng-deep .mat-expansion-panel-header.mat-expanded {
+      height: 30px!important;
+  }
+
+  .tab_qch span{ font-size: 12px}
+  .tab_qch strong{ font-size: 14px}
+
+
+    .active_tab_qch::after {
+      content: "";
+      width: 10px;
+      position: absolute;
+      height: 10px;
+      background: #ccc;
+      border: 2px solid #ccc;
+      transform: rotate(-45deg);
+      top: 17px;
+      z-index: 999;
+      border-left: 0;
+      border-top: 0;
+      right: -6px;
+    }
+
+
+    .active_main_de{background:#ccc;
+      padding: 2px;
+      display: inline-block;
+      cursor: pointer;
+      border: 2px solid var(--theme-dark);
+      position: relative;
+      
+      border-radius: 5px;
+      box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+      color: #fff;}
+  
+  
+      
+ 
+.paddingnull {
+  margin: 0px 5px 5px !important;
+}
+
+
+.card_box {
+  background: #fff;
+  padding: 4px;
+  padding-bottom: 4px;
+  display: inline-block;
+  margin-bottom: 2px;
+  width: 100%;
+  position: relative;
+ 
+}
+
+.no-events {
+  pointer-events: none;
+}
+
+.default {
+  pointer-events: auto;
+}
+
+.tabs_card_active{ 
+    padding: 4px;
+    padding-bottom: 4px;
+    display: inline-block;
+    margin-bottom: 2px;
+    width: 100%;
+    /* position: relative; */
+    background: #8e6edf;
+    position: absolute!important;
+    top: 0;
+    left: 0;
+    height: 100%;
+    color: #fff;}
+
+  .tabs_card_defulat{
+    padding: 4px;
+    padding-bottom: 4px;
+    display: inline-block;
+    margin-bottom: 2px;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;}
+
+
+
+ol, ul {
+  padding-left: 0rem;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 9px 1px!important;
+}
+

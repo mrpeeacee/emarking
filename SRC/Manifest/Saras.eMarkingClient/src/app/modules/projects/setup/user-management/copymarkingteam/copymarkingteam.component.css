@@ -1,0 +1,16 @@
+/* ::ng-deep .cdk-global-overlay-wrapper, .cdk-overlay-container {
+    z-index: 999!important;
+}
+
+::ng-deep .mat-dialog-title {
+    margin: 0 0 10px;
+  
+}
+
+::ng-deep .cdk-overlay-backdrop {
+    z-index: 100 !important;
+  } */
+
+  .cust-container {
+    padding-bottom: 20px !important;
+}

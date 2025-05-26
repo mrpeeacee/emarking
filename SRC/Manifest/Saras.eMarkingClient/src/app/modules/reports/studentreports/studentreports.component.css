@@ -1,0 +1,10 @@
+::ng-deep .mat-form-field {
+ 
+  background: #fff;
+}
+
+.search-results {
+  height: 40rem;
+  overflow: scroll;
+}
+

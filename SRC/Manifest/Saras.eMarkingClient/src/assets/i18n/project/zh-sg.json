@@ -1,0 +1,22 @@
+{
+    "General": {
+        "Search": "Search",
+        "Filter": "Filter",
+        "Info": "Info",
+        "Status": "Status",
+        "TotalNo": "Total No.",
+        "No": "No.",
+        "InProgress": "In-Progress",
+        "Completed": "Completed",
+        "Duration": "Duration",
+        "Report": "Report"
+    },
+    "Projects": {
+        "Title": "Manage project",
+        "Name": "Project Name",
+        "OfProject": "of Projects",
+        "CompReport": "Complete Report",
+        "TotProjects": "Total Projects",
+        "Projects": "Projects"
+    }
+}

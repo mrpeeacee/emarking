@@ -1,0 +1,23 @@
+{
+    "closure":{
+        "title": "Project Closure",
+        "desc": "Project Closure",
+        "qigname": "QIG Name",
+        "submitted": "Sumitted Script",
+        "jobrun": "Job run Script",
+        "rc1pool": "In RC1 Pool",
+        "rc1appv": "RC1 Approved",
+        "rc1unappv": "RC1 Unapproved",
+        "rc2pool": "In RC2 Pool",
+        "rc2appv": "RC2 Approved",
+        "rc2unappv": "RC2 Unapproved",
+        "progress": "In Progress Scripts",
+        "remark": "Remarks",
+        "save": "Save",
+        "datafnd": "No data found",
+        "wantsave": "Do you want to save?",
+        "success": "Saved successfully.",
+        "remarkval": "Remarks cannot be blank.",
+        "error": "Something went wrong."
+    }
+}

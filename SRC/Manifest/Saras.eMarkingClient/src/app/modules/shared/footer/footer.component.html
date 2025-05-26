@@ -1,0 +1,11 @@
+<footer class="text-center">
+    <div class="footer_login"> <span>{{'Header.ServDteTime' | translate}} : {{ serverTime | date: 'dd-MMM-YYYY h:mm:ss
+            a' }} </span>
+        <ng-container>
+            <span class="float-end">
+                <ng-container *ngIf="brand?.DisplayBuildNumber == true">{{'Login.BuildVersion' | translate}} {{brand?.BuildNumber}} | </ng-container> &#169;
+                {{brand?.Branding?.Year}} {{brand?.Branding?.Copyright}}
+            </span>
+        </ng-container>
+    </div>
+</footer>

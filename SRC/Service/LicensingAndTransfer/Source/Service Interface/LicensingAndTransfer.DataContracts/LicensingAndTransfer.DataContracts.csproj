@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A0791A1A-964B-49F8-9A00-57F1C6578B01}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LicensingAndTransfer.DataContracts</RootNamespace>
+    <AssemblyName>LicensingAndTransfer.DataContracts</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationLicensingStatus.cs" />
+    <Compile Include="AssessmentDetailsRequest.cs" />
+    <Compile Include="AssessmentDetailsResponse.cs" />
+    <Compile Include="AssessmentStatistics.cs" />
+    <Compile Include="AttachmentDetails.cs" />
+    <Compile Include="AttachmentProcessedDetails.cs" />
+    <Compile Include="Batch.cs" />
+    <Compile Include="BubbleSheetData.cs" />
+    <Compile Include="Class.cs" />
+    <Compile Include="CourseBlock.cs" />
+    <Compile Include="Course.cs" />
+    <Compile Include="CustomUser.cs" />
+    <Compile Include="GetListOfLogRequest.cs" />
+    <Compile Include="GetListOfLogResponse.cs" />
+    <Compile Include="GetNonExecutedScriptsRequest.cs" />
+    <Compile Include="GetNonExecutedScriptsResponse.cs" />
+    <Compile Include="HttpFileTransfer.cs" />
+    <Compile Include="Instructor.cs" />
+    <Compile Include="LogoutputRequest.cs" />
+    <Compile Include="OMRScannedResponseOuput.cs" />
+    <Compile Include="PackageDetails.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="PackageLoadedDate.cs" />
+    <Compile Include="PackageStatistics.cs" />
+    <Compile Include="PersistDailyScheduleSummary.cs" />
+    <Compile Include="PostInstallationComponents.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestScript.cs" />
+    <Compile Include="Roster.cs" />
+    <Compile Include="ScannedResponse.cs" />
+    <Compile Include="ScannedResponseOutput.cs" />
+    <Compile Include="ScheduledDetails.cs" />
+    <Compile Include="SummaryDetailsRequest.cs" />
+    <Compile Include="SummaryDetailsResponse.cs" />
+    <Compile Include="TcBatches.cs" />
+    <Compile Include="TcVerification.cs" />
+    <Compile Include="TestCenter.cs" />
+    <Compile Include="UpdateScriptRequest.cs" />
+    <Compile Include="User.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties IsWCFDataContractsProject="True" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

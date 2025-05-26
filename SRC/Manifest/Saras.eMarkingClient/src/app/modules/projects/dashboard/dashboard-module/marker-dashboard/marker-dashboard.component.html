@@ -1,0 +1,104 @@
+<div class="container">
+  <emarking-qig-tab (selectQigEvent)="getQigDetails($event)">
+  </emarking-qig-tab>
+
+  <div class="row" *ngIf="QigId <= 0">
+    <div class="text-center mt-3 card_box nodatafound">
+      {{'General.NotFound' | translate}}
+    </div>
+  </div>
+
+  <emarking-standardisation-assessments [QigId]="QigId" [process]="3" [QIgName]="QIgName" [IsS1Available]="IsS1Available"
+                                        (assessmentStatusEmit)="setAssessmentStatus($event)">
+  </emarking-standardisation-assessments>
+ <div class="row">
+   <div class="col-md-8">
+     <div class="card_box">
+       <div class="row">
+        
+         <div class="col-md-6 col-xs-12 -6 border_rt">
+           <div class="marking_count_de mx-2" [class.shimmer]="overviewloading">
+             <span class="mb-auto"><strong> {{'SetUp.dashboard.LiveMarkingOverview'| translate }}</strong></span>
+           </div>
+           <div class="card_box project_summary">
+
+
+             <div class="row">
+               <div class="col-md-12">
+                 <div class="project_summary custom-box" [class.shimmer]="overviewloading">
+                   <span class="">{{'SetUp.dashboard.TotalScripts'| translate }}</span><strong>{{markingOverview?.TotalScripts}}</strong>
+                 </div>
+               </div>
+               <div class="col-md-12">
+                 <div class="project_summary custom-box" [class.shimmer]="overviewloading">
+                   <span class="">{{'SetUp.dashboard.Submitted'| translate }}</span><strong>{{markingOverview?.Submitted}}</strong>
+                 </div>
+               </div>
+               <div class="col-md-12">
+                 <div class="project_summary custom-box" [class.shimmer]="overviewloading">
+                   <span class="">
+                  {{'SetUp.dashboard.RequiredAction'| translate }}
+                   </span><strong>{{markingOverview?.Reallocated}}</strong>
+                 </div>
+               </div>
+               <div class="col-md-12">
+                 <div class="project_summary custom-box" [class.shimmer]="overviewloading">
+                   <span class="">
+                      {{'SetUp.dashboard.InGracePeriod'| translate }}
+                   </span><strong>{{markingOverview?.InGracePeriod}}</strong>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <div class="col-md-6 col-xs-12">
+           <div class="marking_count_de mb-3" [class.shimmer]="overviewloading">
+             <span class="mb-auto"><strong> {{'SetUp.dashboard.TodayOverview'| translate }}</strong></span>
+             <span class="mb-auto float-end date-align">[{{markingOverview?.TodayOverview.Today | date: 'dd-MMM-YYYY'}}]</span>
+
+           </div>
+
+           <div class="row">
+             <div class="col-md-12">
+               <div class="project_summary custom-box" [class.shimmer]="overviewloading">
+                 <span class=""> {{'SetUp.dashboard.Downloaded'| translate }}</span><strong>{{markingOverview?.TodayOverview.Downloaded}}</strong>
+               </div>
+             </div>
+             <div class="col-md-12">
+               <div class="project_summary custom-box" [class.shimmer]="overviewloading">
+                 <span class="">{{'SetUp.dashboard.Submitted'| translate }}</span><strong>{{markingOverview?.TodayOverview.Submitted}}</strong>
+               </div>
+             </div>
+             <div class="col-md-12">
+               <div class="project_summary custom-box" [class.shimmer]="overviewloading">
+                 <span class="">
+                  {{'SetUp.dashboard.PendingSubmission'| translate }}
+                 </span><strong>{{markingOverview?.TodayOverview.PendingSubmission}}</strong>
+               </div>
+             </div>
+
+             <div class="col-md-12">
+               <div class="project_summary custom-box" [class.shimmer]="overviewloading">
+                 <span class="">{{'SetUp.dashboard.RequiredAction'| translate }}</span><strong>{{markingOverview?.TodayOverview.Reallocated}}</strong>
+               </div>
+             </div>
+             <div class="col-md-12">
+               <div class="project_summary custom-box" [class.shimmer]="overviewloading">
+                 <span class="">  {{'SetUp.dashboard.InGracePeriod'| translate }}</span><strong>{{markingOverview?.TodayOverview.InGracePeriod}}</strong>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+
+   </div>
+ </div>
+  
+
+
+
+
+
+</div>

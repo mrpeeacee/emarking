@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+	<PropertyGroup>
+		<IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\net5.0\Saras.eMarking.Api.xml</DocumentationFile>
+    <OutputPath>bin\Debug\net5.0</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Debug\net5.0\Saras.eMarking.Api.xml</DocumentationFile>
+    <OutputPath>bin\Debug\net5.0</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\Projects\QualityCheck\**" />
+    <Compile Remove="EntityFramework\**" />
+    <Compile Remove="logs\**" />
+    <Content Remove="Controllers\Projects\QualityCheck\**" />
+    <Content Remove="EntityFramework\**" />
+    <Content Remove="logs\**" />
+    <EmbeddedResource Remove="Controllers\Projects\QualityCheck\**" />
+    <EmbeddedResource Remove="EntityFramework\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <None Remove="Controllers\Projects\QualityCheck\**" />
+    <None Remove="EntityFramework\**" />
+    <None Remove="logs\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\Projects\ProjectSetUpController_1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="log20221114.txt" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.104.0-preview2" />
+    <PackageReference Include="log4net.Ext.Json" Version="2.0.10.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Saras.eMarking.Infrastructure\Saras.eMarking.Infrastructure.csproj" />
+    <ProjectReference Include="..\Saras.eMarking.IOC\Saras.eMarking.IOC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Attribute\" />
+    <Folder Include="Controllers\Projects\Dashboards\AoCmDashboard\" />
+    <Folder Include="Controllers\Projects\Dashboards\AcmTlAtlDashboard\" />
+    <Folder Include="Controllers\Projects\Dashboards\MarkerDashboard\" />
+    <Folder Include="Controllers\Projects\Standardisations\S3\" />
+    <Folder Include="Controllers\Standardisation\QualifyingAssessment\" />
+    <Folder Include="Common\Filters\" />
+    <Folder Include="Resources\Temp\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="XssTagsRegex.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

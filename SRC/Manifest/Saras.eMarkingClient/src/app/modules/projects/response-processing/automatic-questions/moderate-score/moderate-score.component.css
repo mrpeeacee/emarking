@@ -1,0 +1,42 @@
+#bloc1, #bloc2 {
+  display: inline;
+}
+
+.text_ares {
+  width: 100%;
+  padding: 4px;
+  border-radius: 5px;
+  max-height: 50px;
+  height: 100px !important;
+}
+
+.required {
+  color: red;
+}
+
+.disableDiv {
+  pointer-events: none;
+}
+
+.choice {
+  list-style: none;
+}
+
+  .choice .numbers {
+    min-width: 20px;
+    float: left;
+    font-weight: bold;
+  }
+
+
+.Response_Analysis .cols strong {
+  margin-top: 4px;
+}
+
+.progress {
+  height: 15px;
+}
+
+::ng-deep #bloc2 p {
+  margin: 0 !important;
+}

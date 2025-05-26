@@ -1,0 +1,15 @@
+{
+  "XssValidatorConfig": {
+    "TextValidator": [
+      "((alert|eval|prompt|confirm|vbscript|livescript|javascript|expression|function\\s+\\w+)|\\s*\\(\\s*(['+\\d\\w](,?\\s*['+\\d\\w]*)*)*\\s*\\))",
+      "|(<(script|option|body|applet|frame|embed|frameset|iframe|meta|object|input|select|textarea|form|label|fieldset|optgroup|button|legend|link|layer|style|import|xml|img|html|ilayer))"
+    ],
+    "HtmlValidator": [
+      "((alert|eval|prompt|confirm|vbscript|livescript|javascript|expression|function\\s+\\w+)\\s*\\(\\s*(['+\\d\\w](,?\\s*['+\\d\\w]*)*)*\\s*\\))",
+      "|(<(script|option|body|applet|frame|frameset|iframe|meta|input|select|textarea|form|optgroup|button|link|layer|import|xml|html|ilayer))"
+    ],
+    "ExceptionalObjects": [
+      //"Saras.eMarking.Domain.ViewModels.Auth.AuthenticateRequestModel.Loginname"
+    ]
+  }
+}

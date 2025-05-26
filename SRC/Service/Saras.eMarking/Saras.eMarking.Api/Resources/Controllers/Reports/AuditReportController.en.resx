@@ -1,0 +1,708 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="APPLICATIONLEVEL" xml:space="preserve">
+    <value>Application Level</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT" xml:space="preserve">
+    <value>Application User Management</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.CREATE.0" xml:space="preserve">
+    <value>The user "{Username}" with the email " {Loginname}" NRIC "{Nric}," and role "{RoleName}" has been failed, with the school name listed as "{SchooolCode}" at {EventDateTime}</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.CREATE.1" xml:space="preserve">
+    <value>The user "{Username}" with the email " {Loginname}" NRIC "{Nric}," and role "{RoleName}" has been successfully created, with the school name listed as "{SchooolCode}" at {EventDateTime}
+		 </value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.IMPORT.2" xml:space="preserve">
+    <value>Import of users failed at at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.IMPORT.1" xml:space="preserve">
+    <value>Users imported successfully at at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.UNBLOCKUSER.0" xml:space="preserve">
+    <value>Unblocking of the user "[{LoginName}]" failed at {EventDateTime}.</value>
+  </data>
+	<data name="APPLICATIONUSERMANAGEMENT.PAGENAVIGATION.1" xml:space="preserve">
+    <value>The user has successfully navigated to the APPLICATIONUSERMANAGEMENT at {EventDateTime}.</value>
+  </data>
+	<data name="APPLICATIONUSERMANAGEMENT.UNBLOCKUSER.1" xml:space="preserve">
+    <value>The user "[{LoginName}]" has been successfully unblocked at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.UPDATE.0" xml:space="preserve">
+    <value>Failed while updating the user details at at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.UPDATE.1" xml:space="preserve">
+    <value>User details updated for Name : {Username}, Email = {Loginname}, NRIC = {Nric}, and Role = {RoleCode} were edited successfully at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.ENABLE.1" xml:space="preserve">
+    <value>The enabling action for the username "{loginName}" was successfully completed at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.ENABLE.2" xml:space="preserve">
+    <value>The enabling action for the username "{loginName}" was falied at {EventDateTime}</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.DISABLE.1" xml:space="preserve">
+    <value>The disabling action for the username "{loginName}" was completed successfully at {EventDateTime}</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.DISABLE.2" xml:space="preserve">
+    <value>The disabling action for the username "{loginName}" was completed failed at {EventDateTime}</value>
+  </data>
+	
+	<data name="APPLICATIONUSERMANAGEMENT.DISABLE.24" xml:space="preserve">
+    <value>{remarks} at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.DOWNLOAD.0" xml:space="preserve">
+    <value>Downloading action for the import user is failed  at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.DOWNLOAD.1" xml:space="preserve">
+    <value>Downloading action for the import user is successful at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.UPLOAD.1" xml:space="preserve">
+    <value>Uploading action for the [{LoginName}] user is successful at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.UPLOAD.2" xml:space="preserve">
+    <value>Uploading action for the [{LoginName}] user is failed at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.EXPORT.1" xml:space="preserve">
+    <value>User excel file exported successfully at {EventDateTime}.</value>
+  </data>
+	
+  <data name="APPLICATIONUSERMANAGEMENT.ACTIVE.0" xml:space="preserve">
+    <value>User activation for user = {loginName} Failed at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.ACTIVE.1" xml:space="preserve">
+    <value>The user activation for " {loginName}" was successful on "{EventDateTime}"</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.INACTIVE.0" xml:space="preserve">
+    <value>User Inactivation for user = {loginName} Failed at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.INACTIVE.1" xml:space="preserve">
+    <value>User Inactivation for user = {loginName} is successful at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.DELETE.0" xml:space="preserve">
+    <value>User {loginName} Deletion Failed at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.DELETE.1" xml:space="preserve">
+    <value>User {loginName} Deletion is successful at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.RESET.0" xml:space="preserve">
+    <value>Reset Password for LoginName:{Loginname} failed at {EventDateTime}.</value>
+  </data>
+  <data name="APPLICATIONUSERMANAGEMENT.RESET.1" xml:space="preserve">
+    <value>Reset Password for LoginName:{Loginname} Succesful at {EventDateTime}.</value>
+  </data>
+  <data name="AUDITTRAIL" xml:space="preserve">
+    <value>Audit Trail</value>
+  </data>
+  <data name="AUTOMATIC" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="AUTOMATIC.UPDATE.0" xml:space="preserve">
+    <value>For the Questioncode = {QuestionCode},Moderate Score failed with the remarks = {Remarks}.</value>
+  </data>
+  <data name="AUTOMATIC.UPDATE.1" xml:space="preserve">
+    <value>For the Questioncode = {QuestionCode},Moderate Score updated sucessfully with the remarks = {Remarks}.</value>
+  </data>
+  <data name="BASICDETAILS" xml:space="preserve">
+    <value>Basic Details</value>
+  </data>
+  <data name="BASICDETAILS.UPDATE.0" xml:space="preserve">
+    <value>For the Project = {ProjectName} , Updating = {ProjectInfo} is been failed.</value>
+  </data>
+  <data name="BASICDETAILS.UPDATE.1" xml:space="preserve">
+    <value>For the Project = {ProjectName} , remarks = {ProjectInfo} is been Saved.</value>
+  </data>
+  <data name="CANDIDATEWITHDRAW" xml:space="preserve">
+    <value>Candidate Withdraw</value>
+  </data>
+  <data name="CATEGORISATION" xml:space="preserve">
+    <value>Categorisation</value>
+  </data>
+  <data name="CATEGORISATION.RECATEGORISATION.0" xml:space="preserve">
+    <value>Re-Categorisation is failed for the {ProjectName} with QigName= {QigName} and ScriptName={ScriptName}.</value>
+  </data>
+  <data name="CATEGORISATION.RECATEGORISATION.1" xml:space="preserve">
+    <value>Re-Categorisation is succesfull for the {ProjectName} with QigName= {QigName} and ScriptName={ScriptName}.</value>
+  </data>
+  <data name="CATEGORISATION.SAVE.0" xml:space="preserve">
+    <value>Categorisation is failed for the {ProjectName} with the Script = {ScriptName},is categorised as  {Poolcategory}.</value>
+  </data>
+  <data name="CATEGORISATION.SAVE.1" xml:space="preserve">
+    <value>For the Script = {ScriptName},is categorised as  {Poolcategory} is sucessfull.</value>
+  </data>
+  <data name="DASHBOARD" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="DATAREPORT" xml:space="preserve">
+    <value>Data Report</value>
+  </data>
+  <data name="LIVEMARKING" xml:space="preserve">
+    <value>Live Marking</value>
+  </data>
+  <data name="LIVEMARKING.DOWNLOAD.0" xml:space="preserve">
+    <value>Downloaded scripts for QigID:{QigID} failed.</value>
+  </data>
+  <data name="LIVEMARKING.DOWNLOAD.1" xml:space="preserve">
+    <value>Downloaded scripts for QigID:{QigID} sucessful</value>
+  </data>
+	<data name="LIVEMARKING.SAVE.1" xml:space="preserve">
+    <value>User marked the script named "{Scriptname}" for Question {QuestionCode} with Awardedmark {AwardedMarks} and remarks as "{remarks}", and it was saved successfully at {EventDateTime}.</value>
+  </data>
+	<data name="LIVEMARKING.SAVE.2" xml:space="preserve">
+    <value>User marked the script named "{Scriptname}" for Question {QuestionCode} with Awardedmark {AwardedMarks} and remarks as "{remarks}", was failed at {EventDateTime}.</value>
+  </data>
+	<data name="LIVEMARKING.SUBMIT.1" xml:space="preserve">
+    <value>{Scriptname}  Submitted  successfully at {EventDateTime}.</value>
+  </data>
+	<data name="LIVEMARKING.SUBMIT.2" xml:space="preserve">
+    <value>{Scriptname}  Submission failed at {EventDateTime}.</value>
+  </data>
+  <data name="MANUALMARKINGSEMIAUTOMATIC.UPDATE.0" xml:space="preserve">
+    <value>In Semi-Automatic Manual Markig updation is failed for the {ProjectName} with  Blank= {Blank} and Score= {Score} and Correct Answer= {CorrectAnswer} and No Of Responsed to be Evaluated= {NoOfResponsedtobeEvaluated} and No Of Answer Keywords= {NoOfAnswerKeywords} and QigName= {QigName} and Id= {Id} and ProjectQuestionId= {ProjectQuestionId}.</value>
+  </data>
+  <data name="MANUALMARKINGSEMIAUTOMATIC.UPDATE.1" xml:space="preserve">
+    <value>In Semi-Automatic Manual Markig updation is successful for the {ProjectName} with  Blank= {Blank} and Score= {Score} and Correct Answer= {CorrectAnswer} and No Of Responsed to be Evaluated= {NoOfResponsedtobeEvaluated} and No Of Answer Keywords= {NoOfAnswerKeywords} and QigName= {QigName} and Id= {Id} and ProjectQuestionId= {ProjectQuestionId}.</value>
+  </data>
+  <data name="MARKSCHEMELIBRARY" xml:space="preserve">
+    <value>Mark Scheme Library</value>
+  </data>
+  <data name="MARKSCHEMELIBRARY.0" xml:space="preserve">
+    <value>Mark Scheme Delete  is failed for the {ProjectName} with SchemeName={SchemeName} and Mark={Marks} and No. of Tagged Questions={CountOfTaggedQuestions}.</value>
+  </data>
+  <data name="MARKSCHEMELIBRARY.1" xml:space="preserve">
+    <value>Mark Scheme Delete  is successful for the {ProjectName} with SchemeName={SchemeName} and Mark={Marks} and No. of Tagged Questions={CountOfTaggedQuestions}.</value>
+  </data>
+  <data name="MARKSCHEMELIBRARY.CREATE.0" xml:space="preserve">
+    <value>Create new mark scheme is failed for the {ProjectName} with SchemeName={SchemeName} and Mark={Marks} and ['Bands' Band Name={BandName} Band Score= from {BandFrom} to {BandTo}].</value>
+  </data>
+  <data name="MARKSCHEMELIBRARY.CREATE.1" xml:space="preserve">
+    <value>Create new mark scheme is successful for the {ProjectName} with SchemeName={SchemeName} and Mark={Marks} and ['Bands' Band Name={BandName} Band Score= from {BandFrom} to {BandTo}].</value>
+  </data>
+  <data name="MARKSCHEMELIBRARY.UPDATE.0" xml:space="preserve">
+    <value>Update mark scheme is failed for the {ProjectName} with SchemeName={SchemeName} and Mark={Marks} and ['Bands' Band Name={BandName} Band Score= from {BandFrom} to {BandTo}].</value>
+  </data>
+  <data name="MARKSCHEMELIBRARY.UPDATE.1" xml:space="preserve">
+    <value>Update mark scheme is successful for the {ProjectName} with SchemeName={SchemeName} and Mark={Marks} and ['Bands' Band Name={BandName} Band Score= from {BandFrom} to {BandTo}].</value>
+  </data>
+  <data name="MODERATEMARKSEMIAUTOMATIC.UPDATE.0" xml:space="preserve">
+    <value>In Semi-Automatic ModerateMarks updation is failed for the {ProjectName} with Candidates Answer= {CandidatesAnswer} and Id= {Id} and Is Correct Answer={IsCorrectAnswer} and QigId={QigId} and Project QuestionId={ProjectQuestionId}.</value>
+  </data>
+  <data name="MODERATEMARKSEMIAUTOMATIC.UPDATE.1" xml:space="preserve">
+    <value>In Semi-Automatic ModerateMarks updation is successful for the  {ProjectName} with Candidates Answer= {CandidatesAnswer} and Id= {Id} and Is Correct Answer={IsCorrectAnswer} and QigId={QigId} and Project QuestionId={ProjectQuestionId}.</value>
+  </data>
+  <data name="OUTBOUNDREPORTS" xml:space="preserve">
+    <value>OutBoundreports</value>
+  </data>
+  <data name="OVERALLSEMIAUTOMATIC.UPDATE.0" xml:space="preserve">
+    <value>In Semi-Automatic Over all ModerateMarks updation is failed for the {ProjectName} with  Project QuestionId={ProjectQuestionId}.</value>
+  </data>
+  <data name="OVERALLSEMIAUTOMATIC.UPDATE.1" xml:space="preserve">
+    <value>In Semi-Automatic Over all ModerateMarks updation is successful for the {ProjectName} with  Project QuestionId={ProjectQuestionId}.</value>
+  </data>
+  <data name="PASSPHRASE" xml:space="preserve">
+    <value>Passphrase</value>
+  </data>
+  <data name="PROJECTCLOSURE" xml:space="preserve">
+    <value>Project Closure</value>
+  </data>
+  <data name="PROJECTSCHEDULE" xml:space="preserve">
+    <value>Project Schedule</value>
+  </data>
+  <data name="PROJECTSCHEDULE.CREATE.1" xml:space="preserve">
+    <value>The project schedule has been successfully updated for Project Name: {ProjectName}, with a start date of {StartDate} and an expected end date of {ExpectedEndDate}. The project will commence at {StartTime} and conclude at {EndTime}</value>
+  </data>
+  <data name="PROJECTSCHEDULE.CREATE.2" xml:space="preserve">
+    <value>Project Schedule creation is failed for Projectname: {ProjectName}</value>
+  </data>
+  <data name="PROJECTSCHEDULE.UPDATE.1" xml:space="preserve">
+    <value>The project schedule has been successfully updated for Project Name: {ProjectName}, with a start date of {StartDate} and an expected end date of {ExpectedEndDate}. The project will commence at {StartTime} and conclude at {EndTime}</value>
+  </data>
+  <data name="PROJECTSCHEDULE.UPDATE.2" xml:space="preserve">
+    <value>Project Schedule updation is failed for Projectname: {ProjectName}</value>
+  </data>
+  <data name="PROJECTSETUP" xml:space="preserve">
+    <value>Project Setup</value>
+  </data>
+  <data name="PROJECTSETUP.IMPORT.1" xml:space="preserve">
+    <value>Project User Details uploaded successfully</value>
+  </data>
+  <data name="PROJECTSETUP.IMPORT.0" xml:space="preserve">
+    <value>Project User Details uploaded failed.</value>
+  </data>
+  <data name="PROJECTUSERMANAGEMENT" xml:space="preserve">
+    <value>Project User Management</value>
+  </data>
+  <data name="PROJECTUSERMANAGEMENT.MAP.0" xml:space="preserve">
+    <value>Mapping of {RoleCode} failed for the {ProjectName}.</value>
+  </data>
+  <data name="PROJECTUSERMANAGEMENT.MAP.1" xml:space="preserve">
+    <value>Mapping of  {RoleCode} is successful for the ProjectName = {ProjectName} and Users Mapped by =  {LoginName}</value>
+  </data>
+  <data name="PROJECTUSERMANAGEMENT.REMAP.0" xml:space="preserve">
+    <value>Re-Mapping of  {RoleCode} failed for the {ProjectName}.</value>
+  </data>
+  <data name="PROJECTUSERMANAGEMENT.REMAP.1" xml:space="preserve">
+    <value>Re-Mapping of  {RoleCode} is successful for the {ProjectName} with ['UserList' UserName={LoginName} from {AppointmentStartDate} to {AppointmentEndDate}].</value>
+  </data>
+  <data name="PROJECTUSERMANAGEMENT.UNMAP.0" xml:space="preserve">
+    <value>UnMapping of User {selectedusername} failed for the {ProjectName}. </value>
+  </data>
+  <data name="PROJECTUSERMANAGEMENT.UNMAP.1" xml:space="preserve">
+    <value>UnMapping of Users {selectedusername} Successful for the {ProjectName}.</value>
+  </data>
+  <data name="PROJECTUSERMANAGEMENT.UPDATE.1" xml:space="preserve">
+    <value>Updation of UserRole is Successful for the {ProjectName} with RoleType: {RoleCode}.</value>
+  </data>
+  <data name="PROJECTUSERMANAGEMENT.UPDATE.0" xml:space="preserve">
+    <value>Updation of UserRole is failed for the {ProjectName}.</value>
+  </data>
+  <data name="PROLVLCONFIG" xml:space="preserve">
+    <value>Project Level Configuration</value>
+  </data>
+  <data name="PROJECTLEVELCONFIGURATION.CREATE.0" xml:space="preserve">
+    <value>Project Level Configuration creation is failed for the Project Name: {ProjectName}.</value>
+  </data>
+  <data name="PROJECTLEVELCONFIGURATION.CREATE.1" xml:space="preserve">
+    <value>Project Level Configuration creation is Successful for the Project Name: {ProjectName}.</value>
+  </data>
+  <data name="PROJECTLEVELCONFIGURATION.UPDATE.0" xml:space="preserve">
+    <value>Project Level Configuration updation is failed for the Project Name: {ProjectName}.</value>
+  </data>
+  <data name="PROJECTLEVELCONFIGURATION.UPDATE.1" xml:space="preserve">
+    <value>Project Level Configuration updation is successful for the Project Name: {ProjectName}.</value>
+  </data>
+  <data name="PROJECTLEVELCONFIGURATION.UPDATE.2" xml:space="preserve">
+    <value>Project Level Configuration updation is failed and error occured for {ProjectName}.</value>
+  </data>
+  <data name="QACREATION" xml:space="preserve">
+    <value>Qualifying Assessment Creation</value>
+  </data>
+  <data name="QACREATION.CREATE.0" xml:space="preserve">
+    <value>Qualifying Assessment Creation is failed for the {ProjectName} with QigId={QigId} and Approval Type={ApprovalName} and Script Presentation Type={ScriptPresentationName} and No Of Standardization Script Categorized={NoOfStandardizationScriptCategorized} and Tolerance Count={ToleranceCount} and ['Qscriptdetails' ScriptName={ScriptName} and MaxMarks={MaxMarks} and FinalizedMarks={FinalizedMarks} and MarkedBy={MarkedBy}]</value>
+  </data>
+  <data name="QACREATION.CREATE.1" xml:space="preserve">
+    <value>Qualifying Assessment Creation is successful for the {ProjectName} with QigId={QigId} and Approval Type={ApprovalName} and Script Presentation Type={ScriptPresentationName} and No Of Standardization Script Categorized={NoOfStandardizationScriptCategorized} and Tolerance Count={ToleranceCount} and ['Qscriptdetails' ScriptName={ScriptName} and MaxMarks={MaxMarks} and FinalizedMarks={FinalizedMarks} and MarkedBy={MarkedBy}]</value>
+  </data>
+  <data name="QACREATION.UPDATE.0" xml:space="preserve">
+    <value>Qualifying Assessment Creation updation is failed for the {ProjectName} with QigId={QigId} and Approval Type={ApprovalName} and Script Presentation Type={ScriptPresentationName} and No Of Standardization Script Categorized={NoOfStandardizationScriptCategorized} and Tolerance Count={ToleranceCount} and ['Qscriptdetails' ScriptName={ScriptName} and MaxMarks={MaxMarks} and FinalizedMarks={FinalizedMarks} and MarkedBy={MarkedBy}]</value>
+  </data>
+  <data name="QACREATION.UPDATE.1" xml:space="preserve">
+    <value>Qualifying Assessment Creation updation is successful for the {ProjectName} with QigId={QigId} and Approval Type={ApprovalName} and Script Presentation Type={ScriptPresentationName} and No Of Standardization Script Categorized={NoOfStandardizationScriptCategorized} and Tolerance Count={ToleranceCount} and ['Qscriptdetails' ScriptName={ScriptName} and MaxMarks={MaxMarks} and FinalizedMarks={FinalizedMarks} and MarkedBy={MarkedBy}]</value>
+  </data>
+  <data name="QIGMANAGEMENT" xml:space="preserve">
+    <value>QIG Management</value>
+  </data>
+  <data name="QIGMANAGEMENT.CREATE.2" xml:space="preserve">
+    <value>QIG creation was failed for the project '{ProjectName}' with QIG name '{QigName}', of type '{QigMarkingTypeName}', and with mandatory questions: {ManadatoryQuestions} at{EventDateTime}.</value>
+  </data>
+  <data name="QIGMANAGEMENT.CREATE.1" xml:space="preserve">
+    <value>QIG creation was successful for the project '{ProjectName}' with QIG name '{QigName}', of type '{QigMarkingTypeName}', and with mandatory questions: {ManadatoryQuestions} at{EventDateTime}</value>
+  </data>
+  <data name="QIGMANAGEMENT.UPDATE.1" xml:space="preserve">
+    <value>QIG updation is successful for the project '{ProjectName}' with QIG name '{QigName} at {EventDateTime}</value>
+  </data>
+  <data name="QIGMANAGEMENT.UPDATE.2" xml:space="preserve">
+    <value>QIG updation is failed for the project '{ProjectName}' with QIG name '{QigName} at {EventDateTime}</value>
+  </data>
+  <data name="QIGMANAGEMENT.DELETE.2" xml:space="preserve">
+    <value>The deletion of QIG '{QigName}' for the project '{ProjectName}' has failed at {EventDateTime}.</value>
+  </data>
+  <data name="QIGMANAGEMENT.DELETE.1" xml:space="preserve">
+    <value>The deletion of QIG '{QigName}' for the project '{ProjectName}' was successful at {EventDateTime}.</value>
+  </data>
+  <data name="QIGMANAGEMENT.SAVE.0" xml:space="preserve">
+    <value>For the ProjectName:{ProjectName}, Deletion of Qig={QigName} is failed.</value>
+  </data>
+  <data name="QIGMANAGEMENT.SAVE.1" xml:space="preserve">
+    <value>For the ProjectName:{ProjectName}, QIG Finalisation has been done successfully with the remarks = {remarks}.</value>
+  </data>
+  <data name="QIGMANAGEMENT.RESET.2" xml:space="preserve">
+    <value>For the ProjectName:{ProjectName}, Reset of  of Qig is failed.</value>
+  </data>
+  <data name="QIGMANAGEMENT.RESET.1" xml:space="preserve">
+    <value>For the ProjectName:{ProjectName}, Reset of QIG is successfully with the remarks = {Remarks}.</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.CREATE.0" xml:space="preserve">
+    <value>QIG Team Management Creation is failed for the ProjectName:{ProjectName} with QigId={QigId} and Qigname={QigName}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.CREATE.1" xml:space="preserve">
+    <value>QIG Team Management Creation is successful for the ProjectName:{ProjectName} with QigId={QigId} and Qigname={QigName}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.UPDATE.0" xml:space="preserve">
+    <value>QIG Team Management Updation is failed for the ProjectName:{ProjectName} with QigId={QigId} and Qigname={QigName}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.UPDATE.1" xml:space="preserve">
+    <value>QIG Team Management Updation is successful for the ProjectName:{ProjectName} with QigId={QigId} and Qigname={QigName}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.DOWNLOAD.0" xml:space="preserve">
+    <value>Heirarchy Download for the user: {UserName}, is failed for the ProjectName:{ProjectName}.</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.DOWNLOAD.1" xml:space="preserve">
+    <value>Heirarchy download for the user: {UserName}, is successful for the ProjectName:{ProjectName}.</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.UNTAGUSERS.1" xml:space="preserve">
+    <value>Untag of user is successful for the ProjectName:{ProjectName} with QigId={QigId}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.UNTAGUSERS.0" xml:space="preserve">
+    <value>Untag of user is failed for the ProjectName:{ProjectName} with QigId={QigId}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.RETAG.0" xml:space="preserve">
+    <value>Retag of user is failed for the ProjectName:{ProjectName} with QigId={QigId}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.RETAG.1" xml:space="preserve">
+    <value>Retag of user is successful for the ProjectName:{ProjectName} with QigId={QigId}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.MOVE.1" xml:space="preserve">
+    <value>Movement of team heirarchy is successful for the ProjectName:{ProjectName} from QigId={FromQigId} to {ToQigId}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.MOVE.0" xml:space="preserve">
+    <value>Movement of team heirarchy is failed for the ProjectName:{ProjectName} with QigId={QigId}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.COPY.1" xml:space="preserve">
+    <value>Copying of team heirarchy is successful for the ProjectName:{ProjectName} from QigId={FromQigId} to {ToQigId}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.COPY.0" xml:space="preserve">
+    <value>Copying of team heirarchy is failed for the ProjectName:{ProjectName} with QigId={QigId}</value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.IMPORT.1" xml:space="preserve">
+    <value>QIG team file uploaded successfully for ProjectName:{ProjectName} with QigId={QigId} </value>
+  </data>
+  <data name="QIGTEAMMANAGEMENT.IMPORT.0" xml:space="preserve">
+    <value>QIG team file uploaded failed for QigId={QigId}</value>
+  </data>
+  <data name="QIGMANAGEMENT.AUTHENTICATE.0" xml:space="preserve">
+    <value>QIG Reset Authentication failed </value>
+  </data>
+  <data name="QIGMANAGEMENT.AUTHENTICATE.1" xml:space="preserve">
+    <value>QIG Reset Authentication done for User:{Loginname} </value>
+  </data>
+  <data name="QIGSETUP" xml:space="preserve">
+    <value>QIG Setup</value>
+  </data>
+  <data name="QIGSETUP.SAVE.0" xml:space="preserve">
+    <value>For the Project = {ProjectName} , MarkingType = {MarkingType} is been failed.</value>
+  </data>
+  <data name="QIGSETUP.SAVE.15" xml:space="preserve">
+    <value>For the Project = {ProjectName} ,successfully  Saved, all Benchmark Scripts Count, Standardisation Scripts Count and Additional Std. Scripts Count for the QIG = {QIGName}.</value>
+  </data>
+  <data name="QIGSETUP.SAVE.16" xml:space="preserve">
+    <value>For the Project = {ProjectName} ,failed to  Save, all Benchmark Scripts Count, Standardisation Scripts Count and Additional Std. Scripts Count for the QIG = {QIGName}.</value>
+  </data>
+  <data name="QIGSETUP.SAVE.18" xml:space="preserve">
+    <value>Failed while saving Live Marking Setting for the ProjectName = {ProjectName} with DownloadBatchSize={DownloadBatchSize} and GracePeriod={GracePeriod}.</value>
+  </data>
+  <data name="QIGSETUP.SAVE.17" xml:space="preserve">
+    <value>Sucessfully saved  Live Marking Setting for the ProjectName = {ProjectName} with DownloadBatchSize={DownloadBatchSize} and GracePeriod={GracePeriod}.</value>
+  </data>
+  <data name="QIGSETUP.SAVE.1" xml:space="preserve">
+    <value>For the Project = {ProjectName} , MarkingType = {MarkingType} is been Saved Successfully.</value>
+  </data>
+  <data name="QIGSETUP.SAVE.11" xml:space="preserve">
+    <value>For the Project = {ProjectName} ,All Benchmark Scripts = {BenchmarkScript} Count and Standardisation Scripts = {StandardizationScript} Count and Additional Std. Scripts = {AdditionalStdScript} Count is Saved Successfully for the QIG = {QIGName}.</value>
+  </data>
+  <data name="QIGSETUP.SAVE.12" xml:space="preserve">
+    <value>Live Marking Setting saved successfully for the Project = {ProjectName} with GracePeriod of {GracePeriod} and Batch Size of {DownloadBatchSize}.</value>
+  </data>
+  <data name="QIGSETUP.SAVE.19" xml:space="preserve">
+    <value>For the Project = {ProjectName} QIG Closure and Pause Marking Process saved successfully </value>
+  </data>
+  <data name="QIGSETUP.SAVE.20" xml:space="preserve">
+    <value> Failed to save for the Project = {ProjectName} QIG Closure and Pause Marking Process</value>
+  </data>
+  <data name="QIGSETUP.TAG.0" xml:space="preserve">
+    <value>Tagging of Marks scheme{MarkSchemeName} to a Question {QuestionCode} for a {ProjectName} is failed.</value>
+  </data>
+  <data name="QIGSETUP.TAG.1" xml:space="preserve">
+    <value>Tagging of Marks scheme = {MarkSchemeName} to a Question = {QuestionCode} with ToleranceLimit of = {ToleranceLimit} and Step Value of = {StepValue} for a {ProjectName} is Successful.</value>
+  </data>
+  <data name="QIGSETUP.UPDATE.0" xml:space="preserve">
+    <value>Updating of Max Marks for the Question {QuestionCode} in the Project {ProjectName} failed.</value>
+  </data>
+  <data name="QIGSETUP.UPDATE.01" xml:space="preserve">
+    <value>Annotation Mandatory is Enabled failed for the Project = {ProjectName}.</value>
+  </data>
+  <data name="QIGSETUP.UPDATE.1" xml:space="preserve">
+    <value> Max Marks {questionMaxmarks} Updated Successfully for the QuestionCode {QuestionCode} in the Project {ProjectName}.</value>
+  </data>
+  <data name="QIGSETUP.UPDATE.11" xml:space="preserve">
+    <value>Random check saved successfully with a RCTYPE={RcType}.</value>
+  </data>
+  <data name="QIGSETUP.UPDATE.12" xml:space="preserve">
+    <value>Random check failed with a RCTYPE={RcType}.</value>
+  </data>
+  <data name="QIGSETUP.UPDATE.13" xml:space="preserve">
+    <value>Annotation setting successfully updated with remarks isAnnotationRequired={IsAnnotationsMandatory}.</value>
+  </data>
+  <data name="QIGSETUP.UPDATE.14" xml:space="preserve">
+    <value>Annotation setting updation failed with remarks isAnnotationRequired={IsAnnotationsMandatory}.</value>
+  </data>
+  <data name="QIGSETUP.SAVE.9" xml:space="preserve">
+    <value>For the Project = {ProjectName} with QIG = {Qigid} Qigsummary successfully saved .</value>
+  </data>
+  <data name="QIGSETUP.SAVE.10" xml:space="preserve">
+    <value>For the Project = {ProjectName} with QIG = {Qigid} Qigsummary failed</value>
+  </data>
+  <data name="QUALITYCHECK" xml:space="preserve">
+    <value>Quality Check</value>
+  </data>
+  <data name="QUESTIONS" xml:space="preserve">
+    <value>Questions</value>
+  </data>
+  <data name="RCOI" xml:space="preserve">
+    <value>Resolution of Conflict of Interest</value>
+  </data>
+  <data name="RECMD.SAVE.0" xml:space="preserve">
+    <value>Failed to save Band for the Question's in Recommendations.</value>
+  </data>
+  <data name="RECMD.SAVE.1" xml:space="preserve">
+    <value>For the Project '{ProjectName}',[The SriptResponses 'ScriptResponses' for the Questions are = {QuestionCode},with finalized BandName = {BandName}].</value>
+  </data>
+  <data name="RECMND" xml:space="preserve">
+    <value>Recommendation</value>
+  </data>
+  <data name="RECOMMENDATION.RECOMMEND.0" xml:space="preserve">
+    <value>For the [ 'ScriptResponses' script = {ScriptName} the is recommended failed by {CurrentUserRoleCode}-{FirstName}]</value>
+  </data>
+  <data name="RECOMMENDATION.RECOMMEND.1" xml:space="preserve">
+    <value>For the [ 'ScriptResponses' ScriptName = {ScriptName} the is recommendation successfully by {CurrentUserRoleCode}-{FirstName}]</value>
+  </data>
+  <data name="REPORTS" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="RESPONSEPROCESSING" xml:space="preserve">
+    <value>Response Processing</value>
+  </data>
+  <data name="S2S3APPROVAL" xml:space="preserve">
+    <value>S2 S3 Approval</value>
+  </data>
+  <data name="S2S3APPROVAL.ADDITIONAL.0" xml:space="preserve">
+    <value>Add Additional Scripts  is failed for the {ProjectName} with QigId={QIGID} and ProjectUserRoleId={ProjectUserRoleID} and ['ScriptIDs' ScriptId={ScriptId} and ScriptName={ScriptName} and FinalizedMarks= {FinalizedMarks}].</value>
+  </data>
+  <data name="S2S3APPROVAL.ADDITIONAL.1" xml:space="preserve">
+    <value>Add Additional Scripts  is successful for the {ProjectName} with QigId={QIGID} and ProjectUserRoleId={ProjectUserRoleID} and ['ScriptIDs' ScriptId={ScriptId} and ScriptName={ScriptName} and FinalizedMarks= {FinalizedMarks}].</value>
+  </data>
+  <data name="S2S3APPROVAL.MARKSCOMP.0" xml:space="preserve">
+    <value>Markers Complete Report approve is failed for the {ProjectName} with ['approvalDetailslist' UserRoleId={UserRoleId} and ProjectUserRoleId={ProjectUserRoleId} and QigId= {QigId}] QigId={QIGID} and ProjectUserRoleId={ProjectUserRoleID}.</value>
+  </data>
+  <data name="S2S3APPROVAL.MARKSCOMP.1" xml:space="preserve">
+    <value>Markers Complete Report approve is successful for the {ProjectName} with ['approvalDetailslist' UserRoleId={UserRoleId} and ProjectUserRoleId={ProjectUserRoleId} and QigId= {QigId}] QigId={QIGID} and ProjectUserRoleId={ProjectUserRoleID}.</value>
+  </data>
+  <data name="S2S3APPROVAL.ASSIGN.0" xml:space="preserve">
+    <value>For the project = {ProjectName}, Standardisation cleared failed for the User = {markingPersonal}.</value>
+  </data>
+  <data name="S2S3APPROVAL.ASSIGN.1" xml:space="preserve">
+    <value>For the project = {ProjectName}, Standardisation cleared sucessfully for the User = {markingPersonal}.</value>
+  </data>
+  <data name="SEMIAUTOMATIC" xml:space="preserve">
+    <value>Semi Automatic</value>
+  </data>
+  <data name="SETUP" xml:space="preserve">
+    <value>Setup</value>
+  </data>
+  <data name="SETUP.UPDATE.01" xml:space="preserve">
+    <value>Configurations of exam center is failed for the Project = {ProjectName}.</value>
+  </data>
+  <data name="SETUP.UPDATE.1" xml:space="preserve">
+    <value> Configuration of  [ 'ExamCenterModel' exam ceters = {CenterName} ] Updated Successfully for the project {ProjectName}.</value>
+  </data>
+  <data name="SETUP.UPDATE.22" xml:space="preserve">
+    <value>For the Project = {ProjectName},saving of key personnel as [{RoleCode}] failed.</value>
+  </data>
+  <data name="SETUP.UPDATE.21" xml:space="preserve">
+    <value>For the Project = {ProjectName},saving of key personnel as [{RoleCode}] sucessful.</value>
+  </data>
+  <data name="STANDARDISATION" xml:space="preserve">
+    <value>Standardisation</value>
+  </data>
+  <data name="STDSETTINGS" xml:space="preserve">
+    <value>Standardisation Settings</value>
+  </data>
+  <data name="STUDENTREPORTS" xml:space="preserve">
+    <value>Student Reports</value>
+  </data>
+  <data name="TRIALMRKNG" xml:space="preserve">
+    <value>Trial Marking</value>
+  </data>
+  <data name="Trial Marking" xml:space="preserve">
+    <value>Trial Marking</value>
+  </data>
+  <data name="TRIALMARKING.SAVE.0" xml:space="preserve">
+    <value>Trail marking failed for the scriptName = {ScriptName}.</value>
+  </data>
+  <data name="TRIALMARKING.SAVE.1" xml:space="preserve">
+    <value>Trail marking successful for the scriptName = {ScriptName}.</value>
+  </data>
+  <data name="USERLOGIN" xml:space="preserve">
+    <value>UserLogin</value>
+  </data>
+  <data name="USERLOGIN.CHANGEPASSWORD.0" xml:space="preserve">
+    <value>Changing of password failed for the User {LoginName}  at {EventDateTime}.</value>
+  </data>
+  <data name="USERLOGIN.CHANGEPASSWORD.1" xml:space="preserve">
+    <value>Changing of password Successful for the User {LoginName}  at {EventDateTime}.</value>
+  </data>
+  <data name="USERLOGIN.FORGOTPASSWORD.0" xml:space="preserve">
+    <value>Forgot password failed for the User {LoginName}  at {EventDateTime}.</value>
+  </data>
+  <data name="USERLOGIN.FORGOTPASSWORD.1" xml:space="preserve">
+    <value>Forgot password Successful for the User {LoginName}  at {EventDateTime}.</value>
+  </data>
+  <data name="USERLOGIN.LOGIN.4" xml:space="preserve">
+    <value>User {LoginName} failed to log in at {EventDateTime} after {LoginCount} attempts.</value>
+  </data>
+  <data name="USERLOGIN.LOGIN.1" xml:space="preserve">
+    <value>User {LoginName} Login Successful at {EventDateTime}.</value>
+  </data>
+  <data name="USERLOGIN.LOGOUT.0" xml:space="preserve">
+    <value>User {LoginName} LogoutFailed/Session Expired at {EventDateTime}.</value>
+  </data>
+  <data name="USERLOGIN.LOGOUT.1" xml:space="preserve">
+    <value>User {LoginName} Logout Successful at {EventDateTime}.</value>
+  </data>
+  <data name="USERLOGIN.LOGIN.8" xml:space="preserve">
+    <value>Invalid User {LoginName} attempt at {EventDateTime}.</value>
+  </data>
+  <data name="USERLOGIN.BLOCKUSER.1" xml:space="preserve">
+    <value>User {LoginName}  has been blocked after {NoOfAttempts} successive login failures</value>
+  </data>
+  <data name="USERLOGIN.LOGIN.23" xml:space="preserve">
+    <value>User {LoginName} suspended for the 3 min </value>
+  </data>
+  <data name="REPORTS.UPLOAD.1" xml:space="preserve">
+    <value>{StatusMessage} for project {ProjectName}</value>
+  </data>
+  <data name="QUALITYCHECK.CHECKEDOUT.1" xml:space="preserve">
+    <value>User script {ScriptName} has been checked out for the {ProjectName} project.</value>
+  </data>
+  <data name="QUALITYCHECK.CHECKIN.1" xml:space="preserve">
+    <value>User script {ScriptName} has been checked IN for the {ProjectName} project.</value>
+  </data>
+  <data name="QUALITYCHECK.RETURNTOMARKER.1" xml:space="preserve">
+    <value>User script {ScriptName} has been return to the {MarkerName} from {Phase}.</value>
+  </data>
+  <data name="QUALITYCHECK.APPROVE.1" xml:space="preserve">
+    <value>User script {ScriptName} has been Approved from {Phase}.</value>
+  </data>
+  <data name="QUALITYCHECK.MOVE.1" xml:space="preserve">
+    <value>  scripts for QigID:{QigID} HAS MOVED TO LIVEPOOL sucessful</value>
+  </data>
+  <data name="BASICDETAILS.NAVIGATION.1" xml:space="preserve">
+    <value>User has been navigated to Basic details page at {EventDateTime}</value>
+  </data>
+</root>

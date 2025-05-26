@@ -1,0 +1,178 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{0B2542C6-98DE-434E-A78E-536D4EAB0A3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service Interface", "Service Interface", "{0BCEE75F-6F5A-45ED-AD47-34A0428F2979}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{88774E87-1769-4E79-A477-94A6BA578F36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functional Tests", "Functional Tests", "{1D1592E9-FD61-400C-A118-0A8AB285ADFB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{6F930B94-8696-4821-9117-CE785D5A1812}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicensingAndTransfer.DataContracts", "Source\Service Interface\LicensingAndTransfer.DataContracts\LicensingAndTransfer.DataContracts.csproj", "{A0791A1A-964B-49F8-9A00-57F1C6578B01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicensingAndTransfer.ServiceImplementation", "Source\Service Interface\LicensingAndTransfer.ServiceImplementation\LicensingAndTransfer.ServiceImplementation.csproj", "{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicensingAndTransfer.ServiceContracts", "Source\Service Interface\LicensingAndTransfer.ServiceContracts\LicensingAndTransfer.ServiceContracts.csproj", "{F6CD80DA-2DA7-45CA-8459-DF49B606B559}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "LicensingAndTransfer.Host", "Tests\LicensingAndTransfer.Host", "{26A23BE1-4CEB-4394-AF50-61F83354E07A}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		ProjectReferences = "{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}|LicensingAndTransfer.ServiceImplementation.dll;{A0791A1A-964B-49F8-9A00-57F1C6578B01}|LicensingAndTransfer.DataContracts.dll;{F6CD80DA-2DA7-45CA-8459-DF49B606B559}|LicensingAndTransfer.ServiceContracts.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/LicensingAndTransfer.Host"
+		Debug.AspNetCompiler.PhysicalPath = "Tests\LicensingAndTransfer.Host\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\LicensingAndTransfer.Host\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/LicensingAndTransfer.Host"
+		Release.AspNetCompiler.PhysicalPath = "Tests\LicensingAndTransfer.Host\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\LicensingAndTransfer.Host\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "57520"
+		SlnRelativePath = "Tests\LicensingAndTransfer.Host\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicensingAndTransfer.Client", "Tests\LicensingAndTransfer.Client\LicensingAndTransfer.Client.csproj", "{307BB483-C372-46AB-8183-3755C35F8E33}"
+	ProjectSection(ProjectDependencies) = postProject
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A} = {26A23BE1-4CEB-4394-AF50-61F83354E07A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicensingAndTransfer.API", "Source\Service Interface\LicensingAndTransfer.API\LicensingAndTransfer.API.csproj", "{EFF48A42-8EBC-42F1-9820-0F3E9C081260}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Release|.NET.ActiveCfg = Release|Any CPU
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Release|.NET.ActiveCfg = Release|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Release|.NET.ActiveCfg = Release|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Release|.NET.ActiveCfg = Debug|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Release|.NET.ActiveCfg = Release|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{307BB483-C372-46AB-8183-3755C35F8E33}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Debug|.NET.Build.0 = Debug|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Release|.NET.ActiveCfg = Release|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Release|.NET.Build.0 = Release|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0BCEE75F-6F5A-45ED-AD47-34A0428F2979} = {0B2542C6-98DE-434E-A78E-536D4EAB0A3E}
+		{1D1592E9-FD61-400C-A118-0A8AB285ADFB} = {88774E87-1769-4E79-A477-94A6BA578F36}
+		{6F930B94-8696-4821-9117-CE785D5A1812} = {88774E87-1769-4E79-A477-94A6BA578F36}
+		{A0791A1A-964B-49F8-9A00-57F1C6578B01} = {0BCEE75F-6F5A-45ED-AD47-34A0428F2979}
+		{1CDC58FC-89E9-464A-9CD8-A56BC814AED4} = {0BCEE75F-6F5A-45ED-AD47-34A0428F2979}
+		{F6CD80DA-2DA7-45CA-8459-DF49B606B559} = {0BCEE75F-6F5A-45ED-AD47-34A0428F2979}
+		{26A23BE1-4CEB-4394-AF50-61F83354E07A} = {88774E87-1769-4E79-A477-94A6BA578F36}
+		{307BB483-C372-46AB-8183-3755C35F8E33} = {88774E87-1769-4E79-A477-94A6BA578F36}
+		{EFF48A42-8EBC-42F1-9820-0F3E9C081260} = {0BCEE75F-6F5A-45ED-AD47-34A0428F2979}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C0B2C5F-0888-4615-A6EF-60A1B11E0121}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://estfs.excelindia.com/tfs/saras
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Source\\Service\u0020Interface\\LicensingAndTransfer.DataContracts\\LicensingAndTransfer.DataContracts.csproj
+		SccProjectTopLevelParentUniqueName1 = LicensingAndTransfer.sln
+		SccProjectName1 = Source/Service\u0020Interface/LicensingAndTransfer.DataContracts
+		SccLocalPath1 = Source\\Service\u0020Interface\\LicensingAndTransfer.DataContracts
+		SccProjectUniqueName2 = Source\\Service\u0020Interface\\LicensingAndTransfer.ServiceContracts\\LicensingAndTransfer.ServiceContracts.csproj
+		SccProjectTopLevelParentUniqueName2 = LicensingAndTransfer.sln
+		SccProjectName2 = Source/Service\u0020Interface/LicensingAndTransfer.ServiceContracts
+		SccLocalPath2 = Source\\Service\u0020Interface\\LicensingAndTransfer.ServiceContracts
+		SccProjectUniqueName3 = Source\\Service\u0020Interface\\LicensingAndTransfer.ServiceImplementation\\LicensingAndTransfer.ServiceImplementation.csproj
+		SccProjectTopLevelParentUniqueName3 = LicensingAndTransfer.sln
+		SccProjectName3 = Source/Service\u0020Interface/LicensingAndTransfer.ServiceImplementation
+		SccLocalPath3 = Source\\Service\u0020Interface\\LicensingAndTransfer.ServiceImplementation
+		SccProjectUniqueName4 = Tests\\LicensingAndTransfer.Client\\LicensingAndTransfer.Client.csproj
+		SccProjectTopLevelParentUniqueName4 = LicensingAndTransfer.sln
+		SccProjectName4 = Tests/LicensingAndTransfer.Client
+		SccLocalPath4 = Tests\\LicensingAndTransfer.Client
+		SccWebProject5 = true
+		SccProjectUniqueName5 = Tests\\LicensingAndTransfer.Host
+		SccProjectTopLevelParentUniqueName5 = LicensingAndTransfer.sln
+		SccProjectName5 = Tests/LicensingAndTransfer.Host
+		SccLocalPath5 = Tests\\LicensingAndTransfer.Host
+		SccProjectEnlistmentChoice5 = 2
+		SccProjectUniqueName6 = Source\\Service\u0020Interface\\LicensingAndTransfer.API\\LicensingAndTransfer.API.csproj
+		SccProjectTopLevelParentUniqueName6 = LicensingAndTransfer.sln
+		SccProjectName6 = Source/Service\u0020Interface/LicensingAndTransfer.API
+		SccLocalPath6 = Source\\Service\u0020Interface\\LicensingAndTransfer.API
+	EndGlobalSection
+EndGlobal

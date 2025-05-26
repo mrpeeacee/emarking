@@ -1,0 +1,179 @@
+<div class="container mt-5">
+    <div class="card_box_sticky">
+        <div class="row p-0 ">
+            <div class="col-md-3 col-xs-12">
+                <div class="d-flex flex-row bd-highlight align-items-center">
+
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>QIG Name</mat-label>
+                        <mat-select #qigids (selectionChange)="SelectQig(qigids.value)">
+                            <mat-option value="0">
+                                Select QIG
+                            </mat-option>
+                            <mat-option *ngFor="let qig of Ltqigs" [value]="qig.QigId">
+                                {{qig.QigName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-12">
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Question</mat-label>
+                    <mat-select #DdlQuestioncode [(value)]="selectedvalue">
+                        <mat-option value="0">
+                            Select Question Code
+                        </mat-option>
+                        <mat-option *ngFor="let qc of ltquestioncode" [value]="qc.QuestionCode">
+                            {{qc.QuestionCode}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+            <div class="col-md-3 col-xs-12">
+                <div class="d-flex flex-row bd-highlight align-items-center">
+
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Index Number</mat-label>
+                        <input matInput #indexnumber placeholder="Search" maxlength="50" oncut="return false"
+                            onDrop="return false" autocomplete="off" (keyup.enter)="GetStudentRecords(qigids.value,DdlQuestioncode.value);">
+
+                    </mat-form-field>
+
+
+                </div>
+            </div>
+
+            <div class="col-md-3 col-xs-12 mt-1">
+
+                <button type="button" title="Submit" (click)="GetStudentRecords(qigids.value,DdlQuestioncode.value);"
+                    class="btn theme_button ">Submit</button>
+                <button type="button" title="Export Report" (click)="DownloadReport();" class="btn theme_button ">Export
+                    Report</button>
+
+            </div>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="card_box mt-3" [class.shimmer]="IsPageLoading">
+        <div class="mt-2 row-header card_container">
+            <div class="p-2 hr_head d-flex row justify-content-between bd-highlight align-items-center col-md-12 al">
+                <div class="col-md-2">Index Number</div>
+                <div class="col-md-2">QIG Name</div>
+                <div class="col-md-2">Question No.</div>
+                <div class="col-md-1">Max. Marks</div>
+                <div class="col-md-1">Awarded Marks</div>
+                <div class="col-md-2">Band</div>
+                <div class="col-md-2">Scoring Component</div>
+            </div>
+        </div>
+        <perfect-scrollbar class="table_list_scroll card1">
+            <div class="row-childrow_bg card_box" *ngFor="let stdreport of studentReport">
+
+                <div class="p-2 d-flex row justify-content-between bd-highlight align-items-center col-md-12 al"
+                    *ngIf="!stdreport.IsChildExists">
+                    <div class="col-md-2">{{stdreport.LoginID}}</div>
+                    <div class="col-md-2">{{stdreport.QIGName}}</div>
+                    <div class="col-md-2">{{stdreport.QuestionCode}}</div>
+                    <div class="col-md-1">{{stdreport.MaxMarks}}</div>
+                    <div class="col-md-1">{{stdreport.Awarded_Marks}}</div>
+                    <div class="col-md-2">
+                        <div class="row" >
+
+                            <span>{{stdreport.BandName}}</span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row" *ngFor="let stdsc of stdreport.scoringComponentMarksModels">
+
+                            <span>{{stdsc.ComponentName}} {{stdsc.AwardedMarks != '0' ? ' : ' +
+                                stdsc.AwardedMarks : ' : ' + 0}}</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="stdreport.IsChildExists" [class.shimmer]="IsPageLoading">
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+                            title="{{( panelOpenState == true  ? 'Collapse' : 'Expand')}}">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <div class="row-childrow_bg card_box">
+                                        <div
+                                            class="p-2 d-flex cust-mat row justify-content-between bd-highlight align-items-center col-md-12 al">
+
+                                            <div class="col-md-2">{{stdreport.LoginID}}</div>
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-2">{{stdreport.QuestionCode}}</div>
+                                            <div class="col-md-1 cust-pos">{{stdreport.MaxMarks}}</div>
+                                            <div class="col-md-1 cust-pos">{{stdreport.Awarded_Marks}}</div>
+                                            <div class="col-md-2">
+                                                <div class="row" *ngFor="let stdsc of stdreport.scoringComponentMarksModels">
+        
+                                                    <span>{{stdsc.ComponentName}}{{stdsc.BandName}}</span>
+        
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-2">
+                                                <div class="row"
+                                                    *ngFor="let stdsc of stdreport.scoringComponentMarksModels">
+
+                                                    <span>{{stdsc.ComponentName}} {{stdsc.AwardedMarks != '0' ? ' : ' +
+                                                        stdsc.AwardedMarks : ' : ' + 0}}</span>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </mat-panel-title>
+
+                            </mat-expansion-panel-header>
+                            <div class="row-childrow_bg card_box" *ngFor="let stdfib of stdreport.childfib">
+                                <div
+                                    class="p-2 d-flex row justify-content-between bd-highlight align-items-center col-md-12 al">
+                                    <div class="col-md-2">{{stdfib.LoginID}}</div>
+                                    <div class="col-md-2">{{stdfib.QIGName}}</div>
+                                    <div class="col-md-2">{{stdfib.QuestionCode}}</div>
+                                    <div class="col-md-1">{{stdfib.MaxMarks}}</div>
+                                    <div class="col-md-1">{{stdfib.Awarded_Marks}}</div>
+                                    <div class="col-md-2">
+                                        <div class="row" *ngFor="let stdsc of stdreport.scoringComponentMarksModels">
+
+                                            <span>{{stdsc.ComponentName}}{{stdsc.BandName}}</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="row" *ngFor="let stdsc of stdreport.scoringComponentMarksModels">
+
+                                            <span>{{stdsc.ComponentName}} {{stdsc.AwardedMarks != '0' ? ' : ' +
+                                                stdsc.AwardedMarks : ' : ' + 0}}</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+            <div class="text-center mt-1 card_box nodatafound"
+                *ngIf="studentReport?.length == 0 || studentReport == undefined" [class.shimmer]="IsPageLoading">
+                No Records Found
+            </div>
+        </perfect-scrollbar>
+
+    </div>
+</div>

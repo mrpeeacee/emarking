@@ -1,0 +1,44 @@
+.marked {
+    background: #06CF02;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.nonmarked {
+    background: #C4C4C4;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.row-childrow{
+    border-radius: 5px;
+    border: #ACB9FF solid 1px;
+    background: #fff;
+    margin-bottom: 5px;
+  }
+
+  .card_container {
+    background: #E6EBF0;
+    border-radius: 2px;
+    align-items: center;
+  }
+
+.row-childrowRandom span{ display: block}
+
+.qaremarks{
+  font-size: 38px;
+  margin-left: 20px;
+}
+
+.text_are {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  max-height: 100px;
+  height: 100px !important;
+}
+ 

@@ -1,0 +1,45 @@
+<div class="col tabs_btn  mt-2 hide" [ngClass]="{'container_theme_header': Qigs?.length > 0}">
+    <ul class="nav nav-tabs theme_navbar_enr" id="myTab" role="tablist">
+        <li class="nav-item" *ngIf="stasticsloading == true" [class.shimmer]="stasticsloading">
+            <div>
+                <h1>...............</h1>
+            </div>
+        </li>
+        <li class="nav-item" *ngIf="stasticsloading == true" [class.shimmer]="stasticsloading">
+            <div>
+                <h1>...............</h1>
+            </div>
+        </li>
+        <li class="nav-item" role="presentation" *ngFor="let qig of Qigs; trackBy: trackByMethod">
+            <button (click)="selectQigItem(qig)" class="nav-link"
+                [ngClass]="{'active' : selectedQig?.QigId == qig?.QigId}" id="home-tab" data-bs-toggle="tab"
+                data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"
+                title="{{qig?.QigName}}">
+                {{qig?.QigName}}
+            </button>
+        </li>
+    </ul>
+</div>
+
+<ul class="tabs_btn nav-tabs">
+    <li class="nav-item" *ngIf="stasticsloading == true" [class.shimmer]="stasticsloading">
+        <div>
+            <h1>...............</h1>
+        </div>
+    </li>
+    <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide *ngFor="let qig of Qigs">
+            <li class="nav-item">
+                <button (click)="selectQigItem(qig)" class="nav-link qigtabbtn"
+                    [ngClass]="{'active' : selectedQig?.QigId == qig?.QigId}" id="home-tab" data-bs-toggle="tab"
+                    data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"
+                    title="{{qig?.QigName}}">
+                    {{qig?.QigName}}
+                </button>
+            </li>
+        </ng-template>
+    </owl-carousel-o>
+</ul>
+<div class="text-center mt-1 card_box nodatafound" *ngIf="stasticsloading == false && selectedQig == undefined">
+    No QIG's found
+</div>

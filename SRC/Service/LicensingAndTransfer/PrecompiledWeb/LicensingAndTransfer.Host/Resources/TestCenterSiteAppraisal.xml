@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestCenterSiteApparaisal>
+  <!--OS names can put more than one nodes for OS names which are supported-->
+  <OS>Win32NT</OS>
+  <OS>Windows XP</OS>
+  <!--Minimum CPU clock speed supported in GHz-->
+  <CPUSpeed>1</CPUSpeed>
+  <!--Minimum RAM required in GB-->
+  <RAM>1</RAM>
+  <!--Minimum Major Sql Server Version-->
+  <DBVersion>9</DBVersion>
+  <DBCollation>SQL_Latin1_General_CP1_CI_AS</DBCollation>
+  <!--Minimum Dot Net Framework version supported-->
+  <Framework>4</Framework>
+  <!--Mimimum free hard disk space required for Test player lite installation in GB-->
+  <HDDFreespace>1</HDDFreespace>
+  <!--Minimum IIS version which are supported-->
+  <IISVersion>6</IISVersion>  
+  <!--Minimum Internet Explorer version supported-->
+  <IEVersion>8</IEVersion>
+  <!--Minimum Firefox version supported-->
+  <FireFoxVersion>20</FireFoxVersion>
+  <!--Minimum Chrome version supported-->
+  <ChromeVersion>30</ChromeVersion>
+</TestCenterSiteApparaisal>

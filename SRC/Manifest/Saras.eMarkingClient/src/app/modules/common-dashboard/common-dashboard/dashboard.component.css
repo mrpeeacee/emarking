@@ -1,0 +1,60 @@
+
+
+.cdk-overlay-pane {margin-top: 5px;}
+.filter_drd{padding: 10px;min-width: 180px;}
+
+.chartjs-render-monitor {
+  width: 185px !important;
+  height: 90px !important;
+}
+
+.custrom_row::before{ bottom: 0px;}
+
+.scrollbar{
+    height: 130px !important;
+}
+
+
+.list_view .qig_cont {
+  width: 100%;
+  margin: 5px 0 5px 0;
+  float: left;
+} 
+
+.list_view .qig_listvw {
+  width: 100%; 
+}
+.qig_list{
+  cursor: pointer;
+}
+
+
+.project_summary strong {
+  display: inline-block;
+  background: #f5f0f0;
+  padding: 0px 9px;
+  margin-left: 5px;
+  font-size: 16px;
+}
+
+.filter_btn {
+  border: none;
+  cursor: pointer;
+  font-size: 26px !important;
+  background: #e7e7e7;
+  padding: 3px !important;
+  margin-left: 10px;
+ 
+}
+
+.card_box_sticky {
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%), inset 0 -1px 0 rgb(0 0 0 / 15%);
+}
+
+::ng-deep .navbar {
+  border-bottom:1px solid #ccc;
+  box-shadow:none!important;
+
+}
+
+

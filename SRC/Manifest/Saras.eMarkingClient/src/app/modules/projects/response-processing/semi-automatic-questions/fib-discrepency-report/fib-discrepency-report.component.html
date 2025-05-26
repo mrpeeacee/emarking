@@ -1,0 +1,264 @@
+<div
+  [ngClass]="!ActiveMarkers ? 'container width80vh' : 'container width150vh'"
+  style="padding-bottom:0 !important;"
+  [class.shimmer]="discrepencyLoading"
+>
+  <div class="row">
+    <div
+      class=""
+      [ngClass]="
+        !ActiveMarkers
+          ? 'float-start w-100 p-0 width80vh'
+          : 'float-start left_content p-0'
+      "
+    >
+      <h5 class="float-start font13title px-3 pt-2">
+        <strong>{{ "SetUp.SemiAutomatic.DescrepancyList" | translate }}</strong>
+      </h5>
+
+      <a
+        title="{{ 'SetUp.SemiAutomatic.Close' | translate }}"
+        #closeDiscrepancy
+        (click)="clickMethod($event)"
+        class="btn theme_button_light pt-2 float-end"
+      >
+        <span class="icon-close"></span
+      ></a>
+      <div class="clearfix"></div>
+      <div class="d-flex mt-1 m-0 p-0 mb-3 px-3 left_contnet">
+        <div class="qut_hed font12 text-break">
+          <label
+            >{{ "SetUp.SemiAutomatic.CandidateResponse" | translate }} :
+          </label>
+          <strong> {{ ObjFibDiscrepencyReportModel?.ResponseText }}</strong>
+        </div>
+
+        <div class="mx-3 text-break">
+          <div class="qut_hed font12">
+            <label
+              >{{ "SetUp.SemiAutomatic.DistinctAwardedScore" | translate }} :
+            </label>
+            <strong> {{ ObjFibDiscrepencyReportModel?.DistinctMarks }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-header_bg d-flex align-items-center px-3">
+        <div class="col-4 font12">
+          <strong>{{ "SetUp.SemiAutomatic.Sl" | translate }}</strong>
+        </div>
+        <div class="col-4 font12">
+          <strong>{{ "SetUp.SemiAutomatic.Scoreawarded" | translate }}</strong>
+        </div>
+        <div class="col-4 font12">
+          <strong>{{ "SetUp.SemiAutomatic.NoofMPs" | translate }}</strong>
+        </div>
+      </div>
+
+      <div
+        class="text-center mt-3 card_box nodatafound font12"
+        *ngIf="ObjFibDiscrepencyReportModel?.FibDiscrepencies?.length <= 0"
+      >
+        {{ "SetUp.SemiAutomatic.NotFound" | translate }}
+      </div>
+
+      <perfect-scrollbar
+        [ngClass]="
+          ObjFibDiscrepencyReportModel?.FibDiscrepencies?.length > 2
+            ? 'custom_scrol3'
+            : 'custom_scrol1'
+        "
+      >
+        <div
+          [ngClass]="
+            ActiveMarkers && scores == objdiscrepency?.MarksAwarded
+              ? 'd-flex align-items-center card_box markerbg'
+              : 'card_box'
+          "
+          class="d-flex align-items-center card_box px-3"
+          *ngFor="
+            let objdiscrepency of ObjFibDiscrepencyReportModel?.FibDiscrepencies
+          "
+        >
+          <div class="col-4 font12">
+            {{ objdiscrepency?.SlNo }}
+          </div>
+          <div class="col-4 font12">{{ objdiscrepency?.MarksAwarded }}</div>
+
+          <span
+            ><a
+              class="bd-highlight col-4 marauto cursor"
+              title="{{ 'SetUp.SemiAutomatic.MarkersDetails' | translate }}"
+              (click)="ViewMarkersDetails(objdiscrepency?.MarksAwarded)"
+            >
+              <strong class="font12">{{
+                objdiscrepency?.NoOfMarkers
+              }}</strong></a
+            ></span
+          >
+        </div>
+      </perfect-scrollbar>
+      <button [disabled]="(ObjFibDiscrepencyReportModel?.MarkingType==4 && ObjFibDiscrepencyReportModel?.DiscrepancyStatus==1) || ObjFibDiscrepencyReportModel?.NoOfUnMarkedScripts > 0"
+        (click)="
+          SaveAcceptDecrepancy(
+            ObjFibDiscrepencyReportModel?.ResponseText,
+            ObjFibDiscrepencyReportModel.NormalisedScore,
+            ObjFibDiscrepencyReportModel?.FibMarkerDetails
+          )
+        "
+        type="button"
+        title="{{ 'SetUp.SemiAutomatic.AcceptDecrepancy' | translate }}"
+        class="btn theme_button"
+      >
+        <span class="icon-save "></span>
+        {{ "SetUp.SemiAutomatic.AcceptDecrepancy" | translate }}
+      </button>
+      <div class="footr_content font12 px-3">
+        <span
+          >{{ "SetUp.SemiAutomatic.MarkedResponses" | translate }}:
+          <strong>{{
+            ObjFibDiscrepencyReportModel?.NoOfMarkedScripts
+          }}</strong></span
+        >
+        <span class="mx-5"
+          >{{ "SetUp.SemiAutomatic.UnMarkedResponses" | translate }}:
+          <strong>{{
+            ObjFibDiscrepencyReportModel?.NoOfUnMarkedScripts
+          }}</strong></span
+        >
+
+        <div class="mt-2">
+          <strong>{{ "SetUp.SemiAutomatic.Note" | translate }}:</strong>
+          {{ "SetUp.SemiAutomatic.NoteDescription" | translate }}
+        </div>
+
+        <div>
+          <span
+            >{{ "SetUp.SemiAutomatic.Normalizedscore" | translate }} :
+          </span>
+          <input
+            [disabled]="ObjFibDiscrepencyReportModel?.DiscrepancyStatus == 2"
+            class="in_numb"
+            min="0"
+            max="{{ ObjFibDiscrepencyReportModel?.QuestionMarks }}"
+            step="0.5"
+            value="0"
+            oncut="return false"
+            [(ngModel)]="
+              ObjFibDiscrepencyReportModel &&
+              ObjFibDiscrepencyReportModel.NormalisedScore
+            "
+            [value]="ObjFibDiscrepencyReportModel?.NormalisedScore"
+            onDrop="return false"
+            onPaste="return false"
+            type="number"
+            (keydown)="validateNumber($event)"
+          />
+          <button [disabled]="ObjFibDiscrepencyReportModel?.DiscrepancyStatus==2"
+          (click)="
+            updateNormalizedScore(
+              ObjFibDiscrepencyReportModel?.ResponseText,
+              ObjFibDiscrepencyReportModel?.NormalisedScore,
+              ObjFibDiscrepencyReportModel?.QuestionMarks
+            )
+          "
+          type="button"
+          title="{{ 'SetUp.SemiAutomatic.Save' | translate }}"
+          class="btn theme_button"
+        >
+          <span class="icon-save "></span>
+         Normalise
+        </button>
+        </div>
+
+        <div >
+          
+
+          <!-- Resolve descrepancy -->
+          <div>
+       
+        </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <div [ngClass]="ActiveMarkers ? 'right_content' : 'hide'">
+      <div class=" font12 pt-2">
+        <button
+          type="button"
+          title=" {{ 'SetUp.SemiAutomatic.Back' | translate }}"
+          class="btn theme_button d-flex float-start buttonheight m-0 me-2 mb-2"
+          (click)="BacktoDiscrepancy()"
+        >
+          <span class="icon-arrow_back"></span>
+        </button>
+        <h5 class="modal-title font13title" id="staticBackdropLabel">
+          <strong>{{
+            "SetUp.SemiAutomatic.MarkersDetails" | translate
+          }}</strong>
+        </h5>
+        <div class="clearfix"></div>
+        <div class="row-header_bg d-flex align-items-center">
+          <div class="col-4 text-break c_pr_20">
+            <strong>{{ "SetUp.SemiAutomatic.LoginId" | translate }}</strong>
+          </div>
+          <div class="col-3 text-break c_pr_20">
+            <strong>{{ "SetUp.SemiAutomatic.ScriptName" | translate }}</strong>
+          </div>
+
+          <div class="col-3">
+            <strong>{{ "SetUp.SemiAutomatic.Phase" | translate }}</strong>
+          </div>
+          <div class="col-3">
+            <strong>{{ "SetUp.SemiAutomatic.MarkedDate" | translate }}</strong>
+          </div>
+        </div>
+        <div
+          class="text-center mt-3 card_box nodatafound"
+          *ngIf="fibMarkerDetailslst?.length <= 0"
+        >
+          {{ "SetUp.SemiAutomatic.NotFound" | translate }}
+        </div>
+
+        <perfect-scrollbar
+          [ngClass]="
+            fibMarkerDetailslst?.length >= 1 ? 'custom_scrol4' : 'custom_scrol1'
+          "
+        >
+          <div
+            class="d-flex align-items-center card_box markerbg"
+            *ngFor="let objmarkerlst of fibMarkerDetailslst"
+          >
+            <div class="col-4 text-break c_pr_20">
+              {{ objmarkerlst?.LoginID }}
+            </div>
+            <div class="col-3 text-break c_pr_20">
+              {{ objmarkerlst?.ScriptName }}
+            </div>
+
+            <div class="col-3 text-break ">
+              {{
+                objmarkerlst?.Phase == 1
+                  ? "Live Marking"
+                  : objmarkerlst?.Phase == 2
+                  ? "RC -
+            1"
+                  : objmarkerlst?.Phase == 3
+                  ? "RC - 2"
+                  : objmarkerlst?.Phase == 4
+                  ? "Ad hoc"
+                  : objmarkerlst?.Phase == 5
+                  ? "Escalate"
+                  : "--"
+              }}
+            </div>
+            <div class="col-3 text-break ">
+              {{ objmarkerlst?.MarkedDate | date: "dd-MMM-YYYY" }}
+            </div>
+          </div>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </div>
+</div>

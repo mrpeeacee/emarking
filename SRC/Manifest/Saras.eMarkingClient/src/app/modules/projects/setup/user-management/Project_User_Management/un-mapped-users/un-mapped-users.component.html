@@ -1,0 +1,405 @@
+<div class="container container_cust mt-3">
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button
+        class="nav-link "
+        id="nav-home-tab"
+        [class.shimmer]="dataloading"
+        [routerLink]="['/projects', 'setup', 'user-management', 'MappedUsers']"
+        data-bs-toggle="tab"
+        data-bs-target="#nav-home"
+        type="button"
+        role="tab"
+        aria-controls="nav-home"
+        aria-selected="true"
+      >
+        {{ "SetUp.Map.mappedusers" | translate }}
+      </button>
+      <button
+        class="nav-link active"
+        id="nav-profile-tab"
+        data-bs-toggle="tab"
+        [class.shimmer]="dataloading"
+        data-bs-target="#nav-profile"
+        type="button"
+        role="tab"
+        aria-controls="nav-profile"
+        aria-selected="false"
+      >
+        {{ "SetUp.Map.avaliableusers" | translate }}
+      </button>
+    </div>
+  </nav>
+  <div class="heder_flx">
+    <div class="row">
+      <div class="col-md-6 col-6 col-sm-8 col-xs-8">
+        <div class="row mt-2 user_counts">
+          <div class="col">
+            <span class="anchorclick">{{
+              "SetUp.Map.totaluser" | translate
+            }}</span>
+            <strong class="totl_user">{{ unmappedcount }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-end d-flex search_dash p-0 m-0 col-6">
+        <mat-form-field appearance="outline" class=" cust-seach">
+          <mat-label>{{ "SetUp.UserManagement.search" | translate }}</mat-label>
+          <input
+            matInput
+            title="{{ 'SetUp.UserManagement.search' | translate }}"
+            placeholder="Search by Login Name"
+            [(ngModel)]="AvailableUsersValue"
+            (keyup.enter)="SearchScript()"
+            ngDefaultControl
+            autocomplete="off"
+            oncut="return false"
+            onDrop="return false"
+          />
+          <mat-icon matSuffix title=""
+            ><span
+              class="icon-search"
+              title="{{ 'SetUp.UserManagement.search' | translate }}"
+              (click)="SearchScript()"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+
+        <button
+          mat-button
+          [matMenuTriggerFor]="filter_menu"
+          class="filter_btn hide"
+        >
+          <span class=" icon-filter"></span>
+        </button>
+        <mat-menu
+          #filter_menu="matMenu"
+          xPosition="before"
+          class="filter_op hide"
+        >
+          <div class="selct_par">
+            <strong> Role</strong>
+            <select name="Selc1" id="Selc1">
+              <option value="volvo">Selc1</option>
+              <option value="saab">Selc2</option>
+            </select>
+          </div>
+
+          <div class="selct_par">
+            <strong> Status</strong>
+            <select name="Selc1" id="Selc1">
+              <option value="volvo">Selc1</option>
+              <option value="saab">Selc2</option>
+            </select>
+          </div>
+
+          <div class="selct_par">
+            <strong> School</strong>
+            <select name="Selc1" id="Selc1">
+              <option value="volvo">Selc1</option>
+              <option value="saab">Selc2</option>
+            </select>
+          </div>
+        </mat-menu>
+        <button
+          type="button"
+          title="Map User"
+          class="btn theme_button m-auto align-items-center mp_btn float-end mt-2"
+          data-bs-toggle="modal"
+          (click)="Oncheckedbutton()"
+        >
+          <span class="icon-add"></span> {{ "SetUp.Map.mapusers" | translate }}
+        </button>
+        <button
+          type="button"
+          id="btnMap"
+          title="Map UserUser"
+          class="hide"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          <span class="icon-add"></span> {{ "SetUp.Map.mapusers" | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <div class="row-header_bg card_container">
+    <div class="px-2 d-flex align-items-center col-md-12 al">
+      <div class="col-md-3">
+        <strong class="sortting">{{ "SetUp.Map.name" | translate }}</strong>
+        <span>
+          <span
+            [ngClass]="
+              sortupclicked
+                ? 'icon-download sorticon sort_up sorton'
+                : 'icon-download sorticon sort_up'
+            "
+            (click)="SortList(0, 'username')"
+          ></span>
+          <span
+            [ngClass]="
+              sortdownclicked
+                ? 'icon-download sorticon sorton'
+                : 'icon-download sorticon'
+            "
+            (click)="SortList(1, 'username')"
+          ></span>
+        </span>
+      </div>
+      <div class="col-md-3">
+        <strong>{{ "SetUp.Map.loginname" | translate }}</strong>
+      </div>
+      <div class="col-md-3">
+        <strong>{{ "SetUp.Map.schoolname" | translate }}</strong>
+      </div>
+      <div class="col">
+        <strong>{{ "SetUp.Map.nric" | translate }}</strong>
+      </div>
+      <div class="col">
+        <strong class="sortting">{{ "SetUp.Map.role" | translate }}</strong>
+        <span>
+          <span
+            [ngClass]="
+              sortupclicked1
+                ? 'icon-download sorticon sort_up sorton'
+                : 'icon-download sorticon sort_up'
+            "
+            (click)="SortList(0, 'rolecode')"
+          ></span>
+          <span
+            [ngClass]="
+              sortdownclicked1
+                ? 'icon-download sorticon sorton'
+                : 'icon-download sorticon'
+            "
+            (click)="SortList(1, 'rolecode')"
+          ></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <perfect-scrollbar class="table_list_scroll">
+    <div
+      class="row-childrow pos_rel"
+      *ngFor="let lst of UserSearchList"
+    >
+      <div class="p-2 row col-md-12" [class.shimmer]="dataloading">
+        <div [class.shimmer]="dataloading" class="col-md-3">
+          <mat-checkbox
+            [value]="lst.UserID"
+            [checked]="lst.Isselected"
+            (change)="(lst.Isselected); storecheckedvalues(lst, $event)"
+            [(ngModel)]="lst.Isselected"
+            class="example-margin cust-ml"
+            [disabled]="lst.RoleCode == 'AO' && IsAOExist != true"
+            ngDefaultControl
+          >
+          </mat-checkbox>
+          <span class="text-break">
+            {{ lst.Name }}
+          </span>
+        </div>
+        <div class="col-md-3 text-break" [class.shimmer]="dataloading">
+          <span class="text-break">
+            {{ lst.LoginName }}
+          </span>
+        </div>
+        <div class="col-md-3 text-break" [class.shimmer]="dataloading">
+          <span
+            *ngIf="
+              lst.SchooolName == undefined ||
+              lst.SchooolName == null ||
+              lst.SchooolName == ''
+            "
+          >
+            --
+          </span>
+          <span *ngIf="lst.SchooolName != null || lst.SchooolName != undefined">
+            {{ lst.SchooolName }}
+          </span>
+        </div>
+        <div class="col text-break">
+          <span [class.shimmer]="dataloading" class="text-break">
+            {{ lst.NRIC }}
+          </span>
+        </div>
+        <div class="col" [class.shimmer]="dataloading">
+          <span *ngIf="lst.RoleCode == 'MARKINGPERSONNEL'" class="mx-2">
+            MP
+          </span>
+          <span *ngIf="lst.RoleCode == 'AO'"  class="mx-2">
+            AO
+          </span>
+        </div>
+
+        <div
+          class="col-md-1 map_cu_btn"
+          *ngIf="lst.RoleCode == 'AO' && IsAOExist != true"
+          [class.shimmer]="dataloading"
+        >
+          <button
+            type="button"
+            *ngIf="unmapedusrlist.currentloginrolecode != 'AO'"
+            title="Map User"
+            (click)="MapAO(lst.UserId, lst.RoleCode)"
+            class="btn theme_button align-items-center float-end"
+          >
+            Map
+          </button>
+        </div>
+
+        <button
+          class="mat-menu-trigger option_more hide"
+          [matMenuTriggerFor]="beforeMenu"
+        >
+          <span title="More option" class="icon-options"></span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="card_box text-center"
+      *ngIf="
+        unmapedusrlist?.allunmappeduserlist?.length == 0 ||
+        unmapedusrlist?.allunmappeduserlist == null
+      "
+    >
+      {{ "SetUp.Map.nodatafnd" | translate }}
+    </div>
+  </perfect-scrollbar>
+  <mat-paginator
+    [class.shimmer]="dataloading"
+    #paginator
+    class="demo-paginator"
+    (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="pageSize"
+    [disabled]="false"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+    [hidePageSize]="false"
+    [pageIndex]="pageIndex"
+    aria-label="Select page"
+  >
+  </mat-paginator>
+</div>
+
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+  #staticBackdrop
+>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">
+          {{ "SetUp.Map.mapusers" | translate }}
+        </h5>
+        <button
+          type="button"
+          (click)="Clearpopup()"
+          class="btn-close"
+          title="Close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          #closebutton
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <h6>Selected Users : {{ SelectedUsers.length }}</h6>
+        </div>
+        <div class="mb-2">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "SetUp.Map.choosearole" | translate }}</mat-label>
+            <mat-select #matSelect>
+              <mat-option
+                *ngFor="let rolelt of userrolelist"
+                [value]="rolelt.RoleCode"
+                ngDefaultControl
+              >
+                {{ rolelt.RoleCode }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="mb-2">
+          <div class="col-md-12 col-xs-12 date_range">
+            <mat-form-field appearance="fill" class="pointer_disable">
+              <mat-label class="lable">{{
+                "SetUp.Map.fromdate" | translate
+              }}</mat-label>
+              <input
+                tabindex="-1"
+                #from
+                onDrop="return false"
+                oncut="return false"
+                onPaste="return false"
+                matInput
+                [matDatepicker]="frompicker"
+                id="FromDate"
+                [(ngModel)]="pickfromdate"
+                [value]="pickfromdate"
+                readonly
+                [min]="minimumdate"
+                ngDefaultControl
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="frompicker"
+                title="From Date" class="pointer_enable"
+              >
+              </mat-datepicker-toggle>
+              <mat-datepicker #frompicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="mb-2">
+          <mat-form-field appearance="fill" class="pointer_disable">
+            <mat-label class="lable">{{
+              "SetUp.Map.enddate" | translate
+            }}</mat-label>
+            <input
+              tabindex="-1"
+              #to
+              onDrop="return false"
+              oncut="return false"
+              onPaste="return false"
+              matInput
+              [matDatepicker]="toPicker"
+              id="ToDate"
+              [(ngModel)]="picktodate"
+              [value]="picktodate"
+              readonly
+              [min]="minimumdate"
+              ngDefaultControl       
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toPicker"
+              title="{{ 'SetUp.Map.enddate' | translate }}"
+              class="pointer_enable"
+            >
+            </mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          title="Map User"
+          (click)="onDataChange()"
+          class="btn theme_button align-items-center float-end mt-2"
+        >
+          Map
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

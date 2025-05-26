@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://LicensingAndTransfer.ServiceContracts/2010/01" elementFormDefault="qualified" targetNamespace="http://LicensingAndTransfer.ServiceContracts/2010/01" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd2" namespace="http://LicensingAndTransfer.DataContracts/2010/01" />
+  <xs:import schemaLocation="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" />
+  <xs:element name="TestCenterRegistrationRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="RequestField" nillable="true" type="q1:ArrayOfTestCenter" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TestCenterRegistrationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="ResponseField" nillable="true" type="q2:ArrayOfTestCenter" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateFTPSessionRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GuidFTPNameField" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LoadPackagesFromDCDToDCCField" type="xs:boolean" />
+        <xs:element minOccurs="0" name="MacIDField" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" minOccurs="0" name="ServerTypeField" type="q3:ServerTypes" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" minOccurs="0" name="OperationField" type="q4:Operations" />
+        <xs:element xmlns:q5="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="ListPackageStatisticsField" nillable="true" type="q5:ArrayOfPackageStatistics" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" minOccurs="0" name="TransferMediumField" type="q6:TransferMedium" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateFTPSessionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="StatusField" nillable="true" type="xs:string" />
+        <xs:element xmlns:q7="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="ListPackageStatisticsField" nillable="true" type="q7:ArrayOfPackageStatistics" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompleteFTPSessionRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GuidFTPNameField" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MacIDField" nillable="true" type="xs:string" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" minOccurs="0" name="ServerTypeField" type="q8:ServerTypes" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" minOccurs="0" name="OperationField" type="q9:Operations" />
+        <xs:element xmlns:q10="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="ListPackageStatisticsField" nillable="true" type="q10:ArrayOfPackageStatistics" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" minOccurs="0" name="TransferMediumField" type="q11:TransferMedium" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompleteFTPSessionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="ListPackageStatisticsField" nillable="true" type="q12:ArrayOfPackageStatistics" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PackageReTransferReGenerateRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="ListPackageDetailsField" nillable="true" type="q13:ArrayOfPackageDetails" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePackageStatisticsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="ListPackageStatisticsField" nillable="true" type="q14:ArrayOfPackageStatistics" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePackageLoadedDateRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="ListPackageLoadedDateField" nillable="true" type="q15:ArrayOfPackageLoadedDate" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" minOccurs="0" name="ServerTypeField" type="q16:ServerTypes" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateTestCenterRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MacIDField" nillable="true" type="xs:string" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" minOccurs="0" name="ServerTypeField" type="q17:ServerTypes" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateTestCenterResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="StatusCodeField" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="StatusField" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MessageField" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DXUTCDateTimeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UTCDateTimeField" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ScriptResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ScriptField" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BatchEndTimeUpdateRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="BatchesField" nillable="true" type="q18:ArrayOfBatch" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UserRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="UserProfilesField" nillable="true" type="q19:ArrayOfUser" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RoleRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="UserRoleField" nillable="true" type="q20:ArrayOfRole" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OrganizationRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://LicensingAndTransfer.DataContracts/2010/01" minOccurs="0" name="OrganizationField" nillable="true" type="q21:ArrayOfOrganization" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

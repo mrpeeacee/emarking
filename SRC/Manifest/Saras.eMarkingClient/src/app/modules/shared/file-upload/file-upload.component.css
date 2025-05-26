@@ -1,0 +1,44 @@
+.upload_dv {
+    background: #ebebeb;
+    padding: 5px;
+    display: flex;
+}
+
+.fileupload {
+    background: #ccc;
+    padding: 5px;
+}
+
+.file_list {
+    float: left;
+    padding: 6px;
+    background: #c1d8e7;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    margin-top: 5px;
+    position: relative;
+    padding-right: 30px;
+    font-size: 11px;
+    border-radius: 5px;
+}
+
+.file_list span {
+    color: blue;
+    text-decoration: underline;
+}
+
+.file_list button {
+    position: absolute;
+    right: 3px;
+    font-size: 8px;
+    top: 10px;
+
+}
+
+.file_list_par {
+    float: left;
+    background: #fff;
+    padding: 2px;
+    width: 100%;
+    margin-bottom: 10px
+}

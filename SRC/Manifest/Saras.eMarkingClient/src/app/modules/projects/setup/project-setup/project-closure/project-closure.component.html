@@ -1,0 +1,130 @@
+<div class="container mt-2" [class.shimmer]="updateloading">
+  <div class="card_box">
+
+    <div class="card_closure mb-2" *ngFor="let clsdt of closureData?.QigModels">
+
+      <h3>{{'SetUp.closure.qigname' | translate}}: {{clsdt.QigName}} (<span class="ready"
+          *ngIf="clsdt.IsClosed == false">{{'SetUp.closure.notready' | translate}}</span><span class="notready"
+          *ngIf="clsdt.IsClosed == true">{{'SetUp.closure.ready' | translate}}</span>)</h3>
+
+      <div class="summary_closur mt-3">
+        <div class="row">
+          <div class="col-2">
+            <span>{{'SetUp.closure.total' | translate}}:</span><strong>{{clsdt.TotalScriptCount}}</strong>
+          </div>
+          <div class="col-2">
+            <span>{{'SetUp.closure.manual' |
+              translate}}:</span><strong>{{clsdt.ManualMarkingCount}}</strong>
+          </div>
+          <div class="col-2">
+            {{'SetUp.closure.ttlscriptsubmit' |
+            translate}}: <strong> {{clsdt.TotalSubmitted}}</strong>
+          </div>
+          <div class="col-2">
+            <span>{{'SetUp.closure.submit' |
+              translate}}:</span><strong>{{clsdt.SubmittedScriptCount}}</strong>
+          </div>
+          <div class="col-2">
+            <span>{{'SetUp.closure.live' | translate}}:</span><strong>{{clsdt.LivePoolScriptCount}}</strong>
+          </div>
+          <div class="col-2">
+            <span>{{'SetUp.closure.tobesamplerc1' | translate}}:</span><strong>{{clsdt.ToBeSampledForRC1}}</strong>
+          </div>
+          <div class="col-2">
+            <span>{{'SetUp.closure.rc1unappv' |
+              translate}}:</span><strong>{{clsdt.Rc1UnApprovedCount}}</strong>
+          </div>
+          <div class="col-2" *ngIf="clsdt.RC2Exists == 0">
+            <span>{{'SetUp.closure.sample' | translate}}:</span><strong>NA</strong>
+          </div>
+          <div class="col-2" *ngIf="clsdt.RC2Exists == 1">
+            <span>{{'SetUp.closure.sample' | translate}}:</span><strong>{{clsdt.ToBeSampledForRC2}}</strong>
+          </div>
+          <div class="col-2" *ngIf="clsdt.RC2Exists == 0">
+            <span>{{'SetUp.closure.rc2unappv' | translate}}:</span><strong>NA</strong>
+          </div>
+          <div class="col-2" *ngIf="clsdt.RC2Exists == 1">
+            <span>{{'SetUp.closure.rc2unappv' |
+              translate}}:</span><strong>{{clsdt.Rc2UnApprovedCount}}</strong>
+          </div>
+          <div class="col-2">
+            <span>{{'SetUp.closure.checkout' |
+              translate}}:</span><strong>{{clsdt.CheckedOutScripts}}</strong>
+          </div>
+          <div class="col-3">
+            <button (click)="ClearPendingScripts(clsdt.QigId)"
+              [disabled]="!(
+              clsdt.TotalSubmitted > 0 && clsdt.ManualMarkingCount == clsdt.TotalSubmitted && clsdt.SubmittedScriptCount != clsdt.TotalSubmitted)" type="button"
+              title="{{'SetUp.closure.btnClearRc' | translate}}" class="btn theme_button   ml-0 mr-2 atag">
+              {{'SetUp.closure.btnClearRc' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="row mb-3" *ngIf="closureData?.Rpackexist">
+      <div class="txtcenter">
+        <h2>{{'SetUp.closure.rpackexist' | translate}}</h2>
+      </div>
+    </div>
+
+    <div><span><strong>{{'SetUp.closure.note' | translate}}:&nbsp;</strong>{{'SetUp.closure.notecontent' |
+        translate}}</span><br /></div>
+    <div class="filter_content">
+      <mat-checkbox (change)="checkexist($event)" [checked]="(IsQuestionType == true && projectStatus != true)"
+        class="example-margin" [disabled]="!enableCheckbox || !projectStatus|| closureData.Rpackexist"
+        (click)="$event.stopPropagation();"></mat-checkbox>
+      <span><strong>{{'SetUp.closure.chkdiscrepancy' | translate}}</strong></span>
+    </div>
+    <div class="remarks_dv1 col-md-6 col-sm-6 col-xs-12 hide" *ngIf="closureData != null && !IsQuestionType">
+      <h3>{{'SetUp.closure.remark' | translate}}</h3>
+      <div class="d-flex"> <textarea maxlength="250" [(ngModel)]="closureData.Remarks"
+          placeholder="{{'SetUp.closure.remark' | translate}}"
+          [disabled]="!enableSaveButton || !projectStatus || closureData.Rpackexist"></textarea><span
+          class="madatory ml3">*</span></div>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn theme_button d-flex align-items-center float-end" [disabled]="projectStatus"
+          title="{{'SetUp.closure.reopen' | translate}}" data-bs-toggle="modal" (click)="getProjectConfig(true)"
+          data-bs-target="#exampleModal">{{'SetUp.closure.reopen' |
+          translate}}</button>
+
+        <button type="button" title="{{'SetUp.closure.closure' | translate}}"
+          [disabled]="!enableSaveButton || !projectStatus  || closureData.Rpackexist"
+          class="btn theme_button d-flex align-items-center cs_tn" (click)="updateProjectclosure();">
+          <span class="icon-save-1" style="pointer-events: none;"></span><span>{{'SetUp.closure.closure' |
+            translate}}</span></button>
+      </div>
+    </div>
+
+    <div class="remarks_dv1 col-md-6 col-sm-6 col-xs-12" *ngIf="projectStatus">
+      <h3>{{'SetUp.closure.remark' | translate}}</h3>
+      <div class="d-flex"> <textarea id="closure" maxlength="250" [(ngModel)]="closureData.Remarks"
+          placeholder="{{'SetUp.closure.remark' | translate}}"
+          [disabled]="!enableSaveButton || !projectStatus  || closureData.Rpackexist"></textarea><span
+          class="madatory ml3">*</span></div>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" title="{{'SetUp.closure.closure' | translate}}"
+          [disabled]="!enableSaveButton || !projectStatus " class="btn theme_button d-flex align-items-center cs_tn"
+          (click)="updateProjectclosure();">
+          <span class="icon-save-1" style="pointer-events: none;"></span><span>{{'SetUp.closure.closure' |
+            translate}}</span></button>
+      </div>
+    </div>
+
+    <div class="remarks_dv1 col-md-6 col-sm-6 col-xs-12" *ngIf="closureData != null && !projectStatus">
+      <h3>{{'SetUp.closure.remark' | translate}}</h3>
+      <div class="d-flex"> <textarea id="reopen" maxlength="250" class="txt_area"
+          [(ngModel)]="closureData.ReopenRemarks" placeholder="{{'SetUp.closure.remark' | translate}}"></textarea><span
+          class="madatory ml3">*</span>
+      </div>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn theme_button d-flex align-items-center float-end"
+          title="{{'SetUp.closure.reopen' | translate}}" (click)="updateProjectreopen();">{{'SetUp.closure.reopen' |
+          translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

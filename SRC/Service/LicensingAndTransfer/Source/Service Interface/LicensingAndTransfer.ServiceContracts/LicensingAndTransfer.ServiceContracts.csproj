@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F6CD80DA-2DA7-45CA-8459-DF49B606B559}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LicensingAndTransfer.ServiceContracts</RootNamespace>
+    <AssemblyName>LicensingAndTransfer.ServiceContracts</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttachmentDetailsRequest.cs" />
+    <Compile Include="AttachmentProccedDetailsRequest.cs" />
+    <Compile Include="Contracts\ApplicationLicensingRequest.cs" />
+    <Compile Include="Contracts\ApplicationLicensingResponse.cs" />
+    <Compile Include="Contracts\BatchEndTimeUpdateRequest.cs" />
+    <Compile Include="Contracts\BubbleSheetDataRequest.cs" />
+    <Compile Include="Contracts\BubbleSheetDataResponse.cs" />
+    <Compile Include="Contracts\GetLogRequestType.cs" />
+    <Compile Include="Contracts\GetLogResponseType.cs" />
+    <Compile Include="Contracts\LoadedMediaPackageDetailsResponse.cs" />
+    <Compile Include="Contracts\LogoutputRequestType.cs" />
+    <Compile Include="Contracts\ValidateTestCenterTypeRequest.cs" />
+    <Compile Include="Contracts\ClassRequest.cs" />
+    <Compile Include="Contracts\ClassResponse.cs" />
+    <Compile Include="Contracts\CompleteFTPSessionRequest.cs" />
+    <Compile Include="Contracts\CompleteFTPSessionResponse.cs" />
+    <Compile Include="Contracts\CourseBlockRequest.cs" />
+    <Compile Include="Contracts\CourseBlockResponse.cs" />
+    <Compile Include="Contracts\CourseRequest.cs" />
+    <Compile Include="Contracts\CourseResponse.cs" />
+    <Compile Include="Contracts\CustomUserRequest.cs" />
+    <Compile Include="Contracts\CustomUserResponse.cs" />
+    <Compile Include="Contracts\ETLAppErrorLogsRequest.cs" />
+    <Compile Include="Contracts\ExtractAssessmentDetailsRequest.cs" />
+    <Compile Include="Contracts\ExtractAssessmentDetailsResponse.cs" />
+    <Compile Include="Contracts\ExtractSummaryDetailsRequest.cs" />
+    <Compile Include="Contracts\ExtractSummaryResponse.cs" />
+    <Compile Include="Contracts\InstrucotrRequest.cs" />
+    <Compile Include="Contracts\InstructorResponse.cs" />
+    <Compile Include="Contracts\MediaPackageInfoRequest.cs" />
+    <Compile Include="Contracts\MSIInstallationResult.cs" />
+    <Compile Include="Contracts\OMRScannedResponse.cs" />
+    <Compile Include="Contracts\OrganizationsForTestCenterAppraisalResponse.cs" />
+    <Compile Include="Contracts\DXUTCDateTimeResponse.cs" />
+    <Compile Include="Contracts\GetNonExecutedScriptsRequestType.cs" />
+    <Compile Include="Contracts\GetNonExecutedScriptsResponseType.cs" />
+    <Compile Include="Contracts\HttpFileTransfer.cs" />
+    <Compile Include="Contracts\PersistDailyScheduleSummaryRequest.cs" />
+    <Compile Include="Contracts\PostInstallationRequest.cs" />
+    <Compile Include="Contracts\ResetQpackReceivedStatusRequest.cs" />
+    <Compile Include="Contracts\ResetQpackReceivedStatusResponse.cs" />
+    <Compile Include="Contracts\RosterRequest.cs" />
+    <Compile Include="Contracts\RosterResponse.cs" />
+    <Compile Include="Contracts\ScannedResponse.cs" />
+    <Compile Include="Contracts\ScannedResponseRequest.cs" />
+    <Compile Include="Contracts\ScheduleRequest.cs" />
+    <Compile Include="Contracts\ScheduleResponse.cs" />
+    <Compile Include="Contracts\ScripResponse.cs" />
+    <Compile Include="Contracts\ScriptRequestType.cs" />
+    <Compile Include="Contracts\SearchActivatedStatusForBatchRequest.cs" />
+    <Compile Include="Contracts\SearchActivatedStatusForBatchResponse.cs" />
+    <Compile Include="Contracts\SearchAssessmentStatisticsRequest.cs" />
+    <Compile Include="Contracts\SearchAssessmentStatisticsResponse.cs" />
+    <Compile Include="Contracts\TcBatchesRequest.cs" />
+    <Compile Include="Contracts\TcBatchesResponse.cs" />
+    <Compile Include="Contracts\TcVerificationRequest.cs" />
+    <Compile Include="Contracts\TcVerificationResponse.cs" />
+    <Compile Include="Contracts\TestCenterSiteAppraisalRequest.cs" />
+    <Compile Include="Contracts\TestCenterSiteAppraisalResponse.cs" />
+    <Compile Include="Contracts\UpdateAssessmentStatisticsRequest.cs" />
+    <Compile Include="Contracts\UpdatePackageLoadedDateRequest.cs" />
+    <Compile Include="Contracts\UpdatePackageStatisticsRequest.cs" />
+    <Compile Include="Contracts\PackageReTransferReGenerateRequest.cs" />
+    <Compile Include="Contracts\CreateFTPFolderResponse.cs" />
+    <Compile Include="Contracts\CreateFTPFolderRequest.cs" />
+    <Compile Include="Contracts\TestCenterRegistrationResponse.cs" />
+    <Compile Include="Contracts\UpdateScriptsRequestType.cs" />
+    <Compile Include="Contracts\UpdateTestCenterAssessmentPacksRequest.cs" />
+    <Compile Include="Contracts\UserManagement.cs" />
+    <Compile Include="Contracts\ValidateMSIInstallationRequest.cs" />
+    <Compile Include="Contracts\ValidateTestCenterRequest.cs" />
+    <Compile Include="Contracts\ValidateTestCenterResponse.cs" />
+    <Compile Include="Contracts\ValidateTestCenterTypeResponse.cs" />
+    <Compile Include="IApplicationLicensing.cs" />
+    <Compile Include="IAttendance.cs" />
+    <Compile Include="ILicensingAndTransfer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Contracts\TestCenterRegistrationRequest.cs" />
+    <Compile Include="ValidateMSIInstallationResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LicensingAndTransfer.DataContracts\LicensingAndTransfer.DataContracts.csproj">
+      <Project>{A0791A1A-964B-49F8-9A00-57F1C6578B01}</Project>
+      <Name>LicensingAndTransfer.DataContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties IsWCFServiceContractsProject="True" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

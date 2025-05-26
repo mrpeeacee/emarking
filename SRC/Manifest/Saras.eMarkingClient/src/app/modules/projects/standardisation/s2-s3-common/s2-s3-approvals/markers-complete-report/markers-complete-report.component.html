@@ -1,0 +1,199 @@
+<div class="container">
+
+  <div class="body_box">
+    <div class="headline_bak">
+      <button type="button" class="btn theme_button d-flex align-items-center float-start mb-2"
+        title="{{'markcomp.back' | translate}}" (click)="backToS2S3Approval()"><span
+          class="icon-arrow_back"></span></button> 
+    </div>
+    <div class="card_box">
+      <div class="row align-items-center">
+        <div class="col-md-3">
+          <div class="d-flex ">
+            <div>{{'markcomp.mpname' | translate}}:</div><span><strong class="mx-2">{{markingPersonal}}</strong></span>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="d-flex align-items-center" *ngIf="scpType != 22">
+            <div>{{'markcomp.result' | translate}}:</div>
+            <div *ngIf="approvalStatus == 'Approved'">
+              <div class="status_yess"><strong class="mx-2">{{'markcomp.livemarking' | translate}}</strong></div>
+            </div>
+            <div *ngIf="approvalStatus == 'Pending'">
+              <div class="status_nos"> <strong class="mx-2">{{'markcomp.pendingreview' | translate}}</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3" *ngIf="scpType != 22">
+          <div class="d-flex ">
+            <div>{{'markcomp.tolcount' | translate}}:</div><span><strong class="mx-2">{{ToleranceCount}}</strong></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" title="{{'markcomp.dtls' | translate}}" (click)="getNxtStandardisationScripts()" ngDefaultControl
+          id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home"
+          aria-selected="true">{{'markcomp.dtls' | translate}}</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" title="{{'markcomp.addstd' | translate}}" (click)="getAdditionalScripts()" ngDefaultControl
+          id="profile-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="profile"
+          aria-selected="false">{{'markcomp.addstd'
+          | translate}}</button>
+      </li>
+    </ul>
+    <div class="card_box">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="row-header_bg mt-2">
+            <div class="col-4">{{'markcomp.scripts' | translate}}</div>
+            <div class="col-4">{{'markcomp.result' | translate}}</div>
+            <div class="col-3"></div>
+          </div>
+          <mat-accordion *ngFor="let stddtls of stdScrpClass; let i = index;">
+
+            <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="stddtls.Isopened = true; PracticeQuestionDetails(stddtls.ScriptId, stddtls.IsCompleted);" (closed)="stddtls.Isopened = false" ngDefaultControl >
+              <mat-expansion-panel-header (click)="togglePanels(i);" title="{{(stddtls.Isopened == true ? 'Collapse' : 'Expand') | translate}}">
+                <div class="row-childrow_em card_box card_box_mb">
+                  <div class="d-flex align-items-center">
+                    <div class="col-4">{{stddtls.ScriptName == null ? '---' : stddtls.ScriptName}}</div>
+                    <div class="col-4" *ngIf="stddtls.IsOutOfTolerance == false && scpType == 21">
+                      <span class="status_yess ">{{'markcomp.match'
+                        |
+                        translate}}</span>
+                    </div>
+                    <div class="col-4" *ngIf="stddtls.IsOutOfTolerance == true && scpType == 21">
+                      <span class="status_nos ">{{'markcomp.unmatch'
+                        |
+                        translate}}</span>
+                    </div>
+                    <div class="col-4" *ngIf="stddtls.IsOutOfTolerance == false && scpType == 22">
+                      <span class="status_yess ">{{'markcomp.match'
+                        |
+                        translate}}</span>
+                    </div>
+                    <div class="col-4" *ngIf="stddtls.IsOutOfTolerance == true && scpType == 22">
+                      <span class="status_nos">{{'markcomp.unmatch'
+                        |
+                        translate}}</span>
+                    </div>
+                    <div class="col-4" *ngIf="stddtls.IsOutOfTolerance == null || res == null">---</div>
+                    <div class="col-2">
+                      <button type="button" class="btn theme_button_light" title="{{'markcomp.vscrpt' | translate}}"
+                        (click)="NavigateToMarkingPlayer({ ScriptId: stddtls.ScriptId, IsViewMode:true, IsCompleted: stddtls.IsCompleted, Markedby: stddtls.UserMarkedBy, Workflowid: stddtls.WorkflowStatusID, UserScriptMarkingRefId: stddtls.UserScriptMarkingRefID})">{{'markcomp.vscrpt'
+                        | translate}}</button>
+                    </div>
+                    <div class="col-1">
+                      <button type="button"
+                        class="btn theme_button_light mat-focus-indicator cus_btn_thme  theme_button_light1 pt-0 pb-0"
+                        *ngIf="stddtls.MarkerScore != null" title="{{'markcomp.vmark' | translate}}"
+                        (click)="NavigateToMarkingPlayer({ ScriptId: stddtls.ScriptId, IsViewMode: true, IsCompleted: stddtls.IsCompleted, Workflowid: stddtls.WorkflowStatusID, Markedby: stddtls.MarkedBy})"><span
+                          class="icon-view"></span></button>
+                    </div>
+
+                  </div>
+                </div>
+              </mat-expansion-panel-header>
+
+
+              <div class="row-header_bg mt-2">
+                <div class="col-2">{{'markcomp.qsnlabel' | translate}}</div>
+                <div class="col-2">{{'markcomp.maxmark' | translate}}</div>
+                <div class="col-2">{{'markcomp.tolerance' | translate}}</div>
+                <div class="col-2">{{'markcomp.defscore' | translate}}</div>
+                <div class="col-2">{{'markcomp.mscore' | translate}}</div>
+                <div class="col-2">{{'markcomp.result' | translate}}</div>
+              </div>
+
+              <div class="row-childrow_em card_box card_brd_btn" *ngFor="let praDtls of practiceQusDtls">
+                <div class="d-flex">
+                  <div class="col-2" [class.shimmer]="QusDetailLoading"><span>{{praDtls.QuestionLabel == null ? '---' : praDtls.QuestionLabel}}</span></div>
+                  <div class="col-2" [class.shimmer]="QusDetailLoading"><span>{{praDtls.TotalMarks == null ? '---' : praDtls.TotalMarks}}</span></div>
+                  <div class="col-2" [class.shimmer]="QusDetailLoading"><span>{{praDtls.ToleranceLimit == null ? '---' : praDtls.ToleranceLimit}}</span></div>
+                  <div class="col-2" [class.shimmer]="QusDetailLoading"><span>{{praDtls.DefenetiveMarks == null ? '---' : praDtls.DefenetiveMarks}}</span></div>
+                  <div class="col-2" [class.shimmer]="QusDetailLoading"><span>{{praDtls.AwardedMarks == null ? '---' : praDtls.AwardedMarks}}</span></div>
+                  <div class="col-2" [class.shimmer]="QusDetailLoading" *ngIf="praDtls.IsOutOfTolerance == false">
+                    <span class="status_yess ">{{'markcomp.match' |
+                      translate}}</span>
+                  </div>
+                  <div class="col-2" [class.shimmer]="QusDetailLoading" *ngIf="praDtls.IsOutOfTolerance == true">
+                    <span class="status_nos ">{{'markcomp.unmatch' |
+                      translate}}</span>
+                  </div>
+                  <div class="col-2" [class.shimmer]="QusDetailLoading" *ngIf="praDtls.IsOutOfTolerance == null">---</div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+
+          </mat-accordion>
+          <div class="text-center mt-1 card_box nodatafound"
+            *ngIf="stdScrpClass == null || stdScrpClass.length == 0">
+            {{'markcomp.norcd' | translate}}
+          </div>
+        </div>
+
+        <div class="remarks_dv col-md-6 col-sm-6 col-xs-12">
+          <div
+            *ngIf="(approvalType != 'A' && result != 0) || (approvalType == 'M' && result == 0) || (approvalType == 'A' && result == 1)">
+            <div class="row">
+              <div>{{'markcomp.appliv' | translate}} </div>
+              <div *ngIf="approvalStatus != 'Approved'">
+                <div><strong class="mx-2 status_pendings aprbtn">{{'markcomp.pending' | translate}}</strong></div>
+              </div>
+              <div *ngIf="approvalStatus == 'Approved'">
+                <div><strong class="mx-2 status_yess aprbtn">{{'markcomp.approvedlbl' | translate}}</strong></div>
+              </div>
+
+            </div>
+          </div>
+
+          <mat-form-field class="remarks" appearance="fill">
+            <mat-label>{{'markcomp.remark' | translate}}
+              <span class="remarkslbl required"></span>
+            </mat-label>
+            <textarea [(ngModel)]="remark" matInput name="" rows="4" class="text_area_mt2 text_are"
+              placeholder="Remarks" [disabled]="ProcessStatus == 4 || approvalStatus == 'Approved' || (IsAdditionaldone == false && IsAdditionaldone != null)"
+              oncut="return false" onDrop="return false" onPaste="return false" maxlength="500" required></textarea>
+          </mat-form-field>
+          <div class="d-flex justify-content-start mt-3" *ngIf="approvalStatus != 'Approved'">
+            <button type="button" title="{{'markcomp.approv' | translate}}" class="btn status_yes_btn"
+              (click)="scriptApproval({Remark: remark})"
+              [disabled]="ProcessStatus == 4 || (IsAdditionaldone == false && IsAdditionaldone != null)"><span
+                class="icon-complete"></span>{{'markcomp.approv'
+              |
+              translate}}</button>
+            <div
+              *ngIf="(approvalType == 'M' && result == 1) && (res == 0 || res == 1 || res == 2 || res == 4 || res == 5)">
+              <button type="button" title="{{'markcomp.assgnadd' | translate}}"
+                [disabled]="ProcessStatus == 4 || (IsAdditionaldone == false && IsAdditionaldone != null)"
+                class="btn theme_button d-flex align-items-center cs_tn mx-2" (click)="navigateToAssignAddSp()">
+                <span class="icon-add"></span>{{'markcomp.assgnadd' | translate}}
+
+              </button>
+            </div>
+            <div
+              *ngIf="(approvalType != 'M' && result == 1) && (res == 0 || res == 1 || res == 2 || res == 4 || res == 5)">
+              <button type="button" title="{{'markcomp.assgnadd' | translate}}"
+                [disabled]="ProcessStatus == 4 || (!IsAdditionaldone && IsAdditionaldone != null)"
+                class="btn theme_button d-flex align-items-center cs_tn mx-2" (click)="navigateToAssignAddSp()">
+                <span class="icon-add"></span>{{'markcomp.assgnadd' | translate}}
+
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

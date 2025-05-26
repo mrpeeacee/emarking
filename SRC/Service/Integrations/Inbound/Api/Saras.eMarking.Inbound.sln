@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.Inbound", "Saras.eMarking.Inbound\Saras.eMarking.Inbound.csproj", "{C39BD269-11E0-4454-BDD5-64D9402C893A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.Inbound.Business", "Saras.eMarking.Inbound.Services\Saras.eMarking.Inbound.Business.csproj", "{D8C52702-2EAE-4362-A556-881F55A1ECF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saras.eMarking.Inbound.Infrastructure", "Saras.eMarking.Inbound.DataAccess\Saras.eMarking.Inbound.Infrastructure.csproj", "{7AA56C03-CFAE-41AF-AD84-1296D49C3812}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saras.eMarking.Inbound.IOC", "Saras.eMarking.Inbound.IOC\Saras.eMarking.Inbound.IOC.csproj", "{3ACC8CCB-7C49-4C0D-B65D-99FC14D6E18E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TokenLibrary", "..\..\..\Saras.eMarking\JwtToken\TokenLibrary.csproj", "{A7E8EB2B-B633-40F9-82E8-8CAFDB0F2003}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saras.eMarking.Inbound.Domain", "Saras.eMarking.Inbound.Domain\Saras.eMarking.Inbound.Domain.csproj", "{7D8A96BE-230D-44C5-88F6-C050FF489E3E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C39BD269-11E0-4454-BDD5-64D9402C893A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C39BD269-11E0-4454-BDD5-64D9402C893A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C39BD269-11E0-4454-BDD5-64D9402C893A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C39BD269-11E0-4454-BDD5-64D9402C893A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C52702-2EAE-4362-A556-881F55A1ECF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C52702-2EAE-4362-A556-881F55A1ECF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C52702-2EAE-4362-A556-881F55A1ECF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C52702-2EAE-4362-A556-881F55A1ECF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AA56C03-CFAE-41AF-AD84-1296D49C3812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AA56C03-CFAE-41AF-AD84-1296D49C3812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AA56C03-CFAE-41AF-AD84-1296D49C3812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AA56C03-CFAE-41AF-AD84-1296D49C3812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ACC8CCB-7C49-4C0D-B65D-99FC14D6E18E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACC8CCB-7C49-4C0D-B65D-99FC14D6E18E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ACC8CCB-7C49-4C0D-B65D-99FC14D6E18E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACC8CCB-7C49-4C0D-B65D-99FC14D6E18E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7E8EB2B-B633-40F9-82E8-8CAFDB0F2003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7E8EB2B-B633-40F9-82E8-8CAFDB0F2003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7E8EB2B-B633-40F9-82E8-8CAFDB0F2003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7E8EB2B-B633-40F9-82E8-8CAFDB0F2003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D8A96BE-230D-44C5-88F6-C050FF489E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D8A96BE-230D-44C5-88F6-C050FF489E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D8A96BE-230D-44C5-88F6-C050FF489E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D8A96BE-230D-44C5-88F6-C050FF489E3E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {228FBF84-3F92-4FE3-AA1D-D0E575D92FDD}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://estfs.excelindia.com/tfs/saras
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Saras.eMarking.Inbound\\Saras.eMarking.Inbound.csproj
+		SccProjectName1 = Saras.eMarking.Inbound
+		SccLocalPath1 = Saras.eMarking.Inbound
+		SccProjectUniqueName2 = Saras.eMarking.Inbound.IOC\\Saras.eMarking.Inbound.IOC.csproj
+		SccProjectName2 = Saras.eMarking.Inbound.IOC
+		SccLocalPath2 = Saras.eMarking.Inbound.IOC
+		SccProjectUniqueName3 = ..\\..\\..\\Saras.eMarking\\JwtToken\\TokenLibrary.csproj
+		SccProjectName3 = ../../../Saras.eMarking/JwtToken
+		SccLocalPath3 = ..\\..\\..\\Saras.eMarking\\JwtToken
+		SccProjectUniqueName4 = Saras.eMarking.Inbound.Domain\\Saras.eMarking.Inbound.Domain.csproj
+		SccProjectName4 = Saras.eMarking.Inbound.Domain
+		SccLocalPath4 = Saras.eMarking.Inbound.Domain
+		SccProjectUniqueName5 = Saras.eMarking.Inbound.Services\\Saras.eMarking.Inbound.Business.csproj
+		SccProjectName5 = Saras.eMarking.Inbound.Services
+		SccLocalPath5 = Saras.eMarking.Inbound.Services
+		SccProjectUniqueName6 = Saras.eMarking.Inbound.DataAccess\\Saras.eMarking.Inbound.Infrastructure.csproj
+		SccProjectName6 = Saras.eMarking.Inbound.DataAccess
+		SccLocalPath6 = Saras.eMarking.Inbound.DataAccess
+	EndGlobalSection
+EndGlobal

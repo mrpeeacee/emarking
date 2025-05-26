@@ -1,0 +1,50 @@
+
+.word_wrpa{
+    word-wrap: break-word; 
+    padding-right: 8px;  
+    padding-left: 1px; 
+}
+
+::ng-deep .mat-paginator-container {
+
+    justify-content: space-between !important;
+
+}
+.pos_rel{position: relative;}
+
+::ng-deep .mat-paginator-container .mat-form-field {
+    margin-bottom: 7px;
+    width: 70px !important;
+    border: 1px solid #979797;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+::ng-deep .mat-paginator-container .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0.25px !important;
+}
+
+::ng-deep .mat-paginator {
+
+    margin: 4px 10px 5px 10px !important;
+}
+
+.table_list_scroll {
+  height: auto !important;
+  height: 45vh !important;
+}
+.mat-form-field {
+    margin-bottom: 0px !important;
+  }
+
+.card_box{
+    margin-bottom: 3px !important;
+    padding-bottom: 2px !important;
+}
+.search_dash{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+.row-header_bg{
+    padding-top: 8px !important;
+}

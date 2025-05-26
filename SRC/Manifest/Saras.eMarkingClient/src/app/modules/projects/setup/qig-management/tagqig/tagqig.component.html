@@ -1,0 +1,42 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">{{'qigmanagement.tag-qig.moveqig' | translate}}</h1>
+    <button type="button" class="btn-close" mat-dialog-close data-bs-dismiss="modal" aria-label="Close" #closebutton
+      title="{{'shared.close' | translate}}"></button>
+  </div>
+  <div class="modal-body" [class.shimmer]="tagdataloading">
+    <div class="row">
+      <div class="col-4 d-flex align-items-center">
+        <span class="mx-2">Question Label</span>
+        <span><strong> : {{questiondetails?.QigQuestionName}}</strong></span>
+      </div>
+      <div class="col-4 d-flex align-items-center">
+        <span class="mx-2">{{'qigmanagement.tag-qig.qiglabel' | translate}}</span>
+        <span><strong> : {{questiondetails?.QigName}}</strong></span>
+      </div>
+      <div class="col-4 d-flex align-items-center">
+        <span class="mx-2">{{'qigmanagement.qns-qig-mapping.totmarks' | translate}}</span>
+        <span><strong> : {{questiondetails?.QigTotalMarks}}</strong></span>
+      </div>
+
+      <div class="mt-4">
+        <div class="col-6" title="Select QIG">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'qigmanagement.qns-qig-mapping.selectqig' | translate}}</mat-label>
+            <mat-select placeholder="{{'qigmanagement.qns-qig-mapping.selectqig' | translate}}" #matSelect>
+              <mat-option *ngFor="let qiglist of questiondetails?.QigIds" [value]="qiglist?.QIGID" ngDefaultControl>
+                {{ qiglist?.QIGName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer_dil">
+    <button type="button" class="btn p-2 theme_button d-flex align-items-center float-start mt-3 mx-0"
+      title="{{'qigmanagement.qns-qig-mapping.save' | translate}}" (click)="MoveorTagQig(questiondetails)"
+      [class.shimmer]="tagdataloading">
+      <span class="icon-save-1"></span>{{'qigmanagement.qns-qig-mapping.save' | translate}}</button>
+  </div>
+</div>

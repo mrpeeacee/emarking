@@ -1,0 +1,64 @@
+.tbl {
+    padding: 40px 0px 0px 10px;
+
+}
+
+thead {
+    background: #472c8a;
+    color: white;
+}
+
+th {
+    text-align: center;
+    font-weight: 600;
+}
+
+td {
+    text-align: center;
+    font-weight: 300;
+}
+
+.btn {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    font-family: arial, sans-serif;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btnhover:hover {
+    color: #000;
+}
+
+.newschemeBtn {
+    text-align: right;
+    padding-right: 68px;
+}
+
+.theme_button:hover {
+    color: #000;
+}
+
+.marked {
+    background: #06CF02;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+
+.nonmarked {
+    background: #C4C4C4;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.fontbold
+{
+    font-weight: bold;
+}

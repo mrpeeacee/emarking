@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="mt-2 row-header card_container">
+        <div class="p-2 d-flex row justify-content-between bd-highlight align-items-center col-md-12 al">
+            <div class="col-md-3">Project Name</div>
+            <div class="col-md-1">Exam Closed</div>
+            <div class="col-md-1">Ready For Marking Process</div>
+            <div class="col-md-2">Project Created On</div>
+            <div class="col-md-1">Marking Personnel Imported</div>
+            <div class="col-md-1">Scripts Imported</div>
+            <div class="col-md-3">Remarks</div>
+        </div>
+    </div>
+    <div>
+        <div class="search-results">
+            <div [class.shimmer]="Stdrptloading" class="mt-2 row-childrow_bg card_box"
+                *ngFor="let crsDetails of CourseValidation">
+                <div class="p-2 d-flex row justify-content-between bd-highlight align-items-center col-md-12 al">
+                    <div class="col-md-3">{{(crsDetails.ProjectName == '' ? '--': crsDetails.ProjectName)}}</div>
+                    <div class="col-md-1">
+                        <span class="icon-complete"
+                            [ngClass]="{'marked' : crsDetails?.IsExamClosed == true, 'nonmarked' : crsDetails?.IsExamClosed != true}"></span>
+                    </div>
+                    <div class="col-md-1"> <span class="icon-complete"
+                            [ngClass]="{'marked' : crsDetails?.IsReadyForEmarkingProcess == true, 'nonmarked' : crsDetails?.IsReadyForEmarkingProcess != true}"></span>
+                    </div>
+                    <div class="col-md-2" *ngIf="crsDetails.ProjectCreatedDate != null"> {{
+                        crsDetails.ProjectCreatedDate | date: 'dd-MMM-YYYY h:mm:ss a' }} </div>
+                    <div class="col-md-2" *ngIf="crsDetails.ProjectCreatedDate == null"> -- </div>
+                    <div class="col-md-1">
+                        <span class="icon-complete"
+                            [ngClass]="{'marked' : crsDetails?.IsMarkPersonImported == true, 'nonmarked' : crsDetails?.IsMarkPersonImported != true}"></span>
+                    </div>
+                    <div class="col-md-1">
+                        <span class="icon-complete"
+                            [ngClass]="{'marked' : crsDetails?.IsScriptsImported == true, 'nonmarked' : crsDetails?.IsScriptsImported != true}"></span>
+                    </div>
+                    <div class="col-md-3">{{crsDetails.JobStatus}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-1 card_box nodatafound"
+        *ngIf="CourseValidation == null || CourseValidation.length <= 0 || CourseValidation == undefined">
+        {{'StdDetails.norec' | translate}}
+    </div>
+</div>

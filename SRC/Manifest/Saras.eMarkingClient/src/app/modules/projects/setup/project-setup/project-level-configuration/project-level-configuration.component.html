@@ -1,0 +1,151 @@
+<div class="container">
+    <div class="card_box mt-3">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <ng-container *ngFor="let config of ProjectConfig">
+                        <div class="project_sche mt-3 mb-3 hide" *ngIf="config.AppsettingKey === 'GRCPRD'"
+                            [class.shimmer]="projectlevleconfig">
+                            <div class="bd-highlight project_levl">
+                                <div class="col-md-3 project_child" onKeyDown="return false">
+                                    <label>{{'SetUp.Config.GP' | translate}}</label>
+                                    <input oncut="return false" onDrop="return false" onPaste="return false"
+                                        type="number" min="1" max="60" [(ngModel)]="config.Value" name="graceprd"
+                                        ngDefaultControl value="{{config.Value}}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project_sche" *ngIf="config.AppsettingKey==='DSPLQUSTNTYPE'">
+
+                            <mat-slide-toggle [(ngModel)]="config.Value" class="mb-3" [checked]="config.Value"
+                                color="primary">
+                                {{'SetUp.Config.Display' | translate}}
+                            </mat-slide-toggle>
+                            <div [class.shimmer]="projectlevleconfig">
+                                <ng-container *ngIf="config.Value == true">
+
+                                    <mat-radio-group class="project_radi col-md-12" aria-label="Select an option">
+
+                                        <ng-container *ngFor="let qtype of config.Children">
+
+                                            &nbsp; &nbsp;<mat-radio-button color="primary" [(ngModel)]="qtype.Value"
+                                                ngDefaultControl [checked]="qtype.Value" [value]="qtype.Value"
+                                                (change)="toggleQuestionType(qtype.AppSettingKeyID, config.Children)">
+                                                {{qtype.AppsettingKeyName}}
+                                            </mat-radio-button>&nbsp;
+                                        </ng-container>
+                                    </mat-radio-group>
+                                </ng-container>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="project_sche" *ngIf="config.AppsettingKey==='ANNTNCLR'">
+                            <mat-slide-toggle [(ngModel)]="config.Value" [checked]="config.Value" color="primary"
+                                class="mb-3">
+                                {{'SetUp.Config.Color' | translate}}
+                            </mat-slide-toggle>
+
+                            <div class="project_radi" *ngIf="config.Value == true" [class.shimmer]="projectlevleconfig">
+                                <div class="row">
+                                    <ng-container *ngFor="let ancolr1 of config.Children">
+                                        <div class="col-md-6 col-sm-6 col-xs-12"
+                                            *ngIf="ancolr1.AppsettingKey =='RLAO' || ancolr1.AppsettingKey =='RLTL' ">
+                                            <mat-label>{{(ancolr1.AppsettingKey=='RLAO')?1:4}}.
+                                                {{ancolr1.AppsettingKeyName}} </mat-label>
+                                            <input type="color" disabled [(ngModel)]="ancolr1.Value"
+                                                name="{{ancolr1.AppsettingKey}}" ngDefaultControl
+                                                value="ancolr1.Value" />
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="row">
+                                    <ng-container *ngFor="let ancolr2 of config.Children">
+                                        <div class="col-md-6 col-sm-6 col-xs-12"
+                                            *ngIf="ancolr2.AppsettingKey =='RLCM' || ancolr2.AppsettingKey =='RLATL' ">
+                                            <label> {{(ancolr2.AppsettingKey =='RLCM')?2:5}}.
+                                                {{ancolr2.AppsettingKeyName}}</label>
+                                            <input type="color" disabled [(ngModel)]="ancolr2.Value"
+                                                name="{{ancolr2.AppsettingKey}}" ngDefaultControl
+                                                value="ancolr2.Value" />
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="row">
+                                    <ng-container *ngFor="let ancolr3 of config.Children">
+                                        <div class="col-md-6 col-sm-6 col-xs-12"
+                                            *ngIf="ancolr3.AppsettingKey =='RLACM' || ancolr3.AppsettingKey =='MRKR'">
+                                            <label> {{(ancolr3.AppsettingKey=='RLACM')?'3':'6'}}.
+                                                {{ancolr3.AppsettingKeyName}}</label>
+                                            <input type="color" disabled [(ngModel)]="ancolr3.Value"
+                                                name="{{ancolr3.AppsettingKey}}" ngDefaultControl
+                                                value="ancolr3.Value" />
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div id="project_sche" class="mt-3 mb-3" *ngIf="config.AppsettingKey === 'PROJECTRCJOBDURATION'"
+                            [class.shimmer]="projectlevleconfig">
+                            <div class="rndm_name">
+                                <strong><span class="icon-random_check"></span> {{'SetUp.Qig.Rc' | translate}}</strong>
+                            </div>
+
+                            
+                                <div  class="duration">
+                                    <mat-form-field appearance="outline" >
+                                        <mat-label>Job Duration (Mins)</mat-label>
+                                        <input matInput type="number" oncut="return false" onDrop="return false" onPaste="return false"
+                                        maxlength="4"  [(ngModel)]="config.Value" name="jobduration"
+                                            (keypress)="numericOnly($event); inputHandler($event);" autocomplete="off"
+                                            (keydown)="validateNumber($event)" ngDefaultControl>
+                                    </mat-form-field> 
+                                </div>
+                                
+                                
+                                <div id="save" class="d-flex" [class.shimmer]="projectlevleconfigsave">
+                                    <button type="button" class="btn theme_button d-flex align-items-center"
+                                        (click)="saveprojectconfig()" title="{{'General.Save' | translate}}"><span
+                                            class="icon-save"></span> {{'General.Save' |
+                                        translate}}</button>
+                                </div>
+                            
+                            
+                        </div>
+                        
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+      
+        <div class="prg_name">              
+            <strong ><span style="font-size: 15px;" class="icon-new_project"></span> {{'General.prjstatus' | translate}}</strong>
+        </div>
+                  
+        <mat-slide-toggle  class="mb-3"  [checked]="status || buttonDisabled" color="primary"  [(ngModel)]="toggleChecked" [disabled]="status || buttonDisabled">
+            {{'General.in-progress' | translate}}
+           </mat-slide-toggle>
+        
+         <div id="button" class="mt-2 d-flex bd-highlight mb-3 ">
+            <div class="d-flex newroll justify-content-between w-25">
+                <div class="d-flex">
+                    <button type="button" class="btn theme_button_light d-flex align-items-center "
+                        routerLink="/projects" title="{{'General.Cancel' | translate}}"> <span
+                            class="icon-close"></span>
+                        {{'General.Cancel' | translate}}</button>    
+                </div>
+                 
+                <div class="d-flex" [class.shimmer]="projectlevleconfigsave" >
+                    <button id="savebutton" type="button" class="btn theme_button d-flex align-items-center"
+                        (click)="updateStatus()" title="{{'General.Save' | translate}}" [disabled]="!toggleChecked || buttonDisabled"><span
+                            class="icon-save"></span> {{'General.Save' |
+                        translate}}</button>
+                </div>
+            </div>
+         </div>     
+    </div>
+</div>
+

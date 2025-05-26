@@ -1,0 +1,67 @@
+.mb_0 {
+    margin-bottom: 0 !important;
+}
+
+.spl_bx {
+    padding: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+.spl_bx strong {
+    display: block;
+    font-size: 20px;
+}
+
+.cl_bx1 {
+    background: #F6BEFF;
+}
+.theme_button span{
+    margin-top:2px; 
+}
+.cl_bx2 {
+    background: #fff;
+}
+
+.line_strong {
+    font-size: 20px;
+}
+
+.btnpad {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 13px;
+}
+
+.status_yes, .status_no {
+    min-width: 118px;
+    font-size: 13px;
+}
+
+.row_card strong {
+    margin-left: 5px;
+}
+
+.shimmer span {
+    padding-right: 100px !important;
+}
+
+.closebtn {
+    margin-bottom:20px;
+}
+
+.row-childrow {
+    padding: 6px;
+}
+
+.padding-align {
+    padding: 0px 0px 0px 5px;
+}
+
+.fontweight {
+    font-weight: bold;
+    font-size: initial;
+}
+.status_yess{ color: #2DAD00;}
+.status_nos{ color: #FF0000;}
+.status_pendings{color: #fae314;}

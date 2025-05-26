@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="mt-2">
+
+    <div class="card_box project_summary pt-4">
+
+      <div class="row d-flex align-items-center">
+
+
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4" *ngIf="!IsProjectSame">
+              <mat-form-field appearance="fill" class="selct_sel float-end"
+                title="{{'FrequencyDist.SelProj' | translate}}">
+                <mat-label>{{'FrequencyDist.SelProj' | translate}}</mat-label>
+                <mat-select #matSelect [(ngModel)]="selectedOption" (selectionChange)="Ischecked($event)" 
+                  ngDefaultControl>
+                  <div>
+                    <mat-option [value]="0" selected>--- {{'FrequencyDist.Select' | translate}} ---</mat-option>
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Search" [(ngModel)]="ProjectSearchValue" (keyup)="SearchProjects()" (blur)="clearSearch()">
+                      <mat-icon matSuffix title="Search"><span class="icon-search"
+                          (click)="SearchProjects()"></span></mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <mat-option *ngFor="let proj of projectList" [value]="proj?.ProjectId"
+                    ngDefaultControl>{{proj?.ProjectName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="IsProjectSame">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FrequencyDist.SelProj' | translate}}</mat-label>
+                <input matInput *ngFor="let proj of projectList" [value]="proj?.ProjectName" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="fill" class="selct_sel float-end"
+                title="{{'FrequencyDist.SelQueTyp' | translate}}">
+                <mat-label>{{'FrequencyDist.SelQueTyp' | translate}}</mat-label>
+                <mat-select #matQueType (selectionChange)="IscheckedQue($event)">
+                  <mat-option [value]="0" selected>--- {{'FrequencyDist.Select' | translate}} ---</mat-option>
+                  <mat-option [value]="1">{{'FrequencyDist.Auto' | translate}}</mat-option>
+                  <mat-option [value]="3">{{'FrequencyDist.SemiAuto' | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <button type="button" title="{{'FrequencyDist.Submit' | translate}}" (click)="getFrequencyDistribution();"
+                class="btn theme_button">{{'FrequencyDist.Submit'
+                | translate}}</button>
+              <button type="button" title="{{'FrequencyDist.Export' | translate}}" class="btn theme_button"
+                (click)="download()"><span class="icon-download m-0"></span>{{'FrequencyDist.Export' |
+                translate}}</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="getFrequencyDistributionList != null && getFrequencyDistributionList.length > 0">
+      <div class="card_box">
+        <div class="row-header_bg mt-2">
+          <div class="col-1">{{'FrequencyDist.Slno' | translate}}</div>
+          <div class="col-2">{{'FrequencyDist.QuesCode' | translate}}</div>
+          <div class="col-1">{{'FrequencyDist.Blank' | translate}}</div>
+          <div class="col-3">{{'FrequencyDist.RespText' | translate}}</div>
+          <div class="col-1">{{'FrequencyDist.NoCandAns' | translate}}</div>
+          <div class="col-1">{{'FrequencyDist.PercDist' | translate}}</div>
+          <div class="col-1">{{'FrequencyDist.MarkAwarded' | translate}}</div>
+          <div class="col-1">{{'FrequencyDist.MarkTyp' | translate}}</div>
+          <div class="col-1"></div>
+        </div>
+
+        <perfect-scrollbar class="table_list_scroll">
+          <div class="row-childrow_em card_box" *ngIf="getFrequencyDistributionList != null">
+            <div class="row-childrow d-flex px-0" *ngFor="let freq of getFrequencyDistributionList; let i=index">
+              <div class="col-1">{{pageindex + i}}</div>
+              <div class="col-2 word_wrpa">{{freq?.QuestionCode}}</div>
+              <div class="col-1 word_wrpa">{{freq?.Blank}}</div>
+              <div class="col-3 word_wrpa" [innerHTML]="freq?.ResponseText"></div>
+              <div class="col-1 word_wrpa">{{freq?.NoOfCandidatesAnswered}}</div>
+              <div class="col-1 word_wrpa">{{freq?.PercentageDistribution}}</div>
+              <div class="col-1 word_wrpa">{{freq?.MarksAwarded}}</div>
+              <div class="col-1 word_wrpa">{{freq?.MarkingType}}</div>
+              <div class="col-1 word_wrpa">
+                <button mat-button [matMenuTriggerFor]="menu" class="option_more" *ngIf="freq?.Remarks != ''"><span class="icon-options"
+                    title="{{'FrequencyDist.Remarks' | translate}}"></span></button>
+                <mat-menu #menu="matMenu" #beforeMenu="matMenu" xPosition="before" class="">
+                  <div class="Remarks_menu">{{freq?.Remarks == "" ? 'NA' : freq?.Remarks}}</div>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-1 card_box nodatafound"
+            *ngIf="projectId == 0 || getFrequencyDistributionList == null || getFrequencyDistributionList.length <= 0">
+            {{'FrequencyDist.NoRecAlt' | translate}}
+          </div>
+        </perfect-scrollbar>
+        <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
+          [pageSize]="pageSize" [disabled]="false" [showFirstLastButtons]="true"
+          [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="false" [pageIndex]="pageIndex"
+          aria-label="Select page">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+
+</div>

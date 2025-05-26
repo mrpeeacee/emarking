@@ -1,0 +1,105 @@
+<div *ngIf="IsQIGVal">
+  <div class="hide" *ngIf="showhide ">
+    <button mat-button class="download_btn" title="{{'SetUp.UserManagement.download' | translate}}"
+      (click)="download()">
+      <span class="icon-document">
+      </span> {{'SetUp.UserManagement.download' | translate}} <span class="icon-download float-end f30"></span>
+    </button>
+  </div>
+  <div class="row" *ngIf="showhide">
+    <div class="col-md-6 col-xs-12 justify-content-stat">
+    </div>
+    <div class="col-md-6 col-xs-12 justify-content-end">
+      <button type="button" class="btn theme_button align-items-center float-end mt-2 hide" title="Create User"
+        (click)="addUser()">
+        <span class="icon-add"></span>
+        Create User
+      </button>
+    </div>
+  </div>
+
+
+
+  <div class="strip_thead mt-2" *ngIf="showhide">
+    <div class="float-start">
+      <div class="text_delux mt-2">
+        <span>
+          {{'SetUp.UserManagement.total' | translate}}:
+          {{ProjectUsersSearchedList?.length}}
+        </span>
+      </div>
+    </div>
+    <div class="float-end d-flex justify-content-end">
+
+
+      <div class="search_dash mt-1 m-0">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'SetUp.UserManagement.search' | translate}}</mat-label>
+          <input matInput title="{{'SetUp.UserManagement.search' | translate}}"
+            placeholder="{{'SetUp.UserManagement.searchusers' | translate}}" [(ngModel)]="UsersValue"
+            (keyup.enter)="SearchAvailableUserslist()" ngDefaultControl autocomplete="off" oncut="return false"
+            onDrop="return false">
+          <mat-icon matSuffix title=""><span class="icon-search" (click)="SearchAvailableUserslist()"
+              title="{{'SetUp.UserManagement.search' | translate}}"></span></mat-icon>
+        </mat-form-field>
+      </div>
+
+
+      <button mat-icon-button mat-button class="filter_btn hide" [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu">
+        <span class="icon-filter"></span>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+      </mat-menu>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <div class="data_view" *ngIf="showhide">
+    <div class="row-header_bg">
+      <div class="row w-100">
+        <div class="col-2 mb-2"> {{'SetUp.UserManagement.name' | translate}}</div>
+        <div class="col-2 mb-2"> {{'SetUp.UserManagement.loginname' | translate}} </div>
+        <div class="col-2 mb-2"> {{'SetUp.UserManagement.schoolname' | translate}} </div>
+        <div class="col-1 mb-2"> {{'SetUp.UserManagement.role' | translate}}</div>
+        <div class="col-2 mb-2">{{'SetUp.UserManagement.appoitmentstartdate' | translate}}</div>
+        <div class="col-2 mb-2"> {{'SetUp.UserManagement.appoitmentenddate' | translate}} </div>
+      </div>
+    </div>
+    <div class="card_box">
+      <div class="col-md-12 col-xs-12 nodata_db nodata_found" *ngIf="ProjectUsersSearchedList?.length == 0">
+        {{'SetUp.UserManagement.norecords' | translate}}
+      </div>
+      <perfect-scrollbar class="table_list_scroll">
+        <div class="pos_rel rows_container pt-2 pb-2" *ngFor="let userlist of ProjectUsersSearchedList"
+          [class.shimmer]="dataviewlistloading">
+          <div class="row w-100">
+            <div class="col-2 text-break">{{userlist?.UserName}}</div>
+            <div class="col-2 text-break">{{userlist?.LoginName}}</div>
+            <div class="col-2 text-break">{{userlist?.SendingSchoolID == null ? 'NA' : userlist?.SendingSchoolID}}</div>
+            <div class="col-1">{{userlist?.RoleID}}</div>
+            <div class="col-2">{{userlist?.AppointStartDate == null ? '-' : userlist?.AppointStartDate | date:'d MMM y'
+              | uppercase}}</div>
+            <div class="col-2">{{userlist?.AppointEndDate == null ? '-' : userlist?.AppointEndDate | date:'d MMM y' |
+              uppercase}}</div>
+            <div class="col-1 hide" *ngIf="userlist?.isBlock">
+              <button type="button" class="theme_button align-items-center float-end" title="UnBlock"
+                (click)="UnBlocking(userlist?.userId)">
+                UnBlock
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </perfect-scrollbar>
+    </div>
+
+    <div class="col-md-12 col-xs-12 nodata_db nodata_found hide" *ngIf="projectusersviewlist?.length == 0">
+      {{'SetUp.UserManagement.norecords' | translate}}
+    </div>
+
+    <div class="col-md-12 col-xs-12 nodata_db nodata_found hide" *ngIf="ProjectUsersSearchedList?.length == 0">
+      {{'SetUp.UserManagement.nousers' | translate}}
+    </div>
+  </div>
+</div>

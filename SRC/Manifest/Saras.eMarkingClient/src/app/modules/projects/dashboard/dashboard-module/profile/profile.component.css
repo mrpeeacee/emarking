@@ -1,0 +1,20 @@
+.username_dv{
+    margin-bottom:30px
+
+}
+.username_dv span {
+    display:block
+}
+
+  .username_dv strong {
+      font-size:25px
+  }
+
+.bdr_pr {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.pos{
+    
+    font-size: 20px;
+}

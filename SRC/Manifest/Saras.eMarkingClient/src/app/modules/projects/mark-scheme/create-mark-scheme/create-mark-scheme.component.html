@@ -1,0 +1,167 @@
+<div class="container">
+    <div class="col-md-12 bd-highlight mt-4">
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <div class="card_box">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'createsch.mrksch' | translate}}</mat-label>
+                        <input ngDefaultControl [(ngModel)]="BandModel!.SchemeName" maxlength="50" matInput oncut="return false"
+                            onDrop="return false" onPaste="return false"
+                            placeholder="{{'createsch.mrksch' | translate}}"
+                            (keypress)="keyPressAlphaNumericWithCharacters($event);" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'createsch.mark' | translate}}</mat-label>
+                        <input type="number" ngDefaultControl [(ngModel)]="BandModel.Marks" min="0" max="100" autocomplete="off"
+                            oncut="return false" onDrop="return false" onPaste="return false"
+                            onkeyup="if(parseInt(this.value)>100){ this.value =100; false; }" matInput required
+                            (keypress)="keyPressNumbersWithDecimal($event)" (change)="getMark(BandModel.Marks)"
+                            (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"
+                            onKeyPress="if(this.value.length==3) return false;">
+                    </mat-form-field>
+                </div>
+                <div class="card_box d-flex align-items-center">
+                    <label class="mr-10">Level:</label>
+                    <button class="btn flex-fill" [disabled]="isClosed == 3" title="Question" ngDefaultControl
+                        [ngClass]="BandModel.MarkSchemeType == MarkSchemeType.QuestionLevel ? 'theme_toggle' : 'theme_toggle_light'"
+                        [(ngModel)]="BandModel.MarkSchemeType"
+                        (click)="BandModel.MarkSchemeType = MarkSchemeType.QuestionLevel">Question
+                    </button>
+                    <button class="btn flex-fill" [disabled]="isClosed == 3" title="Scoring Component" ngDefaultControl
+                        [ngClass]="BandModel.MarkSchemeType == MarkSchemeType.ScoreComponentLevel ? 'theme_toggle' : 'theme_toggle_light'"
+                        [(ngModel)]="BandModel.MarkSchemeType"
+                        (click)="BandModel.MarkSchemeType = MarkSchemeType.ScoreComponentLevel">Scoring
+                        Component</button>
+                </div>
+                <div class="card_box d-flex align-items-center">
+                    <mat-slide-toggle [(ngModel)]="isBandRequired" title="ON/OFF" [disabled]="isClosed == 3">
+                    </mat-slide-toggle>Band Required
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card_box">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>{{'createsch.desc' | translate}}:</mat-label>
+                        <textarea [(ngModel)]="BandModel.SchemeDescription" matInput placeholder="Enter Description" ngDefaultControl
+                            class="text_area_mt" maxlength="2000"></textarea>
+                    </mat-form-field>
+                    
+                </div>
+                <emarking-file-upload [files]="filelist" [viewmode]="false"></emarking-file-upload>
+            </div>
+           
+            <div class="clear"></div>
+            
+            <div class="project_summary">
+                <div *ngIf="isBandRequired">
+                    <div class="row-header_new">
+                        <div class="row">
+                            <div class="col-3">{{'createsch.band' | translate}}</div>
+                            <div class="col-2">{{'createsch.from' | translate}} </div>
+                            <div class="col-2">{{'createsch.to' | translate}}</div>
+                            <div class="col-4">{{'createsch.bntdtls' | translate}}</div>
+                            <div class="col-1"></div>
+                        </div>
+                    </div>
+                    <div class="row-childrow card_box" *ngFor="let band of BandModel?.Bands;let indexOfelement=index;">
+                        <div class="col-3 mb-2">
+                            <div class="pad10">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'createsch.bndnm' | translate}}</mat-label>
+                                    <input [(ngModel)]="band.BandName" maxlength="25" matInput oncut="return false" ngDefaultControl
+                                        onDrop="return false" onPaste="return false"
+                                        (keypress)="keyPressAlphaNumericWithCharacters($event);" required>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <div class="col-2 mb-2 ">
+                            <div class="pad10">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'createsch.from' | translate}}</mat-label>
+                                    <input type="number" [(ngModel)]="band.BandFrom" min="0" max="100" ngDefaultControl
+                                        onkeyup="if(parseInt(this.value)>100){ this.value =100; false; }" matInput
+                                        required oncut="return false" onDrop="return false" onPaste="return false"
+                                        (keypress)="keyPressNumbersWithDecimal($event)" (keydown.arrowup)="(false)"
+                                        (keydown.arrowdown)="(false)"
+                                        onKeyPress="if(this.value.length==3) return false;"
+                                        (change)="VisibleBtn(band.BandFrom, indexOfelement);" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-2 mb-2 ">
+                            <div class="pad10">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'createsch.to' | translate}}</mat-label>
+                                    <input type="number" [(ngModel)]="band.BandTo" min="0" max="100" ngDefaultControl
+                                        oncut="return false" onDrop="return false" onPaste="return false"
+                                        [disabled]="isdisabled"
+                                        onkeyup="if(parseInt(this.value)>100){ this.value =100; false; }" matInput
+                                        required (keypress)="keyPressNumbersWithDecimal($event)"
+                                        (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"
+                                        onKeyPress="if(this.value.length==3) return false;" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-4 mb-2">
+                            <div class="pad10">
+                                <div class="assement_notes">
+                                    <perfect-scrollbar
+                                        *ngIf="band.BandDescription != '' && band.BandDescription != 'undefined' && band.BandDescription != null"
+                                        class="perfect_content Assmt_instr" contentEditable="false">
+                                        <div class="Assmt_instr2" [(ngModel)]="band && band.BandDescription" ngDefaultControl
+                                            [innerHtml]="band.BandDescription | safeHtml" (click)="openeditor(band)"
+                                            placeholder="Description: *">
+                                        </div>
+                                    </perfect-scrollbar>
+                                    <mat-form-field
+                                        *ngIf="!(band.BandDescription != '' && band.BandDescription != 'undefined' && band.BandDescription != null)"
+                                        class="example-full-width" appearance="fill">
+                                        <mat-label>{{'createsch.desc' | translate}}:</mat-label>
+                                        <textarea [(ngModel)]="band.BandDescription" ngDefaultControl matInput
+                                            placeholder="Enter Description" class="text_area_mt text-area-height"
+                                            maxlength="2000" (click)="openeditor(band)" readonly></textarea>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-1 mb-2">
+                            <div class="pad10">
+                                <button type="button" [disabled]="isClosed == 3"
+                                    *ngIf="indexOfelement == BandModel.Bands.length - 1"
+                                    title="{{'createsch.delbnd' | translate}}"
+                                    class="btn delet_al d-flex align-items-center"
+                                    (click)="onRemoveBand(band.BandName,$event,indexOfelement);">
+                                    <span class="icon-delete icon-size"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex newroll justify-content-between w-100 mt-3">
+                    <div class="d-flex newroll justify-content-between w-100">
+                        <div class="d-flex"><button type="button" [disabled]="isClosed == 3"
+                                *ngIf="IsBtnvisible && isBandRequired" title="{{'createsch.addbnd' | translate}}"
+                                class="btn theme_button d-flex align-items-center" (click)="onAddBand()">
+                                <span class="icon-add"></span>{{'createsch.addbnd' | translate}}</button></div>
+                        <div class="d-flex"><button type="button" title="{{'createsch.cancel' | translate}}"
+                                class="btn theme_button_light d-flex align-items-center"
+                                [routerLink]="['/projects','mark-schemes']"><span
+                                    class="icon-close"></span>{{'createsch.cancel'
+                                |
+                                translate}}
+                            </button><button (click)="saveMarkScheme()" [disabled]="isClosed == 3" type="button"
+                                title="{{'createsch.save' | translate}}"
+                                class="btn theme_button d-flex align-items-center"><span
+                                    class="icon-save-1"></span>{{'createsch.save'
+                                |
+                                translate}}</button></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <br /><br /><br /><br />
+        </div>

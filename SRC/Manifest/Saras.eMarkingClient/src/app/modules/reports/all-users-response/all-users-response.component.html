@@ -1,0 +1,109 @@
+<div class="container" [class.shimmer]="stasticsloading || ispageloading" #printDiv>
+  <div class="body_box">
+    <div *ngIf="UserResponses?.length > 0">
+
+      <div class="sniper hide" *ngIf="stasticsloading || ispageloading">
+        <mat-spinner diameter="50" class="matspinnercenter"></mat-spinner>
+      </div>
+
+      <div class="float-end mx-2 mb-2">
+        <div [class.shimmer]="stasticsloading">
+          <mat-form-field [formGroup]="searchUserForm">
+            <div class="selct_par">
+              <mat-form-field appearance="fill" (click)="$event.stopPropagation()">
+                <strong>{{'UserResponse.selectschool' | translate}}</strong>
+                <mat-select multiple formControlName="fschool" #matSelectschool title="{{this.matSelectschool.value}}">
+                  <mat-option *ngFor="let school of schooldetails" [value]="school?.SchoolName"
+                    (onSelectionChange)="IscheckedSchool($event, school)" ngDefaultControl>
+                    {{school?.SchoolName}}
+                  </mat-option>
+                  <div class="float-end mx-2 mt-3 mb-2">
+                    <button type="button" mat-button [disabled]="stasticsloading || ispageloading"
+                      title="{{'UserResponse.download' | translate}}" (click)="downloadPdf();matSelectschool.close()"
+                      class="btn theme_button">
+                      {{'UserResponse.download' | translate}}
+                    </button>
+                    <button class="btn theme_button" type="button" title="{{'UserResponse.Clear' | translate}}"
+                      (click)="Clear();$event.stopPropagation()">
+                      {{'UserResponse.Clear' | translate}}
+                    </button>
+                    <button type="button" class="btn theme_button_light float-end align-items-center hide"
+                      title="{{'UserResponse.Cancel' | translate}}" [disabled]="stasticsloading || ispageloading"
+                      (click)="matSelectschool.close()">
+                      <span class="icon-close"></span>{{'UserResponse.Cancel' | translate}}
+                    </button>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div #divUserResponse id="exportthis" [class.shimmer]="stasticsloading || ispageloading"
+      *ngIf="UserResponses?.length > 0">
+      <div *ngFor="let candidateResponses of UserResponses">
+        <h3 class="h3_cl">Candidate Index: {{candidateResponses.candidateindex}}</h3>
+
+        <table *ngFor="let objUserResponse of candidateResponses?.UserQuestionResponses; " class="table_question"
+          aria-hidden="true" [class.shimmer]="stasticsloading || ispageloading">
+          <tr>
+            <td style="width:60px; padding-right: 20px; vertical-align: top;" rowspan="2" >
+              <div class="m-3"
+                style="width: 100%;text-align: center;font-size: 15px;font-weight: bold;border: 1px solid #000;">
+                {{objUserResponse.QuestionCode}}
+              </div>
+            </td>
+            <td>
+              <div [innerHTML]="objUserResponse.QuestionText" class="p-3"></div>
+            </td>
+          </tr>
+          <tr *ngIf="objUserResponse.QuestionType == 10 || objUserResponse.QuestionType == 154">
+            <td>
+              <div class="p-3">{{objUserResponse.ResponseText}}</div>
+            </td>
+          </tr>
+
+          <tr *ngIf="objUserResponse.QuestionType==11 && objUserResponse?.Choices?.length>0">
+            <td>
+              <div *ngFor="let objchoices of objUserResponse?.Choices; let c = index;">
+                <div class="d-flex">
+                  <div id="bloc2" [innerHTML]="c+1==objUserResponse.ResponseText == true ? objchoices?.OptionText : NA">
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="(objUserResponse.QuestionType === 12) && objUserResponse?.Choices?.length > 0">
+            <td>
+                <div *ngFor="let objchoices of objUserResponse.Choices; let c = index;">
+                    
+                        <div class="d-flex">
+                            <div id="bloc2" *ngIf="isChoiceSelected(objUserResponse.ResponseText, c + 1)">
+                              <P [innerHTML]="objchoices?.OptionText "></P>
+                            </div>
+                        </div>
+                </div>
+            </td>
+        </tr>
+        </table>
+      </div>
+      <mat-paginator [class.shimmer]="stasticsloading || ispageloading" #paginator class="demo-paginator"
+        *ngIf="UserResponses?.length > 0" (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
+        [disabled]="false" [showFirstLastButtons]="true" [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+        [hidePageSize]="false" [pageIndex]="pageIndex" aria-label="Select page" page-size-label="dfgsd">
+      </mat-paginator>
+    </div>
+
+    <div class="sniper" *ngIf="stasticsloading || ispageloading">
+      <mat-spinner diameter="50" class="matspinnercenter"></mat-spinner>
+    </div>
+
+    <div class="col-md-12 col-xs-12 nodata_db nodata_found" *ngIf="UserResponses?.length == 0">
+      {{'UserResponse.nodata' | translate}}
+    </div>
+  </div>
+
+
+</div>

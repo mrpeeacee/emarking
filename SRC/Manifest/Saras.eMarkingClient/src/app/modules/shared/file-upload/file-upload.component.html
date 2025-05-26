@@ -1,0 +1,18 @@
+<div [class.shimmer]="IsFileProcessing">
+    <div class="upload_dv" *ngIf="!viewmode">
+        <ng-container>
+            <div class="fileupload">
+                <input type="file" #fileInput (change)="fileSelected($event)">
+            </div>
+            <button type="button" class="btn theme_button d-flex align-items-center" title="Upload"
+                aria-label="Upload" (click)="UploadFile()"><span>Upload</span></button>
+        </ng-container>
+    </div>
+    <div class="file_list_par">
+        <div *ngFor="let file of files; index as i" class="file_list">
+            {{i+1}}. <span style="cursor: pointer;" title="{{file.FileName}}"
+                (click)="downloadPdf(file.Id)">{{file.FileName}}</span><button type="button" *ngIf="!viewmode"
+                class="btn-close" title="Close" (click)="removeFils(i)" aria-label="Close"></button>
+        </div>
+    </div>
+</div>

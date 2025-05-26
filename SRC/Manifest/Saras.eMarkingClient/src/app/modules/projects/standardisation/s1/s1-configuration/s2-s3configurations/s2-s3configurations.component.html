@@ -1,0 +1,386 @@
+<div class="container">
+    <div class="body_box">
+        <emarking-qig-tab [OnlyIsKpTab]="true" (selectQigEvent)="getQigDetails($event)">
+        </emarking-qig-tab>
+        <fieldset [disabled]="this.Ispause?.length > 0 || this.IsClosure?.length > 0"
+            [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+            <legend aria-hidden="true"></legend>
+            <div class="row" *ngIf="!IsS1Available">
+                <div class="col-md-12 bd-highligh">
+                    <div class="card_box" role="alert" ngDefaultControl>
+                        <div class="no_std_req">
+                            <strong class="icon-info-1"></strong>
+                            <span>{{'Std.SetUp.IsS1Req' | translate}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div *ngIf="qassessmentloading == true">
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="card_box_qu">
+                            <span class="toggle_menu ng-star-inserted" [class.shimmer]="qassessmentloading == true">
+                                <span> No. of Standardised Scripts</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card_box_qu">
+                            <span class="toggle_menu ng-star-inserted" [class.shimmer]="qassessmentloading == true">
+                                <span> No. of Standardised Scripts</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card_box_qu">
+                            <span class="toggle_menu ng-star-inserted" [class.shimmer]="qassessmentloading == true">
+                                <span> No. of Standardised Scripts</span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-2 row-header card_container">
+                    <div class="p-2 d-flex justify-content-between bd-highlight align-items-center col-md-12 al"
+                        [class.shimmer]="qassessmentloading">
+                        <div class="bd-highlight col-md-2">{{'Std.QuaAsseCrea.IndexNo' | translate}}</div>
+                        <div class="bd-highlight col-md-2"> {{'Std.QuaAsseCrea.ScriptID' | translate}}</div>
+                        <div class="bd-highlight col-md-3"> {{'Std.QuaAsseCrea.MaxMarks' | translate}}</div>
+                        <div class="bd-highlight col-md-2">{{'Std.QuaAsseCrea.StdMarks' | translate}}</div>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <div class="example-list">
+                        <div class="row-childrow" *ngFor="let scr of [1,2,3]">
+                            <div class="p-2 d-flex justify-content-between bd-highlight col-md-12 pad10"
+                                [class.shimmer]="qassessmentloading">
+                                <span class="bd-highlight col-md-1 marauto"> 01</span>
+                                <span class="bd-highlight col-md-3 marauto"> Script_020</span>
+                                <span class="bd-highlight col-md-2 marauto"> 30</span>
+                                <span class="bd-highlight col-md-2 marauto"> 20</span>
+                                <span class="bd-highlight col-md-2 marauto"> View Script </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start mt-3" [class.shimmer]="qassessmentloading">
+                        <span>No. of Standardised Scripts</span>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div *ngIf="qassessmentloading == false && ActiveQigId > 0 && ScriptCategorizationList != null && ScriptCategorizationList?.length >= 0 && IsS1Available"
+                class="">
+                <div class="row mt-2">
+                    <div class="text-center mt-3 card_box nodatafound" *ngIf="ActiveQigId <= 0">
+                        {{'General.NotFound' | translate}}
+                    </div>
+                    <ng-container>
+                        <div class="col-md-3">
+                            <div class="card_box_qu" value="this.NoofStandardisedScripts" name="NoofStandardisedScripts"  ngDefaultControl
+                                [(ngModel)]="this.NoofStandardisedScripts">
+                                <label>{{'Std.QuaAsseCrea.NoofStandardisedScripts' | translate}} </label>
+                                <div><strong>{{this.NoofStandardisedScripts}}</strong></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card_box_qu">
+                                <div class="toggle_menu ng-star-inserted">
+                                    <label>{{'Std.QuaAsseCrea.Mode' | translate}} </label>
+                                    <div class="d-flex">
+                                        <button [disabled]="this.remarksbutton" class="btn flex-fill "
+                                            [(ngModel)]="this.mode" name="mode"
+                                            [ngClass]="this.mode == 1 ? 'theme_toggle' : 'theme_toggle_light'"
+                                            (click)="fnmodeSelection(1)"
+                                            title="{{'Std.QuaAsseCrea.Sequential' | translate}}" ngDefaultControl>
+                                            {{'Std.QuaAsseCrea.Sequential' | translate}}
+                                        </button>
+
+                                        <button [disabled]="this.remarksbutton" class="btn flex-fill "
+                                            [(ngModel)]="this.mode" name="remarksbutton"
+                                            [ngClass]=" this.mode== 2 ? 'theme_toggle' : 'theme_toggle_light'"
+                                            (click)="fnmodeSelection(2)"
+                                            title="{{'Std.QuaAsseCrea.Random' | translate}}" ngDefaultControl>
+                                            {{'Std.QuaAsseCrea.Random' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card_box_qu">
+                                <div class="toggle_menu ng-star-inserted">
+                                    <label>{{'Std.QuaAsseCrea.ApprovalType' | translate}}</label>
+                                    <div class="d-flex">
+                                        <button [disabled]="this.remarksbutton" (click)="fnapprovalType(1)"
+                                            class="btn flex-fill " [(ngModel)]="this.approvaltype" name="approvaltype"
+                                            [ngClass]="this.approvaltype == 1 ? 'theme_toggle' : 'theme_toggle_light'"
+                                            title="{{'Std.QuaAsseCrea.Manual' | translate}}" ngDefaultControl>
+                                            {{'Std.QuaAsseCrea.Manual' | translate}}
+                                        </button>
+
+                                        <button [disabled]="this.remarksbutton" (click)="fnapprovalType(2)"
+                                            class="btn flex-fill" [(ngModel)]="this.approvaltype" name="fnapprovalType"
+                                            [ngClass]="this.approvaltype == 2 ? 'theme_toggle' : 'theme_toggle_light'"
+                                            title="{{'Std.QuaAsseCrea.Automatic' | translate}}" ngDefaultControl>
+                                            {{'Std.QuaAsseCrea.Auto' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card_box_qu">
+                                <div class="qut_hed">
+                                    <label> {{'Std.QuaAsseCrea.ToleranceCount' | translate}} </label>
+                                    <div>
+                                        <input [disabled]="this.remarksbutton" name="remarksbutton1" [(ngModel)]="this.toleranceCount" ngDefaultControl
+                                             [value]="this.toleranceCount" min="1"
+                                            max="{{max_total}}" type="number" value="1" step="1" oncut="return false"
+                                            onDrop="return false" onPaste="return false"
+                                            oninput="javascript: if (this.value.length > max.length) this.value = this.value.slice(0, max.length);"
+                                            (keydown)="validateNumber($event)" (keydown.arrowup)="(false)" (keydown.arrowdown)="(false)"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </ng-container>
+                    <div class="d-flex justify-content-end mb-2 mt-2">
+                        <div class="search_dash mt-1 m-0 col-4">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Search</mat-label>
+                                <input matInput title="Search" placeholder="Search by Script ID"
+                                    [(ngModel)]="ScriptSearchValue" (keyup.enter)="SearchScript()" ngDefaultControl name="ScriptSearchValue"
+                                    autocomplete="off" oncut="return false" onDrop="return false">
+                                <mat-icon matSuffix title=""><span title="Search" class="icon-search" (click)="SearchScript()"></span></mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="mt-2 row-header card_container ">
+                        <div class="p-2 d-flex bd-highlight align-items-center col-md-12 al">
+                            <div class="bd-highlight col-md-2">{{'Std.QuaAsseCrea.IndexNo' | translate}}</div>
+                            <div class="bd-highlight col-md-2"> {{'Std.QuaAsseCrea.ScriptID' | translate}}</div>
+                            <div class="bd-highlight col-md-3"> {{'Std.QuaAsseCrea.MaxMarks' | translate}}</div>
+                            <div class="bd-highlight col-md-2">{{'Std.QuaAsseCrea.StdMarks' | translate}}</div>
+                            <div class="bd-highlight col-md-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-1">
+
+                        <div class="example-list" *ngIf="ViewSequential">
+                            <div class="text-center mt-3 card_box nodatafound"
+                                *ngIf="ScriptCategorizationList?.length == 0">
+                                {{'Std.QuaAsseCrea.NoRecords' | translate}}
+                            </div>
+                            <div *ngIf="ScriptCategorizationList?.length > 0">
+
+                                <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+
+                                    <div class="row-childrow" *ngFor="let objscriptcategory of ScriptCategorizationList"
+                                        cdkDrag>
+
+                                        <div class="d-flex bd-highlight col-md-12 align-items-center" cdkDragHandle>
+
+                                            <div class="col-md-2">
+                                                <mat-checkbox [disabled]="this.remarksbutton"
+                                                    [checked]="objscriptcategory?.IsSelected"
+                                                    (change)="onScritsChecked(objscriptcategory)"
+                                                    [(ngModel)]="objscriptcategory.IsSelected" name="objscriptcategorysel" class="example-margin">
+                                                    {{objscriptcategory?.IndexNo}}
+                                                </mat-checkbox>
+                                            </div>
+
+                                            <div class="bd-highlight col-md-2 marauto">{{objscriptcategory?.ScriptName}}
+                                            </div>
+                                            <div class="bd-highlight col-md-3 marauto"> {{objscriptcategory?.MaxMarks}}
+                                            </div>
+                                            <div class="bd-highlight col-md-2 marauto"
+                                                [(ngModel)]="objscriptcategory.FinalizedMarks" ngDefaultControl name="FinalizedMrks1">
+                                                {{objscriptcategory?.FinalizedMarks}}
+                                            </div>
+                                            <div class="bd-highlight col-md-2 marauto" [class.shimmer]="playerOpening">
+                                                <button type="button"
+                                                    title="{{'Std.QuaAsseCrea.ViewScript' | translate}}"
+                                                    (click)="RedirectToQAssesmentPlayer(objscriptcategory)"
+                                                    class="btn theme_button_light d-flex align-items-center">
+                                                    {{
+                                                    'Std.QuaAsseCrea.ViewScript' |
+                                                    translate
+                                                    }}
+                                                </button>
+                                            </div>
+
+                                            <div class="w-10 drag-icon col-1 text-end ">
+                                                <span *ngIf="objscriptcategory?.isDisable" class="icon-drag"
+                                                    style="display: none;"
+                                                    title=" {{'Std.QuaAsseCrea.reorder' | translate}}"></span>
+                                                <span class="icon-drag"
+                                                    title=" {{'Std.QuaAsseCrea.reorder' | translate }}"></span>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="example-list" *ngIf="ViewRandom">
+                            <div class="text-center mt-3 card_box nodatafound"
+                                *ngIf="ScriptCategorizationList?.length == 0">
+                                {{'Std.QuaAsseCrea.NoRecords' | translate}}
+                            </div>
+                            <div *ngIf="ScriptCategorizationList?.length>0">
+
+                                <div class="example-list">
+
+                                    <div class="row-childrowRandom row-childrow"
+                                        *ngFor="let objscriptcategory of ScriptCategorizationList">
+
+                                        <div class="d-flex bd-highlight col-md-12 align-items-center">
+
+                                            <div class="col-md-2">
+                                                <mat-checkbox (change)="onScritsChecked(objscriptcategory)"
+                                                    ngDefaultControl [checked]="objscriptcategory.IsSelected"
+                                                    [(ngModel)]="objscriptcategory.IsSelected" name="objscriptcategory12" class="example-margin"
+                                                    [disabled]="this.Ispause?.length > 0  || this.S1completed?.length > 0 || this.IsClosure?.length > 0">
+                                                    {{objscriptcategory?.IndexNo}}
+                                                </mat-checkbox>
+                                            </div>
+
+                                            <div class="bd-highlight col-md-2 marauto">{{objscriptcategory?.ScriptName}}
+                                            </div>
+                                            <div class="bd-highlight col-md-3 marauto"> {{objscriptcategory?.MaxMarks}}
+                                            </div>
+                                            <div class="bd-highlight col-md-2 marauto p-1">
+                                                {{objscriptcategory?.FinalizedMarks}}</div>
+                                            <div class="bd-highlight col-md-2 marauto" [class.shimmer]="playerOpening">
+                                                <button type="button"
+                                                    title="{{'Std.QuaAsseCrea.ViewScript' | translate}}"
+                                                    (click)="RedirectToQAssesmentPlayer(objscriptcategory)"
+                                                    class="btn theme_button_light d-flex align-items-center">
+                                                    {{
+                                                    'Std.QuaAsseCrea.ViewScript' |
+                                                    translate
+                                                    }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-start mt-3">
+                            <button [disabled]="this.remarksbutton || ScriptCategorizationList?.length == 0"
+                                type="button" title="{{'Std.QuaAsseCrea.Save' | translate}}"
+                                class="btn theme_button d-flex align-items-center cs_tn"
+                                (click)="AddUpdateQualifyingAssessment($event)">
+                                <span class="icon-save-1" style="pointer-events: none;"></span>{{'Std.QuaAsseCrea.Save'
+                                | translate}}
+                            </button>
+                        </div>
+                        <h6 class="mt-3">
+                            <strong>Note :</strong> {{'Std.QuaAsseCrea.DraftNoteMessg'| translate}}
+                        </h6>
+                        <div class="qul_tbl mt-3" [class.shimmer]="categorisedloading == true">
+                            <p hidden id="mydesc">Categorised Scripts Details</p>
+                            <table aria-describedby="mydesc">
+                                <tr>
+                                    <th scope="col">Categorised Scripts</th>
+                                    <th scope="col">Defined Quota</th>
+                                    <th scope="col">No. of Categorised Scripts</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                                <tr>
+                                    <td class="col-6"> <span>{{'cat.stdscpt' | translate}}</span></td>
+                                    <td><span class="lowcase">
+                                            {{ qigsummary?.QigStandardisedScript }}</span></td>
+                                    <td>{{ qigsummary?.StandardisedScript }}</td>
+                                    <td>
+                                        <div class="bd-highlight col-md-4 marauto text-center ">
+                                            <span class="icon-complete"
+                                                [ngClass]="{'marked' : qigsummary?.QigStandardisedScript <= qigsummary?.StandardisedScript, 'nonmarked' : qigsummary?.QigStandardisedScript > qigsummary?.StandardisedScript }"></span>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-6"> <span>{{'cat.adstscpt' | translate}}</span></td>
+                                    <td><span class="lowcase">
+                                            {{ qigsummary?.QigAdlStandardisedScript }} </span></td>
+                                    <td>{{ qigsummary?.AdlStandardisedScript }}</td>
+                                    <div class="bd-highlight col-md-4 marauto text-center custm-margin">
+                                        <span class="icon-complete"
+                                            [ngClass]="{'marked' : qigsummary?.QigAdlStandardisedScript <= qigsummary?.AdlStandardisedScript, 'nonmarked' : qigsummary?.QigAdlStandardisedScript > qigsummary?.AdlStandardisedScript }"></span>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <td class="col-6"> <span>{{'cat.bncscpt' | translate}}</span></td>
+                                    <td><span class="lowcase">
+                                            {{ qigsummary?.QigBenchMarkScript }}</span></td>
+                                    <td>{{ qigsummary?.BenchMarkScript }}</td>
+                                    <div class="bd-highlight col-md-4 marauto text-center custm-margin">
+                                        <span class="icon-complete"
+                                            [ngClass]="{'marked' : qigsummary?.QigBenchMarkScript <= qigsummary?.BenchMarkScript, 'nonmarked' : qigsummary?.QigBenchMarkScript > qigsummary?.BenchMarkScript }"></span>
+                                    </div>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="mt-3 mb-2">
+                            <H6><strong>Note :</strong>{{'Std.QuaAsseCrea.NoteMesg' | translate}} </H6>
+                        </div>
+                        <div *ngIf="QualifiedAssessmentID > 0">
+                            <div class="col-md-6 d-flex bd-highlight mt-4 ">
+                                <div class="bd-highlight">
+                                    <mat-slide-toggle [ngClass]="{'disabled-btn': isDisabledToggle}"
+                                        [(ngModel)]="S1Checked" ngDefaultControl name="S1Checked" title="{{'Std.QuaAsseCrea.ON/OFF' | translate}}"
+                                        (click)="toogleS1Completed($event) " (change)="scrollWin();"
+                                        [disabled]="!IsCategorisedScript">
+                                    </mat-slide-toggle>
+                                </div>
+                                {{'Std.QuaAsseCrea.SetS1asCompleted' | translate}}
+                            </div>
+                            <div class="remarks_dv col-md-6 col-sm-6 col-xs-12" *ngIf="ShowMeS1">
+
+                                <h3>{{'Std.QuaAsseCrea.Remarks' | translate}}</h3>
+                                <textarea
+                                    [disabled]="this.remarksbutton || ScriptCategorizationList?.length == 0 || !IsCategorisedScript"
+                                    placeholder="Your text goes here" [(ngModel)]="this.remarks" ngDefaultControl name="S1Checked" [value]="this.remarks"
+                                    id="w3review" name="w3review" rows="4" cols="50" class="text_are"
+                                    oncut="return false" onDrop="return false" onPaste="return false"
+                                    maxlength="500">                             </textarea>
+                                <div class="d-flex justify-content-end mt-3">
+                                    <button [disabled]="this.remarksbutton || ScriptCategorizationList?.length == 0"
+                                        type="button" title="{{'Std.QuaAsseCrea.Save' | translate}}"
+                                        class="btn theme_button d-flex align-items-center cs_tn"
+                                        (click)="AddUpdateRemarks($event)">
+
+                                  <span class="icon-save-1" style="pointer-events: none;"></span>
+                                        {{'Std.QuaAsseCrea.Save' |
+                                        translate}}
+                                    </button>
+                                </div>
+                                <h6 class="mt-3"><strong>Note : </strong>{{'Std.QuaAsseCrea.RemarksNoteMessg' |
+                                    translate}}
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

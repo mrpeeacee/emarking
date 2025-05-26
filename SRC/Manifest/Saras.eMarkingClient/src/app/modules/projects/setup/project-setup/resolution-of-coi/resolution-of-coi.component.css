@@ -1,0 +1,131 @@
+.searchbox_st {
+    position: relative;
+    top: 5px;
+    margin: 0px 0px 0px 7px;
+}
+
+.searchbox_st input {
+    width: 83%;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 11px 11px 11px 30px !important
+}
+
+.searchbox_st .icon-search {
+    position: absolute;
+    font-size: 25px;
+    left: 4px;
+    top: 10px;
+}
+
+.close_sidemenu h4 {
+    font-size: 16px;
+}
+
+.row-childrow {
+
+    font-size: 14px;
+}
+
+/*Right*/
+.modal.right.fade .modal-dialog {
+    top: -30px;
+    position: fixed;
+    right: 0;
+    height: 100%;
+    width: 350px;
+    background: #fff;
+    /* right: -320px; */
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+       -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+         -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+            transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+}
+
+.addScool .modal-dialog {
+    top: -30px;
+    position: fixed;
+    right: 0;
+    height: 100%;
+    width: 350px;
+    background: #fff;
+}
+
+.modal-header {
+    background: #fff;
+    padding: 10px;
+    color: #000;
+
+    width: 100%;
+    z-index: 999999;
+    display: inline-block;
+}
+
+.sav_btn {
+    float: right;
+    margin: 12px 0px 0px 0px;
+    padding: 13px
+}
+
+.addScool {
+    height: auto;
+}
+
+.scroll_roles {
+    height: 75vh;
+    margin-top: 0px;
+}
+
+.scl_nme {
+    font-size: 15px;
+    font-weight: bold
+}
+
+.offset-md-4 {
+    margin-left: 33%;
+}
+
+.hr_brdbtn {
+    border-bottom: 1px solid #ccc;
+}
+
+.pl-15 {
+    padding-left: 16.5px;
+}
+
+.disabled-pointer {
+    pointer-events: none;
+}
+
+.number_bx_disb {
+    margin-left: -3px !important;
+}
+.myOwnBg {
+    background-color: yellow;
+ }
+ .add_nmr {
+    right: 80px;
+}
+.w-98 {
+    width: 98%;
+}
+.el_text{white-space: nowrap;
+   
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .close_sidemenu {
+    position: absolute;
+    right: 12px;
+    font-size: 27px;
+    color: #000;
+    cursor: pointer !important;
+    top: 7px;
+    height: 35px;
+    border: none;
+    background: transparent;
+  }

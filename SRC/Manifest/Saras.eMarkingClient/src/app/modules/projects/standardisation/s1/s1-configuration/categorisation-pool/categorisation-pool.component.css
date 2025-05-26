@@ -1,0 +1,124 @@
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+.nav-tabs .nav-link {
+
+    min-width: auto;
+}
+
+.qutstion_no_strip {
+
+    width: 100%;
+    padding: 8px;
+    background: #F0EAFF;
+
+}
+
+.nxt_btn{    margin-left: 55px;
+    width: 10px;
+    padding-left: 20px;
+    padding-right: 30px;}
+
+
+.lowcase {
+    font-size: 13px
+}
+
+.filter {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+}
+
+.row-header {
+    font-weight: normal;
+    padding: 0px 36px 0px 10px;
+    position: relative;
+    font-size: 12px;
+}
+
+.btn-close {
+    color: #ffff;
+    opacity: 1;
+    font-size: 24px;
+}
+
+.btn-close:hover {
+    color: #ffff;
+}
+
+.row-childrow {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+.marked {
+    background: #06CF02;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.atag{
+    text-decoration: underline;
+    float: right;
+cursor: pointer;
+}
+.nonmarked {
+    background: #C4C4C4;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.selct_sel {
+    width: 200px;
+
+    margin-bottom: 0px;
+    margin-right: 20px;
+}
+
+.cs_tn {
+    width: 100px;
+}
+
+.icon-complete {
+    cursor: pointer !important;
+}
+
+.scroll_roles {
+    width: 100%;
+    height: 250px;
+}
+
+.card_box {
+
+    position: relative;
+}
+
+.row-childrow-inner {
+    border-bottom: 1px solid #ccc;
+}
+
+
+.cat_summary strong {
+    float: right;
+}
+
+.next_arrow {
+    right: 0;
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    font-size: 24px;
+    pointer-events: visible !important;
+}
+
+.cat_st_hegt {
+    min-height: 170px;
+}

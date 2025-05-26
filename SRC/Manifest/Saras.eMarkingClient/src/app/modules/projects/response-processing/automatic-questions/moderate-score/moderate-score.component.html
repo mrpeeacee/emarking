@@ -1,0 +1,201 @@
+<div class="container">
+  <div class="body_box card_box mt-4">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="row-childrow_em card_box shimmer" *ngIf="automaticQuestionloading">
+          <div class="d-flex align-items-center pt-2">
+            <div class="col-1"> <span>{{'SetUp.Automatic.Sl' | translate}}</span></div>
+            <div class="col-6"><span> {{'SetUp.Automatic.QuestionCode' | translate}} </span></div>
+
+            <div class="col-5 px-1">
+              <span>{{'SetUp.Automatic.MultipleChoice' | translate}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row-childrow_em card_box shimmer" *ngIf="automaticQuestionloading">
+          <div class="d-flex align-items-center pt-2">
+            <div class="col-1"> <span>{{'SetUp.Automatic.Sl' | translate}} </span></div>
+            <div class="col-6"><span>{{'SetUp.Automatic.QuestionCode' | translate}} </span></div>
+
+            <div class="col-5 px-1">
+              <span>{{'SetUp.Automatic.MultipleChoice' | translate}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row-childrow_em card_box shimmer" *ngIf="automaticQuestionloading">
+          <div class="d-flex align-items-center pt-2">
+            <div class="col-1"> <span> {{'SetUp.Automatic.Sl' | translate}} </span></div>
+            <div class="col-6"><span> {{'SetUp.Automatic.QuestionCode' | translate}}</span></div>
+
+            <div class="col-5 px-1">
+              <span>{{'SetUp.Automatic.MultipleChoice' | translate}}</span>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="text-center mt-3 card_box nodatafound" *ngIf="allviewquestions.length == 0 && automaticQuestionloading==false">
+          {{'SetUp.Automatic.NotFound' | translate}}
+        </div>
+
+        <div [class.shimmer]="updatemoderateLoading" *ngIf="automaticQuestionloading == false">
+
+          <div *ngFor="let objquestions of allviewquestions; let i = index;">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex">
+                <strong>{{'SetUp.Automatic.QuestionCode' | translate}} :&nbsp; </strong>
+                <div class="Ans_area" [innerHTML]="objquestions.QuestionCode"></div>
+              </div>
+
+              <button type="button" class="btn theme_button d-flex align-items-center float-right" (click)="closeModerate()"
+                title="{{'SetUp.Automatic.Back' | translate}}">
+                <span class="icon-arrow_back"></span>
+                {{'SetUp.Automatic.Back' | translate}}
+              </button>
+
+
+            </div>
+            <strong>
+              <div class="Ans_area mt-3" [innerHTML]="objquestions.QuestionText">
+
+              </div>
+            </strong>
+            <br />
+
+            <div  id="block_container" *ngFor="let objchoices of objquestions.ChoiceList[0].Choices; let index = index">
+
+              <ul class="choice">
+                <li>
+                  <div id="bloc1" class="numbers">{{objchoices.ChoiceIdentifier}}.</div>
+                  <mat-radio-button [(ngModel)]="objchoices.ChoiceIdentifier" [value]="objchoices.ChoiceIdentifier"
+                    (change)="ChoiceIdentifier = $event.value" [(checked)]="objchoices.IsCorrectAnswer"
+                    ngDefaultControl>
+                    <div id="bloc2" [innerHTML]="objchoices.OptionText"></div>
+                  </mat-radio-button>
+                </li>
+              </ul>
+
+            </div>
+            <div class="mt-5 mb-2">
+              <strong>{{'SetUp.Automatic.ResponseAnalysis' | translate}}</strong>
+            </div>
+            <div class="Response_Analysis">
+              <div class="row">
+
+                <div class="col-2">
+                  <div class="cols">
+                    <span>
+
+                      {{'SetUp.Automatic.TotalNoofCandidates' | translate}}
+                    </span>
+                    <strong>
+                      {{
+                      objquestions.ChoiceList[0].Choices[0].NoOfCandidates!=null?objquestions.ChoiceList[0].Choices[0].NoOfCandidates-(objquestions.NotResponsded!=null?objquestions.NotResponsded.NoOfCandidatesNotAnswered:0):0
+                      }}
+                    </strong>
+                  </div>
+
+                </div>
+
+                <div class="col-2" *ngFor="let objchoices of objquestions.ChoiceList[0].Choices;">
+
+                  <div *ngIf="objchoices.IsCorrectAnswer">
+                    <div class="cols">
+                      <div [innerHTML]="objchoices.OptionText">
+                      </div>
+
+                      <div class="progress">
+                        <div class="bar correct" [style.width.%]="[objchoices.PerDistribution]">
+                        </div>
+                      </div>
+
+                      <div class="d-flex align-items-center justify-content-between">
+                        <strong>{{objchoices.PerDistribution}}%</strong>
+
+                        <div class="user_count_semi">
+                          <span class="icon-users" title=" {{objchoices.NoOfCandidatesAnswered}}"></span>
+                          {{objchoices.NoOfCandidatesAnswered}}
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="que_status_sem">
+                      <span class="icon-completed"></span>
+                      {{'SetUp.Automatic.CorrectAnswers' | translate}}
+                    </div>
+                  </div>
+
+                  <div *ngIf="!objchoices.IsCorrectAnswer">
+                    <div class="cols">
+                      <div [innerHTML]="objchoices.OptionText">
+                      </div>
+
+                      <div class="progress">
+                        <div class="bar incorrect" [style.width.%]="[objchoices.PerDistribution]">
+                        </div>
+                      </div>
+
+                      <div class="d-flex align-items-center justify-content-between">
+                        <strong> {{objchoices.PerDistribution}}%</strong>
+
+                        <div class="user_count_semi">
+                          <span class="icon-users" title=" {{objchoices.NoOfCandidatesAnswered}}"></span>
+                          {{objchoices.NoOfCandidatesAnswered}}
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="que_status_sem">
+                      <div class="d-in-flex">
+                        <div>
+                          <span class="icon-close-1"></span></div>
+                        <div class="mt5"><span>{{
+                            'SetUp.Automatic.InCorrectAnswers'
+                            | translate
+                            }}</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+
+            </div>
+            <br />
+            <div class="col-8 px-1">
+              <mat-form-field class="remarks" appearance="fill">
+                <mat-label>
+                  {{'SetUp.Automatic.Remarks' | translate}}<span class="remarkslbl required">
+                    *
+                  </span>
+                </mat-label>
+                <textarea oncut="return false" onDrop="return false" onPaste="return false" matInput placeholder="{{'SetUp.Automatic.Remarks' | translate}}"
+                  class="text_ares" rows="4" cols="50" maxlength="250" [(ngModel)]="Remarks" ></textarea>
+              </mat-form-field>
+            </div>
+            <div class="d-flex">
+              <button type="button" class="btn theme_button d-flex align-items-center float-right"
+                (click)="SaveUpdateModerateScore(objquestions);" title="{{'SetUp.Automatic.Save' | translate}}">
+                <span class="icon-save"></span>
+                {{
+                'SetUp.Automatic.Save' |
+                translate
+                }}
+              </button>
+
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+.theme_toggle {
+    background: var(--theme-dark);
+    border-radius: 0px;
+    color: #fff;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    font-size: 15px;
+    padding: 2px 20px;
+    position: relative;
+}
+
+.theme_toggle:hover {
+    color: #fff;
+}
+
+.theme_toggle_light {
+    background: #fff;
+    border-radius: 0px;
+    color: var(--theme-dark);
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    font-size: 15px;
+    padding: 2px 20px;
+    border: 1px solid #ccc;
+}
+.fontbold
+{
+    font-weight: bold;
+}

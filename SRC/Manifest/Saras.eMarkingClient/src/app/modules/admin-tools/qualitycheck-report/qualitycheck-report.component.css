@@ -1,0 +1,9 @@
+.word_wrpa{
+    word-wrap: break-word; 
+    padding-right: 8px; 
+    padding-left: 1px;  
+}
+
+.table_list_scroll {
+    height: auto !important;
+}

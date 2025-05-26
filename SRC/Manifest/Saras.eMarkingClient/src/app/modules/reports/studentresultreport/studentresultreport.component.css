@@ -1,0 +1,61 @@
+.main-panel {
+    height: 57vh;
+    position: relative;
+}
+
+.end {
+    justify-content: end
+}
+
+.bottom20 {
+    margin-bottom: 20px;
+}
+
+::ng-deep .mat-form-field {
+    margin-bottom: 0px !important;
+
+}
+
+.hr_head {
+    font-size: 14px;
+}
+
+.row-childrow_bg {
+
+    border-bottom: 1px solid #ccc;
+}
+
+.card_box {
+
+    margin-bottom: 1px;
+
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+    margin-right: 0px;
+}
+
+.mat-expansion-panel-header {
+    padding: 0px 0px !important;
+    font-size: 12px;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0 0px 0px !important;
+    font-size: 12px;
+}
+
+.cust-pos {
+    position: relative;
+    left: 5px;
+}
+
+::ng-deep .mat-expansion-panel-header .mat-expansion-indicator {
+    position: relative !important;
+    right: 20px !important;
+}
+
+.table_list_scroll {
+    height: 58vh;
+}

@@ -1,0 +1,60 @@
+<div class="container mt-3">
+  <div><button class="theme_button custom_pad mx-0" title="{{'usermanage.Back' | translate}}" (click)="GotoMain();"><span
+        class="icon-arrow_back"></span></button></div>
+  <div class="container_box card mt-1">
+
+    <div class="row mb-5">
+      <div class="col-4">
+        <div>{{'usermanage.downloadsample' | translate}}</div>
+        <div class="mt-2">
+          <button class="download_btn" title="{{'usermanage.download' | translate}}"
+            (click)="downloadsamplefile()"><span class="icon-document"></span> {{'usermanage.download' | translate}}
+            <span class="icon-download float-end f30"></span>
+          </button>
+        </div>
+      </div>
+      <div class="col-8">
+        <div>{{'usermanage.uploadfile2' | translate}}</div>
+        <div class="newroll justify-content-between w-100 mt-3"><input type="file" #myFile name="filename"
+            class="upload" (change)="onChange($event)" (click)="ClearFile($event)">
+          <button type="button" class="theme_button custom_pad" title="{{'usermanage.upload' | translate}}"
+            (click)="UploadFile(1);">{{'usermanage.upload' | translate}}</button>
+
+          <button type="button" class="theme_button custom_pad" title="{{'usermanage.submit' | translate}}"
+            (click)="UploadFile(2);" [disabled]="!isSubmitted">{{'usermanage.submit' | translate}}</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="userCreations != null">
+      <div class="row-header card_container p-2">
+        <div class="col-md-2">{{'usermanage.firstname' | translate}}</div>
+        <div class="col-md-2">{{'usermanage.login' | translate}}</div>
+        <div class="col-md-2 cust-ml">{{'usermanage.nric' | translate}}</div>
+        <div class="col-md-2">{{'usermanage.role' | translate}}</div>
+        <div class="col-md-2">{{'usermanage.schoolname' | translate}}</div>
+        <div class="col-md-2">{{'usermanage.status' | translate}}</div>
+      </div>
+      <perfect-scrollbar #perfectScroll [scrollIndicators]="true" class="main-panel" [config]="{suppressScrollX: true}">
+        <div class="row-childrow" *ngFor="let users of userCreations.users">
+          <div class="col-md-2 wraptext c_pr_20">{{users.FirstName}}</div>
+          <div class="col-md-2 wraptext c_pr_20">{{users.LoginName}}</div>
+          <div class="col-md-2 cust-ml">{{users.NRIC}}</div>
+          <div class="col-md-2">{{users.RoleCode}}</div>
+          <div class="col-md-2 wraptext c_pr_20">{{users.SchoolName}}</div>
+          <div class="col-md-2">
+            <div *ngIf="users.Error.length <= 0">
+              <span class="gcolour">{{'usermanage.valid' | translate}}</span>
+            </div>
+
+            <div *ngIf="users.Error.length > 0">
+              <div class="row" *ngFor="let err of users.Error">
+                <span [ngClass]="err == 'Valid' ? 'gcolour' : 'rcolour'">{{err}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+</div>

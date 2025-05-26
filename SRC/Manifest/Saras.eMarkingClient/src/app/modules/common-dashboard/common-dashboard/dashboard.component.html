@@ -1,0 +1,181 @@
+<div class="project_summary card_box_sticky">
+  <div class="row d-flex align-items-center p-0 m-0">
+
+    <div class="col-md-3 col-xs-12 hide">
+      <div [class.shimmer]="stasticsloading" style="width: 150px">
+        <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
+          [plugins]="pieChartPlugins">
+        </canvas>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7 mt-2">
+        <div class="row">
+          <div class="col d-flex align-items-center">
+            <span>{{'Home.OfProject' | translate}}</span>
+            <span [class.shimmer]="stasticsloading"> <strong>{{ stasticsloading ?
+                'TotalProjects':projectdetailscount?.TotalProjects}}</strong></span>
+          </div>
+          <div class=" col d-flex align-items-center">
+            <span>{{'Home.OfProject' | translate}} {{'General.InProgress' |
+              translate}}</span>
+            <span [class.shimmer]="stasticsloading"><strong>{{stasticsloading ?
+                'In Progress':projectdetailscount?.ProjectsInProgress}}</strong> </span>
+          </div>
+          <div class="col d-flex align-items-center">
+            <span>{{'Home.OfProject' | translate}} {{'General.Closed' |
+              translate}}</span>
+            <span [class.shimmer]="stasticsloading"><strong>{{stasticsloading ? 'completed' :
+                projectdetailscount?.ProjectsCompleted}}</strong> </span>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="col-5">
+        <div class="d-flex justify-content-end">
+          <div class="d-flex bd-highlight" *ngIf="projectsloading == false">
+            <div class="search_dash">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'General.Search' | translate}}</mat-label>
+                <input matInput placeholder="Search" [(ngModel)]="ProjectSearchValue" (keyup)="SearchProjects()">
+                <mat-icon matSuffix title="{{'General.Search'|translate}}"><span class="icon-search"
+                    (click)="SearchProjects()"></span></mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="d-flex float-right bd-highlight grid_list_toggle btnovride">
+              <div class="bd-highlight">
+                <button class="btn grid_btn transition mat-button" type="button"
+                  [ngClass]="{'active' : viewList === 'LIST_VIEW'}" (click)="ChangeView('LIST_VIEW')"
+                  title="{{'General.GridView'|translate}}">
+                  <span class="icon-grid_view"></span>
+                </button>
+                <button class="btn list_btn transition mat-button" type="button"
+                  [ngClass]="{'active' : viewList === 'GRID_VIEW'}" (click)="ChangeView('GRID_VIEW')"
+                  title="{{'General.ListView'|translate}}">
+                  <span class="icon-list_view"></span>
+                </button>
+              </div>
+
+            </div>
+            <div class="bd-highlight btnovride">
+              <button class="btn filter filter_btn" title="{{'General.Filter'|translate}}" mat-button
+                [matMenuTriggerFor]="beforeMenu">
+                <span class="icon-filter"></span>
+              </button>
+
+              <mat-menu #beforeMenu="matMenu" xPosition="before" class="filter_drd">
+                <div class="filter_content">
+                  <mat-checkbox class="example-margin" (change)="filterProjects($event,0)"></mat-checkbox>
+                  {{'General.NotStarted' | translate}}
+                </div>
+                <div class="filter_content">
+                  <mat-checkbox class="example-margin" (change)="filterProjects($event,1)"></mat-checkbox>
+                  {{'General.InProgress' | translate}}
+                </div>
+                <div class="filter_content">
+                  <mat-checkbox class="example-margin" (change)="filterProjects($event,3)"></mat-checkbox>
+                  {{'General.Closed' | translate}}
+                </div>
+
+                <div class="filter_content hide">
+                  <mat-checkbox class="example-margin"></mat-checkbox> {{'General.Role' | translate}}
+                </div>
+              </mat-menu>
+
+            </div>
+          </div>
+          <emarking-sso-login *ngIf="IsEnable &&!btnChange"></emarking-sso-login>
+          <emarking-sso-login-live *ngIf="!IsEnable && btnChange"></emarking-sso-login-live>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+
+  <div>
+    <div class="p-2 card_container_dash d-flex justify-content-between bd-highlight mb-2 mt-1 hide">
+      <div class="bd-highlight left_user_count">
+        <span>{{'Home.TotProjects' | translate}}:</span> <span [class.shimmer]="projectsloading"><strong>
+            {{projectsloading ? 'Total Projects':ProjectsList?.length}} </strong></span>
+      </div>
+
+
+
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-sm-4 col-xs-12" *ngFor="let project of ProjectsList"
+        [ngClass]="{'list_view' : viewList === 'GRID_VIEW', 'grid_view' : viewList === 'LIST_VIEW'}">
+        <div class="custrom_row pad20" [class.shimmer]="projectsloading">
+          <div class="proj_details cursor" (click)="projectDetails(project,0)" tabindex="1">
+
+            <label>{{'Home.Name' | translate}}</label>
+            <span> <strong>{{projectsloading ? 'Project Name' : project.ProjectName}}</strong></span>
+
+            <div class="proj_details">
+              <div class="col-md-6 col-xs-12">
+                <label>{{'General.Role' | translate}}</label>
+                <span>{{project?.ProjectUserRole?.RoleCode}}</span>
+              </div>
+            </div>
+
+            <div class="proj_details">
+              <div class="col-md-12 col-xs-12">
+                <label>{{'General.Duration' | translate}}</label>
+                <span>
+                  {{
+                  project.ProjectStartDate !=null ? (project.ProjectStartDate | date:'dd-MMM-yyyy') : 'Not Defined'
+                  }} {{
+                  project.ProjectStartDate !=null ? 'To' : ''
+                  }} {{
+                  project.ProjectEndDate !=null ? (project.ProjectEndDate | date:'dd-MMM-yyyy') : ''
+                  }}
+                </span>
+              </div>
+            </div>
+
+            <div class="status_con"
+              [ngClass]="{'completed': project.ProjectStatus == 2, 'in-progress':  project.ProjectStatus == 1, 'not-started':  project.ProjectStatus == 0, 'closed': project.ProjectStatus == 3}">
+              <ng-container [ngSwitch]="project.ProjectStatus">
+                <ng-container *ngSwitchCase="1">{{'General.InProgress' | translate}}</ng-container>
+                <ng-container *ngSwitchCase="2">{{'General.Completed' | translate}}</ng-container>
+                <ng-container *ngSwitchCase="3">{{'General.Closed' | translate}}</ng-container>
+                <ng-container *ngSwitchDefault>{{'General.NotStarted' | translate}}</ng-container>
+              </ng-container>
+            </div>
+          </div>
+          <div class="qig_cont d-flex justify-content-between">
+            <label>{{'General.QIGName' | translate}}</label>
+            <span>{{project?.ProjectQigs?.length}}</span>
+          </div>
+
+          <div class="proj_details qig_listvw mb-3">
+            <perfect-scrollbar _ngcontent-lqy-c257="" class="scroll_roles scrollbar">
+              <div class="col-md-12 col-xs-12">
+
+                <div class="qig_list" *ngFor="let projectQig of project.ProjectQigs">
+                  <a class="bd-highlight col-4 marauto cursor"
+                    (click)="projectDetails(project,projectQig.ProjectQigid)">{{projectQig.QigName}}</a>
+                </div>
+                <div class="text-center mt-1 card_box nodatafound" *ngIf="project.ProjectQigs?.length == 0">
+                  {{'General.NoQIGfound' | translate}}
+                </div>
+              </div>
+            </perfect-scrollbar>
+          </div>
+          <div class="arrow_next cursor" (click)="projectDetails(project,0)" tabindex="1"></div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div><br><br>
+    <div class="col-md-12 col-xs-12 nodata_db" style="text-align: center;"
+      *ngIf="ProjectsList?.length == 0 || ProjectsList == null">{{'General.NoProjectsFound' | translate}} </div>
+  </div>
+</div>

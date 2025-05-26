@@ -1,0 +1,256 @@
+<div class="modal fade" id="viewbranding" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'Std.TrialMark.BandingInfo' | translate}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          title="{{'Std.TrialMark.Close' | translate}}">
+          <span class="icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-2 row-header card_container ">
+          <div class="p-2 d-flex justify-content-between bd-highlight align-items-center col-md-12 al">
+            <div class="bd-highlight col-md-3">{{'Std.TrialMark.SLNO' | translate}}</div>
+            <div class="bd-highlight col-md-6"> {{'Std.TrialMark.Question' | translate}}</div>
+            <div class="bd-highlight col-md-3">{{'Std.TrialMark.Band' | translate}} </div>
+
+          </div>
+        </div>
+        <div class="row-childrow pd0" *ngFor="let BandInfo of BandInfos;let bandindex=index;">
+          <div class="p-2 d-flex justify-content-between bd-highlight col-md-12 pad10">
+            <div class="bd-highlight col-md-3 marauto"> {{bandindex+1}}</div>
+            <div class="bd-highlight col-md-6 marauto"> {{BandInfo.QuestionCode}}</div>
+            <div class="bd-highlight col-md-3 marauto"> {{BandInfo.BandName}}</div>
+          </div>
+        </div>
+        <div *ngIf="BandInfos.length==0" class="pad10 aligncenter">
+          {{'General.NotFound' | translate}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn theme_button" data-bs-dismiss="modal"
+          title="{{'Std.TrialMark.Close' | translate}}">
+          {{'Std.TrialMark.Close' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="body_box">
+    <emarking-qig-tab [OnlyIsKpTab]="true" (selectQigEvent)="getQigDetails($event,0)">
+    </emarking-qig-tab>
+
+    <div *ngIf="activeQig != null && activeQig != undefined" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+
+      <mat-accordion>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="row">
+
+
+                <div class="col-6 bor_r">
+
+                  <div class="smry" [class.shimmer]="countsloading">
+                    <span class="legd_trail lg_col_1"></span>
+                    <span>{{'Std.TrialMark.NoOfRecndScript' | translate}}</span>
+                    <strong>{{QigScriptsData?.NoOfRecommendedScripts}}</strong>
+                  </div>
+
+                  <div class="smry" [class.shimmer]="countsloading">
+                    <span class="legd_trail lg_col_2"></span>
+                    <span>{{'Std.TrialMark.NoOfTrialMarkedScripts' | translate}}</span>
+                    <strong>{{QigScriptsData?.NoOfTrialMarkedScripts}}</strong>
+                  </div>
+
+                </div>
+
+                <div class="col-6 text-center">
+                  <div class="smry w-100" [class.shimmer]="countsloading">
+                    <span class="legd_trail"></span>
+                    <span>{{'Std.TrialMark.NoOfScriptCategorized' | translate}}</span>
+                    <strong>{{QigScriptsData?.NoOfCategorizedScripts}}</strong>
+                  </div>
+
+
+                </div>
+              </div>
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <div class="row mt-2" *ngIf="IsS1Available">
+            <div class="col-md-6 pr">
+              <div class="card_box p-0 tm_card_overide" [class.shimmer]="countsloading">
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                  [type]="barChartType" style="position: relative; height:20vh; width: 30vw;">
+                </canvas>
+              </div>
+
+
+            </div>
+
+            <div class="col-md-6 pr">
+              <div class="card_box p-0 tm_card_overide" [class.shimmer]="countsloading">
+                <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
+                  [plugins]="pieChartPlugins" style="position: relative; height:30vh;">
+                </canvas>
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+      <div class="row" *ngIf="!IsS1Available">
+        <div class="col-md-12 bd-highligh">
+          <div class="card_box" role="alert" ngDefaultControl>
+            <div class="no_std_req">
+              <strong class="icon-info-1"></strong>
+              <span>{{'Std.SetUp.IsS1Req' | translate}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="" *ngIf="IsS1Available">
+        <div class="d-flex justify-content-end mb-2 mt-2">
+          <div class="search_dash mt-1 m-0 col-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Search</mat-label>
+              <input matInput title="Search" placeholder="Search by Script ID" [(ngModel)]="ScriptSearchValue"
+                (keyup.enter)="SearchScript()" ngDefaultControl autocomplete="off" oncut="return false" onDrop="return false">
+              <mat-icon matSuffix title=""><span title="Search" class="icon-search" (click)="SearchScript()"></span></mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="mt-2 row-header card_container ">
+
+          <div class="p-1 d-flex align-items-center col-md-12 al">
+            <div class="bd-highlight col-md-2"><strong>{{'Std.TrialMark.ScriptId' | translate}}</strong>
+            </div>
+            <div class="bd-highlight col-md-2"><strong>{{'Std.TrialMark.BandingInfo' | translate}}</strong>
+            </div>
+            <div class="bd-highlight col-md-2"><strong>{{'Std.TrialMark.KpsTrialMarked' |
+                translate}}</strong></div>
+            <div class="bd-highlight col-md-2"><strong>{{'Std.TrialMark.CategoryPool' | translate}}</strong>
+            </div>
+
+
+            <div class="bd-highlight col-md-4">
+              <div class="bd-highlight btnovride mat-button float-end">
+                <button class="btn filter filter_btn" title="{{'General.Filter' | translate}}" mat-button
+                  [matMenuTriggerFor]="beforeMenu">
+                  <span class="icon-filter"></span>
+                </button>
+                <mat-menu #beforeMenu="matMenu" xPosition="before" class="filter_drd">
+                  <div class="filter_content">
+                    <mat-checkbox class="example-margin" (change)="SetfilterValue($event,2)"
+                      (click)="$event.stopPropagation();"></mat-checkbox>
+                    {{'Std.TrialMark.TrialMarked' | translate}}
+                  </div>
+                  <div class="filter_content">
+                    <mat-checkbox class="example-margin" (change)="SetfilterValue($event,1)"
+                      (click)="$event.stopPropagation();"></mat-checkbox>
+                    {{'Std.TrialMark.ToBeTrialMarked' | translate}}
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button class="btn theme_button d-flex align-items-center float-end"
+                      (click)="filterTrialMarkScripts()" title="{{'cat.aply' | translate}}">
+                      {{'cat.aply' | translate}}
+                    </button>
+                  </div>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container_box">
+          <div class="row-childrow" [class.shimmer]="playerOpening || countsloading"
+            *ngFor="let TrialMarkScript of QigScriptsData?.TrialMarkedScripts">
+            <div class="d-flex align-items-center justify-content-between bd-highlight col-md-12 al">
+              <div class="bd-highlight col-md-2 marauto"> {{TrialMarkScript.ScriptName}}</div>
+              <div class="bd-highlight col-md-2 marauto">
+                <button type="button" *ngIf="QigScriptsData.MarkSchemeLevel == 'QUELVL'"
+                  title="{{'Std.TrialMark.ViewBanding' | translate}}"
+                  class="btn theme_button_light d-flex align-items-center" data-bs-toggle="modal"
+                  data-bs-target="#viewbranding" [disabled]="playerOpening"
+                  (click)="ViewBandInfo(TrialMarkScript.ScriptId)">
+                  {{'Std.TrialMark.ViewBanding' | translate}}
+                </button>
+                {{TrialMarkScript.BandName}}
+              </div>
+              <div class="bd-highlight col-md-2 marauto"> {{TrialMarkScript.NoOfKpsTrialMarked}}</div>
+
+              <div class="bd-highlight col-md-2 marauto">
+                <container-element [ngSwitch]="TrialMarkScript.CategoryType">
+                  <span *ngSwitchCase="1">{{'Std.TrialMark.StandardizedScript' | translate}}
+                  </span>
+                  <span *ngSwitchCase="2">{{'Std.TrialMark.AddStandardizedScript' | translate}}
+                  </span>
+                  <span *ngSwitchCase="3">{{'Std.TrialMark.BenchmarkScript' | translate}}</span>
+                  <span *ngSwitchDefault></span>
+                </container-element>
+              </div>
+
+              <div class="col-md-4 marauto">
+
+
+                <button class="btn theme_button d-flex align-items-center float-end" [disabled]="qigpause"
+                  title="Unrecommend"
+                  *ngIf="(((TrialMarkScript.RoleCode == 'AO' || TrialMarkScript.RoleCode == 'CM') && !TrialMarkScript.IsCategorized && s1closure == false) || (TrialMarkScript.IsTrailMarkedByMe && !TrialMarkScript.IsTrialMarked && !TrialMarkScript.IsCategorized && s1closure == false))"
+                  (click)="UnrecommandScript(TrialMarkScript.ScriptId)">
+                  Unrecommend
+                </button>
+
+                <button class="btn theme_button d-flex align-items-center float-end"
+                  [disabled]="TrialMarkScript.IsCategorized==true  || Ispause >= 0 || IsClosure >= 0"
+                  title="{{(TrialMarkScript.IsTrailMarkedByMe==true?'Std.TrialMark.ViewScript':'Std.TrialMark.TrialMark') | translate}}"
+                  (click)="UpdateTrialMarkWorkFlowStatus(TrialMarkScript)">
+                  {{
+                  (TrialMarkScript.IsTrailMarkedByMe==true?'Std.TrialMark.ViewScript':'Std.TrialMark.TrialMark')
+                  | translate
+                  }}
+                </button>
+                <span class="icon-complete marked float-end mtl-25" title="In-progress"
+                  *ngIf="TrialMarkScript.Script_status == 1"></span>
+
+
+              </div>
+              <div class="bd-highlight col-md-2 marauto">
+
+              </div>
+            </div>
+
+          </div>
+          <div class="d-flex justify-content-between bd-highlight col-md-12 aligncenter"
+            *ngIf="qigloading == false && (QigScriptsData?.TrialMarkedScripts==null || QigScriptsData?.TrialMarkedScripts?.length==0)">
+            <div class="col-md-12 pad10 aligncenter">
+              {{'General.NotFound' | translate}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="qigloading == false && (activeQig == null || activeQig == undefined)" class="text-center mt-3 card_box"
+      [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+      <strong>
+        {{'General.NotFound' | translate}}
+      </strong>
+    </div>
+  </div>
+
+</div>

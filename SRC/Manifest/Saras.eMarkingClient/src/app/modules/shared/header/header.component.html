@@ -1,0 +1,98 @@
+<div *ngIf="LoginStatus$ | async as LoginStatus">
+  <div class="left_menu_expand" [@sideMenu]="state" (click)="$event.stopPropagation()">
+    <perfect-scrollbar class="side_menu_scroll">
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item" *ngFor="let menu of activemenus; let menulindex = index">
+          <button class="a-sidemenu" type="button" [routerLink]="menu?.Url" (click)="leftmenuclose(menu?.Url)"
+            *ngIf="!menu?.children || menu?.children?.length == 0">
+            {{ menu?.Name }}
+          </button>
+          <div>
+            <h2 class="accordion-header" id="flush-heading{{ menulindex }}" *ngIf="menu?.children?.length > 0">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#flush-collapse' + menulindex" aria-expanded="false"
+                aria-controls="flush-collapse{{ menulindex }}" [attr.aria-controls]="'flush-collapse' + menulindex">
+                {{ menu?.Name }}
+              </button>
+            </h2>
+            <div id="flush-collapse{{ menulindex }}" class="accordion-collapse collapse"
+              [attr.aria-labelledby]="'flush-heading' + menulindex" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <div class="sidemenuList">
+                  <a [routerLink]="childmenu?.Url" (click)="leftmenuclose(childmenu?.Url)"
+                    *ngFor="let childmenu of menu?.children">
+                    {{ childmenu?.Name }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+
+  <div class="navbar sticky-top">
+    <div class="container-fluid">
+      <a class="menu_nav" *ngIf="isHidedashabord" (click)="leftmenuopen(1, $event)"
+        [ngClass]="toggletopmenu ? 'ambactive' : 'ambdeactive'">
+        <span class="icon-menu"></span>
+      </a>
+      <a class="navbar-brand me-auto" onclick="return false;"><img alt="logo"
+          src="{{ brand?.Branding?.LogoPath }}" /></a>
+      <div class="flex-grow-1 breadcrumbs">
+        <strong>{{ HeaderName$ | async }}</strong>
+      </div>
+
+      <div class="text-right px-2">
+        <strong><span class="course_spn"> {{ Myprofile?.firstName }}</span></strong>
+        <span class="course_spn"></span>
+        <div class="clear"></div>
+        <div class="">
+          <span class="course_text">{{ Myprofile?.ProjectRoleName?Myprofile?.ProjectRoleName:Myprofile?.RoleName }}</span>
+        </div>
+      </div>
+
+      <div class="right_haeder_content d-flex">
+        <a class="searchtna icon_outline hide" title="Search">
+          <span class="icon-search"></span>
+        </a>
+        <a class="notifications icon_outline hide" title="Notification">
+          <span class="icon-search-1"></span>
+          <div class="counts">8</div>
+        </a>
+        <a class="user_avatar cursor" (click)="showPopup(1, $event)" title="My Profile">
+          <img alt="UserIcon" src="{{ brand?.Branding?.DefaultUserImage }}" />
+        </a>
+
+        <div *ngIf="show" class="profile_dropdown" (click)="$event.stopPropagation()">
+          <a (click)="GetMyprofile()" title="My Profile"><span class="icon-user"></span>My Profile</a>
+          <a (click)="BtnChangePassword()" title="Change Password">
+            <div class="ch_pass">
+              <span class="icon-lock"></span>
+              <span class="icon-redo_2"></span>
+            </div>
+            Change Password
+          </a>
+          <a (click)="onLogout()" title="Logout">
+            <span class="icon-end"></span> Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sub_header bg-dark" aria-label="subheader">
+    <div class="container-lg">
+      <emarking-breadcrumb></emarking-breadcrumb>
+      <div class="info_toggle" title="Page Description">
+        <button mat-button [matMenuTriggerFor]="beforeMenu" class="btn_info">
+          <span class="icon-info-1"></span>
+        </button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before" class="mat_drp">
+          {{ InfoText$ | async }}
+        </mat-menu>
+      </div>
+    </div>
+  </nav>
+</div>

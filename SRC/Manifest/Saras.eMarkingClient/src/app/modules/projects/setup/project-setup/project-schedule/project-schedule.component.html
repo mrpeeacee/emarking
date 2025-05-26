@@ -1,0 +1,287 @@
+<div class="container">
+  <div class="card_box_body mt-3" ngDefaultControl>
+    <div class="col-md-12">
+      <fieldset [disabled]="PSList.Disableall">
+        <legend aria-hidden="true"></legend>
+        <div class="form-horizontal row" [class.shimmer]="isLoading"
+          *ngIf="ProjectScheduleList != null && ProjectScheduleList != undefined">
+
+          <div class="col-md-3">
+            <div class="proj_bx">
+              <div class="cal_proj">
+                <h4>{{'SetUp.Schedule.Duration' | translate}}</h4>
+                <div class="col-md-12 col-xs-12 date_range">
+                  <mat-form-field appearance="fill">
+                    <mat-label class="lable">{{'SetUp.Schedule.Startdate' | translate}}</mat-label>
+                    <input tabindex="-1" onDrop="return false" oncut="return false" onPaste="return false" matInput
+                      [matDatepicker]="frompicker" id="FromDate" [(ngModel)]="ProjectScheduleList.StartDate"
+                      ngDefaultControl [value]="ProjectScheduleList?.StartDate" [min]="minimumdate" readonly
+                      [disabled]="PSList.Disableall == true ? PSList.sdatedisable: PSList.sdisable"
+                      (dateChange)="fromDatechangeEvent($event)">
+                    <mat-datepicker-toggle title="{{'SetUp.Schedule.Startdate' | translate}}" matSuffix
+                      [disabled]="PSList.Disableall" [for]="frompicker">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #frompicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-12 col-xs-12 date_range">
+                  <mat-form-field appearance="fill">
+                    <mat-label class="lable">{{'SetUp.Schedule.Todate' | translate}}</mat-label>
+                    <input tabindex="-1" onDrop="return false" oncut="return false" onPaste="return false" matInput
+                      [matDatepicker]="toPicker" id="ToDate" [(ngModel)]="ProjectScheduleList.ExpectedEndDate"
+                      ngDefaultControl [value]="ProjectScheduleList.ExpectedEndDate" [min]="tominimumdate" readonly>
+                    <mat-datepicker-toggle title="{{'SetUp.Schedule.Todate' | translate}}" matSuffix [for]="toPicker"
+                      [disabled]="PSList.Disableall">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #toPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-9">
+            <div class="proj_bx">
+              <div class="row">
+                <div class="col-md-8 ">
+                  <div class="mt-2 wkg_days_chx">
+                    <h4>{{'SetUp.Schedule.Workingdays' | translate}} </h4>
+                    <div class="mb-4 mt-4">
+                      <mat-checkbox class="example-margin"
+                        [checked]="ProjectScheduleList?.WorkingDaysConfigJson?.Monday" [disabled]="true"
+                        [(ngModel)]="ProjectScheduleList.WorkingDaysConfigJson.Monday" ngDefaultControl>
+                        {{'SetUp.Schedule.Monday' | translate}}
+                      </mat-checkbox>
+                      <mat-checkbox class="example-margin"
+                        [checked]="ProjectScheduleList?.WorkingDaysConfigJson?.Tuesday" [disabled]="true"
+                        [(ngModel)]="ProjectScheduleList.WorkingDaysConfigJson.Tuesday" ngDefaultControl>
+                        {{'SetUp.Schedule.Tuesday' | translate}}
+                      </mat-checkbox>
+                      <mat-checkbox class="example-margin"
+                        [checked]="ProjectScheduleList?.WorkingDaysConfigJson?.Wednesday" [disabled]="true"
+                        [(ngModel)]="ProjectScheduleList.WorkingDaysConfigJson.Wednesday" ngDefaultControl>
+                        {{'SetUp.Schedule.Wednesday' | translate}}
+                      </mat-checkbox>
+                      <mat-checkbox class="example-margin"
+                        [checked]="ProjectScheduleList?.WorkingDaysConfigJson?.Thursday"
+                        [(ngModel)]="ProjectScheduleList.WorkingDaysConfigJson.Thursday" ngDefaultControl
+                        [disabled]="true">
+                        {{'SetUp.Schedule.Thursday' | translate}}
+                      </mat-checkbox>
+                      <mat-checkbox class="example-margin"
+                        [checked]="ProjectScheduleList?.WorkingDaysConfigJson?.Friday"
+                        [(ngModel)]="ProjectScheduleList.WorkingDaysConfigJson.Friday" ngDefaultControl
+                        [disabled]="true">
+                        {{'SetUp.Schedule.Friday' | translate}}
+                      </mat-checkbox>
+                      <mat-checkbox class="example-margin" [checked]="weekend.saturday " [(ngModel)]="weekend.saturday"
+                        ngDefaultControl>
+                        {{'SetUp.Schedule.Saturday' | translate}}
+                      </mat-checkbox>
+                      <mat-checkbox class="example-margin" [checked]="weekend.sunday" [(ngModel)]="weekend.sunday"
+                        ngDefaultControl>
+                        {{'SetUp.Schedule.Sunday' | translate}}
+                      </mat-checkbox>
+                    </div>
+                    <div class="row">
+                      <em>{{'SetUp.Schedule.Note' | translate}}</em>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="mt-2">
+                    <h4>{{'SetUp.Schedule.Time' | translate}}:</h4>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-10 col-sm-12 col-xs-12 time_range">
+                          <mat-form-field appearance="fill" onKeyDown="return false">
+                            <mat-label>{{'SetUp.Schedule.Starttime' | translate}}</mat-label>
+                            <input matInput tabindex="-1" onDrop="return false" oncut="return false" class="curdefault"
+                              onPaste="return false" type="time" id="StartTime" value="time"
+                              [(ngModel)]="ProjectScheduleList.StartTime" ngDefaultControl
+                              [value]="ProjectScheduleList.StartTime"
+                              title="{{'SetUp.Schedule.Starttime' | translate}}">
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-md-10 col-sm-12 col-xs-12">
+                          <mat-form-field appearance="fill" onKeyDown="return false">
+                            <mat-label>{{'SetUp.Schedule.Endtime' | translate}}</mat-label>
+                            <input matInput tabindex="-1" onDrop="return false" oncut="return false"
+                              onPaste="return false" type="time" value="time" id="EndTime"
+                              [(ngModel)]="ProjectScheduleList.EndTime" ngDefaultControl
+                              [value]="ProjectScheduleList.EndTime" title="{{'SetUp.Schedule.Endtime' | translate}}"
+                              class="curdefault">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 d-flex bd-highlight mb-4">
+              <div class="d-flex newroll justify-content-end w-100">
+                <div class="d-flex" [class.shimmer]="projectschedulesaveloading || Daywisesaveloading">
+                  <button title="{{'General.Save' | translate}}" type="button"
+                    class="btn theme_button d-flex align-items-center" (click)="SaveUpdateProjectShedule(0)"><span
+                      class="icon-save-1" data-backdrop="static" data-keyboard="false"></span> {{'General.Save' |
+                    translate}}</button>
+                </div>
+                <button id="ShowModalDiv" title="{{'General.Save' | translate}}" type="button"
+                  data-bs-target="#myConfirmModal" data-bs-toggle="modal"
+                  [class.shimmer]="projectschedulesaveloading || Daywisesaveloading"
+                  class="btn theme_button d-flex align-items-center hide"><span class="icon-save-1"
+                    data-backdrop="static" data-keyboard="false"></span> {{'General.Save' |
+                  translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj_bx"
+          *ngIf="ProjectScheduleList != null && ProjectScheduleList != undefined && ProjectScheduleList.IsUpdate > 0">
+          <div class="row">
+            <div class="col-md-4 ">
+              <div class="cal_output">
+                <h4>{{'SetUp.Schedule.Daywiseconfig' | translate}} </h4>
+                <mat-form-field>
+                  <input matInput class="selectedinput">
+                  <mat-calendar [selected]="selinput" (selectedChange)="changeEvent($event)" [minDate]="PSList.sdate"
+                    [maxDate]="PSList.edate" id="DayWiseCalendar" [dateClass]="dateClass()">
+                  </mat-calendar>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-8 mt-2">
+              <div>
+                <div [class.shimmer]="projectschedulesaveloading || Daywisesaveloading">
+                  <span class="sel_date">{{ daywiseconfigdata.ChoosenDate | date: 'dd MMM YYYY | EEEE' }}</span>
+                </div>
+                <h4 class="mb-2">{{'SetUp.Schedule.Daytype' | translate}} </h4>
+                <div class="card_box_qu">
+                  <div class="toggle_menu ng-star-inserted"
+                    [class.shimmer]="projectschedulesaveloading || Daywisesaveloading">
+                    <button class="btn d-flex align-items-center" title="{{'SetUp.Schedule.Workingday' | translate}}"
+                      value="daywiseconfigdata.daytype" (click)="daywiseconfigdata.daytype = 1"
+                      [(ngModel)]="daywiseconfigdata.daytype" ngDefaultControl
+                      [ngClass]="daywiseconfigdata.daytype == 1 ? 'theme_toggle' : 'theme_toggle_light'"
+                      [disabled]="disablebtncurrdate == true">
+                      {{'SetUp.Schedule.Workingday' | translate}}
+                    </button>
+                    <button class="btn align-items-center" title="{{'SetUp.Schedule.Holiday' | translate}}"
+                      (click)="daywiseconfigdata.daytype = 2"
+                      [ngClass]="daywiseconfigdata.daytype == 2 ? 'theme_toggle' : 'theme_toggle_light'"
+                      value="daywiseconfigdata.daytype" [(ngModel)]="daywiseconfigdata.daytype" ngDefaultControl
+                      [disabled]="disablebtncurrdate == true">
+                      {{'SetUp.Schedule.Holiday' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="mt-2">
+                  <h4>{{'SetUp.Schedule.Time' | translate}}:</h4>
+                  <div class="col-md-7 time_range">
+                    <div class="row">
+                      <div class="col-md-5 col-sm-6 col-xs-12"
+                        [class.shimmer]="projectschedulesaveloading || Daywisesaveloading">
+                        <mat-form-field appearance="fill">
+                          <mat-label>{{'SetUp.Schedule.Starttime' | translate}}</mat-label>
+                          <div class="col-md-12" onKeyDown="return false">
+                            <input matInput tabindex="-1"
+                              [disabled]="daywiseconfigdata.daytype == 2 || disablebtncurrdate == true ? true : false"
+                              onDrop="return false" oncut="return false" onPaste="return false" type="time"
+                              class="curdefault" id="strttime" value="time" [(ngModel)]="daywiseconfigdata.strttime"
+                              ngDefaultControl [value]="daywiseconfigdata.strttime"
+                              title="{{'SetUp.Schedule.Starttime' | translate}}">
+                          </div>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-5 col-sm-6 col-xs-12"
+                        [class.shimmer]="projectschedulesaveloading || Daywisesaveloading">
+                        <mat-form-field appearance="fill">
+                          <mat-label class="lable">{{'SetUp.Schedule.Endtime' | translate}}</mat-label>
+                          <div class="col-md-12" onKeyDown="return false">
+                            <input matInput tabindex="-1"
+                              [disabled]="daywiseconfigdata.daytype == 2 || disablebtncurrdate == true ? true : false"
+                              onDrop="return false" oncut="return false" onPaste="return false" type="time"
+                              class="curdefault" value="endtime" id="endtime" [(ngModel)]="daywiseconfigdata.endtime"
+                              ngDefaultControl [value]="daywiseconfigdata.endtime"
+                              title="{{'SetUp.Schedule.Endtime' | translate}}">
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h4 class="">{{'SetUp.Schedule.Remarks' | translate}}: </h4>
+              <div [class.shimmer]="projectschedulesaveloading || Daywisesaveloading">
+                <textarea name="w3review" class="text_are" placeholder="{{'SetUp.Schedule.Placeholder' | translate}}"
+                  [(ngModel)]="daywiseconfigdata.remarks" ngDefaultControl [value]="daywiseconfigdata.remarks"
+                  maxlength="250" onDrop="return false" [disabled]="disablebtncurrdate == true">
+              </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2 d-flex bd-highlight mb-3">
+            <div class="d-flex newroll justify-content-end w-100">
+              <div class="d-flex" [class.shimmer]="Daywisesaveloading || projectschedulesaveloading">
+                <button title="{{'General.Save' | translate}}" type="button" [disabled]="disablebtncurrdate == true"
+                  class="btn theme_button d-flex align-items-center" (click)="UpdateDayWiseConfigurations()"><span
+                    class="icon-save-1"></span> {{'General.Save' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div class="mt-2 d-flex bd-highlight mb-3 ">
+        <div class="d-flex justify-content-start">
+          <button title="{{'General.Cancel' | translate}}" type="button"
+            class="btn theme_button_light d-flex align-items-center " routerLink="/projects">
+            <span class="icon-close"></span> {{'General.Cancel' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" role="dialog" id="myConfirmModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{'SetUp.Schedule.Modaltitle' | translate}}</h5>
+          <button type="button" class="btn-close icon-close-1" data-bs-dismiss="modal"
+            title="{{'General.Close' | translate}}" aria-label="Close" (click)="displayConfirmStyle = 'none'"></button>
+        </div>
+        <div class="modal-body">
+          {{'SetUp.Schedule.Confirmalert' | translate}}
+          <div class="mt-3 d-flex bd-highlight">
+            <div class="d-flex justify-content-between w-100">
+              <div class="d-flex">
+              </div>
+              <div class="d-flex">
+                <button type="button" data-bs-dismiss="modal" class="btn theme_button d-flex align-items-center"
+                  (click)="SaveUpdateProjectSheduleToDB(1)" title="{{'SetUp.Schedule.Overwrite' | translate}}">
+                  {{'SetUp.Schedule.Overwrite' | translate}}</button>
+                <button type="button" data-bs-dismiss="modal" class="btn theme_button d-flex align-items-center"
+                  title="{{'SetUp.Schedule.Retain' | translate}}" (click)="SaveUpdateProjectSheduleToDB(2)">
+                  {{'SetUp.Schedule.Retain' | translate}}</button>
+                <button type="button" data-bs-dismiss="modal" class="btn theme_button d-flex align-items-center"
+                  (click)="displayConfirmStyle = 'none'" title="{{'General.Cancel' | translate}}"> <span
+                    class="icon-close"></span>
+                  {{'General.Cancel' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

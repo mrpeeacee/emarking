@@ -1,0 +1,172 @@
+<div class="container">
+    <div class="card_box mt-4 row_card">
+        <div [class.shimmer]="scriptloading" class="row d-flex align-items-center">
+            <div class="col-md-3 col-xs-12">
+                <div class="row">
+                    <div [class.shimmer]="scriptloading" class="col-md-12 col-xs-12">
+                        <span>{{'benchmark.name' |
+                            translate}}:</span>&nbsp;<span class="fontweight">{{PracticeScript.Qigname}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 col-xs-12">
+                <div class="row">
+                    <div [class.shimmer]="scriptloading" class="col-md-5 col-xs-12">
+                        <span>{{'benchmark.noBench' |
+                            translate}}:</span>&nbsp;<span class="fontweight" *ngIf="PracticeScript.Noofscripts == 0">{{'benchmark.null'
+                            |
+                            translate}}</span>
+                        <span class="fontweight" *ngIf="PracticeScript.Noofscripts > 0">{{PracticeScript.Noofscripts}}</span>
+                    </div>
+                    <div [class.shimmer]="scriptloading" class="col-md-5 col-xs-12">
+                        <span>{{'benchmark.totmark' |
+                            translate}}:</span>&nbsp;<span class="fontweight" *ngIf="PracticeScript.Noofscripts > 0">{{PracticeScript?.TotalMarks}}</span>
+                        <span class="fontweight" *ngIf="PracticeScript.Noofscripts == 0">{{'benchmark.null' |
+                            translate}}</span>
+                    </div>
+
+                    <div [class.shimmer]="scriptloading" class="col-md-2 col-xs-12 float-end">
+                            <button type="button" class="btn theme_button d-flex float-end" title="{{'General.back' | translate}}"
+                            (click)="closeBtn();">  <span  class="icon-arrow_back"></span>{{'General.back' |
+                            translate}} </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row-header_bg d-flex align-items-center">
+        <div class="col-1"><strong>{{'benchmark.slno' | translate}}</strong></div>
+        <div class="col-4"><strong>{{'benchmark.scpId' | translate}}</strong></div>
+        <div class="col-3"><strong>{{'benchmark.result' | translate}}</strong></div>
+    </div>
+
+    <div class="">
+        <mat-accordion *ngFor="let value of PracticeScript.Scripts; let i = index;">
+
+            <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="value.Isopened = true; PracticeQuestionDetails(value.ScriptId, value.IsCompleted);"
+                (closed)="value.Isopened = false" [disabled]="scriptloading == true">
+                <mat-expansion-panel-header (click)="togglePanels(i);" title="{{( value.Isopened == true  ? 'Collapse' : 'Expand') | translate }}">
+                    <div [class.shimmer]="scriptloading" class="col-md-12 d-flex align-items-center">
+                        <div class="col-md-1">{{i+1}}</div>
+                        <div *ngIf="scriptloading == true" class="col-md-2"> <span> Script Name</span>
+                        </div>
+                        <div class="col-md-4">{{value.ScriptName}}</div>
+                        <div class="col-md-2">
+                            <div *ngIf="scriptloading == true"> <span> Script Result</span>
+                            </div>
+                            <div class="padding-align" *ngIf="value.Result == false">
+                                <span class="status_yess fnt-size" title="{{'benchmark.match' | translate}}">{{'benchmark.match'
+                                    | translate}} </span>
+                            </div>
+                            <div class="padding-align" *ngIf="value.Result == true">
+                                <span class="status_nos fnt-size" title="{{'benchmark.unmatch' | translate}}">{{'benchmark.unmatch'
+                                    | translate}} </span>
+                            </div>
+                            <div class="padding-align" *ngIf="value.Result == null && scriptloading == false">
+                                <div>{{'benchmark.null' | translate}}</div>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div [class.shimmer]="scriptloading || playerOpening" class="bd-highlight d-flex justify-content-end">
+                                        <div *ngIf="value.IsCompleted == true">
+                                            <button type="button" class="btn theme_button d-flex align-items-center float-end btnpad"
+                                                [disabled]="PracticeScript.ProcessStatus == 4" (click)="$event.stopPropagation(); $event.preventDefault(); trailmarking({ScriptId: value.ScriptId, IsViewMode: true , IsCompleted: value.IsCompleted, Markedby: value.MarkedBy, Workflowid: value.WorkflowStatusID})"
+                                                title="{{'benchmark.viewmymarking' | translate}}" (keydown.Enter)="$event.stopPropagation();">
+                                                {{'benchmark.viewmymarking' | translate}}
+
+                                            </button>
+                                        </div>
+                                        <div *ngIf="value.IsCompleted == false">
+                                            <button type="button" class="btn theme_button d-flex align-items-center float-end btnpad"
+                                                [disabled]="PracticeScript.ProcessStatus == 4" (click)="$event.stopPropagation(); $event.preventDefault(); trailmarking({ScriptId: value.ScriptId, IsViewMode:false, IsCompleted: value.IsCompleted, Markedby: value.MarkedBy, Workflowid: value.WorkflowStatusID})"
+                                                title="{{'benchmark.mark' | translate}}" (keydown.Enter)="$event.stopPropagation();">
+                                                {{'benchmark.mark' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-5">
+                                    <div [class.shimmer]="scriptloading" *ngIf="value.IsCompleted == true">
+                                        <button type="button" class="btn btn theme_button_light d-flex align-items-center d-flex align-items-center float-end"
+                                            [disabled]="PracticeScript.ProcessStatus == 4" (click)="$event.stopPropagation(); $event.preventDefault(); trailmarking({ScriptId: value.ScriptId, IsViewMode:true, IsCompleted: value.IsCompleted, Markedby: value.UserMarkedBy, UserScriptMarkingRefId: value.UserScriptMarkingRefID})"
+                                            title="{{'benchmark.benscrp' | translate}}" (keydown.Enter)="$event.stopPropagation();">
+                                            {{'benchmark.benscrp' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-expansion-panel-header>
+
+                <div class="col-md-12 col-xs-12 mt-3 hide" *ngIf="value.IsCompleted == true">
+                    <div class="row">
+                        <div class="col-md-2 col-xs-12 d-flex align-items-center">
+                            <strong class="line_strong">{{'benchmark.compare' | translate}}</strong>
+                        </div>
+
+
+                        <div class="col-md-2 col-xs-12">
+                            <div [class.shimmer]="questionloading" class="spl_bx cl_bx1">
+                                <span>{{'benchmark.defscore' | translate}}</span><strong>{{sumofDef}}</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-12">
+                            <div [class.shimmer]="questionloading" class="spl_bx cl_bx2">
+                                <span>{{'benchmark.yourscore' | translate}}</span><strong>{{sumofTot}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-header_bg mt-3">
+                    <div class="col-2"><strong>{{'benchmark.qsnlabel' | translate}}</strong></div>
+                    <div class="col-2"><strong>{{'benchmark.maxmark' | translate}}</strong></div>
+                    <div class="col-2"><strong>{{'benchmark.tolerance' | translate}}</strong></div>
+                    <div class="col-2"><strong>{{'benchmark.defscore' | translate}}</strong></div>
+                    <div class="col-2"><strong>{{'benchmark.yourscore' | translate}}</strong></div>
+                    <div class="col-2"><strong>{{'benchmark.result' | translate}}</strong></div>
+                </div>
+
+                <div class="row-childrow align-items-center card_box" *ngFor="let scr of practiceQusDtls">
+                    <div [class.shimmer]="questionloading" class="col-2"><span>{{scr.QuestionLabel}}</span></div>
+                    <div [class.shimmer]="questionloading" class="col-2"><span>{{scr.TotalMarks}}</span></div>
+                    <div [class.shimmer]="questionloading" class="col-2"><span>{{scr.ToleranceLimit == null ? '--' :
+                            scr.ToleranceLimit}}</span> </div>
+                    <div [class.shimmer]="questionloading" class="col-2"><span>{{scr.DefenetiveMarks == null ? '--' :
+                            scr.DefenetiveMarks}} </span></div>
+                    <div [class.shimmer]="questionloading" class="col-2"><span>{{scr.AwardedMarks == null ? '--' :
+                            scr.AwardedMarks}}</span>
+                    </div>
+                    <div [class.shimmer]="questionloading" *ngIf="questionloading == true" class="col-2"><span> </span>
+                    </div>
+                    <div [class.shimmer]="questionloading" class="col-2" *ngIf="scr.IsOutOfTolerance == false">
+                        <span class="status_yess fnt-size" title="{{'benchmark.match' | translate}}">{{'benchmark.match'
+                            | translate}} </span>
+                    </div>
+                    <div [class.shimmer]="questionloading" class="col-2" *ngIf="scr.IsOutOfTolerance == true">
+                        <span class="status_nos fnt-size" title="{{'benchmark.unmatch' | translate}}">{{'benchmark.unmatch'
+                            | translate}}</span>
+                    </div>
+                    <div class="col-2" *ngIf="scr.IsOutOfTolerance == null && questionloading == false">
+                        <div title="{{'benchmark.null' | translate}}">{{'benchmark.null' | translate}}</div>
+                    </div>
+                </div>
+                <div class="text-center mt-1 card_box nodatafound" *ngIf="questionloading == false && (practiceQusDtls == null || practiceQusDtls.length == 0)">
+                    {{'General.NotFound' | translate}}
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <div class="text-center mt-1 card_box nodatafound" *ngIf="scriptloading == false && (PracticeScript?.Scripts == null || PracticeScript?.Scripts.length == 0)">
+            {{'benchmark.norec' | translate}}
+        </div>
+    </div>
+    <br /><br /><br />
+</div>

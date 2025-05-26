@@ -1,0 +1,63 @@
+.container-fluid {
+    padding-right: 30px; 
+    padding-left: 30px; 
+}
+
+.head_search {
+    float: left;
+    border: 1.5px solid #472c8a;
+    border-radius: 10px;
+    width: 70%; 
+    align-items: center; 
+    margin-left: 15%;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    padding:13px;
+}
+
+.head_search1 {
+    float: left; 
+    width: 70%; 
+    align-items: center; 
+    margin-left: 5%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding:13px;
+}
+
+#text{
+    font-size: 15px;
+    margin-left: 45px;
+    padding-left: 25px;
+    align-content: center;
+    padding-top: 2px;
+}
+
+#back{
+    border-radius: 5px;
+}
+
+#page{
+    border: 1.5px solid #472c8a; 
+    border-radius: 10px; 
+    width: 70%; 
+    align-items: center; 
+    margin-left: 15%;
+     margin-top: 20px;
+     font-size: 13px;
+}
+
+#txt {
+    font-size: 15px ;   
+    padding-left: 48%;
+    padding-top: 100px;
+}
+
+#button{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 7px;
+    border: 1px solid #472c8a;
+    font-size: 14px;
+}

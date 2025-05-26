@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2de4c09a-7b73-4273-9930-3c674e0d9e85" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="LicensingAndTransfer.disco" MetadataType="Disco" ID="93cf3d4e-70b1-4ecd-9671-dd992b7ba645" SourceId="1" SourceUrl="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?disco" />
+    <MetadataFile FileName="LicensingAndTransfer.wsdl" MetadataType="Wsdl" ID="d1761994-35f1-4524-9f1d-9761f28282dd" SourceId="1" SourceUrl="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?wsdl" />
+    <MetadataFile FileName="LicensingAndTransfer.xsd" MetadataType="Schema" ID="1094e82f-5d3e-4302-89e7-1b32d62dfe54" SourceId="1" SourceUrl="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd0" />
+    <MetadataFile FileName="LicensingAndTransfer1.xsd" MetadataType="Schema" ID="54a0420f-48d1-4d24-9b96-ea6727167930" SourceId="1" SourceUrl="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd1" />
+    <MetadataFile FileName="LicensingAndTransfer2.xsd" MetadataType="Schema" ID="7a7a7bce-2ab6-4acd-9388-d9465f1a41a6" SourceId="1" SourceUrl="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd2" />
+    <MetadataFile FileName="LicensingAndTransfer3.xsd" MetadataType="Schema" ID="e035c4fe-ab79-442a-b17e-2b65ec4105cc" SourceId="1" SourceUrl="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

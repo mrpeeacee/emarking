@@ -1,0 +1,53 @@
+﻿namespace Saras.eMarking.Domain.ViewModels.AuditModels
+{
+    public enum AuditTrailEntity
+    {
+        [StringValue("PROJECT")]
+        PROJECT,
+        [StringValue("QIG")]
+        QIG,
+        [StringValue("MARKING")]
+        MARKING,
+        [StringValue("STANDARDISATION")]
+        STANDARDISATION,
+        [StringValue("MARKSCHEME")]
+        MARKSCHEME,
+        [StringValue("PROJECTSCHEDULE")]
+        PROJECTSCHEDULE,
+        [StringValue("PROQIGTEAMHIERARCHY")]
+        PROQIGTEAMHIERARCHY,
+        [StringValue("ROLE")]
+        ROLE,
+        [StringValue("EXAMYEAR")]
+        EXAMYEAR,
+        [StringValue("EXAMSERIES")]
+        EXAMSERIES,
+        [StringValue("EXAMLEVEL")]
+        EXAMLEVEL,
+        [StringValue("MOA")]
+        MOA,
+        [StringValue("PROJECTQUES")]
+        PROJECTQUES,
+        [StringValue("USER")]
+        USER,
+        [StringValue("WORKFLOW")]
+        WORKFLOW,
+        [StringValue("PRIVILEGE")]
+        PRIVILEGE,
+        [StringValue("CoI")]
+        CoI,
+        [StringValue("ANNTN")]
+        ANNTN,
+        [StringValue("SCRIPT")]
+        SCRIPT,
+        [StringValue("RESPONSE")]
+        RESPONSE,
+        [StringValue("REPORT")]
+        REPORT,
+        [StringValue("QUESTION")]
+        QUESTION, 
+             [StringValue("FIDIREPORT")]
+        FIDIREPORT
+
+    }
+}

@@ -1,0 +1,195 @@
+<div class="container">
+    <div class="body_box">
+        <div class="row item-align">
+            <div class="col-md-6 d-flex align-items-center">
+                <button class="btn theme_button d-flex align-items-center" (click)="NavigateToDashboard();" title="{{'LiveMarking.back' | translate}}"><span
+                        class="icon-arrow_back"></span></button>
+
+                <div class="col-md-12 col-xs-12 cust-margins"> {{'LiveMarking.Qigname' | translate}}: <strong
+                        [class.shimmer]="LiveMarkingLoader">{{LiveMarkingModel?.QigName}}</strong></div>
+            </div>
+        </div>
+
+        <div class="col tabs_btn  mt-2 container_theme_header">
+            <ul class="nav nav-tabs theme_navbar_enr" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation" title="{{'LiveMarking.MarkingScript' | translate}}">
+                    <button [disabled]="LiveMarkingLoader == true" class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                        data-bs-target="#Livemarking" type="button" role="tab" aria-controls="Livemarking"
+                        aria-selected="true" (click)="LiveScripts(1)">
+                        {{'LiveMarking.MarkingScript' | translate}}({{LiveMarkingModel?.LivescriptCount}})
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation" title="{{'LiveMarking.GracePeriod' | translate}}">
+                    <button [disabled]="LiveMarkingLoader == true" class="nav-link" id="home-tab" #Graceperiod
+                        data-bs-toggle="tab" data-bs-target="#Graceperiod" type="button" role="tab" aria-controls="Graceperiod"
+                        aria-selected="true" (click)="GracePeriodScripts(2)">
+                        {{'LiveMarking.GracePeriod' | translate}}({{LiveMarkingModel?.GraceperiodScript}})
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation" title="{{'LiveMarking.Totalsubmit' | translate}}">
+                    <button [disabled]="LiveMarkingLoader == true" class="nav-link" id="home-tab" #Submit
+                        data-bs-toggle="tab" data-bs-target="#Submit" type="button" role="tab" aria-controls="Submit"
+                        aria-selected="true" (click)="SubmittedScripts(3);">
+                        {{'LiveMarking.Totalsubmit' | translate}} ({{LiveMarkingModel?.SubmittedScript}})
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation" title="{{'LiveMarking.Reallocated' | translate}}">
+                    <button [disabled]="LiveMarkingLoader == true" class="nav-link" id="home-tab" #Reallocate
+                        data-bs-toggle="tab" data-bs-target="#Reallocate" type="button" role="tab" aria-controls="Submit"
+                        aria-selected="true" (click)="ReallocatedScripts(4);">
+                        {{'LiveMarking.Reallocated' | translate}}({{LiveMarkingModel?.ReallocatedScript}})
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 bd-highlight" *ngIf="isTrue">
+            <div class="card_box">
+                <div class="row" id="Livemarking">
+                    <div class="col-md-4 mt-2">
+                        <span>{{'LiveMarking.Workspacescript' | translate}}</span>
+                    </div>
+                    <div class="col-md-2 mt-2 text-center"></div>
+                    <div class="col-md-6 d-flex justify-content-end">
+
+
+                        <button type="button" *ngIf="LiveMarkingModel?.RoleCode == 'AO'" title="{{'LiveMarking.dwnldscrptdetails' | translate}}" class="btn theme_button d-flex align-items-center hide"
+                            (click)="DownloadedScriptsUserList();" [disabled]="IsQigPause || isDownloadDisable">
+                            {{'LiveMarking.dwnldscrptdetails' | translate}}
+                        </button>
+
+
+                        <button type="button" title="{{'LiveMarking.Download' | translate}}" class="btn theme_button d-flex align-items-center"
+                            (click)="DownloadScripts();" [disabled]="IsQigPause || isDownloadDisable || LiveMarkingModel?.DownloadLimitCount <= LiveMarkingModel?.LivescriptCount">
+                            <span style="font-size:31px !important" class="icon-download"></span>
+                            {{'LiveMarking.Download' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 bd-highlight" *ngIf="isSubmitted">
+            <div class="card_box">
+                <div class="row" id="Livemarking">
+                    <div class="col-md-3 mt-2">
+                        <span>{{'LiveMarking.ttlsubmt' | translate}}: </span>
+                        <strong>{{LiveMarkingModel?.SubmittedScript}}</strong>
+                    </div>
+
+                    <div class="col-md-3 mt-2">
+                        <span>{{'LiveMarking.sbmtscrptcuntperday' | translate}}: </span>
+                        <strong> {{LiveMarkingModel?.SubmitScriptDailyCount}}</strong>
+                    </div>
+
+                    <div class="col-md-2 d-flex justify-content-end">
+                        <mat-form-field appearance="fill" style="margin-bottom:0px">
+                            <mat-label class="lable">{{'LiveMarking.fdate' | translate}}</mat-label>
+                            <input tabindex="-1" #from onDrop="return false" oncut="return false" onPaste="return false"
+                                matInput [matDatepicker]="frompicker" id="FromDate" [(ngModel)]="pickfromdate" [value]="frompickdate"
+                                readonly [max]="maxDate" [disabled]="IsQigPause" ngDefaultControl>
+                            <mat-datepicker-toggle matSuffix [for]="frompicker" title="Select Date" [disabled]="IsQigPause">
+                            </mat-datepicker-toggle>
+
+                            <mat-datepicker #frompicker [disabled]="IsQigPause"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-end">
+                        <mat-form-field appearance="fill" style="margin-bottom:0px">
+                            <mat-label class="lable">{{'LiveMarking.tdate' | translate}}</mat-label>
+                            <input tabindex="-1" #to onDrop="return false" oncut="return false" onPaste="return false"
+                                matInput [matDatepicker]="topicker" id="ToDate" [(ngModel)]="picktodate" [value]="topickdate"
+                                readonly [min]="tominimumdate" [disabled]="IsQigPause" ngDefaultControl>
+                            <mat-datepicker-toggle matSuffix [for]="topicker" title="Select Date" [disabled]="IsQigPause">
+                            </mat-datepicker-toggle>
+
+                            <mat-datepicker #topicker [disabled]="IsQigPause"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 mt-2">
+                        <button type="button" title="{{'LiveMarking.srch' | translate}}" (click)="onDataChange();" class="btn theme_button d-flex align-items-center">{{'LiveMarking.srch' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-header_bg d-flex align-items-center">
+            <div class="col-md-2 px-1">{{'LiveMarking.scrptId' | translate}}</div>
+            <div class="col-md-3" *ngIf="activepooltab == 4"> <span>{{'LiveMarking.reallcteddtetime' | translate}}</span></div>
+            <div class="col-md-1" *ngIf="activepooltab == 4"> <span>{{'LiveMarking.remark' | translate}}</span></div>
+            <div [ngClass]="isGraceperiod || isSubmitted ? 'col-md-3' : 'col-md-4'" *ngIf="activepooltab != 4"> <span
+                    *ngIf="!isLiveScript">{{'LiveMarking.sbmtdatetime' | translate}}</span></div>
+            <div class="col-md-1" *ngIf="isGraceperiod || isSubmitted">{{'LiveMarking.awrdmrks' | translate}}</div>
+            <div class="col-md-1" *ngIf="isGraceperiod || isSubmitted">{{'LiveMarking.maxmrks' | translate}}</div>
+            <div [ngClass]="isGraceperiod || isSubmitted ? 'col-md-2' : 'col-md-3'"> <span *ngIf="isGraceperiod"> {{'LiveMarking.timeleft' | translate}}</span> </div>
+
+            <div class="col-md-3">
+                <div class="search_dash">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'LiveMarking.Srch' | translate}}</mat-label>
+                        <input matInput placeholder="{{'LiveMarking.Srch' | translate}}" [(ngModel)]="ScriptSearchValue"
+                            onDrop="return false" onPaste="return false" (keyup.enter)="SearchScript()" autocomplete="off"
+                            [disabled]="IsQigPause" maxlength="50" ngDefaultControl>
+                        <mat-icon matSuffix title="{{'LiveMarking.Srch' | translate}}"><span class="icon-search"
+                           (click)="SearchScript()"></span></mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="LiveMarkingModel != null">
+            <div class="row-childrow d-flex align-items-center card_box" *ngFor="let script of LiveMarkingModel?.Livescripts">
+                <div class="col-md-2" [class.shimmer]="LiveMarkingLoader"><span>{{script?.ScriptName}}</span></div>
+
+                <div class="col-md-3" [class.shimmer]="LiveMarkingLoader"><span *ngIf="!isLiveScript">{{script?.SubmittedDate
+                        | date: 'dd-MMM-YYYY | h:mm:ss a'}}</span></div>
+
+                <div *ngIf="!(isGraceperiod || isSubmitted)" [class.shimmer]="LiveMarkingLoader"><span class="icon-comment_3 qaremarks cursor"
+                        title="{{'LiveMarking.remark' | translate}}" *ngIf="script.Remarks != null && script.Remarks != ''" [matMenuTriggerFor]="beforeMenu"></span>
+                    <span class="qaremarks pad20" *ngIf="!(script.Remarks != null && script.Remarks != '')"></span>
+                </div>
+                <mat-menu #beforeMenu="matMenu" xPosition="before">
+                    {{script.Remarks}}
+                </mat-menu>
+
+                <div class="col-md-1" *ngIf="isGraceperiod || isSubmitted">{{script?.TotalAwardedMarks}}</div>
+                <div class="col-md-1" *ngIf="isGraceperiod || isSubmitted">{{script?.TotalMaxMarks}}</div>
+
+                <div [ngClass]="isGraceperiod || isSubmitted ? 'col-md-3' : 'col-md-5'" [class.shimmer]="LiveMarkingLoader">
+                    <div class="times" *ngIf="isGraceperiod && script.Seconds > 0">
+                        <p [(ngModel)]="script.Seconds" ngDefaultControl>{{ script.Seconds | formatTime }}</p>
+                    </div>
+                    <div *ngIf="isGraceperiod && script.Seconds <= 0">
+                        <span>{{'LiveMarking.Inprogress' | translate}}</span>
+                    </div>
+                </div>
+
+                <div class="bd-highlight col-md-1 d-flex" [class.shimmer]="LiveMarkingLoader" *ngIf="isLiveScript">
+                    <button type="button" id="btnid" (click)="NavigateToMarkingPlayer({ ScriptId: script.ScriptId, IsViewMode:false, Workflowid: script.WorkflowStatusID, Markedby: script.MarkedBy, UserScriptMarkingRefId: script.UserMarkRefID, PhaseStatusTrackingId:script.ScriptPhaseTrackingId})"
+                        class="btn theme_button  d-flex align-items-center float-end" title="Mark" [disabled]="IsQigPause || LiveMarkingLoader">{{'LiveMarking.Mark'
+                        | translate}}</button>
+                </div>
+
+                <div class="bd-highlight col-md-1 d-flex" [class.shimmer]="LiveMarkingLoader" *ngIf="isGraceperiod">
+                    <button type="button" id="btnid" (click)="NavigateToMarkingPlayer({ ScriptId: script.ScriptId, IsViewMode:false, Workflowid: script.WorkflowStatusID, Markedby: script.MarkedBy, PhaseStatusTrackingId:script.ScriptPhaseTrackingId})"
+                        class="btn  d-flex theme_button align-items-center float-end" title="Edit" [disabled]="IsQigPause || LiveMarkingLoader">{{'LiveMarking.Edit'
+                        | translate}}</button>
+                </div>
+
+                <div class="bd-highlight col-md-1 d-flex" [class.shimmer]="LiveMarkingLoader" *ngIf="isSubmitted">
+                    <button type="button" id="btnid" (click)="NavigateToMarkingPlayer({ ScriptId: script.ScriptId, IsViewMode:true, Workflowid: script.WorkflowStatusID, Markedby: script.MarkedBy, UserScriptMarkingRefId: script.UserMarkRefID, PhaseStatusTrackingId:script.ScriptPhaseTrackingId })"
+                        class="btn theme_button d-flex align-items-center float-end" title="View" [disabled]="IsQigPause || LiveMarkingLoader">{{'LiveMarking.View'
+                        | translate}}</button>
+                </div>
+
+                <div class="bd-highlight col-md-1 d-flex" [class.shimmer]="LiveMarkingLoader" *ngIf="isReallocated">
+                    <button type="button" id="btnid" (click)="NavigateToMarkingPlayer({ ScriptId: script.ScriptId, IsViewMode:false, Workflowid: script.WorkflowStatusID, Markedby: script.MarkedBy, UserScriptMarkingRefId: script.UserMarkRefID, PhaseStatusTrackingId:script.ScriptPhaseTrackingId})"
+                        class="btn theme_button  d-flex align-items-center float-end" title="{{'LiveMarking.Mark' | translate}}" [disabled]="IsQigPause || LiveMarkingLoader">{{'LiveMarking.Mark' | translate}}</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="LiveMarkingLoader == false && LiveMarkingModel.Livescripts?.length <= 0" class="text-center mt-2">
+            <strong>
+                {{'LiveMarking.NoRecordFound' | translate}} </strong>
+        </div>
+        <br />
+        <br />
+    </div>
+</div>

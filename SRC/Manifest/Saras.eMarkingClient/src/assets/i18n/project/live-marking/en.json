@@ -1,0 +1,51 @@
+{
+  "LiveMarking": {
+    "DownloadSucc": "Scripts downloaded successfully.",
+    "DailyQuotaExced": "Daily quota limit reached.",
+    "NotYetCompleted": "Please mark all the downloaded scripts.",
+    "NoScriptAvailable": "There are no scripts available for Marking.",
+    "LvmrkngNotYetStarted": "Live marking not yet started.",
+    "LvmrkngPageDesc": "This page allows marker to download and view the scripts to mark. Marker can view/remark the marked script which are in the Grace period and also can view the submitted scripts.",
+    "Lvmrkng": "Live Marking",
+    "QigPause": "This QIG is currently under “Paused state”.",
+    "NoRecordFound": "No records found",
+    "Qigname": "QIG Name",
+    "MarkingScript": "Scripts For Marking",
+    "GracePeriod": "In Grace Period",
+    "Totalsubmit": "Total Submitted",
+    "Reallocated": "Required Action",
+    "Download": "Download Responses",
+    "Workspacescript": "Download Scripts to the workspace",
+    "Srch": "Search",
+    "Inprogress": "In-Progress",
+    "Mark": "Mark",
+    "View": "View",
+    "Edit": "Edit",
+    "fromdatenotgreaterthantodate": "From date should not be greater than To date",
+    "batchsizerched": "Batch size reached.",
+    "dwnldlimitsizecrossed": "Download limit size crossed",
+    "scrptisalreadyinlivepool": "This script is already in livepool",
+    "back": "Back",
+    "dwnldscrptdetails": "Downloaded script details",
+    "ttlsubmt": "Total Submitted",
+    "sbmtscrptcuntperday": "Submitted scripts count per day",
+    "fdate": "From Date",
+    "tdate": "To Date",
+    "srch": "Search",
+    "scrptId": "Script ID",
+    "reallcteddtetime": "Reallocated Date & Time",
+    "remark": "Remark",
+    "sbmtdatetime": "Submitted Date & Time",
+    "awrdmrks": "Awarded Marks",
+    "maxmrks": "Max. Marks",
+    "timeleft": "Time Left(in Mins)"
+  },
+  "shared": {
+    "close": "Close",
+    "confirm": "Confirm"
+  },
+  "Downloadscriptdetails": {
+    "Headername": "Downloaded Script Details",
+    "Pagedesc": "Downloaded Script Details"
+  }
+}

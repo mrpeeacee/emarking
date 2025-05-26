@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="col-md-12 bd-highlight mt-4">
+        <div class="d-flex justify-content-between mb-2">
+            <div class="mb-3"></div>
+            <div class="d-flex">
+                <button  *ngIf="!IsfromQig || IsfromQig==undefined"type="button" title="{{'viewsch.cancel' | translate}}"
+                    class="btn theme_button_light d-flex align-items-center"
+                    [routerLink]="['/projects','ScoringComponent']"><span class="icon-close"></span>{{'viewsch.cancel'
+                    | translate}}
+                </button>
+                <button  *ngIf="IsfromQig" type="button" title="Cancel" (click)="clickMethod($event)"
+                class="btn theme_button_light d-flex align-items-center">
+                <span class="icon-close"></span>Cancel--
+              </button>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-4" >
+                <div class="card_box">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>ScoringComponentLibraryName</mat-label>
+                        <input [(ngModel)]="ScoreComponentLibrary && ScoreComponentLibrary.ComponentName" matInput maxlength="50" required oncut="return false" />
+                    </mat-form-field>
+
+                </div>
+
+            </div>
+            <div class="clear"></div>
+            <div class="project_summary">
+                <div class="row-header_bg">
+                    <div class="col-3 fontbold">{{'ComponentDetailId'|translate}}</div>
+                    <div class="col-4 fontbold">{{'ComponentCode' | translate}}</div>
+                    <div class="col-3 fontbold">{{'Marks' | translate}}</div>
+                    <div class="col-2 fontbold">{{'NoOf QuestionTag' | translate}}</div>
+                </div>
+                <div class="row-childrow_em card_box" *ngFor="let values of ScoreComponentLibrary?.ScoringComponentDetails">
+                    <div class="row">
+                        <div class="col-3 mb-2">
+                            <div class="d-flex">
+                                <div class="toppd3px" title="{{values.ComponentDetailID}}">{{values. ComponentDetailID}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 mb-2">
+                            <div class="d-flex">
+                                <div class="toppd3px" title="{{values.ComponentCode}}">{{values. ComponentCode}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 mb-1 ">{{values.Marks}}</div>
+                        <div class="col-2 mb-2 ">
+                            <div [ngClass]="values.IsQuestionTagged == 0 ? 'status_no_nw' : 'status_yes_nw'"><span
+                                    [ngClass]="values.IsQuestionTagged == 0 ? 'icon-close-1' : 'icon-complete'"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

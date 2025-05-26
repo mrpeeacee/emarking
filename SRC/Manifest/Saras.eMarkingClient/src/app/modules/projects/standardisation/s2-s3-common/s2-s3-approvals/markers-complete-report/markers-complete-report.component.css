@@ -1,0 +1,56 @@
+.row-header_bg {
+  padding: 10px 15px; 
+  font-weight: bold!important;
+}
+
+.card_box_mb{
+  margin-bottom: 0px !important;
+}
+.status_yes_w{
+width: 122px;
+}
+
+.theme_button_light1{ 
+  border-radius: 2px;
+  border: 1px solid #ccc;
+}
+
+.aprbtn { 
+    position: relative;
+    left: 40%;
+    bottom: 18px;
+}  
+.remarks_dv textarea {
+   border:0px; 
+}
+.text_are {
+  width: 97%;
+  padding: 10px;
+  border-radius: 5px;
+  max-height: 100px;
+  height: 100px !important;
+}
+.text_area_mt2 {
+  max-height: 75px;
+  min-height: 75px;
+}
+
+.required{
+  color: red;
+}
+
+.pending_btn:focus {
+  background: #FAE314;
+  border: 1px solid #FAE314;
+  color: #fff;    
+  padding: 3px 10px !important;
+  min-width: 78px;
+  display: flex; 
+  align-items: center;
+  cursor: pointer !important;
+  pointer-events: none;
+}
+
+.status_yess{ color: #2DAD00;}
+.status_nos{ color: #FF0000;}
+.status_pendings{color: #fae314;}

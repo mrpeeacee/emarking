@@ -1,0 +1,73 @@
+<div class="container">
+
+    <div class="col-md-12 bd-highlight mt-4">
+        <div class="d-flex justify-content-between mb-4">
+            <div class="mb-3"> </div>
+            <div class="d-flex">
+                <button type="button" title="{{'mark.crtnew' | translate}}"
+                    class="btn theme_button d-flex align-items-center" [routerLink]="['create']"> <span
+                        class="icon-add"></span> {{'mark.crtnew' | translate}}</button>
+              
+            </div>
+        </div>
+
+
+        <div class="clear"></div>
+        <div class="project_summary">
+
+            <div class="view_selected">
+                <div class="row">
+
+                    <div class="col-6 d-flex justify-content-start align-items-center">
+                        <div class="text_delux">
+                            <span>{{'mark.tot' | translate}}: {{ScoringComponentLibrary?.length}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-header_bg">
+                <div class="col-4 fontbold">{{'mark.schnm' | translate}}</div>
+                <div class="col-3 fontbold">{{'mark.mark' | translate}}</div>
+                <div class="col-2 fontbold">{{'mark.noqsntag' | translate}}</div>
+                <div class="col-3"></div>
+            </div>
+            <div class="row-childrow_em card_box" *ngFor="let values of ScoringComponentLibrary">
+                <div class="row">
+                    <div class="col-4 mb-2">
+                       
+                        
+                            <div class="d-flex">
+                                <mat-checkbox class="example-margin margin"
+                                    [disabled]="isClosed == 3"
+                                    [(ngModel)]="values.Selected" [value]="values.Selected" [checked]="values.Selected"
+                                    title="{{'mark.unmapmrksch' | translate}}"></mat-checkbox>&nbsp;<div
+                                    class="toppd3px" title="{{values.ComponentName}}">{{values. ComponentName}}
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-3 mb-1 ">{{values.Marks}}</div>
+                    <div class="col-2 mb-2 ">
+                        <div [ngClass]="values.IsQuestionTagged == 0 ? 'status_no_nw' : 'status_yes_nw'"><span
+                                [ngClass]="values.IsQuestionTagged == 0 ? 'icon-close-1' : 'icon-complete'"></span>
+                        </div>
+                    </div>
+                    <div class="col-3 mb-2">
+                        <div class="bd-highlight d-flex justify-content-end">
+                            <button type="button" [disabled]="isClosed == 3"
+                                class="btn theme_button d-flex align-items-center float-end"
+                                title="{{'mark.view' | translate}}" [routerLink]="[values.ScoreComponentId]"> <span
+                                    class="icon-show"></span>{{'mark.view' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-1 card_box nodatafound"
+                *ngIf="ScoringComponentLibrary == null || ScoringComponentLibrary.length == 0">
+                {{'General.NotFound' | translate}}
+            </div>
+        </div>
+
+    </div>
+</div>
+<br /><br /><br /><br />

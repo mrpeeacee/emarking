@@ -1,0 +1,68 @@
+<div *ngIf="IsQIGVal">
+  <div class="pb-5" *ngIf="showhideval">
+    <div class="row-childrow row-header_bg pos_rel">
+      <div class="col-3">{{'SetUp.UserManagement.nameorrole' | translate}}</div>
+      <div class="hir_colim_hed ms-auto">
+        <div class="cols">{{'SetUp.UserManagement.isKP' | translate}} </div>
+        <div class="cols">{{'SetUp.UserManagement.s2' | translate}}</div>
+        <div class="cols">{{'SetUp.UserManagement.rc1' | translate}}</div>
+        <div class="cols">{{'SetUp.UserManagement.rc2' | translate}}</div>
+        <div class="cols">{{'SetUp.UserManagement.adhoc' | translate}}</div>
+      </div>
+    </div>
+
+    <div class="tree_hirerc" [class.shimmer]="heirarchyviewloading">
+      <mat-card *ngIf="showhideval">
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+          <mat-nested-tree-node *matTreeNodeDef="let node">
+            <ol>
+              <div class="mat-tree-node marker">
+                <div class="final_node"><strong>{{node.item }}</strong><br>{{node.role}} {{node.Isactive == false ?
+                  '(Untagged)' : ''}}</div>
+                <span class="hir_colim ms-auto">
+                  <div class="hir_row_list hide">{{'SetUp.UserManagement.NA' | translate}}</div>
+                  <div class="hir_row_list">{{node.iskp}} </div>
+                  <div class="hir_row_list">{{node.S2S3Clear}}</div>
+                  <div class="hir_row_list">{{node.RC1Count}}</div>
+                  <div class="hir_row_list">{{node.RC2Count}}</div>
+                  <div class="hir_row_list">{{node.Adhoc}}</div>
+                </span>
+              </div>
+            </ol>
+          </mat-nested-tree-node>
+          <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildren">
+            <ol class="example-tree-container">
+              <div class="mat-tree-node">
+                <div class="steps_icon">
+                  <button mat-icon-button matTreeNodeToggle class="mat-icon-button"
+                    [matTreeNodeToggleRecursive]="recursive" [attr.aria-label]="'toggle ' + node.filename">
+                    <mat-icon title="{{treeControl.isExpanded(node) ? 'Collapse' : 'Expand'}}">
+                      {{treeControl.isExpanded(node) ? 'remove' : 'add'}}
+                    </mat-icon>
+                  </button>
+                </div>
+                <div class="col-3"><strong>{{node.item}}</strong><br>{{node.role}} {{node.Isactive == false ?
+                  '(Untaged)' : ''}}</div>
+                <div class="hir_colim ms-auto">
+                  <div class="hir_row_list">{{node.iskp}} </div>
+                  <div class="hir_row_list">{{node.S2S3Clear}}</div>
+                  <div class="hir_row_list">{{node.RC1Count}}</div>
+                  <div class="hir_row_list">{{node.RC2Count}}</div>
+                  <div class="hir_row_list">{{node.Adhoc}}</div>
+                </div>
+              </div>
+              <ul class="example-tree-nested-node">
+                <div *ngIf="treeControl.isExpanded(node)">
+                  <ng-container matTreeNodeOutlet></ng-container>
+                </div>
+              </ul>
+            </ol>
+          </mat-nested-tree-node>
+        </mat-tree>
+      </mat-card>
+      <div class="col-md-12 col-xs-12 nodata_db nodata_found" *ngIf="dataSource.data?.length == 0">
+        {{'SetUp.UserManagement.norecords' | translate}}
+      </div>
+    </div>
+  </div>
+</div>

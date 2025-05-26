@@ -1,0 +1,1397 @@
+<div [class.shimmer]="maxmarksloading">
+  <div class="row-header_bg mb-1">
+    <div class="col-1">
+      <span>{{ "SetUp.ResolutionCOI.slno" | translate }}</span>
+    </div>
+    <div [ngClass]="classChangeCols?.length > 0 ? 'col-4' : 'col-8'">
+      <span>{{ "SetUp.QigConfig.qsnlabel" | translate }}</span>
+    </div>
+    <div class="col-2">
+      <span>{{ "SetUp.QigConfig.maxmark" | translate }}</span>
+    </div>
+    <div [ngClass]="classChangeCols?.length > 0 ? 'col-4' : ''"></div>
+  </div>
+  <div>
+    <mat-spinner
+      diameter="50"
+      class="matspinnercenter"
+      *ngIf="questionloading"
+    ></mat-spinner>
+  </div>
+  <ng-container>
+    <div class="accordion" id="accordionExampleQuestions" #accordionQuestions>
+      <div
+        class="accordion-item row-childrow_head"
+        *ngFor="let available_qu of qigquestions; let i = index"
+      >
+        <h2
+          [title]="
+            (available_qu.isActive == true ? 'Collapse' : 'Expand') | translate
+          "
+          class="accordion-header"
+        >
+          <div
+            [id]="'headingOne' + available_qu.ProjectQuestionID"
+            class="row-child_cb collapsed p-1 pt-3 pb-3 accordion-button"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="
+              '#collapseOne' + available_qu.ProjectQuestionID
+            "
+            [href]="'collapseOne' + available_qu.ProjectQuestionID"
+            aria-expanded="false"
+            [attr.aria-controls]="
+              'collapseOne' + available_qu.ProjectQuestionID
+            "
+            (click)="
+              quesaccordianclick(
+                available_qu,
+                'headingOne' + available_qu.ProjectQuestionID
+              )
+            "
+          >
+            <div class="col-1">
+              {{ i + 1 }}
+            </div>
+            <div
+              [ngClass]="available_qu.QuestionType == 10 || available_qu.QuestionType == 13|| available_qu.QuestionType == 154 ? 'col-4' : 'col-8'"
+            >
+              {{ available_qu.QuestionCode }}
+            </div>
+            <div class="col-2">{{ available_qu?.MaxMark }}</div>
+            <div
+              *ngIf="available_qu.QuestionType == 10 || available_qu.QuestionType == 154 || available_qu.QuestionType == 13"
+              [ngClass]="
+                available_qu.QuestionType == 10  || available_qu.QuestionType == 154 || available_qu.QuestionType == 13
+                  ? 'col-4 d-flex align-items-center'
+                  : ''
+              "
+            >
+              <div class="col-4 scro_comp1">
+                <input
+                  data-bs-toggle="collapse"
+                  type="number"
+                  #Maxmarks
+                  min="1"
+                  oncut="return false"
+                  onDrop="return false"
+                  onPaste="return false"
+                  [ngModel]="available_qu?.MaxMark"
+                  (ngModelChange)="this.UpdateMaxmarks = $event"
+                  [disabled]="
+                    available_qu?.DisableMaxmark ||
+                    available_qu?.MarkSchemeId > 0 ||
+                    available_qu?.IsTrialmarkedorcategorised
+                  "
+                  (keydown.arrowup)="(false)"
+                  minlength="1"
+                  (keydown.arrowdown)="(false)"
+                  (keydown)="validateNumber($event)"
+                  [value]="available_qu?.MaxMark"
+                />
+              </div>
+              <div data-bs-toggle="collapse">
+                <a
+                  href="#"
+                  title="{{ 'SetUp.QigConfig.UpdateMaxMarks' | translate }}"
+                  [class.disabled]="
+                    available_qu?.DisableMaxmark ||
+                    available_qu?.MarkSchemeId > 0 ||
+                    available_qu?.IsTrialmarkedorcategorised ||
+                    Isfinalise
+                  "
+                  class="px-3 align-items-center"
+                  (click)="
+                    UpdateMaxMarks(
+                      available_qu?.ProjectQuestionID,
+                      available_qu?.QuestionId,
+                      available_qu?.QuestionCode,
+                      this.UpdateMaxmarks,
+                      $event
+                    )
+                  "
+                >
+                  {{ "SetUp.QigConfig.UpdateMaxMarks" | translate }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </h2>
+
+        <div
+          [id]="'collapseOne' + available_qu.ProjectQuestionID"
+          class="accordion-collapse accordian_expand collapse "
+          [attr.aria-labelledby]="'headingOne' + available_qu.ProjectQuestionID"
+          data-bs-parent="#accordionExampleQuestions"
+        >
+          <div class="row mb-4">
+            <div class="col-md-2" *ngIf="available_qu.IsQuestionXMLExist">
+              <button
+                title="{{ 'SetUp.QigConfig.ViewStimulus' | translate }}"
+                class="btn theme_button align-items-center float-start mt-3"
+                (click)="ViewStimulus(available_qu)"
+                data-bs-toggle="modal"
+                data-bs-target="#viewStimu"
+                [disabled]="!available_qu.PassageId"
+              >
+                <span class="icon-view_items"></span
+                >{{ "SetUp.QigConfig.ViewStimulus" | translate }}
+              </button>
+            </div>
+
+            <div class="question_lable" *ngIf="available_qu.IsQuestionXMLExist">
+              <strong>{{ "SetUp.Qig.Qus" | translate }} </strong>
+              <span
+                class="p-2 px-2"
+                *ngIf="available_qu.QuestionType == 20"
+                [innerHTML]="
+                  available_qu.QText | highlight: available_qu.QuestionGUID
+                "
+              ></span>
+              <span
+                class="p-2 px-2"
+                *ngIf="
+                  available_qu.QuestionType != 20 &&
+                  available_qu.QuestionType != 85
+                "
+                [innerHTML]="available_qu.QText"
+              ></span>
+            </div>
+<!-- ScoringComonentLibrary -->
+<div class="col-md-1" *ngIf="ISCBPProject">
+  <button 
+    title="ScoringComponentLibrary"
+  
+    class="btn theme_button"
+    [disabled]="available_qu?.IsTrialmarkedorcategorised"
+    (click)="GetQuestionMarkScheme(available_qu,'NSF')"
+    data-bs-toggle="modal"
+    data-bs-target="#myModal3"
+  >
+    <span class="icon-tag"></span>
+    ScoreComponentLibrary
+  </button>
+</div>
+<!-- end -->
+            <!-- Drag and drop question type -->
+            <div
+              *ngIf="available_qu.QuestionType == 85"
+              id="questionDiv"
+              class="Questionarea QuestionScoreAlign"
+              [innerHTML]="available_qu.QText"
+            >
+              <p></p>
+            </div>
+
+            <div id="optionsArea" *ngIf="available_qu.QuestionType == 85">
+              <strong>
+                {{ "SetUp.QigConfig.OptionArea" | translate }}
+              </strong>
+            </div>
+
+            <div
+              id="dragableArea"
+              class="OptionsArea"
+              *ngIf="available_qu.QuestionType == 85"
+            >
+              <div
+                class="optionDiv"
+                *ngFor="let objoptions of available_qu?.optionAreas"
+                title="{{ 'SetUp.QigConfig.OptionHolder' | translate }}"
+                blankdiv="false"
+              >
+                <div
+                  class="divdrag ui-draggable ui-draggable-handle"
+                  title="{{ 'SetUp.QigConfig.Choice' | translate }}"
+                  choiceholder="true"
+                  draggable="true"
+                >
+                  <a
+                    style="color:#000000;text-decoration:none;display:block; text-align: center;"
+                    achoice="true"
+                  >
+                    <div [innerHTML]="objoptions?.OptionAreaName"></div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="question_lable"
+              *ngIf="
+                !available_qu?.IsQuestionXMLExist &&
+                !questionloading &&
+                qigquestions?.length > 0
+              "
+            >
+              <span class="note p-2 px-2"
+                >Note: {{ "SetUp.ResolutionCOI.note" | translate }}</span
+              >
+            </div>
+            <!-- ||available_qu.QuestionType == 152" -->
+            <div class="increment" *ngIf="available_qu.QuestionType == 10  || available_qu.QuestionType == 154 ">
+              <div class="row">
+                <div class="col-md-2">
+                  <label>
+                    {{ "SetUp.QigConfig.ToleranceLimit" | translate }}</label
+                  >
+
+                  <div class="scro_comp">
+                    <input
+                      type="number"
+                      [value]="available_qu.ToleranceLimit"
+                      #ToleranceLimit
+                      min="1"
+                      oncut="return false"
+                      onDrop="return false"
+                      onPaste="return false"
+                      [(ngModel)]="available_qu.ToleranceLimit"
+                      [disabled]="available_qu.IsS1ClosureCompleted"
+                      maxlength="{{ available_qu.MaxMark.toString().length }}"
+                      (keydown.arrowup)="(false)"
+                      minlength="1"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      (keydown.arrowdown)="(false)"
+                      (keydown)="validateNumber($event)"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <label>{{ "SetUp.QigConfig.StepValue" | translate }}</label>
+                  <div class="addon_comp">
+                    <button
+                      class="mr3"
+                      type="button"
+                      title="{{ 'SetUp.QigConfig.Decrement' | translate }}"
+                      (keydown.space)="$event.preventdefault()"
+                      (click)="
+                        available_qu.StepValue =
+                          available_qu.StepValue - 0.5 == 1.5 ? 1 : 0.5
+                      "
+                    >
+                      <span class="icon-line_horizontal"></span>
+                    </button>
+                    <input
+                      type="number"
+                      min="0"
+                      onKeyDown="return false"
+                      id="StepValue"
+                      [value]="available_qu.StepValue"
+                      [(ngModel)]="available_qu.StepValue"
+                      name="StepValue"
+                      oncut="return false"
+                      onDrop="return false"
+                      onPaste="return false"
+                    />
+                    <button
+                      class="ml3"
+                      type="button"
+                      title="{{ 'SetUp.QigConfig.Increment' | translate }}"
+                      (keydown.space)="$event.preventdefault()"
+                      (click)="
+                        available_qu.StepValue =
+                          available_qu.StepValue + 0.5 >= 1.5
+                            ? 2
+                            : available_qu.MaxMark % 2 != 0 &&
+                              available_qu.StepValue + 0.5 > 1
+                            ? 1
+                            : available_qu.StepValue + 0.5
+                      "
+                    >
+                      <span class="icon-add"></span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label>{{
+                    "SetUp.QigConfig.QuestionLevelMarksScheme" | translate
+                  }}</label>
+                  <div class="addon_comp">
+                    <div
+                      [style.background]="
+                        available_qu.MarkSchemeId > 0 ? 'var(--green)' : 'none'
+                      "
+                      class="select_2type"
+                      placeholder="No Question Level Mark Scheme "
+                      [ngClass]="
+                          available_qu?.IsTrialmarkedorcategorised && available_qu.MarkSchemeId > 0
+                            ? 'spanlivedisabled'
+                            : ''
+                        "
+                    >
+                      <div *ngIf="available_qu.MarkSchemeId > 0">
+                        {{ available_qu.MarkSchemeName }}
+                      </div>
+                      <div
+                        *ngIf="
+                          available_qu.MarkSchemeId == 0 ||
+                          available_qu.MarkSchemeId == null
+                        "
+                        class="colrgrey"
+                      >
+                        {{ "SetUp.QigConfig.SelectMarkScheme" | translate }}
+                      </div>
+                      <span
+                        class="icon-close"
+                        [ngClass]="
+                          available_qu?.IsTrialmarkedorcategorised && available_qu.MarkSchemeId > 0
+                            ? 'spanlivedisabled'
+                            : ''
+                        "
+                        (click)="ClearMarkScheme(available_qu)"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <button 
+                    title="{{ 'SetUp.QigConfig.Addmarkscheme' | translate }}"
+                    [disabled]="
+                      available_qu.IsScoreComponentExists ||
+                      available_qu?.IsTrialmarkedorcategorised
+                    "
+                    class="btn theme_button_tag align-items-center float-start martopqtag"
+                    (click)="GetQuestionMarkScheme(available_qu,'NSF')"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal2"
+                  >
+                    <span class="icon-tag"></span>
+                  </button>
+                </div>
+
+                <hr class="mt-2" />
+
+                <div class="d-flex" [class.shimmer]="scorecomploading" *ngIf="available_qu.QuestionType == 10  || available_qu.QuestionType == 154  || available_qu.QuestionType == 13">
+                  <mat-slide-toggle
+                    [disabled]="
+                      available_qu?.DisableMaxmark ||
+                      available_qu.MarkSchemeId > 0 ||
+                      available_qu?.IsTrialmarkedorcategorised
+                    "
+                    color="primary"
+                    name="IsScoreComponentExists"
+                    [checked]="available_qu?.IsScoreComponentExists"
+                    [ngModel]="available_qu?.IsScoreComponentExists"
+                    (change)="ScoreComponentChange(available_qu, $event)"
+                    ngDefaultControl
+                    title="{{ 'SetUp.Std.Turn' | translate }}"
+                  >
+                  </mat-slide-toggle
+                  ><label class="mt2">
+                    {{ "SetUp.QigConfig.ScoringComponent" | translate }}
+                  </label>
+                  <div
+                    class="float-end"
+                    *ngIf="
+                      (available_qu?.QigType == 3 ||
+                        available_qu?.QigType == null) &&
+                      available_qu?.IsScoreComponentExists
+                    "
+                  >
+                    <button
+                      type="button"
+                      [disabled]="available_qu?.IsTrialmarkedorcategorised"
+                      class="btn theme_button d-flex align-items-center"
+                      (click)="addForm(available_qu)"
+                      title="{{ 'SetUp.QigConfig.Addcomponents' | translate }}"
+                    >
+                      <span class="icon-add"></span
+                      >{{ "SetUp.QigConfig.Addcomponents" | translate }}
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="
+                    available_qu?.IsScoreComponentExists &&
+                    available_qu.Scorecomponentdetails?.length > 0
+                  "
+                  [class.shimmer]="scorecomploading"
+                >
+                  <div class="row scro_comp mt-2">
+                    <div class="col-md-2" onKeyDown="return false">
+                      <label>{{
+                        "SetUp.QigConfig.Component" | translate
+                      }}</label>
+                    </div>
+                    <div class="col-md-2" onKeyDown="return false">
+                      <label>{{ "SetUp.QigConfig.maxmark" | translate }}</label>
+                    </div>
+                    <div class="col-md-4">
+                      <label>{{
+                        "SetUp.QigConfig.MarkingScheme" | translate
+                      }}</label>
+                    </div>
+                  </div>
+
+                  <div
+                    class="row scro_comp mt-2"
+                    *ngFor="
+                      let ScoreComponentDetail of available_qu.Scorecomponentdetails;
+                      let i = index
+                    "
+                  >
+                    <div class="col-md-2">
+                      <input
+                        type="text"
+                        [value]="ScoreComponentDetail.ComponentName"
+                        oncut="return false"
+                        (keypress)="letterOnly($event)"
+                        [disabled]="
+                          ScoreComponentDetail?.IsAutoCreated ||
+                          available_qu?.IsTrialmarkedorcategorised
+                        "
+                        onDrop="return false"
+                        onPaste="return false"
+                        [(ngModel)]="ScoreComponentDetail.ComponentName"
+                        maxlength="40"
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <input
+                        type="number"
+                        [value]="ScoreComponentDetail.MaxMark"
+                        #txtLanguage
+                        min="1"
+                        oncut="return false"
+                        onDrop="return false"
+                        onPaste="return false"
+                        [disabled]="
+                          ScoreComponentDetail.ProjectMarkSchemeId > 0 ||
+                          available_qu?.IsTrialmarkedorcategorised
+                        "
+                        [(ngModel)]="ScoreComponentDetail.MaxMark"
+                        (focus)="storePreviousValue(txtLanguage.value)"
+                        maxlength="{{ available_qu.MaxMark.toString().length }}"
+                        (change)="
+                          componentMarksChange(ScoreComponentDetail, $event)
+                        "
+                        (keydown.arrowup)="(false)"
+                        minlength="1"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        (keydown.arrowdown)="(false)"
+                        (keydown)="validateNumber($event)"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <div class="addon_comp">
+                        <div
+                          class="select_2type"
+                          aria-placeholder="Select Mark Scheme"
+                          [style.background]="
+                            ScoreComponentDetail.ProjectMarkSchemeId > 0
+                              ? 'var(--green)'
+                              : 'none'
+                          "
+                          [ngClass]="
+                              available_qu?.IsTrialmarkedorcategorised && ScoreComponentDetail.ProjectMarkSchemeId > 0
+                                ? 'spanlivedisabled'
+                                : ''
+                            "
+                        >
+                          <div
+                            *ngIf="ScoreComponentDetail.ProjectMarkSchemeId > 0"
+                          >
+                            {{ ScoreComponentDetail.SchemeName }}
+                          </div>
+                          <div
+                            *ngIf="
+                              ScoreComponentDetail.ProjectMarkSchemeId == 0 ||
+                              ScoreComponentDetail.ProjectMarkSchemeId == null
+                            "
+                            class="colrgrey"
+                          >
+                            {{ "SetUp.QigConfig.SelectMarkScheme" | translate }}
+                          </div>
+                          <span
+                            [ngClass]="
+                              available_qu?.IsTrialmarkedorcategorised && ScoreComponentDetail.ProjectMarkSchemeId > 0
+                                ? 'spanlivedisabled'
+                                : ''
+                            "
+                            class="icon-close"
+                            (click)="
+                              ClearCompMarkScheme(
+                                ScoreComponentDetail,
+                                available_qu
+                              )
+                            "
+                          ></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <button
+                        type="button"
+                        class="btn theme_button_tag align-items-center float-start"
+                        [disabled]="available_qu?.IsTrialmarkedorcategorised"
+                        (click)="
+                          GetComponentMarkSchemes(
+                            ScoreComponentDetail,
+                            available_qu
+                          )
+                        "
+                        data-bs-toggle="modal"
+                        data-bs-target="#getLangCompScrongMarksdata"
+                        title="{{
+                          'SetUp.QigConfig.Addmarkscheme' | translate
+                        }}"
+                      >
+                        <span class="icon-tag"></span>
+                      </button>
+
+                      <button
+                        type="button"
+                        *ngIf="!ScoreComponentDetail.IsAutoCreated"
+                        class="btn warn theme_button_tag align-items-center float-start"
+                        [disabled]="available_qu?.IsTrialmarkedorcategorised"
+                        (click)="
+                          deleteForm(
+                            available_qu,
+                            ScoreComponentDetail?.ScoreComponentId
+                          )
+                        "
+                        title="{{ 'SetUp.QigConfig.Delete' | translate }}"
+                      >
+                        <span class="icon-delete"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button *ngIf="available_qu.QuestionType == 10 || available_qu.QuestionType == 154"
+                type="button"
+                data-bs-dismiss="modal"
+                class="btn sav_btn theme_button d-flex align-items-center"
+                (click)="SaveUpdateMarkscheme(available_qu,'NSF')"
+                title="{{ 'General.Save' | translate }}"
+                [class.shimmer]="scorecomploading"
+              >
+                <span class="icon-save-1"></span>
+                {{ "General.Save" | translate }}
+              </button>
+            </div>
+            <!-- ScoringComponent -->
+            <div class="increment" *ngIf="available_qu.QuestionType == 13">
+              <div class="row">      
+                <hr class="mt-2" />
+                <div class="d-flex" [class.shimmer]="scorecomploading" *ngIf="available_qu.QuestionType == 13">
+                 <label class="mt2">
+                    {{ "SetUp.QigConfig.ScoringComponent" | translate }}
+                  </label>
+                  <div
+                    class="float-end"
+                    *ngIf="
+                      (available_qu?.QigType == 3 ||
+                        available_qu?.QigType == null) &&
+                      available_qu?.IsScoreComponentExists
+                    "
+                  >               
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="
+                    available_qu?.IsScoreComponentExists &&
+                    available_qu.Scorecomponentdetails?.length > 0
+                  "
+                  [class.shimmer]="scorecomploading"
+                >
+                  <div class="row scro_comp mt-2">
+                    <div class="col-md-2" onKeyDown="return false">
+                      <label>{{
+                        "SetUp.QigConfig.Component" | translate
+                      }}</label>
+                    </div>
+                    <div class="col-md-2" onKeyDown="return false">
+                      <label>{{ "SetUp.QigConfig.maxmark" | translate }}</label>
+                    </div>
+                
+                  </div>
+                  <div
+                    class="row scro_comp mt-2"
+                    *ngFor="
+                      let ScoreComponentDetail of available_qu.Scorecomponentdetails;
+                      let i = index
+                    "
+                  >
+                    <div class="col-auto">
+                      <input
+                        type="text"
+                        [value]="ScoreComponentDetail.ComponentName"
+                        oncut="return false"
+                        (keypress)="letterOnly($event)"
+                        [disabled]="
+                          ScoreComponentDetail?.IsAutoCreated ||
+                          available_qu?.IsTrialmarkedorcategorised
+                        "
+                       
+                        [(ngModel)]="ScoreComponentDetail.ComponentName"
+                        maxlength="40" readonly
+                      />
+                    </div>
+                    <div class="col-auto">
+                      <input
+                        type="number"
+                        [value]="ScoreComponentDetail.MaxMark"
+                        #txtLanguage
+                        min="1"
+                        oncut="return false"
+                        onDrop="return false"
+                        onPaste="return false"
+                        [disabled]="
+                          ScoreComponentDetail.ProjectMarkSchemeId > 0 ||
+                          available_qu?.IsTrialmarkedorcategorised
+                        "
+                        [(ngModel)]="ScoreComponentDetail.MaxMark"
+                        (focus)="storePreviousValue(txtLanguage.value)"
+                        maxlength="{{ available_qu.MaxMark.toString().length }}"
+                       
+                        (keydown.arrowup)="(false)"
+                        minlength="1"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"                      
+                      />
+                    </div>
+                            
+                  </div>
+                </div>
+              </div>
+           
+            </div>
+            <!-- end -->
+          </div>
+             <!-- scoringComponentLibrary -->
+  <div  class="col-auto"*ngIf="Istag">
+    <h5>Tagging Scorecomponent</h5>
+    <div class="row scro_comp mt-3 " *ngFor="let ScoreComponentDetailLibrary of ChildScoringComponentDetails">
+      <div class="col-auto">
+        <!-- Display ComponentName in a text input field (read-only) -->
+        <input type="text" [value]="ScoreComponentDetailLibrary.ScoringComponentName" oncut="return false" readonly />
+      </div>
+  
+      <div class="col-auto">
+        <!-- Display MaxMark in a number input field (read-only) -->
+        <input type="number" [value]="ScoreComponentDetailLibrary.Marks" readonly />
+      </div>
+    </div>
+    <button type="button" data-bs-dismiss="modal" class="btn sav_btn theme_button d-flex align-items-center"
+    (click)="SaveUpdateScoringComponentLibrary(available_qu)" title="{{ 'General.Save' | translate }}"
+    [class.shimmer]="scorecomploading">
+    <span class="icon-save-1"></span>
+    {{ "General.Save" | translate }}
+  </button>
+  </div>
+         <!-- end -->        
+        </div>
+       
+      </div>
+     <!-- 123 -->
+    
+    <div  id="Sorefinger" *ngFor="let available_qu of qigquestionsoreFinger">
+      <div class="row"  *ngIf="available_qu.QuestionType == 152">
+  
+
+        <div class="col-md-4">
+          <label>{{
+            "SetUp.QigConfig.QuestionLevelMarksScheme" | translate
+          }}</label>
+          <div class="addon_comp">
+            <div
+              [style.background]="
+                available_qu.MarkSchemeId > 0 ? 'var(--green)' : 'none'
+              "
+              class="select_2type"
+              placeholder="No Question Level Mark Scheme "
+              [ngClass]="
+                  available_qu?.IsTrialmarkedorcategorised && available_qu.MarkSchemeId > 0
+                    ? 'spanlivedisabled'
+                    : ''
+                "
+            >
+              <div *ngIf="available_qu.MarkSchemeId > 0">
+                {{ available_qu.MarkSchemeName }}
+              </div>
+              <div
+                *ngIf="
+                  available_qu.MarkSchemeId == 0 ||
+                  available_qu.MarkSchemeId == null
+                "
+                class="colrgrey"
+              >
+                {{ "SetUp.QigConfig.SelectMarkScheme" | translate }}
+              </div>
+              <span
+                class="icon-close"
+                [ngClass]="
+                  available_qu?.IsTrialmarkedorcategorised && available_qu.MarkSchemeId > 0
+                    ? 'spanlivedisabled'
+                    : ''
+                "
+                (click)="ClearMarkScheme(available_qu)"
+              ></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <button id = "sorefinger_au"
+            title="{{ 'SetUp.QigConfig.Addmarkscheme' | translate }}"
+            [disabled]="
+              available_qu.IsScoreComponentExists ||
+              available_qu?.IsTrialmarkedorcategorised
+            "
+            class="btn theme_button_tag align-items-center float-start martopqtag"
+            (click)="GetQuestionMarkScheme(available_qu,'SF')"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal2"
+          >
+            <span class="icon-tag"></span>
+          </button>
+        </div>
+
+        <div
+          *ngIf="
+            available_qu?.IsScoreComponentExists &&
+            available_qu.Scorecomponentdetails?.length > 0
+          "
+          [class.shimmer]="scorecomploading"
+        >
+          <div class="row scro_comp mt-2">
+            <div class="col-md-2" onKeyDown="return false">
+              <label>{{
+                "SetUp.QigConfig.Component" | translate
+              }}</label>
+            </div>
+            <div class="col-md-2" onKeyDown="return false">
+              <label>{{ "SetUp.QigConfig.maxmark" | translate }}</label>
+            </div>
+            <div class="col-md-4">
+              <label>{{
+                "SetUp.QigConfig.MarkingScheme" | translate
+              }}</label>
+            </div>
+          </div>
+
+          <div
+            class="row scro_comp mt-2"
+            *ngFor="
+              let ScoreComponentDetail of available_qu.Scorecomponentdetails;
+              let i = index
+            "
+          >
+            <div class="col-md-2">
+              <input
+                type="text"
+                [value]="ScoreComponentDetail.ComponentName"
+                oncut="return false"
+                (keypress)="letterOnly($event)"
+                [disabled]="
+                  ScoreComponentDetail?.IsAutoCreated ||
+                  available_qu?.IsTrialmarkedorcategorised
+                "
+                onDrop="return false"
+                onPaste="return false"
+                [(ngModel)]="ScoreComponentDetail.ComponentName"
+                maxlength="40"
+              />
+            </div>
+            <div class="col-md-2">
+              <input
+                type="number"
+                [value]="ScoreComponentDetail.MaxMark"
+                #txtLanguage
+                min="1"
+                oncut="return false"
+                onDrop="return false"
+                onPaste="return false"
+                [disabled]="
+                  ScoreComponentDetail.ProjectMarkSchemeId > 0 ||
+                  available_qu?.IsTrialmarkedorcategorised
+                "
+                [(ngModel)]="ScoreComponentDetail.MaxMark"
+                (focus)="storePreviousValue(txtLanguage.value)"
+                maxlength="{{ available_qu.MaxMark.toString().length }}"
+                (change)="
+                  componentMarksChange(ScoreComponentDetail, $event)
+                "
+                (keydown.arrowup)="(false)"
+                minlength="1"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                (keydown.arrowdown)="(false)"
+                (keydown)="validateNumber($event)"
+              />
+            </div>
+            <div class="col-md-4">
+              <div class="addon_comp">
+                <div
+                  class="select_2type"
+                  aria-placeholder="Select Mark Scheme"
+                  [style.background]="
+                    ScoreComponentDetail.ProjectMarkSchemeId > 0
+                      ? 'var(--green)'
+                      : 'none'
+                  "
+                  [ngClass]="
+                      available_qu?.IsTrialmarkedorcategorised && ScoreComponentDetail.ProjectMarkSchemeId > 0
+                        ? 'spanlivedisabled'
+                        : ''
+                    "
+                >
+                  <div
+                    *ngIf="ScoreComponentDetail.ProjectMarkSchemeId > 0"
+                  >
+                    {{ ScoreComponentDetail.SchemeName }}
+                  </div>
+                  <div
+                    *ngIf="
+                      ScoreComponentDetail.ProjectMarkSchemeId == 0 ||
+                      ScoreComponentDetail.ProjectMarkSchemeId == null
+                    "
+                    class="colrgrey"
+                  >
+                    {{ "SetUp.QigConfig.SelectMarkScheme" | translate }}
+                  </div>
+                  <span
+                    [ngClass]="
+                      available_qu?.IsTrialmarkedorcategorised && ScoreComponentDetail.ProjectMarkSchemeId > 0
+                        ? 'spanlivedisabled'
+                        : ''
+                    "
+                    class="icon-close"
+                    (click)="
+                      ClearCompMarkScheme(
+                        ScoreComponentDetail,
+                        available_qu
+                      )
+                    "
+                  ></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button
+                type="button"
+                class="btn theme_button_tag align-items-center float-start"
+                [disabled]="available_qu?.IsTrialmarkedorcategorised"
+                (click)="
+                  GetComponentMarkSchemes(
+                    ScoreComponentDetail,
+                    available_qu
+                  )
+                "
+                data-bs-toggle="modal"
+                data-bs-target="#getLangCompScrongMarksdata"
+                title="{{
+                  'SetUp.QigConfig.Addmarkscheme' | translate
+                }}"
+              >
+                <span class="icon-tag"></span>
+              </button>
+
+              <button
+                type="button"
+                *ngIf="!ScoreComponentDetail.IsAutoCreated"
+                class="btn warn theme_button_tag align-items-center float-start"
+                [disabled]="available_qu?.IsTrialmarkedorcategorised"
+                (click)="
+                  deleteForm(
+                    available_qu,
+                    ScoreComponentDetail?.ScoreComponentId
+                  )
+                "
+                title="{{ 'SetUp.QigConfig.Delete' | translate }}"
+              >
+                <span class="icon-delete"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button *ngIf="available_qu.QuestionType == 152"
+        type="button"
+        data-bs-dismiss="modal"
+        class="btn sav_btn theme_button d-flex align-items-center"
+        (click)="SaveUpdateMarkscheme(available_qu, 'SF')"
+        title="{{ 'General.Save' | translate }}"
+        [class.shimmer]="scorecomploading">
+        <span class="icon-save-1"></span>
+        {{ "General.Save" | translate }}
+      </button>
+    </div>
+      <div
+        class="text-center mt-3 card_box nodatafound"
+        *ngIf="qigquestions.length <= 0 && !questionloading"
+      >
+        {{ "SetUp.ResolutionCOI.NotFound" | translate }}
+      </div>    
+    </div>
+  </ng-container>
+  <div class="text-center mt-1 card_box nodatafound" *ngIf="dataloaded == 2">
+    {{ "General.NotFound" | translate }}
+  </div>
+</div>
+
+<!-- View Stimulu pop up -->
+<div
+  class="modal fade"
+  id="viewStimu"
+  tabindex="-1"
+  aria-labelledby="viewStimu"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="model_cust_head">
+          <h5 class="modal-title" id="viewStimu">
+            {{ "SetUp.QigConfig.Passage" | translate }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close custom_close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            title="Close"
+          ></button>
+        </div>
+        <div id="divstimulus"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Question Tag pop up -->
+<div
+  class="modal fade right"
+  id="myModal2"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel2"
+  style="display: none;"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close_sidemenu"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span
+            (click)="CloseFn(qigquestions)"
+            class="icon-close-1"
+            aria-hidden="true"
+            title="{{ 'SetUp.ResolutionCOI.Close' | translate }}"
+          ></span>
+        </button>
+        <h4 class="head_h2">
+          {{ "SetUp.QigConfig.AvailableMarksScheme" | translate }}
+        </h4>
+      </div>
+      <ng-container>
+        <div class="alert_bx" *ngIf="showmarkschemeerror == 1">
+          <div
+            class="alert-dismissible fade show alert alert-danger"
+            role="alert"
+          >
+            {{ "SetUp.QigConfig.SelectMarkScheme" | translate }}
+            <button
+              mat-button
+              type="button"
+              class="close mat-button matclosebtn"
+              (click)="showmarkschemeerror = 0"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span class="icon-close"></span>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <div class="search_ex col-12 p-2">
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{ "SetUp.QigConfig.SearchAvailableMarksScheme" | translate }}
+          </mat-label>
+          <input
+            autocomplete="off"
+            oncut="return false"
+            onDrop="return false"
+            ngDefaultControl
+            onPaste="return false"
+            [(ngModel)]="SearchMarkSchemeValue"
+            (keyup.enter)="SearchMarkScheme()"
+            matInput
+            placeholder="{{
+              'SetUp.QigConfig.SearchAvailableMarksScheme' | translate
+            }}"
+            type="search"
+          />
+          <span
+            title="{{ 'SetUp.ResolutionCOI.Search' | translate }}"
+            class="icon-search ng-tns-c266-2"
+            (click)="SearchMarkScheme()"
+          ></span>
+        </mat-form-field>
+      </div>
+      <mat-spinner
+        diameter="50"
+        class="matspinnercenter"
+        *ngIf="marksschemeloading"
+      ></mat-spinner>
+      <div class="modal-body">
+        <perfect-scrollbar class="scroll_roles">
+          <div class="row" *ngIf="!marksschemeloading">
+            <div
+              class="col-md-12 d-flex align-items-center mb-2"
+              *ngFor="let objavailablemarkschme of Availablemarkschme"
+            >
+              <div class="col-md-9">
+                <mat-radio-button
+                  [value]="objavailablemarkschme?.ProjectMarkSchemeId"
+                  [checked]="objavailablemarkschme?.IsTagged"
+                  (change)="SetMarkScheme(objavailablemarkschme)"
+                >
+                  <span style="margin-top:10px;">{{
+                    objavailablemarkschme.SchemeName
+                  }}</span>
+                </mat-radio-button>
+              </div>
+
+              <div class="col-md-3 text-end">
+                <button
+                  type="button"
+                  class="view_btn_qig "
+                  (click)="
+                    viewmarksscheme(objavailablemarkschme.ProjectMarkSchemeId)
+                  "
+                  title="{{ 'SetUp.Qig.View' | translate }}"
+                >
+                  <span class="icon-show"></span
+                  >{{ "SetUp.Qig.View" | translate }}
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="col-md-12 col-xs-12 mt-5 mb-5 nodata_db"
+              style="text-align: center;"
+              *ngIf="Availablemarkschme?.length == 0"
+            >
+              {{ "SetUp.ResolutionCOI.NotFound" | translate }}
+            </div>
+          </div>
+        </perfect-scrollbar>
+
+        <button
+          type="button"
+          class="btn sav_btn theme_button d-flex align-items-center"
+          (click)="TagQuestionMarkScheme()"
+          title="{{ 'SetUp.QigConfig.Tag' | translate }}"
+        >
+          <span class="icon-tag"></span>{{ "SetUp.QigConfig.Tag" | translate }}
+        </button>
+        <button
+          type="button"
+          id="closeQuestionMarkScheme"
+          data-bs-dismiss="modal"
+          class="btn sav_btn theme_button hide"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Scoring Component LIbrary -->
+<div
+class="modal fade right"
+id="myModal3"
+tabindex="-1"
+role="dialog"
+aria-labelledby="myModalLabel3"
+style="display: none;"
+
+>
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="close_sidemenu"
+        data-bs-dismiss="modal"
+      
+      >
+     
+      </button>
+      <h4 class="head_h2">
+        Available ScoringComponent Library
+      </h4>
+    </div>
+    <ng-container>
+      <div class="alert_bx" *ngIf="showmarkschemeerror == 1">
+        <div
+          class="alert-dismissible fade show alert alert-danger"
+          role="alert"
+        >
+        Available ScoringComponent Library
+          <button
+            mat-button
+            type="button"
+            class="close mat-button matclosebtn"
+            (click)="showmarkschemeerror = 0"
+           
+            
+          >
+            <span class="icon-close"></span>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <div class="search_ex col-12 p-2">
+      <mat-form-field appearance="outline">
+        <mat-label>
+          Available ScoringComponent Library
+        </mat-label>
+        <input
+          autocomplete="off"
+          oncut="return false"
+          onDrop="return false"
+          ngDefaultControl
+          onPaste="return false"
+          [(ngModel)]="SearchScoringComponetLibraryValue"
+          (keyup.enter)="SearchScoringComponetLibrary()"
+          matInput
+          placeholder="Search Avaible ScoringComponent Library"
+          type="search"
+        />
+        <span
+          title="{{ 'SetUp.ResolutionCOI.Search' | translate }}"
+          class="icon-search ng-tns-c266-2"
+          (click)="SearchScoringComponetLibrary()"
+        ></span>
+      </mat-form-field>
+    </div>
+    <mat-spinner
+      diameter="50"
+      class="matspinnercenter"
+      *ngIf="marksschemeloading"
+    ></mat-spinner>
+    <div class="modal-body">
+      <perfect-scrollbar class="scroll_roles">
+        <div class="row"  *ngIf="AvailableScoringcomponentLibrary.length > 0">
+          <div
+            class="col-md-12 d-flex align-items-center mb-2"
+            *ngFor="let objavailablemarkschme of AvailableScoringcomponentLibrary"
+          >
+      
+          <div class="col-md-9">
+            <mat-radio-button
+              ngDefaultControl
+              [value]="objavailablemarkschme.ScoreComponentId"
+
+              #compmarkscheme
+              name="compmarkscheme"
+              (change)="SetScoringComponentLibrary(objavailablemarkschme)"
+            >
+              {{ objavailablemarkschme.ComponentName }}<br />
+            </mat-radio-button>
+          </div>
+
+            <div class="col-md-3 text-end">
+              <button
+                type="button"
+                class="view_btn_qig "
+                (click)="
+                viewScoringComponentscheme(objavailablemarkschme.ScoreComponentId)
+                "
+                title="{{ 'SetUp.Qig.View' | translate }}"
+              >
+                <span class="icon-show"></span
+                >{{ "SetUp.Qig.View" | translate }}
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="col-md-12 col-xs-12 mt-5 mb-5 nodata_db"
+            style="text-align: center;"
+            *ngIf="AvailableScoringcomponentLibrary?.length == 0"
+          >
+           NO Library found
+          </div>
+        </div>
+      </perfect-scrollbar>
+
+      <button
+        type="button"
+        class="btn sav_btn theme_button d-flex align-items-center"
+        (click)="TagScoringComponentLibrary()"
+        title="{{ 'SetUp.QigConfig.Tag' | translate }}"
+      >
+        <span class="icon-tag"></span>{{ "SetUp.QigConfig.Tag" | translate }}
+      </button>
+      <button
+        type="button"
+        id="closeQuestionMarkScheme1"
+        data-bs-dismiss="modal"
+        class="btn sav_btn theme_button hide"
+      ></button>    
+      <button
+      type="button"
+      id="closeComponentMarkScheme1"
+      data-bs-dismiss="modal"
+      class="btn sav_btn theme_button hide"
+    ></button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- end -->
+<!--Scoring Component Language and component pop up -->
+<div 
+  class="modal fade right"
+  id="getLangCompScrongMarksdata"
+  tabindex="-1"
+  role="dialog"
+  [hidden]="!openModal"
+  aria-labelledby="myModalLabel2"
+  style="display: none;"
+  aria-hidden="true"
+> 
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close_sidemenu"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          #closebutton
+        >
+          <span
+            (click)="CloseFn(qigquestions)"
+            class="icon-close-1"
+            aria-hidden="true"
+            title="{{ 'SetUp.ResolutionCOI.Close' | translate }}"
+          ></span>
+        </button>
+        <h4 class="head_h2">
+          {{ "SetUp.QigConfig.AvailableMarksScheme" | translate }}
+        </h4>
+      </div>
+      <ng-container *ngIf="showmarkschemeerror == 2">
+        <div class="alert_bx">
+          <div
+            class="alert-dismissible fade show alert alert-danger"
+            role="alert"
+          >
+            {{ "SetUp.QigConfig.SelectMarkScheme" | translate }}
+            <button
+              mat-button
+              type="button"
+              class="close mat-button matclosebtn"
+              (click)="showmarkschemeerror = 0"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span class="icon-close"></span>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <div class="search_ex col-12 p-2">
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{ "SetUp.QigConfig.SearchAvailableMarksScheme" | translate }}
+          </mat-label>
+          <input
+            autocomplete="off"
+            oncut="return false"
+            onDrop="return false"
+            ngDefaultControl
+            onPaste="return false"
+            [(ngModel)]="SearchMarkSchemeValue"
+            (keyup)="SearchMarkScheme()"
+            matInput
+            placeholder="{{
+              'SetUp.QigConfig.SearchAvailableMarksScheme' | translate
+            }}"
+            type="search"
+          />
+          <span
+            title="{{ 'SetUp.ResolutionCOI.Search' | translate }}"
+            class="icon-search ng-tns-c266-2"
+          ></span>
+        </mat-form-field>
+      </div>
+      <mat-spinner
+        diameter="50"
+        class="matspinnercenter"
+        *ngIf="marksschemeloading"
+      ></mat-spinner>
+      <div class="modal-body">
+        <perfect-scrollbar class="scroll_roles">
+          <div class="row" *ngIf="!marksschemeloading">
+            <div
+              class="col-md-12 d-flex align-items-center mb-2"
+              *ngFor="let objavailablemarkschme of Availablemarkschme"
+            >
+              <div class="col-md-9">
+                <mat-radio-button
+                  ngDefaultControl
+                  [value]="objavailablemarkschme.ProjectMarkSchemeId"
+                  [checked]="objavailablemarkschme.IsTagged"
+                  #compmarkscheme
+                  name="compmarkscheme"
+                  (change)="SetMarkScheme(objavailablemarkschme)"
+                >
+                  {{ objavailablemarkschme.SchemeName }}<br />
+                </mat-radio-button>
+              </div>
+              <div class="col-md-3 text-end">
+                <button
+                  type="button"
+                  class="view_btn_qig "
+                  (click)="
+                    viewmarksscheme(objavailablemarkschme.ProjectMarkSchemeId)
+                  "
+                  title="{{ 'SetUp.Qig.View' | translate }}"
+                >
+                  <span class="icon-show"></span
+                  >{{ "SetUp.Qig.View" | translate }}
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="col-md-12 col-xs-12 mt-5 mb-5 nodata_db"
+              style="text-align: center;"
+              *ngIf="Availablemarkschme?.length == 0"
+            >
+              {{ "SetUp.ResolutionCOI.NotFound" | translate }}
+            </div>
+          </div>
+        </perfect-scrollbar>
+
+        <button
+          type="button"
+          class="btn sav_btn theme_button d-flex align-items-center"
+          (click)="TagComponenetMarkScheme()"
+          title="{{ 'SetUp.QigConfig.Tag' | translate }}"
+        >
+          <span class="icon-tag"></span>{{ "SetUp.QigConfig.Tag" | translate }}
+        </button>
+
+        <button
+          type="button"
+          id="closeComponentMarkScheme"
+          data-bs-dismiss="modal"
+          class="btn sav_btn theme_button hide"
+        ></button>
+      </div>
+
+      <div></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="container" [class.shimmer]="questionLoading">
+  <div class="body_box" *ngIf="!Hidesemiauto">
+    <div class="row-header card_container" *ngIf="allviewquestions[0]?.IsQuestionXMLExist">
+      <div class="p-2 d-flex justify-content-between bd-highlight align-items-center col-md-12 al">
+        <div class="bd-highlight col-md-6">
+          {{'SetUp.SemiAutomatic.Total' | translate}}: {{this.allviewquestions.length}}
+        </div>
+      </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="row-header_bg mt-2" [class.shimmer]="questionLoading">
+
+          <div class="col-1 px-2"><strong>{{'SetUp.SemiAutomatic.Sl' | translate}}</strong> </div>
+          <div class="col-4 px-2"><strong>{{'SetUp.SemiAutomatic.Questionlabel' | translate}}</strong></div>
+          <div class="col-4"><strong>{{'SetUp.SemiAutomatic.QuestionType' | translate}}</strong></div>
+        </div>
+        <div class="text-center mt-3 card_box nodatafound" *ngIf="allviewquestions?.length <= 0 && !questionLoading">
+          {{'SetUp.SemiAutomatic.NotFound' | translate}}
+        </div>
+        <div class="text-center mt-3 card_box nodatafound" *ngIf="!questionLoading && !allviewquestions[0]?.IsQuestionXMLExist && allviewquestions?.length > 0">
+          <span class="note p-2 px-2">Note: {{'SetUp.SemiAutomatic.note' | translate}}</span>
+        </div>
+        <mat-accordion *ngIf="allviewquestions[0]?.IsQuestionXMLExist">
+          <div *ngFor="let objquestions of allviewquestions; let i = index;">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header title="{{( panelOpenState == true  ? 'SetUp.SemiAutomatic.Collapse' : 'SetUp.SemiAutomatic.Expand') | translate }}">
+                <div class="row-childrow_em card_box ">
+                  <div class="d-flex align-items-center pt-2">
+
+                    <div class="col-1 slno-lft"> {{i+1}}</div>
+                    <div class="col-4">{{objquestions?.QuestionCode}}</div>
+                    <div class="col-4 px-1" *ngIf="objquestions?.QuestionType==20">
+                      {{
+                      'SetUp.SemiAutomatic.Fib'
+                      | translate
+                      }}
+                    </div>
+
+                    <div class="col-4 px-1" *ngIf="objquestions?.QuestionType==152">
+                      {{
+                      'SetUp.SemiAutomatic.SoreFinger'
+                      | translate
+                      }}
+                    </div>
+                    <div class="col-3">
+                      <span title="{{'SetUp.SemiAutomatic.Descripency' | translate}}" *ngIf="objquestions?.IsDiscrepancyExist && !objquestions?.MarkingType"
+                        class="desc_icon icon-discrepancy align-items-center"></span>
+                      <span title="{{'SetUp.SemiAutomatic.Resolved' | translate}}" *ngIf="(objquestions?.MarkingType)"
+                        class="desc_iconsucc icon-discrepancy align-items-center"></span>
+                      <button title="{{'SetUp.SemiAutomatic.Viewfrequencydist'| translate}}" type="button" class="btn theme_button_light float-end "
+                        [disabled]="!objquestions.Isqigreset" (click)="clickFrequencydistribution(objquestions.ProjectQuestionID);">
+                        {{
+                        'SetUp.SemiAutomatic.Viewfrequencydist'
+                        | translate
+                        }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel-header>
+              <div class="Ans_area mt-3" [innerHTML]="objquestions.QuestionText">
+              </div>
+
+
+              <div class="text-center mt-3 card_box nodatafound" *ngIf="!objquestions.Isqigreset">
+                <span class="note p-2 px-2">{{'SetUp.SemiAutomatic.ResponseNotreceived' | translate}}</span>
+              </div>
+
+              <div *ngIf="( objquestions?.QuestionType== 20)"> <button title="{{ 'SetUp.QigConfig.ViewStimulus' | translate }}"
+                class="btn theme_button align-items-center float-start mt-3" (click)="ViewStimulus(objquestions)"
+                data-bs-toggle="modal" data-bs-target="#viewStimu" [disabled]="!objquestions.PassageId">
+                <span class="icon-view_items"></span>{{'SetUp.SemiAutomatic.Stimulus' | translate}}
+              </button></div>
+
+              <div class="modal fade" id="viewStimu"
+              tabindex="-1" aria-labelledby="viewStimu"  aria-hidden="true">        
+              <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+              <div class="modal-body">
+              <div class="model_cust_head">
+              <h5 class="modal-title" id="viewStimu">
+                {{'SetUp.SemiAutomatic.Passage' | translate}}
+              </h5>
+              <button type="button" class="btn-close custom_close"  data-bs-dismiss="modal"
+                aria-label="Close" title="Close"></button>        
+             </div>
+             <div id="divstimulus"></div>
+             </div>
+             </div>
+             </div>
+            </div>
+            </mat-expansion-panel>
+          </div>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</div>

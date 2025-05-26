@@ -1,0 +1,26 @@
+<div class="htmleditor">
+    <div class="d-flex justify-content-between" mat-dialog-title>
+        <div class="row col-12">
+            <div class="col-6 d-flex justify-content-start">
+                <div class="col-6" title="{{htmltitle}}"> {{htmltitle}} </div>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button type="button" class="btn-close" title="{{'shared.close' | translate}}" (click)="closeeditor()"
+                    tabindex="-1">
+                </button>
+            </div>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="form">
+            <div class="editor">
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [disabled]="data.disabled">
+                </ngx-editor-menu>
+                <ngx-editor [editor]="editor" ngDefaultControl formControlName="editorContent"
+                    (ngModelChange)="editorChange()">
+                </ngx-editor>
+            </div>
+        </form>
+    </mat-dialog-content>
+
+</div>

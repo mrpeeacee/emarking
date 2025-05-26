@@ -1,0 +1,70 @@
+::ng-deep .date_pick {
+  position: absolute;
+  right: 0;
+  top: -18px;
+}
+
+
+.active_report strong {
+  display: block
+}
+
+.row_card strong {
+  margin-left: 0px;
+  font-size: 15px;
+}
+
+::ng-deep .mat-expansion-panel-header {
+  min-height: 48px;
+  height: auto !important;
+}
+.mat-expansion-panel-header {
+  padding: 0px 6px !important;
+}
+::ng-deep .mat-form-field {
+  margin-bottom: 0px !important;
+}
+  
+.table_list_scroll1 {
+  height: calc(90vh - 10rem);
+}
+.pointer_disable{
+  pointer-events: none;
+}
+.pointer_enable{
+  pointer-events: all;
+}
+.word_wrpa{
+  word-wrap: break-word;
+}
+.pb-5 {
+  padding-bottom: 5rem !important;
+}
+/* ::ng-deep .mat-paginator-container {
+
+  justify-content: space-between !important;
+
+} */
+
+::ng-deep .mat-paginator-container {
+
+  justify-content: space-between !important;
+
+}
+
+::ng-deep .mat-paginator-container .mat-form-field {
+  margin-bottom: 7px;
+  width: 70px !important;
+  border: 1px solid #979797;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+::ng-deep .mat-paginator-container .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 0.25px !important;
+}
+
+::ng-deep .mat-paginator {
+
+  margin: 4px 10px 5px 10px !important;
+}

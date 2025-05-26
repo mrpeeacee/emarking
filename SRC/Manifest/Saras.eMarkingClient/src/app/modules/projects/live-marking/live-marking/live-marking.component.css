@@ -1,0 +1,32 @@
+  .times {
+    display: flex;
+    font-size: 22px;
+  }
+
+  p {
+    width: 25%; 
+    margin: 10px 0 0 0;
+    text-align: center;
+  }
+
+
+  .item-align {
+    align-items: center;
+  }
+
+  .f20 {
+    font-size: 20px;
+  }
+
+  .qaremarks {
+  
+    margin-left: 20px;
+  }
+
+.row-childrow {
+  padding: 5px 10px;
+}
+.cust-margins{
+  margin-left: 7px;
+}
+

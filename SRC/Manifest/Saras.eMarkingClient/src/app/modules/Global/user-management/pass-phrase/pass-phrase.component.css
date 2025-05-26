@@ -1,0 +1,35 @@
+.shade {
+    color: #a7a3a3
+}
+
+.f_b {
+    font-weight: bold;
+}
+
+.status_lagend {
+    text-indent: 10px;
+    position: relative;
+    padding-left: 10px;
+}
+
+.status_lagend::before {
+    content: " ";
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    left: -10px;
+    top: 3px;
+    border-radius: 50px;
+
+}
+
+.status_lagend.active::before {
+    background: green
+}
+
+.status_lagend.inactive::before {
+    background: orange
+}
+.nodatafound {
+    margin-top: 0px;
+}

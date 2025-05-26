@@ -1,0 +1,51 @@
+<div class="row" *ngIf="QigId > 0 && !IsKp">
+  <div class="col-md-12 bd-highlight pad10 ">
+    <div class="card_box">
+      <div class="row d-flex align-items-center">
+        <strong style="color:red">{{QigPause}}</strong>
+      </div>
+      <div class="row d-flex align-items-center" *ngIf="IsPracticeDisplay || IsQualifyDisplay || IsPracticeQualifyingEnable.IsLiveMarkingStart">
+        <div class="col-md-6 col-xs-12 d-flex flex-row" [class.shimmer]="stdloading">
+
+          <button type="button" *ngIf="IsPracticeDisplay" [disabled]="IsQigPause"
+                  class="btn theme_button d-flex align-items-center float-right"
+                  (click)="NavigateToPracticePage();" title="{{'General.practice' | translate}}">
+            <span class="icon-practice"></span> {{'General.practice' | translate}}
+          </button>
+
+          <button type="button" *ngIf="IsQualifyDisplay" [disabled]="IsQigPause"
+                  class="btn theme_button d-flex align-items-center float-right "
+                  (click)="NavigateToQualifyingPage();" title="{{'General.stdztn' | translate}}">
+            <span class="icon-annotation_settings"></span> {{'General.stdztn' | translate}}
+          </button>
+
+          <div *ngIf="process == 3" [hidden]="enablelivemarking || !IsPracticeQualifyingEnable.IsLiveMarkingStart" [disabled]="IsQigPause">
+            <button (click)="navTolLive();" type="button" title="Proceed to Live Marking" class="btn theme_button_light  ml-0 mr-2 atag">
+              <span class="icon-pointed_arrow"></span>Proceed to Live Marking
+            </button>
+          </div>
+          
+        </div>
+        <div class="col-md-6 col-xs-12 d-flex justify-content-end" [class.shimmer]="stdloading">
+          <strong class="p-1">{{'General.Status' | translate}}:</strong>
+          <span class="span-status" *ngIf="status == 0">Not Started</span>
+          <span class="span-status" *ngIf="status == 1">Pending Benchmark</span>
+          <span class="span-status" *ngIf="status == 8">Pending Standardisation</span>
+          <span class="span-status" *ngIf="status == 2">Benchmark In-progress</span>
+          <span class="span-status" *ngIf="status == 3">Pending Standardisation</span>
+          <span class="span-status" *ngIf="status == 4">Standardisation In-progress</span>
+          <span class="span-status" *ngIf="status == 5">Pending Live Marking</span>
+          <span class="span-status" *ngIf="status == 11">Live marking In-progress</span>
+
+
+          <span class="span-status" *ngIf="status == 6 || status == 7 || status == 9 || status == 10">{{'General.Pendingapproval' | translate}}</span>
+
+        </div>
+      </div>
+   
+      <div *ngIf="stdloading == false && GetStatusMessage()!=''" class="row text-center mt-1 card_box nodatafound">
+        {{GetStatusMessage()}}
+      </div>
+    </div>
+  </div>
+</div>

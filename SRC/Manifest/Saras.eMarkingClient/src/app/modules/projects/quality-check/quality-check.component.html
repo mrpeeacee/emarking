@@ -1,0 +1,415 @@
+<div class="container">
+    <div class="body_box">
+        <emarking-qig-tab (selectQigEvent)="getQigDetails($event)"  >
+        </emarking-qig-tab>
+        <div class="row" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+            <div class="col-md-12">
+                <div class="card_container_gray p-2 pos_rel">
+                    <div class="d-flex"> 
+                        <emarking-marker-tree-view (selectTreeNodeEvent)="getScriptCountsByUser($event)">
+                        </emarking-marker-tree-view>  
+                        <h6 class="mt-2 mx-2">
+                            <strong> {{selectedmarkerdata?.item}} </strong> 
+                            <span>({{selectedmarkerdata?.role}}) 
+                            </span>
+                        </h6>
+                        <h6 class="mt-2 mx-2" *ngIf="!selectedmarkerdata?.iskp">
+                            <strong> Status </strong> :
+                            <span class="span-status" *ngIf="status == 0" >Not Started</span>
+                            <span class="span-status" *ngIf="status == 1" >Pending Benchmark</span>
+                            <span class="span-status" *ngIf="status == 8" >Pending Standardisation</span>
+                            <span class="span-status" *ngIf="status == 2" >Benchmark In-progress</span>
+                            <span class="span-status" *ngIf="status == 3" >Pending Standardisation</span>
+                            <span class="span-status" *ngIf="status == 4" >Standardisation In-progress</span>
+                            <span class="span-status" *ngIf="status == 5" >Pending Live Marking</span>
+                            <span class="span-status" *ngIf="status == 11" >Live marking In-progress</span>         
+                            <span class="span-status" *ngIf="status == 6 || status == 7 || status == 9 || status == 10" >pending approval</span>
+                        </h6>
+
+                        <h6  class="mt-2 mx-2">
+                            <strong>User Status</strong> : <span>{{UserStatuss}}</span>
+                            
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2 pr-0">
+                        <mat-accordion>
+                            <mat-expansion-panel [expanded]="activeaccordintab == 1 " (opened)="panelOpened($event)"
+                                (closed)="markingpanelOpenState = false">
+                                <mat-expansion-panel-header class="row-header"
+                                    title="{{markingpanelOpenState == true ? 'Collapse':'Expand'}}"
+                                    (click)="accordintabs(1)" [ngClass]="(markingpanelOpenState)?'no-events':'default'">
+                                    <div class="  card_box_mb"
+                                        [ngClass]=" activeaccordintab == 1 ? 'tabs_card_active' : ''">
+                                        <div class="d-flex align-items-center">
+                                            <div class="">{{'Quality-Check.QualityCheckSummary.markingstats'
+                                                    |
+                                                    translate}} </div>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel-header>
+
+                                <div class="card_container_gray paddingnull"
+                                    *ngIf="isScriptDetailsview == false || qcScriptSummary != null"
+                                    [expanded]="activefilterTab == true">
+                                    <div>
+                                        <div class="mt-1">
+                                            <button class="tab_qch flex-fill"
+                                                [ngClass]="activefilterTab == 1 && activeaccordintab == 1 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(1)">
+                                                    <span
+                                                        class="mb-auto">{{'Quality-Check.QualityCheckSummary.totSubmtd'
+                                                        |
+                                                        translate}} </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.Submitted}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"><strong
+                                                            *ngIf="qcScriptSummary?.Submitted == null ">0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button
+                                                [hidden]="(selectedmarkerdata?.role=='AO'|| selectedmarkerdata?.role=='CM')"
+                                                class="tab_qch flex-fill" *ngIf="qcScriptSummary?.RcLevel >= 1"
+                                                [ngClass]="activefilterTab == 3 && activeaccordintab == 1 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(3)"><span class="mb-auto">
+                                                        {{'Quality-Check.QualityCheckSummary.pendingrc1' | translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcToBeT1}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcToBeT1 == null "><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button
+                                                [hidden]="(selectedmarkerdata?.role=='AO'|| selectedmarkerdata?.role=='CM')"
+                                                class="tab_qch flex-fill" *ngIf="qcScriptSummary?.RcLevel >= 1"
+                                                [ngClass]="activefilterTab == 2 && activeaccordintab == 1 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(2)">
+                                                    <span class="mb-auto"> {{'Quality-Check.QualityCheckSummary.rced1'
+                                                        |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcdT1}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcdT1 == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button
+                                                [hidden]="(selectedmarkerdata?.role=='AO'|| selectedmarkerdata?.role=='CM')"
+                                                class="tab_qch flex-fill" *ngIf="qcScriptSummary?.RcLevel == 2"
+                                                [ngClass]="activefilterTab == 5 && activeaccordintab == 1 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(5)">
+                                                    <span class="mb-auto">
+                                                        {{'Quality-Check.QualityCheckSummary.pendingRc2' |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcToBeT2}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcToBeT2 == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button
+                                                [hidden]="(selectedmarkerdata?.role=='AO'|| selectedmarkerdata?.role=='CM')"
+                                                class="tab_qch flex-fill" *ngIf="qcScriptSummary?.RcLevel == 2"
+                                                [ngClass]="activefilterTab == 4 && activeaccordintab == 1 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(4)">
+                                                    <span class="mb-auto"> {{'Quality-Check.QualityCheckSummary.rced2'
+                                                        |
+                                                        translate}} </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcdT2}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcdT2 == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button
+                                                [hidden]="(selectedmarkerdata?.role=='AO')"
+                                                class="tab_qch flex-fill"
+                                                [ngClass]="activefilterTab == 6 && activeaccordintab == 1 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(6)">
+                                                    <span class="mb-auto">
+                                                        {{'Quality-Check.QualityCheckSummary.adhocchked' |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.AdhocChecked}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.AdhocChecked == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel [expanded]="activeaccordintab == 2"
+                                [hidden]="selectedmarkerdata?.role=='MARKER' " (opened)="QcpanelOpened($event)"
+                                (closed)="qcPanelOpenState = false">
+                                <mat-expansion-panel-header class="row-header"
+                                    title="{{qcPanelOpenState == true ? 'Collapse':'Expand'}} "
+                                    [ngClass]="(qcPanelOpenState)?'no-events':'default'" (click)="accordintabs(2)">
+                                    <div class="row-childrow_em card_box_mb"
+                                        [ngClass]=" activeaccordintab == 2 ? 'tabs_card_active' : '' ">
+                                        <div class="d-flex align-items-center">
+                                            <div class=""> {{'Quality-Check.QualityCheckSummary.qcstats'
+                                                    |
+                                                    translate}} </div>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel-header>
+
+
+                                <div class="card_container_gray"
+                                    *ngIf="isScriptDetailsview == false || qcScriptSummary != null">
+                                    <div class="card_container_gray">
+                                        <div class="mt-1">
+                                            <button class="tab_qch flex-fill" *ngIf="qcScriptSummary?.RcLevel >= 1"
+                                                [ngClass]="activefilterTab == 1  && activeaccordintab == 2 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(1)">
+                                                    <span class="mb-auto"> {{'Quality-Check.QualityCheckSummary.rced1'
+                                                        |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcdT1}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcdT1 == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button class="tab_qch flex-fill"
+                                                [hidden]="selectedmarkerdata?.role=='ATL' "
+                                                [ngClass]="activefilterTab == 2  && activeaccordintab == 2 ? 'active_tab_qch' : ''"
+                                                *ngIf="qcScriptSummary?.RcLevel == 2">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(2)">
+                                                    <span class="mb-auto"> {{'Quality-Check.QualityCheckSummary.rced2'
+                                                        |
+                                                        translate}} </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcdT2}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcdT2 == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button class="tab_qch flex-fill"
+                                                [ngClass]="activefilterTab == 3  && activeaccordintab == 2 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(3)">
+                                                    <span class="mb-auto">
+                                                        {{'Quality-Check.QualityCheckSummary.adhocchked' |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.AdhocChecked}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.AdhocChecked == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button class="tab_qch flex-fill"
+                                                [ngClass]="activefilterTab == 4  && activeaccordintab == 2 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(4)">
+                                                    <span class="mb-auto">
+                                                        {{'Quality-Check.QualityCheckSummary.reSubmtd' |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.Resubmitted}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.Resubmitted == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel [expanded]="activeaccordintab == 3"
+                                [hidden]="selectedmarkerdata?.role=='MARKER' " (opened)="TeampanelOpened($event)"
+                                (closed)="teamPanelOpenState = false">
+                                <mat-expansion-panel-header class="row-header"
+                                    title="{{teamPanelOpenState == true ? 'Collapse' : 'Expand'}} "
+                                    (click)="accordintabs(3)" [ngClass]="(teamPanelOpenState)?'no-events':'default'">
+                                    <div class="row-childrow_em card_box_mb"
+                                        [ngClass]=" activeaccordintab == 3 ? 'tabs_card_active' : ''">
+                                        <div class="d-flex align-items-center">
+                                            <div class="">{{'Quality-Check.QualityCheckSummary.teamstats'
+                                                    |
+                                                    translate}}</div>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel-header>
+
+                                <div class="card_container_gray"
+                                    *ngIf="isScriptDetailsview == false || qcScriptSummary != null">
+                                    <div class="card_container_gray">
+                                        <div class="mt-1">
+                                            <button class="tab_qch flex-fill"
+                                                [ngClass]="activefilterTab == 1  && activeaccordintab == 3 ? 'active_tab_qch' : ''"
+                                                [hidden]=" activeaccordintab == 2">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(1)">
+                                                    <span
+                                                        class="mb-auto">{{'Quality-Check.QualityCheckSummary.totSubmtd'
+                                                        |
+                                                        translate}} </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.Submitted}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.Submitted == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button class="tab_qch flex-fill" *ngIf="qcScriptSummary?.RcLevel >= 1"
+                                                [hidden]=" activeaccordintab == 2"
+                                                [ngClass]="activefilterTab == 3 && activeaccordintab == 3 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(3)"><span class="mb-auto">
+                                                        {{'Quality-Check.QualityCheckSummary.pendingrc1' | translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcToBeT1}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcToBeT1 == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button class="tab_qch flex-fill" *ngIf="qcScriptSummary?.RcLevel >= 1"
+                                                [ngClass]="activefilterTab == 2 && activeaccordintab == 3 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(2)">
+                                                    <span class="mb-auto"> {{'Quality-Check.QualityCheckSummary.rced1'
+                                                        |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcdT1}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcdT1 == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+                                            <button class="tab_qch flex-fill" *ngIf="qcScriptSummary?.RcLevel == 2"
+                                                [ngClass]="activefilterTab == 5 && activeaccordintab == 3 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(5)">
+                                                    <span class="mb-auto">
+                                                        {{'Quality-Check.QualityCheckSummary.pendingRc2' |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcToBeT2}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcToBeT2 == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+                                            <button class="tab_qch flex-fill" *ngIf="qcScriptSummary?.RcLevel == 2"
+                                                [ngClass]="activefilterTab == 4 && activeaccordintab == 3 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(4)">
+                                                    <span class="mb-auto"> {{'Quality-Check.QualityCheckSummary.rced2'
+                                                        |
+                                                        translate}} </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.ScriptRcdT2}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.ScriptRcdT2 == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+                                            <button class="tab_qch flex-fill"
+                                                [ngClass]="activefilterTab == 6 && activeaccordintab == 3 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(6)">
+                                                    <span class="mb-auto">
+                                                        {{'Quality-Check.QualityCheckSummary.adhocchked' |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.AdhocChecked}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.AdhocChecked == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+
+                                            <button class="tab_qch flex-fill"
+                                                [ngClass]="activefilterTab == 7 && activeaccordintab == 3 ? 'active_tab_qch' : ''">
+                                                <div class=" project_summary item-left"
+                                                    (click)="getScriptCountsByFilter(7)">
+                                                    <span class="mb-auto">
+                                                        {{'Quality-Check.QualityCheckSummary.dwnlded' |
+                                                        translate}}
+                                                    </span>
+                                                    <span
+                                                        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.Downloaded}}</strong></span>
+                                                    <span [class.shimmer]="qasCountloading"
+                                                        *ngIf="qcScriptSummary?.AdhocChecked == null"><strong>0</strong></span>
+                                                </div>
+                                            </button>
+
+<!-- ----------------- -->
+
+<button class="tab_qch flex-fill"
+[ngClass]="activefilterTab == 8 && activeaccordintab == 3 ? 'active_tab_qch' : ''">
+<div class=" project_summary item-left"
+    (click)="getScriptCountsByFilter(8)">
+    <span class="mb-auto">
+        Required Action
+    </span>
+    <span
+        [class.shimmer]="qasCountloading"><strong>{{qcScriptSummary?.Returntomarker}}</strong></span>
+    <span [class.shimmer]="qasCountloading"
+        *ngIf="qcScriptSummary?.AdhocChecked == null"><strong>0</strong></span>
+</div>
+</button>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                    </div>
+
+                    <div class="col-10 pl-0">
+
+                        <div class="card_box" [hidden]="isScriptDetailsview == false">
+                            <button title="Back" (click)="navbacktoscripts()" [hidden]="isScriptDetailsview == false"
+                                class="btn theme_button">
+                                <span class="icon-arrow_back"></span></button> <strong>
+                                {{'Quality-Check.QualityCheckSummary.scriptname' | translate}}
+                                {{activeScript?.ScriptName}}</strong>
+                        </div>
+                        <div class="row">
+                            <emarking-script-list-view [hidden]="isScriptDetailsview == true"
+                                [rclevel]="qcScriptSummary?.RcLevel" (viewscriptEvent)="getScriptDetails($event)">
+                            </emarking-script-list-view>
+                            <emarking-script-details-view [hidden]="isScriptDetailsview == false">
+                            </emarking-script-details-view>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

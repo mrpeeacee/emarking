@@ -1,0 +1,259 @@
+<div class="container">
+
+    <div class="body_box">
+        <div *ngIf="datafound">
+            <emarking-qig-tab (selectQigEvent)="getQigDetails($event)">
+            </emarking-qig-tab>
+
+            <div class="card_box project_summary" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+
+                <div class="row d-flex align-items-center">
+
+
+                    <div class="col-md-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-4 col-xs-12" [class.shimmer]="configloading">
+                                <span>
+                                    {{'SetUp.Qig.NoOfQuestions' | translate}}
+                                </span><strong>{{this.qigquestionandmarks?.NoOfQuestions}}</strong>
+                            </div>
+                            <div class="col-md-4 col-xs-12 hide" [class.shimmer]="configloading">
+                                <span>
+                                    {{
+                                    'SetUp.Qig.NoOfMandatoryQuestions' |
+                                    translate
+                                    }}
+                                </span><strong>5</strong>
+                            </div>
+                            <div class="col-md-4 col-xs-12" [class.shimmer]="configloading">
+                                <span>
+                                    {{
+                                    'SetUp.Qig.TotalMarks' |
+                                    translate
+                                    }}
+                                </span><strong>{{this.qigquestionandmarks?.TotalMarks}}</strong>
+                            </div>
+
+                            <div class="col-md-4 col-xs-12 justify-content-end" [class.shimmer]="configloading">
+                                <button type="button" class="btn theme_button align-items-center float-end mt-2 hide"
+                                    data-bs-toggle="modal" data-bs-target="#getdata" title="{{'SetUp.Qig.ViewQ'
+                                      | translate}}"
+                                    (click)="viewqigquestions()">
+                                    {{
+                                    'SetUp.Qig.ViewQ'
+                                    | translate
+                                    }}
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="qig_cofi_container" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+                <fieldset [disabled]="setupststuslst?.length==0">
+                    <legend aria-hidden="true" class="hide"></legend>
+                    <mat-accordion [class.shimmer]="configloading">
+
+                        <mat-expansion-panel [disabled]="configloading == true" [expanded]="qigquestionOpenState"
+                            (opened)="qigquestionOpenState = true;loadQuestions()" (closed)="qigquestionOpenState = false;setQuestionExpandCollapse()"
+                            (click)="qigpnsclick($event, qigquestionOpenState)">
+                            <mat-expansion-panel-header title="{{( qigquestionOpenState == true  ? 'Collapse' : 'Expand') | translate }}">
+                                <mat-panel-title>
+                                    <div class="col-11"> <strong title="{{'SetUp.Qig.Qus' | translate}}"><span class="icon-question_mark"></span>
+                                            {{'SetUp.Qig.Qus' | translate}}</strong></div>
+                                    <div class="col-1" *ngIf="qigquestionandmarks?.QuestionsType!=20">
+                                        <span title="Yet to Configure" *ngIf="QigQuestionCode?.length<=0" class="icon-close-1 align-items-center"></span>
+                                        <span title="Configure" *ngIf="QigQuestionCode?.length>0" class="completedIconcolor icon-complete align-items-center"></span>
+                                    </div>
+
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <emarking-qig-questions></emarking-qig-questions>
+
+                        </mat-expansion-panel>
+
+
+                        <mat-expansion-panel [disabled]="configloading == true" [expanded]="MarkingTypeState" (opened)="MarkingTypeState = true;"
+                            (closed)="MarkingTypeState = false;" (click)="qigpnsclick($event, MarkingTypeState)">
+                            <mat-expansion-panel-header title="{{( MarkingTypeState == true  ? 'Collapse' : 'Expand') | translate }}">
+                                <mat-panel-title>
+
+
+                                    <div class="col-11"> <strong title="{{'SetUp.QigConfig.MarkingType' | translate}}"><span
+                                                class="icon-question_mark"></span> {{'SetUp.QigConfig.MarkingType' |
+                                            translate}}</strong></div>
+                                    <div class="col-1">
+                                        <span title="Yet to Configure" *ngIf="MarkingTypeCode?.length<=0" class="icon-close-1 align-items-center"></span>
+                                        <span title="Configure" *ngIf="MarkingTypeCode?.length>0" class="completedIconcolor icon-complete align-items-center"></span>
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <emarking-marking-type-config></emarking-marking-type-config>
+
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel [disabled]="configloading == true" [expanded]="stdpanelOpenState" (opened)="stdpanelOpenState = true"
+                            (closed)="stdpanelOpenState = false" (click)="qigpnsclick($event, stdpanelOpenState)">
+                            <mat-expansion-panel-header title="{{( stdpanelOpenState == true  ? 'Collapse' : 'Expand') | translate }}">
+                                <mat-panel-title>
+
+                                    <div class="col-11"> <strong title="{{'SetUp.Std.Title' |
+                                        translate}}"><span
+                                                class="icon-shift"></span> {{'SetUp.Std.Title' |
+                                            translate}}</strong></div>
+                                    <div class="col-1">
+                                        <span title="Yet to Configure" *ngIf="StdSettingCode?.length<=0" class="icon-close-1 align-items-center"></span>
+                                        <span title="Configure" *ngIf="StdSettingCode?.length>0" class="completedIconcolor icon-complete align-items-center"></span>
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <emarking-statndardisation-settings></emarking-statndardisation-settings>
+
+                        </mat-expansion-panel>
+
+
+
+                        <mat-expansion-panel [disabled]="configloading == true" [expanded]="anntpanelOpenState"
+                            (opened)="anntpanelOpenState = true" (closed)="anntpanelOpenState = false" (click)="qigpnsclick($event, anntpanelOpenState)">
+                            <mat-expansion-panel-header title="{{( anntpanelOpenState == true  ? 'Collapse' : 'Expand') | translate }}">
+                                <mat-panel-title>
+
+                                    <div class="col-11"> <strong title="{{
+                                        'SetUp.QigConfig.Annotationsettings' |
+                                        translate
+                                        }}">
+                                            <span class="icon-annotation_settings"></span> {{
+                                            'SetUp.QigConfig.Annotationsettings' |
+                                            translate
+                                            }}
+                                        </strong></div>
+                                    <div class="col-1">
+                                        <span title="Yet to Configure" *ngIf="AnnotationCode?.length<=0" class="icon-close-1 align-items-center"></span>
+                                        <span title="Configure" *ngIf="AnnotationCode?.length>0" class="completedIconcolor icon-complete align-items-center"></span>
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <emarking-annotation-settings></emarking-annotation-settings>
+
+                        </mat-expansion-panel>
+
+
+                        <mat-expansion-panel [disabled]="configloading == true" [expanded]="settingpanelOpenState"
+                            (opened)="settingpanelOpenState = true" (closed)="settingpanelOpenState = false" (click)="qigpnsclick($event, settingpanelOpenState)">
+                            <mat-expansion-panel-header title="{{( settingpanelOpenState == true  ? 'Collapse' : 'Expand') | translate }}">
+                                <mat-panel-title>
+
+                                    <div class="col-11"> <strong title="{{
+                                        'SetUp.QigConfig.LiveMarkingSettings' |
+                                        translate
+                                        }}"><span
+                                                class="icon-qig_settings"></span> {{
+                                            'SetUp.QigConfig.LiveMarkingSettings' |
+                                            translate
+                                            }}</strong></div>
+                                    <div class="col-1">
+                                        <span title="Yet to Configure" *ngIf="LiveMarkingCode?.length<=0" class="icon-close-1 align-items-center"></span>
+                                        <span title="Configured" *ngIf="LiveMarkingCode?.length>0" class="completedIconcolor icon-complete align-items-center"></span>
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <emarking-live-marking-settings></emarking-live-marking-settings>
+
+                        </mat-expansion-panel> 
+
+                        <mat-expansion-panel [disabled]="configloading == true" [expanded]="rdmpanelOpenState" (opened)="rdmpanelOpenState = true"
+                            (closed)="rdmpanelOpenState = false" (click)="qigpnsclick($event, rdmpanelOpenState)">
+                            <mat-expansion-panel-header title="{{( rdmpanelOpenState == true  ? 'Collapse' : 'Expand') | translate }}">
+                                <mat-panel-title>
+
+                                    <div class="col-11"> <strong title="{{'SetUp.Qig.Rc' | translate}}"><span class="icon-random_check"></span>
+                                            {{'SetUp.Qig.Rc' | translate}}</strong></div>
+                                    <div class="col-1">
+                                        <span title="Yet to Configure" *ngIf="RcSettingCode?.length<=0" class="icon-close-1 align-items-center"></span>
+                                        <span title="Configure" *ngIf="RcSettingCode?.length>0" class="completedIconcolor icon-complete align-items-center"></span>
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <emarking-random-check></emarking-random-check>
+
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel [disabled]="configloading == true" [expanded]="othersOpenState" (opened)="othersOpenState = true"
+                            (closed)="othersOpenState = false" (click)="qigpnsclick($event, othersOpenState)">
+                            <mat-expansion-panel-header title="{{( othersOpenState == true  ? 'Collapse' : 'Expand') | translate }}">
+                                <mat-panel-title>
+                                    <strong title="{{'SetUp.QigConfig.Others' | translate}}"><span class="icon-qig_settings"></span>
+                                        {{'SetUp.QigConfig.Others' | translate}}</strong>
+                                    <div class="col-11 hide"> <strong><span class="icon-qig_settings"></span>
+                                            {{'SetUp.QigConfig.Others' | translate}}</strong></div>
+                                    <div class="col-1 hide">
+                                        <span title="Yet to Configure" *ngIf="QigQuestionCode?.length<=0" class="icon-close-1 align-items-center"></span>
+                                        <span title="Configure" *ngIf="QigQuestionCode?.length>0" class="completedIconcolor icon-complete align-items-center"></span>
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <emarking-other-qig-settings></emarking-other-qig-settings>
+
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel [disabled]="configloading == true" [expanded]="qigsummeryOpenState"
+                            (opened)="qigsummeryOpenState = true" (closed)="qigsummeryOpenState = false" (click)="qigpnsclick($event, qigsummeryOpenState)">
+                            <mat-expansion-panel-header title="{{( qigsummeryOpenState == true  ? 'Collapse' : 'Expand') | translate }}">
+                                <mat-panel-title>
+                                    <strong title="{{'SetUp.QigConfig.QIGsummary' | translate}}"><span class="icon-qig_settings"></span> {{'SetUp.QigConfig.QIGsummary'
+                                        | translate}}</strong>
+
+                                    <div class="
+                                        col-11 hide"> <strong><span
+                                                class="icon-qig_settings"></span>
+                                            {{'SetUp.QigConfig.QIGsummary' | translate}}</strong>
+                                    </div>
+                                    <div class="col-1 hide">
+                                        <span title="Yet to Configure" *ngIf="QigQuestionCode?.length<=0" class="icon-close-1 align-items-center"></span>
+                                        <span title="Configure" *ngIf="QigQuestionCode?.length>0" class="completedIconcolor icon-complete align-items-center"></span>
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <emarking-qig-summary (getStdSetting)="reloadStdSetting($event)"></emarking-qig-summary>
+
+                        </mat-expansion-panel>
+
+                    </mat-accordion>
+
+                </fieldset>
+
+                <div class="mt-2 d-flex bd-highlight mb-3 ">
+                    <div class="d-flex justify-content-start">
+                        <button title="{{'General.Cancel' | translate}}" type="button" class="btn theme_button_light d-flex align-items-center "
+                            routerLink="/projects">
+                            <span class="icon-close"></span> {{'General.Cancel' | translate}}
+                        </button>
+                    </div>
+                 
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!datafound" class="text-center mt-3">
+        <strong id="errMessage">
+            {{errMessage}}
+        </strong>
+    </div>
+
+</div>

@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\ProjectSetUp\**" />
+    <Compile Remove="Entities\Standardisation\**" />
+    <EmbeddedResource Remove="Entities\ProjectSetUp\**" />
+    <EmbeddedResource Remove="Entities\Standardisation\**" />
+    <None Remove="Entities\ProjectSetUp\**" />
+    <None Remove="Entities\Standardisation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ViewModels\CommonModel.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Foundatio.Extensions.Hosting" Version="10.2.2" />
+    <PackageReference Include="Foundatio.Repositories.Elasticsearch" Version="7.15.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="6.0.21" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\BusinessInterface\Project\Standardisation\StdThree\" />
+    <Folder Include="Interfaces\RepositoryInterfaces\Project\Standardisation\StdThree\" />
+    <Folder Include="ViewModels\Categorisation\" />
+    <Folder Include="ViewModels\Project\ResponseProcessing\AutomaticQuestions\" />
+    <Folder Include="ViewModels\Project\Setup\ProjectUsers\" />
+    <Folder Include="ViewModels\Project\Standardisation\StdAssessment\" />
+    <Folder Include="ViewModels\Project\Standardisation\S3\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JwtToken\TokenLibrary.csproj" />
+    <ProjectReference Include="..\MediaService\MediaLibrary.csproj" />
+  </ItemGroup>
+ 
+</Project>

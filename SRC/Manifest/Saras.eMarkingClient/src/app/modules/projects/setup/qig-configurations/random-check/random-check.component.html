@@ -1,0 +1,178 @@
+<div class="row" [class.shimmer]="annloading">
+  <div class="row project_summary1">
+    <div class="col-md-4 col-xs-12  hide">
+      <span class=""> Total LivePool Script Count </span>
+      <strong class="">{{QigRandomcheckData?.TotalLivePoolScriptCount}}</strong></div>
+
+
+    <div class="col-md-2 col-xs-12 hide">
+      <span class=""> {{
+        'SetUp.QigConfig.Livepoolcount'
+        |
+        translate
+        }} </span>
+      <strong class="" title="Total scripts availble in the QIG &#8722; categarised scripts">{{QigRandomcheckData?.LivePoolCount}}</strong></div>
+
+    <div class="col-md-2 col-xs-12 hide">
+      <span class=""> {{
+        'SetUp.QigConfig.Consideredforrc1'
+        |
+        translate
+        }} </span>
+      <strong class="" title="Scripts availble for RC1">{{QigRandomcheckData?.SubmittedCount -
+        QigRandomcheckData?.FinalisedScriptCountLiveMarking}}</strong></div>
+
+    <div class="col-md-2 col-xs-12 hide">
+      <span class=""> {{
+        'SetUp.QigConfig.RC1selectedcount'
+        |
+        translate
+        }} </span>
+      <strong class="" title="Scripts selected in RC1">{{QigRandomcheckData?.RC1SelectedCount}}</strong></div>
+
+    <div class="col-md-3 col-xs-12 hide">
+      <span class=""> {{
+        'SetUp.QigConfig.Consideredforrc2'
+        |
+        translate
+        }} </span>
+      <strong class="" title="Scripts availble for RC2">{{QigRandomcheckData?.RC1SubmittedCount -
+        QigRandomcheckData?.FinalisedScriptCountRC2}}</strong></div>
+
+    <div class="col-md-2 col-xs-12 hide">
+      <span class=""> {{
+        'SetUp.QigConfig.RC2selectedcount'
+        |
+        translate
+        }} </span>
+      <strong class="" title="Scripts selected in RC2">{{QigRandomcheckData?.RC2SelectedCount}}</strong></div>
+
+  </div>
+
+  <div class="randm_che"> 
+         <mat-radio-group aria-label="Select an option">
+            <div class="mb-2" *ngFor="let rcitem of QigRandomcheckData?.RandomCheckSettings">
+                <div class=" float-start flor_r -rc-1">
+                  <div class="d-flex">
+                      <mat-radio-button [disabled]="QigRandomcheckData?.IsLiveMarkingEnabled" [ngModel]="rcitem?.Value"
+                      (ngModelChange)="rcitem.Value=$event" class="example-margin" [value]="rcitem?.Value" name="onetier"
+                      ngDefaultControl [checked]="rcitem?.Value" (change)="toggleRcType(rcitem?.AppSettingKeyID, QigRandomcheckData?.RandomCheckSettings, QigRandomcheckData)"
+                      title="{{rcitem?.AppsettingKey == 'RCT1' ? ('SetUp.QigConfig.Tier1RcCheck' | translate):('SetUp.QigConfig.Tier2RcCheck' | translate)}}">
+                    </mat-radio-button>
+
+                    <div class="martop2 mx-3">
+                      {{
+                      rcitem?.AppsettingKey
+                      == 'RCT1'?('SetUp.QigConfig.Tier1RcCheck' | translate):('SetUp.QigConfig.Tier2RcCheck' |
+                      translate)
+                      }}
+                    </div>
+                  </div>
+                  </div>
+
+                  <div class="mb-4 rc1_c col-4" *ngIf="rcitem?.AppsettingKey == 'RCT1'">
+                      <ng-container *ngFor="let rcchild of rcitem?.Children">
+                        <div class="col-12" *ngIf="rcchild?.AppsettingKey == 'SMPLRTT1'">
+                          <mat-form-field appearance="outline" class="w-100 mb-0">
+                            <mat-label>
+                              {{
+                              'SetUp.Qig.Rate1'
+                              |
+                              translate
+                              }}
+                            </mat-label>
+                            <input matInput oncut="return false" onDrop="return false" onPaste="return false" type="number"
+                              min="1" max="100" [ngModel]="rcchild?.Value" (ngModelChange)="rcchild.Value=$event"
+                              (keypress)="numericOnly($event);" autocomplete="off" (keydown.arrowup)="(false)"
+                              (keydown.arrowdown)="(false)" oninput="javascript: if (this.value?.length > max?.length) this.value = this.value.slice(0, max?.length);"
+                              (keydown)="validateNumber($event)" (keyup)="percFunRc1(rcchild?.Value,QigRandomcheckData?.LivePoolCount,QigRandomcheckData?.SubmittedCount);">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-4 d-flex align-items-center hide" *ngIf="rcchild?.AppsettingKey == 'JBTMT1'">
+                          <mat-form-field appearance="outline" class="w-100 mb-0">
+                            <mat-label>
+                              {{
+                              'SetUp.Qig.Duration'
+                              |
+                              translate
+                              }}
+                            </mat-label>
+                            <input matInput oncut="return false" onDrop="return false" onPaste="return false" type="number"
+                              min="1" max="1440" [ngModel]="rcchild?.Value" (ngModelChange)="rcchild.Value=$event"
+                              (keypress)="numericOnly($event)" autocomplete="off" (keydown.arrowup)="(false)"
+                              (keydown.arrowdown)="(false)" oninput="javascript: if (this.value?.length > max?.length) this.value = this.value.slice(0, max?.length);"
+                              (keydown)="validateNumber($event)">
+                          </mat-form-field>
+                        </div>
+  
+                      </ng-container>
+  
+                    </div>
+
+                  <div class="mb-2 rc2_c col-4" *ngIf="rcitem?.AppsettingKey == 'RCT2' && QigRandomcheckData?.RcType == 2">
+                    <div class="row">
+                      <div class="col-12">
+                        <ng-container *ngFor="let rcchild of rcitem?.Children">
+                          <div class="col-12" *ngIf="rcchild?.AppsettingKey == 'SMPLRTT2'">
+                            <mat-form-field appearance="outline" class="w-100 mb-0">
+                              <mat-label>
+                                {{
+                                'SetUp.Qig.Rate2'
+                                |
+                                translate
+                                }}
+                              </mat-label>
+                              <input matInput oncut="return false" onDrop="return false" onPaste="return false" type="number"
+                                min="1" max="100" [ngModel]="rcchild?.Value" (ngModelChange)="rcchild.Value=$event"
+                                (keypress)="numericOnly($event);" autocomplete="off" (keydown.arrowup)="(false)"
+                                (keydown.arrowdown)="(false)" oninput="javascript: if (this.value?.length > max?.length) this.value = this.value.slice(0, max?.length);"
+                                (keydown)="validateNumber($event)" (keyup)="percFunRc2(rcchild?.Value,QigRandomcheckData?.RC1SubmittedCount,QigRandomcheckData?.LivePoolCount);">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-4 d-flex align-items-center hide" *ngIf="rcchild?.AppsettingKey == 'JBTMT2'">
+                            <mat-form-field appearance="outline" class="w-100 mb-0">
+                              <mat-label>
+                                {{
+                                'SetUp.Qig.Duration'
+                                |
+                                translate
+                                }}
+                              </mat-label>
+                              <input matInput oncut="return false" onDrop="return false" onPaste="return false" type="number"
+                                min="1" max="1440" [ngModel]="rcchild?.Value" (ngModelChange)="rcchild.Value=$event"
+                                (keypress)="numericOnly($event)" autocomplete="off" (keydown.arrowup)="(false)"
+                                (keydown.arrowdown)="(false)" oninput="javascript: if (this.value?.length > max?.length) this.value = this.value.slice(0, max?.length);"
+                                (keydown)="validateNumber($event)">
+                            </mat-form-field>
+                          </div>
+
+
+                        </ng-container>
+                      </div>
+
+
+
+
+                    </div>
+
+
+
+                  </div>
+
+            </div>
+          </mat-radio-group>
+       
+        
+  </div>
+</div>
+
+<div class="paddingdn hide">
+  <strong>{{'SetUp.QigConfig.Note' | translate}}: </strong><span>{{'SetUp.QigConfig.NoteWarning' | translate}}
+  </span>
+</div>
+<div class="d-flex justify-content-end mt-4" [class.shimmer]="annloading">
+  <button type="button" (click)="saveqig(QigRandomcheckData)" class="btn theme_button d-flex align-items-center" title="{{'General.Save' | translate}}">
+    <span class="icon-save-1"></span>
+    {{'General.Save' | translate}}
+  </button>
+</div>

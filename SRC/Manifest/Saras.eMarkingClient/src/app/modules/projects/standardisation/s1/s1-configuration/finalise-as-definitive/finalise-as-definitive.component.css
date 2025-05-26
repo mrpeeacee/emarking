@@ -1,0 +1,84 @@
+.marked {
+    background: #06CF02;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.back_btn {
+  float: left;
+  position: relative;
+  top: 0px;
+  margin: 0;
+  margin-bottom: 10px;
+}
+.nonmarked {
+    background: #e2cbcb;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+
+.selct_sel {
+    width: 200px;
+
+    margin-bottom: 0px;
+    margin-right: 20px;
+}
+
+.cs_tn {
+    width: 100px;
+}
+
+.icon-complete {
+    cursor: pointer !important;
+}
+
+.scroll_roles {
+    width: 100%;
+    height: 250px;
+}
+
+.card_box {
+    margin-bottom: 0px;
+    position: relative;
+}
+
+.row-childrow-inner {
+    border-bottom: 1px solid #ccc;
+}
+
+
+.cat_summary strong {
+    float: right;
+}
+
+.fin_pop_scr{ height: 150px;}
+
+.row_hd strong{ display: block; }
+
+.table_cat td{
+    padding: 10px;
+    min-width: 112px;
+}
+
+.child_cat{ float: left;
+    margin-right: 10px;
+}
+.catgr .child_cat:last-child span{
+   display: none;
+}
+
+.table_cat th{ font-weight:bold}
+.row_card strong{
+    font-size: 12px;
+    top: 1px;
+}
+/* .back_btn{
+    margin-bottom: 0px;
+} */
+.row-header{
+    font-size: 12px;
+}

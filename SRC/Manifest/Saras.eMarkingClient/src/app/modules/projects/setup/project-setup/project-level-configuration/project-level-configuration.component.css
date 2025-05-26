@@ -1,0 +1,84 @@
+.project_levl input {
+    padding: 11px;
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid #767474;
+    border-radius: 4px;
+}
+.project_child label{ margin-bottom: 15px;}
+
+.project_sche {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 27px;
+   
+}
+
+.project_border_line {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 20px
+}
+
+.project_border_line_top {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 20px
+}
+
+.project_radi {
+    margin-left: 50px;
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.project_sche input[type="color"] {
+    width: 25px;
+    height: 20px;
+    float: right;
+    margin: 0px 40px 10px 10px;
+
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  appearance: textfield;
+}
+
+.rndm_name{
+    padding-bottom: 20px;
+}
+
+#project_sche {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 27px;
+}
+
+#button {
+    padding-top: 5px;
+}
+
+.prg_name {
+    padding-bottom: 15px;
+    padding-top: 15px;
+    font-size: 13px;
+}
+
+.duration {
+    float:left;
+    width:230px;
+    padding-right: 25px;
+    margin-right: 12px;
+}
+
+#save{
+    padding-top: 5px;
+    padding-bottom: 10px;
+}

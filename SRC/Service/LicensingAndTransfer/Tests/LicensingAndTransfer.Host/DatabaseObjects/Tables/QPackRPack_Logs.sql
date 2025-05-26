@@ -1,0 +1,12 @@
+IF EXISTS (SELECT TOP 1 1 FROM [SYS].[OBJECTS] WHERE [OBJECT_ID] = OBJECT_ID(N'[dbo].[QPackRPack_Logs]') AND [TYPE] in (N'U'))
+    DROP PROCEDURE [dbo].[QPackRPack_Logs]
+GO
+CREATE TABLE [QPackRPack_Logs]
+(
+    ID BIGINT IDENTITY(1,1) PRIMARY KEY,
+    Date DATETIME,
+    MessageDescription NVARCHAR(MAX) NULL,
+    ErrorMessage NVARCHAR(MAX) NULL,
+    ErrorStackTrace NVARCHAR(MAX) NULL
+)
+GO

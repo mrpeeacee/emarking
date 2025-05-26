@@ -1,0 +1,170 @@
+<div>
+  <div class="d-flex justify-content-between" mat-dialog-title>
+    <div class="row col-12">
+      <div class="col-6 d-flex justify-content-start">
+        <div class="col-6" title="{{'SetUp.UserManagement.createuser' | translate}}">{{'SetUp.UserManagement.createuser'
+          | translate}}</div>
+      </div>
+      <div class="col-6 d-flex justify-content-end">
+        <button type="button" class="btn-close" title="{{'shared.close' | translate}}" (click)="createuserclose()"
+          tabindex="-1">
+        </button>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-content class="mat-typography">
+    <div class="row mt-4" [class.shimmer]=ispageloading>
+      <form class="form-horizontal" [formGroup]="ProjectForm" #formDirective="ngForm" #createform="ngForm" (ngSubmit)="SaveUser()">
+
+        <div class="col-md-12 row">
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'SetUp.UserManagement.username' | translate}}</mat-label>
+              <input formControlName="username" ng-pattern="[A-Za-z0-9._%-]" placeholder="{{'SetUp.UserManagement.username' | translate}}"
+                matInput ngDefaultControl (onclick)="CheckmandatoryFields($event)">
+
+              <mat-error *ngIf="ProjectForm.get('username')?.errors">
+                <mat-error *ngIf="ProjectForm.get('username').errors.required" class="login_err">
+                  {{'SetUp.UserManagement.usernamerequired' | translate}}</mat-error>
+                <mat-error *ngIf="ProjectForm.get('username')?.hasError('username_err')" class="login_err">
+                  {{'SetUp.UserManagement.invalidusernameformat' | translate}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{'SetUp.UserManagement.loginname' | translate}}
+              </mat-label>
+              <input formControlName="loginname" matInput placeholder="{{'SetUp.UserManagement.loginname' | translate}}"
+                ngDefaultControl>
+              <mat-error *ngIf="ProjectForm.get('loginname')?.errors">
+                <mat-error *ngIf="ProjectForm.get('loginname').errors.required" class="login_err">
+                  {{'SetUp.UserManagement.loginnamerequired' | translate}}</mat-error>
+                <mat-error *ngIf="ProjectForm.get('loginname').errors.pattern" class="login_err">
+                  {{'SetUp.UserManagement.validemailaddress' | translate}}</mat-error>
+                <mat-error *ngIf="ProjectForm.get('loginname').errors?.cannotContainSpace" class="login_err">
+                  {{'SetUp.UserManagement.loginnamespace' | translate}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field appearance="fill">
+              <mat-label>{{'SetUp.UserManagement.schoolname' | translate}}</mat-label>
+              <mat-select formControlName="sendingschool">
+                <mat-option *ngFor="let schlt of SchoolList" [value]="schlt?.SchoolCode" ngDefaultControl>
+                  {{ schlt.SchoolName }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ProjectForm.get('sendingschool')?.errors">
+                <mat-error *ngIf="ProjectForm.get('sendingschool').errors.required" class="login_err">Sending
+                  {{'SetUp.UserManagement.schoolnamerequired' | translate}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field appearance="fill">
+              <mat-label>{{'SetUp.UserManagement.role' | translate}}</mat-label>
+              <mat-select formControlName="role" #ddlrole (selectionChange)="onSchoolSelChange($event)">
+                <mat-option *ngFor="let rolelt of roledata" [value]="rolelt?.RoleCode" ngDefaultControl>
+                  {{ rolelt.RoleName }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ProjectForm.get('role')?.errors">
+                <mat-error *ngIf="ProjectForm.get('role').errors.required" class="login_err">
+                  {{'SetUp.UserManagement.rolerequired' | translate}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field appearance="fill">
+              <mat-label class="lable">{{'SetUp.UserManagement.appoitmentstartdate' | translate}}</mat-label>
+              <input tabindex="-1" onDrop="return false" oncut="return false" onPaste="return false" matInput class="curdefault"
+                ngDefaultControl [matDatepicker]="frompicker" id="StartDate" formControlName="startdate" [min]="minimumdate"
+                placeholder="{{'SetUp.UserManagement.appoitmentstartdate' | translate}}" readonly>
+              <mat-datepicker-toggle title="Start Date" matSuffix [for]="frompicker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #frompicker></mat-datepicker>
+              <mat-error *ngIf="ProjectForm.get('startdate')?.errors">
+                <mat-error *ngIf="ProjectForm.get('startdate').errors.required" class="login_err">
+                  {{'SetUp.UserManagement.startdaterequired' | translate}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field appearance="fill">
+              <mat-label class="lable">{{'SetUp.UserManagement.appoitmentenddate' | translate}}</mat-label>
+              <input tabindex="-1" onDrop="return false" oncut="return false" onPaste="return false" matInput class="curdefault"
+                ngDefaultControl [matDatepicker]="topicker" id="FromDate" formControlName="enddate" placeholder="{{'SetUp.UserManagement.appoitmentenddate' | translate}}"
+                [min]="minimumdate" readonly>
+              <mat-datepicker-toggle title="End Date" matSuffix [for]="topicker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #topicker></mat-datepicker>
+              <mat-error *ngIf="ProjectForm.get('enddate')?.errors">
+                <mat-error *ngIf="ProjectForm.get('enddate').errors.required" class="login_err">
+                  {{'SetUp.UserManagement.enddaterequired' | translate}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{'SetUp.UserManagement.nric' | translate}}
+              </mat-label>
+              <input matInput placeholder="{{'SetUp.UserManagement.nric' | translate}}" formControlName="nric" class=""
+                maxlength="9" minlength="9" ngDefaultControl>
+              <mat-error *ngIf="ProjectForm.get('nric')?.errors">
+                <mat-error *ngIf="ProjectForm.get('nric').errors.required" class="login_err">
+                  {{'SetUp.UserManagement.nricrequired' | translate}}</mat-error>
+                <mat-error *ngIf="ProjectForm.get('nric').errors?.cannotContainSpace" class="login_err">
+                  {{'SetUp.UserManagement.space' | translate}}</mat-error>
+                <mat-error *ngIf="ProjectForm.get('nric').errors?.pattern" class="login_err">
+                  {{'SetUp.UserManagement.nricformat' | translate}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{'SetUp.UserManagement.phone' | translate}}
+              </mat-label>
+              <input matInput placeholder="{{'SetUp.UserManagement.phone' | translate}}" type="tel" 
+                formControlName="phone" maxlength="10" minlength="10" ngDefaultControl>
+              <mat-error *ngIf="ProjectForm.get('phone')?.errors">
+                <mat-error *ngIf="ProjectForm.get('phone').errors.required" class="login_err">
+                  {{'SetUp.UserManagement.phonerequired' | translate}}</mat-error>
+                <mat-error *ngIf="ProjectForm.get('phone').errors.phone" class="login_err">
+                  {{'SetUp.UserManagement.validphone' | translate}}</mat-error>
+                <mat-error *ngIf="ProjectForm.get('phone').errors?.cannotContainSpace" class="login_err">
+                  {{'SetUp.UserManagement.phonespace' | translate}}</mat-error>
+                <mat-error *ngIf="ProjectForm.get('phone').errors?.pattern" class="login_err">
+                  {{'SetUp.UserManagement.validphone' | translate}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn theme_button d-flex align-items-center" [class.shimmer]="ispageloading" mat-raised-button
+            title="{{'SetUp.UserManagement.save' | translate}}"><span class="icon-save-1"></span>{{'SetUp.UserManagement.save'
+            | translate}}</button>
+        </div>
+      </form>
+    </div>
+  </mat-dialog-content>
+</div>

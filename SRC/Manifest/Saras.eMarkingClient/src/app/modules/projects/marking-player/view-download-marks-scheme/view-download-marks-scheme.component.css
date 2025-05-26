@@ -1,0 +1,23 @@
+.custpl{
+    padding-left: 14px;
+}
+
+.card_box_sticky {
+  border-bottom: 1px solid #ccc;
+}
+
+.row-childrow {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 2px 10px;
+}
+
+.caption{ font-size:12px; font-weight:bold}
+.displaycontent{
+    margin-left:-12px;
+}
+
+.fileheaderfont{
+  font-size: 12px;
+    font-weight: 700;
+}

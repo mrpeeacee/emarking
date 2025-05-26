@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://LicensingAndTransfer.DataContracts/2010/01" elementFormDefault="qualified" targetNamespace="http://LicensingAndTransfer.DataContracts/2010/01" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1189/LicensingAndTransfer.Host/LicensingAndTransfer.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" />
+  <xs:complexType name="ArrayOfTestCenter">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestCenter" nillable="true" type="tns:TestCenter" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTestCenter" nillable="true" type="tns:ArrayOfTestCenter" />
+  <xs:complexType name="TestCenter">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:long" />
+      <xs:element name="MacID" nillable="true" type="xs:string" />
+      <xs:element name="CenterName" nillable="true" type="xs:string" />
+      <xs:element name="CenterCode" nillable="true" type="xs:string" />
+      <xs:element name="IsAvailable" type="xs:boolean" />
+      <xs:element name="AddressID" type="xs:long" />
+      <xs:element name="CreatedBy" type="xs:long" />
+      <xs:element name="CreatedDate" type="xs:dateTime" />
+      <xs:element name="ModifiedBy" type="xs:long" />
+      <xs:element name="ModifiedDate" type="xs:dateTime" />
+      <xs:element name="ParentID" type="xs:long" />
+      <xs:element name="LocationID" type="xs:long" />
+      <xs:element name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TestCenter" nillable="true" type="tns:TestCenter" />
+  <xs:complexType name="ArrayOfPackageStatistics">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PackageStatistics" nillable="true" type="tns:PackageStatistics" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPackageStatistics" nillable="true" type="tns:ArrayOfPackageStatistics" />
+  <xs:complexType name="PackageStatistics">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:long" />
+      <xs:element name="ScheduleID" type="xs:long" />
+      <xs:element name="TestCenterID" type="xs:long" />
+      <xs:element name="PackageType" nillable="true" type="xs:string" />
+      <xs:element name="GeneratedDate" type="xs:dateTime" />
+      <xs:element name="TransferredToDataExchangeServer" type="xs:boolean" />
+      <xs:element name="TransferredToDataExchangeServerOn" type="xs:dateTime" />
+      <xs:element name="TransferredToTestCenter" type="xs:boolean" />
+      <xs:element name="TransferredToTestCenterOn" type="xs:dateTime" />
+      <xs:element name="TransferredToDataCenterDistributed" type="xs:boolean" />
+      <xs:element name="TransferredToDataCenterDistributedOn" type="xs:dateTime" />
+      <xs:element name="TransferredToDataCenterCentralized" type="xs:boolean" />
+      <xs:element name="TransferredToDataCenterCentralizedOn" type="xs:dateTime" />
+      <xs:element name="RecievedFromDataExchangeServer" type="xs:int" />
+      <xs:element name="RecievedFromDataExchangeServerOn" type="xs:dateTime" />
+      <xs:element name="RecievedFromTestCenter" type="xs:int" />
+      <xs:element name="RecievedFromTestCenterOn" type="xs:dateTime" />
+      <xs:element name="RecievedFromDataCenterDistributed" type="xs:int" />
+      <xs:element name="RecievedFromDataCenterDistributedOn" type="xs:dateTime" />
+      <xs:element name="RecievedFromDataCenterCentralized" type="xs:int" />
+      <xs:element name="RecievedFromDataCenterCentralizedOn" type="xs:dateTime" />
+      <xs:element name="PackageName" nillable="true" type="xs:string" />
+      <xs:element name="PackagePassword" nillable="true" type="xs:string" />
+      <xs:element name="PackagePath" nillable="true" type="xs:string" />
+      <xs:element name="OrganizationID" type="xs:long" />
+      <xs:element name="OrganizationName" nillable="true" type="xs:string" />
+      <xs:element name="DivisionID" type="xs:long" />
+      <xs:element name="DivisionName" nillable="true" type="xs:string" />
+      <xs:element name="ProcessID" type="xs:long" />
+      <xs:element name="ProcessName" nillable="true" type="xs:string" />
+      <xs:element name="EventID" type="xs:long" />
+      <xs:element name="EventName" nillable="true" type="xs:string" />
+      <xs:element name="BatchID" type="xs:long" />
+      <xs:element name="BatchName" nillable="true" type="xs:string" />
+      <xs:element name="TestCenterName" nillable="true" type="xs:string" />
+      <xs:element name="ScheduleDate" type="xs:dateTime" />
+      <xs:element name="ScheduleStartDate" type="xs:dateTime" />
+      <xs:element name="ScheduleEndDate" type="xs:dateTime" />
+      <xs:element name="LeadTimeForQPackDispatchInMinutes" type="xs:int" />
+      <xs:element name="DeleteQPackAfterExamination" type="xs:boolean" />
+      <xs:element name="RPackToBeSentImmediatelyAfterExamination" type="xs:boolean" />
+      <xs:element name="RPackToBeSentAtEOD" type="xs:boolean" />
+      <xs:element name="DeleteRPackAfterExamination" type="xs:boolean" />
+      <xs:element name="DeleteRPackAtEOD" type="xs:boolean" />
+      <xs:element name="PackageDeletedStatus" type="xs:boolean" />
+      <xs:element name="IsCentralizedPackage" type="xs:boolean" />
+      <xs:element name="Extension1" nillable="true" type="xs:string" />
+      <xs:element name="Extension2" nillable="true" type="xs:string" />
+      <xs:element name="Extension3" nillable="true" type="xs:string" />
+      <xs:element name="Extension4" nillable="true" type="xs:string" />
+      <xs:element name="Extension5" nillable="true" type="xs:string" />
+      <xs:element name="ScheduleDetailID" type="xs:long" />
+      <xs:element name="LoadedDateTestCenter" type="xs:dateTime" />
+      <xs:element name="IsPackageGenerated" type="xs:boolean" />
+      <xs:element name="IsLatest" type="xs:boolean" />
+      <xs:element name="LoadedDateCentralized" type="xs:dateTime" />
+      <xs:element name="LoadedDateDistributed" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PackageStatistics" nillable="true" type="tns:PackageStatistics" />
+  <xs:complexType name="ArrayOfPackageDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PackageDetails" nillable="true" type="tns:PackageDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPackageDetails" nillable="true" type="tns:ArrayOfPackageDetails" />
+  <xs:complexType name="PackageDetails">
+    <xs:sequence>
+      <xs:element name="ScheduleDetailID" type="xs:long" />
+      <xs:element name="CenterID" type="xs:long" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" name="Operation" type="q1:PackageOperation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PackageDetails" nillable="true" type="tns:PackageDetails" />
+  <xs:complexType name="ArrayOfPackageLoadedDate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PackageLoadedDate" nillable="true" type="tns:PackageLoadedDate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPackageLoadedDate" nillable="true" type="tns:ArrayOfPackageLoadedDate" />
+  <xs:complexType name="PackageLoadedDate">
+    <xs:sequence>
+      <xs:element name="PackageName" nillable="true" type="xs:string" />
+      <xs:element name="LoadedDateTestCenter" type="xs:dateTime" />
+      <xs:element name="LoadedDateCentralized" type="xs:dateTime" />
+      <xs:element name="LoadedDateDistributed" type="xs:dateTime" />
+      <xs:element name="Extension5" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PackageLoadedDate" nillable="true" type="tns:PackageLoadedDate" />
+  <xs:complexType name="ArrayOfBatch">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Batch" nillable="true" type="tns:Batch" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBatch" nillable="true" type="tns:ArrayOfBatch" />
+  <xs:complexType name="Batch">
+    <xs:sequence>
+      <xs:element name="ScheduleDetailID" type="xs:long" />
+      <xs:element name="UserID" type="xs:long" />
+      <xs:element name="TestCenterID" type="xs:long" />
+      <xs:element name="PreviousEndDate" type="xs:dateTime" />
+      <xs:element name="PresentEndDate" type="xs:dateTime" />
+      <xs:element name="IsNotified" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Batch" nillable="true" type="tns:Batch" />
+  <xs:complexType name="ArrayOfUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="User" nillable="true" type="tns:User" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUser" nillable="true" type="tns:ArrayOfUser" />
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element name="UserID" type="xs:long" />
+      <xs:element name="FirstName" nillable="true" type="xs:string" />
+      <xs:element name="LoginName" nillable="true" type="xs:string" />
+      <xs:element name="Password" nillable="true" type="xs:string" />
+      <xs:element name="Email" nillable="true" type="xs:string" />
+      <xs:element name="LastName" nillable="true" type="xs:string" />
+      <xs:element name="ClassID" type="xs:long" />
+      <xs:element name="YearID" type="xs:int" />
+      <xs:element name="UserType" type="xs:long" />
+      <xs:element name="OrganizationID" type="xs:long" />
+      <xs:element name="CreatedBy" type="xs:long" />
+      <xs:element name="CreatedDate" type="xs:dateTime" />
+      <xs:element name="ModifiedBy" type="xs:long" />
+      <xs:element name="ModifiedDate" type="xs:dateTime" />
+      <xs:element name="IsDeleted" type="xs:boolean" />
+      <xs:element name="IsOffLineAuthoring" type="xs:boolean" />
+      <xs:element name="IsLoggedIN" type="xs:boolean" />
+      <xs:element name="IsActive" type="xs:boolean" />
+      <xs:element name="IsApprove" type="xs:boolean" />
+      <xs:element name="IsAllowEdit" type="xs:boolean" />
+      <xs:element name="ManagerID" type="xs:long" />
+      <xs:element name="UserCode" nillable="true" type="xs:string" />
+      <xs:element name="IsFirstTimeLoggedIn" type="xs:boolean" />
+      <xs:element name="OfficeID" type="xs:long" />
+      <xs:element name="SectionID" type="xs:long" />
+      <xs:element name="IsManager" type="xs:boolean" />
+      <xs:element name="LoginCount" type="xs:int" />
+      <xs:element name="PasswordLastModifiedDate" type="xs:dateTime" />
+      <xs:element name="AdditionalTimeInPercent" type="xs:decimal" />
+      <xs:element name="IsBlock" type="xs:boolean" />
+      <xs:element name="CourseType" nillable="true" type="xs:string" />
+      <xs:element name="Course" nillable="true" type="xs:string" />
+      <xs:element name="EnrollmentNumber" nillable="true" type="xs:string" />
+      <xs:element name="LastLoginDate" type="xs:dateTime" />
+      <xs:element name="LastLogoutDate" type="xs:dateTime" />
+      <xs:element name="LocationID" type="xs:long" />
+      <xs:element name="AnnotationSettings" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="User" nillable="true" type="tns:User" />
+  <xs:complexType name="ArrayOfRole">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Role" nillable="true" type="tns:Role" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRole" nillable="true" type="tns:ArrayOfRole" />
+  <xs:complexType name="Role">
+    <xs:sequence>
+      <xs:element name="ListRoleToPrivilages" nillable="true" type="tns:ArrayOfRoleToPrivilages" />
+      <xs:element name="RoleID" type="xs:long" />
+      <xs:element name="RoleName" nillable="true" type="xs:string" />
+      <xs:element name="RoleDescription" nillable="true" type="xs:string" />
+      <xs:element name="IsDeleted" type="xs:boolean" />
+      <xs:element name="RoleType" type="xs:long" />
+      <xs:element name="CustomerID" type="xs:long" />
+      <xs:element name="DocumentId" type="xs:long" />
+      <xs:element name="DocumentUrl" nillable="true" type="xs:string" />
+      <xs:element name="Code" nillable="true" type="xs:string" />
+      <xs:element name="MetadataID" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role" nillable="true" type="tns:Role" />
+  <xs:complexType name="ArrayOfRoleToPrivilages">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoleToPrivilages" nillable="true" type="tns:RoleToPrivilages" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoleToPrivilages" nillable="true" type="tns:ArrayOfRoleToPrivilages" />
+  <xs:complexType name="RoleToPrivilages">
+    <xs:sequence>
+      <xs:element name="RtoPID" type="xs:long" />
+      <xs:element name="RoleId" type="xs:long" />
+      <xs:element name="PrivilageId" type="xs:long" />
+      <xs:element name="IsDeleted" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoleToPrivilages" nillable="true" type="tns:RoleToPrivilages" />
+  <xs:complexType name="ArrayOfOrganization">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Organization" nillable="true" type="tns:Organization" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrganization" nillable="true" type="tns:ArrayOfOrganization" />
+  <xs:complexType name="Organization">
+    <xs:sequence>
+      <xs:element name="OrganizationID" type="xs:long" />
+      <xs:element name="OrganizationName" nillable="true" type="xs:string" />
+      <xs:element name="CustomerNumber" nillable="true" type="xs:string" />
+      <xs:element name="PostCode" nillable="true" type="xs:string" />
+      <xs:element name="OrganizationCode" nillable="true" type="xs:string" />
+      <xs:element name="PhoneNo" nillable="true" type="xs:string" />
+      <xs:element name="EmailID" nillable="true" type="xs:string" />
+      <xs:element name="WebAddress" nillable="true" type="xs:string" />
+      <xs:element name="Notes" nillable="true" type="xs:string" />
+      <xs:element name="IsDeleted" type="xs:boolean" />
+      <xs:element name="StandardPassword" nillable="true" type="xs:string" />
+      <xs:element name="IsBlocked" type="xs:boolean" />
+      <xs:element name="ParentID" type="xs:long" />
+      <xs:element name="LocationCode" nillable="true" type="xs:string" />
+      <xs:element name="AllowStudentsToCreatePassword" type="xs:boolean" />
+      <xs:element name="AllowTeachersToCreatePassword" type="xs:boolean" />
+      <xs:element name="OrganizationType" type="xs:int" />
+      <xs:element name="ContactPerson" type="xs:long" />
+      <xs:element name="Logo" type="xs:long" />
+      <xs:element name="CountryID" type="xs:long" />
+      <xs:element name="LocationHead" nillable="true" type="xs:string" />
+      <xs:element name="CreatedDate" type="xs:dateTime" />
+      <xs:element name="ModifiedDate" type="xs:dateTime" />
+      <xs:element name="Theme" nillable="true" type="xs:string" />
+      <xs:element name="TestPlayerConcurrentUsers" type="xs:long" />
+      <xs:element name="LegalName" nillable="true" type="xs:string" />
+      <xs:element name="StartDate" type="xs:dateTime" />
+      <xs:element name="EndDate" type="xs:dateTime" />
+      <xs:element name="OrganizationTypeID" type="xs:int" />
+      <xs:element name="MetadataID" type="xs:long" />
+      <xs:element name="CreatedBy" type="xs:long" />
+      <xs:element name="ModifiedBy" type="xs:long" />
+      <xs:element name="LocationID" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Organization" nillable="true" type="tns:Organization" />
+</xs:schema>

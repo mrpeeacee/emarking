@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="body_box">
+        <div class="candidatindex hide"> Candidate Index : {{ candidateindex }}</div>
+        <div class="float-end mx-2 mb-2">
+            <button type="button" class="btn theme_button_light float-end align-items-center" title="Cancel"
+            (click)="clickMethod($event)">
+      <span class="icon-close "></span>Cancel</button>
+      <button [disabled]="UserResponses.length == 0" title="Download As PDF" (click)="downloadPdf()" class="btn theme_button d-flex align-items-center hide">Download
+                As PDF</button>
+            </div>
+        <div #divUserResponse id="exportthis" >
+
+            <table  *ngFor="let objUserResponse of UserResponses; let i = index;" class="table_question" aria-hidden="true">
+                <tr>
+                    <td style="width:50px" rowspan="2">
+                        <div  style="width: 100%;text-align: center;font-size: 15px;font-weight: bold;border: 1px solid #000;">{{objUserResponse.QuestionCode}}</div>
+                        
+                    </td>
+                    <td>
+                        <div [innerHTML]="objUserResponse.QuestionText"></div>
+                    </td>
+                </tr>
+                <tr *ngIf="objUserResponse.QuestionType==10">
+
+                    <td>
+                        <div style="margin-bottom:10px">{{objUserResponse.ResponseText}}</div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="(objUserResponse.QuestionType==11||objUserResponse.QuestionType==12) && objUserResponse?.Choices?.length>0">
+                    <td>
+                        <div *ngFor="let objchoices of objUserResponse?.Choices; let c = index;">
+                            <ul class="choice">
+                                <li>
+                                    <div class="d-flex">
+                                        <input type="checkbox" disabled [checked]="isChecked(c + 1, objUserResponse.ResponseText)" />
+                                        <div id="chkChoices{{c+1}}" class="numbers">{{c+1}}.</div>
+                                        <div id="bloc2" [innerHTML]="objchoices?.OptionText"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>

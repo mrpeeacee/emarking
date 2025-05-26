@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<assessment id="121" version="1.0">
+  <questions>
+    <question slno="1">
+      <questionID>1</questionID>
+      <questionGUID>AMS_08c2744a-4518-4bc0-a240-3103fe34e726</questionGUID>
+      <assetTypeName>Multiple Choice Static</assetTypeName>
+      <assetTypeCode>AS009</assetTypeCode>
+      <isUnscored>0</isUnscored>
+      <languageID>1</languageID>
+    </question>
+  </questions>
+  <choices>
+    <questionID>1</questionID>
+    <questionChoices>
+      <questionChoice>
+        
+      </questionChoice>
+    </questionChoices>
+  </choices>
+</assessment>

@@ -1,0 +1,23 @@
+<div class="container cust-container" >
+
+    <h1 mat-dialog-title><strong>{{'SetUp.UserManagement.moveteam' | translate}}</strong></h1>
+  <form class="form-horizontal" [formGroup]="CopyForm">
+  
+    <mat-form-field appearance="fill">
+      <mat-label>{{'SetUp.UserManagement.selectqig' | translate}}</mat-label>
+      <mat-select multiple  formControlName="Qigs">
+        <mat-option  *ngFor="let qig of LtEmptyQigIds" [value]="qig?.QigIds" ngDefaultControl>{{qig?.QigName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="row" *ngIf="LtEmptyQigIds.length <= 0">
+      <span>{{'SetUp.UserManagement.NoQIGfound' | translate}}</span>
+    </div>
+    <div mat-dialog-actions>
+        <button [class.shimmer]="IsLoading" mat-button [mat-dialog-close]="true" class="btn theme_button"  (click) ="MoveExistingMarkingTeamToEmptyQig();"
+        title="{{'shared.confirm' | translate}}"  [disabled]="IsLoading">{{'shared.confirm'
+          | translate}}</button>
+        <button mat-button [mat-dialog-close]="false" class="btn theme_button_light" title="{{'shared.close' | translate}}">{{'shared.close'
+          | translate}}</button>
+      </div>
+    </form>
+</div>

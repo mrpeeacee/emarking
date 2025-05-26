@@ -1,0 +1,11 @@
+<div class="errorppage">
+
+  <img src="{{ErrorImg}}" alt="PageNotFound" />
+
+  <h2 *ngIf="showwrongmessage">{{ErrorTitle}}</h2>
+
+  <button mat-raised-button class="btn theme_button theme_curve" [routerLink]="['/login']">
+    Login
+  </button>
+
+</div>

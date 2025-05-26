@@ -1,0 +1,419 @@
+<div class="container">
+    <div class="body_box">
+        <emarking-qig-tab [OnlyIsKpTab]="true" (selectQigEvent)="getQigDetails($event)">
+        </emarking-qig-tab>
+
+        <div *ngIf="activeQig != null && activeQig != undefined" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+            <fieldset>
+                <legend aria-hidden="true" class="hide"></legend>
+
+                <div class="row">
+                    <div class="col-md-12 bd-highlight">
+                        <div class="card_box project_summary" *ngIf="!IsS1Required" role="alert" ngDefaultControl>
+                            <div class="no_std_req">
+                                <strong class="icon-info-1"></strong> <span>
+                                    {{
+                                    'Std.SetUp.IsS1Req' |
+                                    translate
+                                    }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="IsS1Required">
+                    <div class="col-md-12 bd-highlight">
+                        <div class="card_box project_summary">
+                            <h3 class="mb-1">{{'Std.SetUp.kp' | translate}}</h3>
+                            <p>{{'Std.SetUp.kpdesc' | translate}}</p>
+                            <div class="Key_pers">
+                                <div class="row mt-1 mb-1 hd">
+                                    <div class="col-2 mb-2">
+                                        <mat-checkbox class="example-margin primary" [checked]="isCheckedAO" [disabled]="disableAO">
+                                        </mat-checkbox> {{'Std.SetUp.ao' | translate}}
+                                    </div>
+
+                                    <div class="col-2 mb-2">
+                                        <mat-checkbox class="example-margin primary" [checked]="isCheckedCM" [disabled]="disableCM">
+                                        </mat-checkbox> {{'Std.SetUp.cm' | translate}}
+                                    </div>
+
+                                    <div class="col-2 mb-2">
+                                        <mat-checkbox class="example-margin primary" [checked]="isCheckedACM"
+                                            [disabled]="disableACM">
+                                        </mat-checkbox> {{'Std.SetUp.acm' | translate}}
+                                    </div>
+
+                                    <div class="col-2">
+                                        <mat-checkbox class="example-margin primary" [disabled]="disableTL  || TL?.IsKpTrialmarkedorcategorised || this.Ispauseoronholdors1completed"
+                                            ngDefaultControl [(ngModel)]="isTl" [checked]="isTl == true" (change)="toggleTL($event)"></mat-checkbox>
+                                        {{'Std.SetUp.tl' | translate}}
+                                    </div>
+                                    <div class="col-2">
+                                        <mat-checkbox class="example-margin primary" [disabled]="disableATL  || TL?.IsKpTrialmarkedorcategorised || this.Ispauseoronholdors1completed"
+                                            ngDefaultControl [(ngModel)]="isATl" [checked]="isATl == true" (change)="toggleATL($event)"></mat-checkbox>
+                                        {{'Std.SetUp.atl' | translate}}
+                                    </div>
+
+                                </div>
+                                <div class="row" *ngIf="KPList?.length>0">
+                                    <div class="col-2 mb-2">
+                                        <perfect-scrollbar class="scroll_roles" [config]="config">
+                                            <div class="list_row" *ngFor="let AO of AOList" [class.shimmer]="setuploading">
+                                                <mat-checkbox class="example-margin primary" [disabled]="AO?.IsKP"
+                                                    [checked]="AO?.IsKP" value="{{AO?.ProjectUserRoleID}}" [(ngModel)]="AO.IsKP">
+                                                </mat-checkbox> <span title="{{AO?.LoginName}}">
+                                                    {{(AO?.LoginName.length>15)?(AO?.LoginName |
+                                                    slice:0:15)+'...':(AO?.LoginName)}}
+                                                </span>
+                                            </div>
+                                        </perfect-scrollbar>
+                                    </div>
+
+                                    <div class="col-2 mb-2">
+                                        <perfect-scrollbar class="scroll_roles" [config]="config">
+                                            <div class="list_row" *ngFor="let CM of CMList" [class.shimmer]="setuploading">
+                                                <mat-checkbox class="example-margin primary" [disabled]="CM?.IsKP"
+                                                    [checked]="CM?.IsKP" value="{{CM?.ProjectUserRoleID}}" [(ngModel)]="CM.IsKP">
+                                                </mat-checkbox><span title="{{ CM?.LoginName }}">
+                                                    {{(CM?.LoginName.length>15)?(CM?.LoginName |
+                                                    slice:0:15)+'...':(CM?.LoginName)}}
+                                                </span>
+                                            </div>
+                                        </perfect-scrollbar>
+                                    </div>
+
+                                    <div class="col-2 mb-2">
+                                        <perfect-scrollbar class="scroll_roles" [config]="config">
+                                            <div class="list_row" *ngFor="let ACM of ACMList" [class.shimmer]="setuploading">
+                                                <mat-checkbox class="example-margin primary" [disabled]="ACM?.IsKP"
+                                                    [checked]="ACM?.IsKP" value="{{ACM?.ProjectUserRoleID}}" [(ngModel)]="ACM.IsKP">
+                                                </mat-checkbox><span title="{{ACM?.LoginName}}">
+                                                    {{(ACM?.LoginName.length>15)?(ACM?.LoginName |
+                                                    slice:0:15)+'...':(ACM?.LoginName)}}
+                                                </span>
+                                            </div>
+                                        </perfect-scrollbar>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <perfect-scrollbar class="scroll_roles" [config]="config">
+                                            <div class="list_row" *ngFor="let TL of TLList" [class.shimmer]="setuploading">
+                                                <mat-checkbox class="example-margin primary" [checked]="TL.IsKP"
+                                                    [disabled]="TL?.IsKpTagged || TL?.IsKpTrialmarkedorcategorised || this.Ispauseoronholdors1completed"
+                                                    value="{{TL?.ProjectUserRoleID}}" [(ngModel)]="TL.IsKP"
+                                                    ngDefaultControl (ngModelChange)="CheckHeaderTL($event)">
+                                                </mat-checkbox><span title="{{ TL?.LoginName }}">
+                                                    {{(TL?.LoginName.length>15)?(TL.LoginName |
+                                                    slice:0:15)+'...':(TL?.LoginName)}}
+                                                </span>
+
+                                            </div>
+                                        </perfect-scrollbar>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <perfect-scrollbar class="scroll_roles" [config]="config">
+                                            <div class="list_row" *ngFor="let ATL of ATLList" [class.shimmer]="setuploading">
+                                                <mat-checkbox class="example-margin primary" [checked]="ATL.IsKP"
+                                                    [disabled]="ATL?.IsKpTagged || ATL?.IsKpTrialmarkedorcategorised  || TL?.IsKpTrialmarkedorcategorised || this.Ispauseoronholdors1completed"
+                                                    value="{{ATL?.ProjectUserRoleID}}" [(ngModel)]="ATL.IsKP"
+                                                    ngDefaultControl (ngModelChange)="CheckHeaderATL($event)">
+                                                </mat-checkbox><span title="{{ATL?.LoginName}}">
+                                                    {{(ATL?.LoginName.length>15)?(ATL.LoginName |
+                                                    slice:0:15)+'...':(ATL?.LoginName)}}
+                                                </span>
+                                            </div>
+                                        </perfect-scrollbar>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mt-2 d-flex bd-highlight mb-3">
+                        <div class="d-flex newroll justify-content-end w-100">
+                            <div class="d-flex" [class.shimmer]="kpsaveloading">
+                                <button [disabled]="this.Ispauseoronholdors1completed" title="{{'Std.SetUp.Save' | translate}}"
+                                    type="button" class="btn theme_button d-flex align-items-center" (click)="SaveKPs($event)">
+                                    <span class="icon-save-1"></span>
+                                    {{'Std.SetUp.Save' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 bd-highlight mt-4">
+                        <div class="card_box project_summary">
+                            <h3>{{'Std.SetUp.Examcenters' | translate}}</h3>
+                            <div class="view_selected" *ngIf="ViewAvailanleCenters">
+                                <div class="row">
+                                    <div class="col-6 d-flex justify-content-start align-items-center">
+                                        <div class="text_delux" onKeyDown="return false" value="this.avltotal"
+                                            ngDefaultControl [class.shimmer]="setuploading" [(ngModel)]="this.avltotal">
+                                            {{'Std.SetUp.AvailCenters' | translate}}: <span>{{this.avltotal}}</span>
+                                        </div>
+                                        <div class="searchbox_st col-6">
+                                            <span class="icon-search" (click)="SearchAvailableCenters()"></span>
+                                            <input autocomplete="off" oncut="return false" onDrop="return false"
+                                                ngDefaultControl [disabled]="this.Ispauseoronholdors1completed" onPaste="return false"
+                                                matInput placeholder="Search for Exam Centers" type="text" [(ngModel)]="AvailableCentersValue"
+                                                (keyup.enter)="SearchAvailableCenters()">
+                                        </div>
+                                    </div>
+
+                                    <div class="col d-flex justify-content-start align-items-center" [class.shimmer]="setuploading">
+
+                                        <div class="text_delux mr-2" onKeyDown="return false" value="this.total"
+                                            ngDefaultControl [(ngModel)]="this.total">
+                                            {{'Std.SetUp.Totscriptselected' | translate}}: <span>{{this.total}}</span>
+                                        </div>
+
+                                        <div class="text_delux" onKeyDown="return false" value="this.noresponsecount"
+                                            ngDefaultControl [(ngModel)]="this.noresponsecount">
+                                            -NR- Count: <span>{{this.noresponsecount}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="float-end ">
+                                            <button type="button" title="{{'Std.SetUp.Viewselected' | translate}}"
+                                                (click)="ViewSelectedFn()" ngDefaultControl class="btn theme_button d-flex align-items-center">
+                                                {{'Std.SetUp.Viewselected' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3 row-header_bg">
+                                    <div class="col-8 mb-2">
+                                        {{'Std.SetUp.Center' | translate}}
+                                    </div>
+
+                                    <div class="col-2 mb-2">
+                                        {{'Std.SetUp.Noscripts' | translate}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-12 mt-5 mb-5 nodata_db" style="text-align: center;" *ngIf="ProjectCenterlist?.length == 0">
+                                    {{'Std.SetUp.Noavailablecenterfound' |translate}}
+
+                                </div>
+                                <div *ngIf="ProjectCenterlist?.length>0">
+                                    <perfect-scrollbar class="scroll_roles" [config]="config">
+                                        <div class="row-childrow" *ngFor="let ProjectCenter of ProjectCenterlist">
+                                            <div class="col-8" [class.shimmer]="setuploading">
+                                                <mat-checkbox [disabled]="ProjectCenter.IsrecDisabled || this.Ispauseoronholdors1completed" class="example-margin primary"
+                                                    ngDefaultControl [checked]="ProjectCenter?.IsSelectedForRecommendation"
+                                                    (change)="onChecked(ProjectCenter)">
+                                                </mat-checkbox>&nbsp;
+                                                <span [value]="ProjectCenter?.IsSelectedForRecommendation"
+                                                    ngDefaultControl [(ngModel)]="ProjectCenter.IsSelectedForRecommendation">{{ProjectCenter?.CenterName}}</span>
+                                            </div>
+
+                                            <div class="col-2" [class.shimmer]="setuploading">
+                                                <div>
+                                                    <span [value]="ProjectCenter?.TotalNoOfScripts" ngDefaultControl
+                                                        [(ngModel)]="ProjectCenter.TotalNoOfScripts">{{ProjectCenter?.TotalNoOfScripts}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+
+                            <div class="remobv_selected" *ngIf="ViewSelectedCenters">
+                                <div class="row">
+
+                                    <div class="col-6 d-flex justify-content-start align-items-center">
+                                        <div class="text_delux" onKeyDown="return false" value="this.SelectedTotal"
+                                            ngDefaultControl [class.shimmer]="setuploading" [(ngModel)]="this.SelectedTotal">
+                                            {{'Std.SetUp.SelectedCenters' | translate}}:
+                                            <span>{{this.SelectedTotal}}</span>
+                                        </div>
+                                        <div class="searchbox_st col-6">
+                                            <span class="icon-search" (click)="SearchSelectedCenters()"></span>
+                                            <input autocomplete="off" oncut="return false" onDrop="return false"
+                                                ngDefaultControl onPaste="return false" matInput placeholder="Search for Exam Centers"
+                                                type="text" [(ngModel)]="ProjectSearchSelectedValue" (keyup.enter)="SearchSelectedCenters()">
+                                        </div>
+                                    </div>
+
+                                    <div class="col d-flex justify-content-start align-items-center" [class.shimmer]="setuploading">
+                                        <div class="text_delux" onKeyDown="return false" value="this.total"
+                                            ngDefaultControl [(ngModel)]="this.total">
+                                            {{'Std.SetUp.Totscriptselected' | translate}}: <span>{{this.total}}</span>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="float-end ">
+                                            <button type="button" title="{{'Std.SetUp.Close' | translate}}" class="btn theme_button align-items-center"
+                                                ngDefaultControl (click)="CloseFn(ProjectCenterSelectedlist)">
+                                                {{'Std.SetUp.Close' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3 row-header_bg">
+                                    <div class="col-8 mb-2">
+                                        {{'Std.SetUp.Center' | translate}}
+                                    </div>
+
+                                    <div class="col-2 mb-2">
+                                        {{'Std.SetUp.Noscripts' | translate}}
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12 col-xs-12 mt-5 mb-5 nodata_db" style="text-align: center;" *ngIf="ProjectCenterSelectedlist?.length == 0 || this.SelectedTotal == 0">
+                                    {{'Std.SetUp.Noselectedcenterfound' | translate}}
+                                </div>
+                                <div *ngIf="ProjectCenterSelectedlist?.length>0">
+                                    <perfect-scrollbar class="scroll_roles" [config]="config">
+                                        <div *ngFor="let SelectedProjCenters of ProjectCenterSelectedlist">
+                                            <div class="row-childrow" *ngIf="SelectedProjCenters.checked">
+                                                <div class="col-8 align-self-center" [class.shimmer]="setuploading">
+                                                    <div>
+                                                        <span [value]="SelectedProjCenters?.CenterName" ngDefaultControl
+                                                            [(ngModel)]="SelectedProjCenters.CenterName">{{SelectedProjCenters?.CenterName}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2 align-self-center" [class.shimmer]="setuploading">
+                                                    <div>
+                                                        <span [value]="SelectedProjCenters?.TotalNoOfScripts"
+                                                            ngDefaultControl [(ngModel)]="SelectedProjCenters.TotalNoOfScripts">
+                                                            {{SelectedProjCenters?.TotalNoOfScripts}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <div class="col-2" *ngIf="!SelectedProjCenters?.IsrecDisabled">
+                                                        <button mat-button="" [disabled]="SelectedProjCenters?.IsrecDisabled"
+                                                            class="mat-focus-indicator mat-button mat-button-base"
+                                                            ngDefaultControl (click)="delete(SelectedProjCenters)">
+                                                            <span title="{{'Std.SetUp.delete' | translate}}" class="icon-remove_2"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-2 d-flex bd-highlight mb-3">
+                        <div class="d-flex newroll justify-content-end w-100">
+                            <div class="d-flex" [class.shimmer]="centerssaveloading">
+                                <button title="{{'Std.SetUp.Save' | translate}}" type="button" class="btn theme_button d-flex align-items-center"
+                                    [disabled]="this.Ispauseoronholdors1completed" (click)="SaveCenters($event)">
+                                    <span class="icon-save-1"></span>
+                                    {{'Std.SetUp.Save' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="IsS1Required">
+                    <div class="col-md-12 bd-highlight mt-4">
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <div class="card_box project_summary mb-3">
+                                    <h3 class="mb-1">{{'Std.SetUp.Config' | translate}}</h3>
+
+                                    <div class="Key_pers">
+                                        <div class="row">
+                                            <div class="col-7 d-flex justify-content-start align-items-center p-1">
+                                                <div class="text_delux" onKeyDown="return false" value="this.total"
+                                                    ngDefaultControl [(ngModel)]="this.total" [class.shimmer]="setuploading">
+                                                    {{
+                                                    'Std.SetUp.Stdsettingtotscripts' |
+                                                    translate
+                                                    }}<span>{{this.QigConfiguration?.script_total}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="Key_pers">
+                                        <div class="row">
+                                            <div class="col-md-2 col-xs-12" [class.shimmer]="setuploading">
+                                                <span>{{'Std.SetUp.Tot' | translate}}</span>
+                                                <strong class="stng">{{this.totscripts_selected}}</strong>
+                                            </div>
+
+                                            <div class="col-md-6 col-xs-12" [class.shimmer]="setuploading">
+                                                <span>{{'Std.SetUp.Poolcnt' | translate}}</span> 
+                                                <span class="span_ref"> {{'Std.SetUp.poolcntdetails' | translate}}</span>
+                                                <div class="project_sche col-md-3 col-sm-4" [class.shimmer]="setuploading">
+                                                    <div class="bd-highlight col-md-3">
+                                                        <input tabindex="-1" type="number" step="1" oncut="return false"
+                                                            onPaste="return false" (keydown.arrowup)="(false)"
+                                                            (keydown.arrowdown)="(false)" class="ip-width" onDrop="return false"
+                                                            min="{{this.QigConfiguration.script_total}}" maxlength="{{this.totscripts_selected?.toString().length}}"
+                                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            [(ngModel)]="this.QigConfiguration.RecomendationPoolCount"
+                                                            ngDefaultControl value="this.QigConfiguration?.RecomendationPoolCount"
+                                                            (keydown)="validateNumber($event)" [disabled]="this.Ispauseoronholdors1completed">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 col-xs-12" [class.shimmer]="setuploading">
+                                                <span>{{'Std.SetUp.Rcount' | translate}}</span>
+                                                <div class="project_sche col-md-3 col-sm-4" [class.shimmer]="setuploading">
+                                                    <div class="bd-highlight col-md-3">
+                                                        <input tabindex="-1" type="number" step="1" oncut="return false"
+                                                            onPaste="return false" id="RecomendationPoolCountPerKP"
+                                                            onDrop="return false" (keydown.arrowup)="(false)"
+                                                            (keydown.arrowdown)="(false)" min="1" max="{{this.max_total}}"
+                                                            maxlength="{{this.max_total?.toString().length}}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            [(ngModel)]="this.QigConfiguration.RecomendationPoolCountPerKP"
+                                                            ngDefaultControl value="this.QigConfiguration?.RecomendationPoolCountPerKP"
+                                                            (keydown)="validateNumber($event)" [disabled]="this.Ispauseoronholdors1completed">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex newroll justify-content-between w-100">
+                        <div class="d-flex">
+                            <button type="button" class="btn theme_button_light d-flex align-items-center" routerLink="/projects"
+                                title="Cancel">
+                                <span class="icon-close"></span>
+                                {{'Std.SetUp.Cancel' | translate}}
+                            </button>
+                        </div>
+
+                        <div class="d-flex" [class.shimmer]="configsaveloading">
+                            <button title="{{'Std.SetUp.Save' | translate}}" type="button" class="btn theme_button d-flex align-items-center"
+                                (click)="SaveQIGConfig($event)" [disabled]="this.Ispauseoronholdors1completed">
+                                <span class="icon-save-1"></span>
+                                {{'Std.SetUp.Save' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div *ngIf="activeQig == null || activeQig == undefined" class="text-center mt-3 card_box" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+            <strong>
+                {{'General.NotFound' | translate}}
+            </strong>
+        </div>
+    </div>
+</div>

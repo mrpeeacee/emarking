@@ -1,0 +1,31 @@
+﻿Multiple Choice Static
+Multiple Response Static
+True / False
+Image Labeling Drag and Drop
+Matching Drag and Drop
+FIB Drag And Drop
+Matrix
+Situational Judgement Type
+Horizontal Sequencing
+Vertical Sequencing
+Image Labeling Entry
+Image Labeling Selection
+Text Highlight
+Fill In Blanks Math
+Fill In Blanks Static
+Ranking
+Matching
+Select A Blank
+Pull Down List
+Numeric
+Image Labeling
+Grouping Table
+Graph HTML5
+Connect The Points HTML5
+Text Match
+Entry List Static 
+Slider HTML5
+Grouping
+Likert Scale 
+HotSpot Multiple Choice HTML5
+HotSpot Multiple Response HTML5

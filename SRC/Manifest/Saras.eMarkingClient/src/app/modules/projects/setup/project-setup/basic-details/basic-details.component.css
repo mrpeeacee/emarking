@@ -1,0 +1,5 @@
+.action_subheader{ display: none}
+
+::ng-deep .mat-placeholder-required{
+    color: red
+  }

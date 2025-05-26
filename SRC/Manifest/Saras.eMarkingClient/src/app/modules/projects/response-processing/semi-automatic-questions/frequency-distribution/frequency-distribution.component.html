@@ -1,0 +1,1108 @@
+<div class="container">
+  <div
+    class="card_box project_summary1 mt-2 "
+    *ngIf="frequencysLoading == false && allblankLoading == false"
+  >
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="col-md-2 col-xs-12 text-break">
+        <span>{{ "SetUp.SemiAutomatic.QIGName" | translate }} : </span>
+        <strong>{{
+          (Viewfrequencydistributionlst?.BlankOption)[selectedblankindex]
+            ?.QIGName
+        }}</strong>
+      </div>
+
+      <div class="col-md-4 col-xs-12 text-break">
+        <span>{{ "SetUp.SemiAutomatic.TotalMarks" | translate }} : </span>
+        <strong>{{ Viewfrequencydistributionlst.TotalMarks }}</strong>
+
+        <span class="pl-40"
+          >{{ "SetUp.SemiAutomatic.NoofBlanks" | translate }} :
+        </span>
+        <strong>{{ Viewfrequencydistributionlst.NoOfBlanks }}</strong>
+
+        <span class="pl-40"
+          >{{ "SetUp.SemiAutomatic.NoofCandidates" | translate }} :
+        </span>
+        <strong>{{ Viewfrequencydistributionlst.NoOfCandidates }}</strong>
+      </div>
+
+      <div class="bd-highlight text-break ">
+        <button
+          [disabled]="
+            (Viewfrequencydistributionlst?.BlankOption)[this.selectedblankindex]
+              ?.IsManuallyMarkEnabled
+          "
+          (click)="
+            SaveUpdateAllResponsestoManualMarking(
+              (Viewfrequencydistributionlst?.BlankOption)[selectedblankindex]
+            )
+          "
+          type="button"
+          title=" Enable Manual Marking 100%"
+          class="btn theme_button d-flex custom_enable_manual mx-0 align-items-center"
+        >
+          <span
+            class="icon icon-graytick"
+            *ngIf="
+              !(Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.IsManuallyMarkEnabled ||
+              ((Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.IsManuallyMarkEnabled &&
+                (Viewfrequencydistributionlst?.BlankOption)[
+                  this.selectedblankindex
+                ]?.ResponseProcessingType == 1)
+            "
+          ></span>
+          <span
+            class="icon icon-completed"
+            *ngIf="
+              (Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.IsManuallyMarkEnabled &&
+              (Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.ResponseProcessingType == 2
+            "
+          ></span
+          >{{
+            (Viewfrequencydistributionlst?.BlankOption)[this.selectedblankindex]
+              ?.IsManuallyMarkEnabled &&
+            (Viewfrequencydistributionlst?.BlankOption)[this.selectedblankindex]
+              ?.ResponseProcessingType == 2
+              ? "100% Manual Marking Enabled"
+              : "Enable Manual Marking 100%"
+          }}
+        </button>
+      </div>
+
+      <div class="col-md-3 d-flex align-items-center">
+        <a
+          href="#"
+          c
+          title="{{
+            (Viewfrequencydistributionlst?.BlankOption)[this.selectedblankindex]
+              ?.IsManuallyMarkEnabled
+              ? ('SetUp.SemiAutomatic.ManualmarkingEnabled' | translate)
+              : ('SetUp.SemiAutomatic.EnableManualMarking' | translate)
+          }}"
+          [class.disabled]="
+            ((Viewfrequencydistributionlst?.BlankOption)[
+              this.selectedblankindex
+            ]?.disablemanualmark &&
+              !(Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.IsManuallyMarkEnabled) ||
+            ((Viewfrequencydistributionlst?.BlankOption)[
+              this.selectedblankindex
+            ]?.IsManuallyMarkEnabled &&
+              (Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.ResponseProcessingType == 2)
+          "
+          class="btn theme_button d-flex align-items-center "
+          href=""
+          data-bs-toggle="modal"
+          data-bs-target="#EnableManual"
+          (click)="
+            EnableManual(
+              (Viewfrequencydistributionlst?.BlankOption)[selectedblankindex]
+            )
+          "
+        >
+          <span
+            class="icon icon-graytick"
+            *ngIf="
+              !(Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.IsManuallyMarkEnabled ||
+              ((Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.IsManuallyMarkEnabled &&
+                (Viewfrequencydistributionlst?.BlankOption)[
+                  this.selectedblankindex
+                ]?.ResponseProcessingType == 2)
+            "
+          ></span>
+          <span
+            class="icon icon-completed"
+            *ngIf="
+              (Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.IsManuallyMarkEnabled &&
+              (Viewfrequencydistributionlst?.BlankOption)[
+                this.selectedblankindex
+              ]?.ResponseProcessingType == 1
+            "
+          ></span
+          >{{
+            (Viewfrequencydistributionlst?.BlankOption)[this.selectedblankindex]
+              ?.IsManuallyMarkEnabled
+              ? ("SetUp.SemiAutomatic.ManualmarkingEnabled" | translate)
+              : ("SetUp.SemiAutomatic.EnableManualMarking" | translate)
+          }} </a
+        >&nbsp;
+        <mat-slide-toggle
+          color="primary"
+          title="{{ 'SetUp.SemiAutomatic.ON/OFF' | translate }} "
+          [disabled]="true"
+          [(ngModel)]="
+            ViewallBlanksummarylst[selectedblankindex].IsManualMarkingRequired
+          "
+          [value]="
+            ViewallBlanksummarylst[selectedblankindex].IsManualMarkingRequired
+          "
+          class="relative_top hide"
+        >
+        </mat-slide-toggle>
+      </div>
+
+      <div class="col-md-1">
+        <button
+          type="button"
+          class="btn theme_button d-flex custom_button"
+          (click)="closeFreqDist()"
+          title="{{ 'SetUp.SemiAutomatic.Back' | translate }}"
+        >
+          <span class="icon-arrow_back"></span>
+          {{ "SetUp.SemiAutomatic.Back" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="card_box project_summary mt-2 shimmer"
+    *ngIf="frequencysLoading || allblankLoading"
+  >
+    <div class="row d-flex align-items-center">
+      <div class="col-md-2 col-xs-12">
+        <span>{{ "SetUp.SemiAutomatic.TotalMarks" | translate }}</span>
+        <strong>{{ "SetUp.SemiAutomatic.TotalMarks" | translate }}</strong>
+      </div>
+
+      <div class="col-md-2 col-xs-12">
+        <span>{{ "SetUp.SemiAutomatic.NoofBlanks" | translate }}</span>
+        <strong>{{ "SetUp.SemiAutomatic.NoofBlanks" | translate }}</strong>
+      </div>
+
+      <div class="col-md-2 col-xs-12">
+        <span>{{ "SetUp.SemiAutomatic.NoofCandidates" | translate }}</span>
+        <strong>{{ "SetUp.SemiAutomatic.NoofCandidates" | translate }}</strong>
+      </div>
+    </div>
+  </div>
+  <div
+    class="card_box project_summary mt-2 shimmer"
+    *ngIf="frequencysLoading || allblankLoading"
+  >
+    <span class="mb-2 d-block">{{
+      "SetUp.SemiAutomatic.QuestionCode" | translate
+    }}</span>
+    <span>
+      {{ "SetUp.SemiAutomatic.QuestionsText" | translate }}
+    </span>
+  </div>
+
+  <div class="mt-1 shimmer" *ngIf="frequencysLoading || allblankLoading">
+    <a
+      href=""
+      data-bs-toggle="modal"
+      title="{{ 'SetUp.SemiAutomatic.ViewAllBlankSummary' | translate }}"
+      data-bs-target="#viewblanksummary"
+    >
+      {{ "SetUp.SemiAutomatic.ViewAllBlankSummary" | translate }}
+      <span class="icon-arrow"></span>
+    </a>
+  </div>
+
+  <div
+    class="card_box mt-2 p-1 shimmer"
+    *ngIf="frequencysLoading || allblankLoading"
+  >
+    <div class="head_navigate_resp">
+      <div class="row">
+        <div class="col">
+          <button
+            title="{{ 'SetUp.SemiAutomatic.Previous' | translate }}"
+            (click)="
+              selectedblankindex =
+                selectedblankindex <= 0 ? 0 : selectedblankindex - 1
+            "
+            type="button"
+            class="btn theme_button d-flex align-items-center"
+          >
+            <span class="icon-arrow_back"></span>
+          </button>
+        </div>
+        <div class="col-md-10">
+          <div class="row align-items-center">
+            <div class="blank_box col-1 text-center">
+              {{ "SetUp.SemiAutomatic.Blank" | translate }}
+            </div>
+            <div class="col-2">
+              {{ "SetUp.SemiAutomatic.Score" | translate }} :
+              <strong>
+                {{ "SetUp.SemiAutomatic.BlankMarks" | translate }}</strong
+              >
+            </div>
+            <div class="col-5 status_resp">
+              <span class="icon icon-completed"></span>
+              <span
+                >{{ "SetUp.SemiAutomatic.CorrectAnswer" | translate }} : </span
+              ><strong>
+                {{ "SetUp.SemiAutomatic.CorrectAnswer" | translate }}
+              </strong>
+            </div>
+            <div class="col-4">
+              <mat-slide-toggle
+                title="{{
+                  'SetUp.SemiAutomatic.EnableManualMarking' | translate
+                }}"
+                class="float-end"
+                data-bs-toggle="modal"
+                data-bs-target="#EnableManual"
+                >EnableManualMarking</mat-slide-toggle
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <button
+            type="button"
+            title="{{ 'SetUp.SemiAutomatic.Next' | translate }}"
+            class="btn theme_button d-flex align-items-center float-end mx-0"
+          >
+            <span class="icon-pointed_arrow"></span>
+          </button>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+
+    <div
+      class="content_area_frq shimmer"
+      *ngIf="frequencysLoading || allblankLoading"
+    >
+      <div class="mt-2 row-header card_container">
+        <div class="p-2 d-flex bd-highlight align-items-center col-md-12 al">
+          <div class="bd-highlight col-md-1">#</div>
+          <div class="bd-highlight col-md-2">
+            {{ "SetUp.SemiAutomatic.CandidatesAnswer" | translate }}
+          </div>
+          <div class="bd-highlight col-md-3">
+            # {{ "SetUp.SemiAutomatic.Responses" | translate }}
+          </div>
+          <div class="bd-highlight col-md-2">
+            % {{ "SetUp.SemiAutomatic.Distribution" | translate }}
+          </div>
+          <div class="bd-highlight col-md-2">
+            {{ "SetUp.SemiAutomatic.MarksAwarded" | translate }}
+          </div>
+          <div class="bd-highlight col-md-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-accordion *ngIf="frequencysLoading == false && allblankLoading == false">
+    <div>
+      <mat-expansion-panel
+        [expanded]="panelOpenState"
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header
+          title="{{
+            (panelOpenState == true
+              ? 'SetUp.SemiAutomatic.Collapse'
+              : 'SetUp.SemiAutomatic.Expand') | translate
+          }}"
+        >
+          <div class="row-childrow_em">
+            <div class="d-flex align-items-center">
+              <span class="mb-2 d-block"
+                >{{ "SetUp.SemiAutomatic.Questionlabel" | translate }} :
+                <strong>{{ Viewfrequencydistributionlst.QuestionCode }}</strong>
+              </span>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+        <div
+          [innerHTML]="
+            Viewfrequencydistributionlst.QuestionsText
+              | highlight
+                : (Viewfrequencydistributionlst?.BlankOption)[
+                    selectedblankindex
+                  ]?.QuestionGUID
+                : 0
+          "
+        ></div>
+      </mat-expansion-panel>
+    </div>
+  </mat-accordion>
+
+  <div class="">
+    <div
+      class="mt-1 float-start"
+      *ngIf="frequencysLoading == false && allblankLoading == false"
+    >
+      <a
+        class=" ach_highligt"
+        href=""
+        data-bs-toggle="modal"
+        title="{{ 'SetUp.SemiAutomatic.ViewAllBlankSummary' | translate }}"
+        data-bs-target="#viewblanksummary"
+      >
+        {{ "SetUp.SemiAutomatic.ViewAllBlankSummary" | translate }}
+        <span class="icon-arrow"></span>
+      </a>
+    </div>
+    <div
+      class="mt-1 pad-l4 float-end"
+      *ngIf="frequencysLoading == false && allblankLoading == false"
+    >
+      <button
+        (click)="
+          BtnCheckDescrepancy(
+            (Viewfrequencydistributionlst?.BlankOption)[selectedblankindex]
+              ?.ProjectQuestionId
+          )
+        "
+        type="button"
+        title="{{ 'SetUp.SemiAutomatic.CheckDiscrepancy' | translate }}"
+        class="btn theme_button d-flex align-items-center float-end mx-0"
+      >
+        <span
+          title="{{ 'SetUp.SemiAutomatic.Descripency' | translate }}"
+          class="desc_icon icon-discrepancy align-items-center"
+        ></span>
+        {{ "SetUp.SemiAutomatic.CheckDiscrepancy" | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div
+    [class.shimmer]="updatemoderateLoading"
+    class="card_box mt-2 p-1"
+    *ngIf="frequencysLoading == false && allblankLoading == false"
+  >
+    <div class="head_navigate_resp">
+      <div class="row">
+        <div class="col-no-sp">
+          <button
+            [disabled]="selectedblankindex == 0"
+            title="{{ 'SetUp.SemiAutomatic.Previous' | translate }}"
+            (click)="
+              selectedblankindex =
+                selectedblankindex <= 0 ? 0 : selectedblankindex - 1
+            "
+            type="button"
+            class="btn m-0 theme_button d-flex align-items-center"
+          >
+            <span class="icon-arrow_back"></span>
+          </button>
+        </div>
+        <div class="col-md-10">
+          <div class="row align-items-center">
+            <div class="blank_box col-2 text-center">
+              {{ ViewallBlanksummarylst[selectedblankindex].BlankName }}
+            </div>
+            <div
+              [ngClass]="
+                !(Viewfrequencydistributionlst?.BlankOption)[
+                  this.selectedblankindex
+                ]?.disablemoderate
+                  ? 'col-2'
+                  : 'col-4'
+              "
+            >
+              {{ "SetUp.SemiAutomatic.Score" | translate }} :
+              <strong>
+                {{
+                  (Viewfrequencydistributionlst?.BlankOption)[
+                    selectedblankindex
+                  ]?.BlankMarks
+                }}
+              </strong>
+            </div>
+            <div class="col-4 statusresp">
+              <span class="icon icon-completed"></span>
+              <span>
+                {{ "SetUp.SemiAutomatic.CorrectAnswer" | translate }} :
+              </span>
+              &nbsp;<strong>
+                {{
+                  Viewfrequencydistributionlst?.BlankOption[
+                    selectedblankindex
+                  ]?.CorrectAnswer.replace(",", ", ")
+                }}
+              </strong>
+            </div>
+            <div class="col-4 d-flex align-items-center">
+              <button
+                *ngIf="
+                  !(Viewfrequencydistributionlst?.BlankOption)[
+                    this.selectedblankindex
+                  ]?.disablemoderate
+                "
+                (click)="
+                  UpdateOverallModerate(
+                    (Viewfrequencydistributionlst?.BlankOption)[
+                      selectedblankindex
+                    ].ProjectQuestionId
+                  )
+                "
+                type="button"
+                title="{{ 'SetUp.SemiAutomatic.Moderate' | translate }}"
+                class="btn theme_button d-flex align-items-center"
+              >
+                {{
+                  "SetUp.SemiAutomatic.Markzeroallpendingresponses" | translate
+                }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <button
+            [disabled]="
+              selectedblankindex ==
+              Viewfrequencydistributionlst?.BlankOption?.length - 1
+            "
+            type="button"
+            title="{{ 'SetUp.SemiAutomatic.Next' | translate }}"
+            (click)="
+              selectedblankindex =
+                selectedblankindex >=
+                Viewfrequencydistributionlst?.BlankOption?.length - 1
+                  ? Viewfrequencydistributionlst?.BlankOption?.length - 1
+                  : selectedblankindex + 1
+            "
+            class="btn theme_button d-flex align-items-center float-end mx-0"
+          >
+            <span class="icon-pointed_arrow"></span>
+          </button>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+
+    <div class="content_area_frq">
+      <div
+        class="notec"
+        *ngIf="
+          (Viewfrequencydistributionlst?.BlankOption)[this.selectedblankindex]
+            ?.IsCaseSensitive
+        "
+      >
+        {{ "SetUp.SemiAutomatic.CasesensitiveNote" | translate }}
+        {{ ViewallBlanksummarylst[selectedblankindex].BlankName }}
+      </div>
+      <div class="mt-2 row-header card_container">
+        <div class="p-2 d-flex bd-highlight align-items-center col-md-12 al">
+          <div class="bd-highlight col-md-1 px-1">
+            {{ "SetUp.SemiAutomatic.Sl" | translate }}
+          </div>
+          <div class="bd-highlight col-md-2 px-1">
+            {{ "SetUp.SemiAutomatic.CandidatesAnswer" | translate }}
+          </div>
+          <div class="bd-highlight col-md-1">
+            {{ "SetUp.SemiAutomatic.Responses" | translate }}
+          </div>
+          <div class="bd-highlight col-md-2">
+            % {{ "SetUp.SemiAutomatic.Distribution" | translate }}
+          </div>
+
+          <div class="bd-highlight col-md-2">
+            {{ "SetUp.SemiAutomatic.MarksAwarded" | translate }}
+          </div>
+          <div class="bd-highlight col-md-1"></div>
+          <div class="bd-highlight col-md-2"></div>
+        </div>
+      </div>
+      <perfect-scrollbar class="scroll_roles">
+        <div
+          [class.shimmer]="updatemoderateLoading"
+          [ngClass]="
+            objfrequencylst.MarkingType == 1
+              ? 'row-childrowRandom row-childrow completed_row'
+              : 'row-childrowRandom row-childrow'
+          "
+          *ngFor="let objfrequencylst of Viewfrequencydistributionlst?.BlankOption[selectedblankindex]?.CandidateAnswer;,let i=index"
+        >
+          <div class="bd-highlight col-md-1 text-break">{{ i + 1 }}</div>
+          <div class="bd-highlight col-md-2 text-break c_pr_20">
+            {{ objfrequencylst.CandidatesAnswer }}
+          </div>
+          <div class="bd-highlight col-md-1 text-break">
+            {{ objfrequencylst.Responses }}
+          </div>
+          <div class="bd-highlight col-md-2 text-break">
+            {{ objfrequencylst.PerDistribution }}
+          </div>
+
+          <div class="bd-highlight col-md-1 px-1 ">
+            <div
+              *ngIf="
+                objfrequencylst.MarkingType != null &&
+                objfrequencylst.MarkingType != 2
+              "
+            >
+              {{ objfrequencylst.MarksAwarded }}
+            </div>
+
+            <div
+              *ngIf="
+                objfrequencylst.MarkingType == null ||
+                objfrequencylst.MarkingType == 2
+              "
+            >
+              <input
+                oncut="return false"
+                onDrop="return false"
+                onPaste="return false"
+                type="number"
+                min="0"
+                max="{{
+                  (Viewfrequencydistributionlst?.BlankOption)[
+                    selectedblankindex
+                  ]?.BlankMarks
+                }}"
+                step="0.5"
+                [(ngModel)]="objfrequencylst.MarksAwarded"
+                name="graceprd"
+                ngDefaultControl
+                (keydown)="validateNumber($event)"
+                [value]="objfrequencylst.MarksAwarded"
+              />
+            </div>
+          </div>
+
+          <div
+            class="bd-highlight col-md-2 px-1"
+            [ngClass]="{
+              'bd-highlight col-md-2 px-1': objfrequencylst?.MarkingType !== 4
+            }"
+            *ngIf="
+              objfrequencylst?.MarkingType != 4 &&
+              objfrequencylst?.DiscrepancyStatus != 2
+            "
+          >
+            <div
+              title="{{ 'SetUp.SemiAutomatic.Descripency' | translate }}"
+              *ngIf="
+                objfrequencylst?.IsDiscrepancyExist &&
+                objfrequencylst?.MarkingType == 3
+              "
+              class="freq_descr mx-4"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              (click)="
+                getDescripency(
+                  objfrequencylst?.CandidatesAnswer,
+                  (Viewfrequencydistributionlst?.BlankOption)[
+                    selectedblankindex
+                  ]?.ProjectQuestionId,
+                  (Viewfrequencydistributionlst?.BlankOption)[
+                    selectedblankindex
+                  ]?.QIGId,
+                  objfrequencylst?.Id
+
+                )
+              "
+            >
+              <span>
+                <span class="icon_up_dec icon-discrepancy"></span
+                >{{ "SetUp.SemiAutomatic.Descripency" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="bd-highlight col-md-2 px-1"
+            [ngClass]="{
+              'bd-highlight col-md-2 px-1':
+                (objfrequencylst?.MarkingType == 4 &&
+                  (objfrequencylst?.DiscrepancyStatus == 1 ||
+                    objfrequencylst?.DiscrepancyStatus == null)) ||
+                    ( objfrequencylst?.DiscrepancyStatus == 2)
+            }"
+          >
+            <div
+            title="{{ 
+              objfrequencylst?.MarkingType == 4 &&
+              (objfrequencylst?.DiscrepancyStatus == 1 || objfrequencylst?.DiscrepancyStatus == null)
+                ? ('SetUp.SemiAutomatic.Resolved' | translate)
+                : (objfrequencylst?.IsDiscrepancyExist && objfrequencylst?.DiscrepancyStatus == 2)
+                ? ('SetUp.SemiAutomatic.Accepted' | translate)
+                : 'SetUp.SemiAutomatic.Edit' | translate
+            }}"
+              class="freq_edit mx-4"
+              [ngClass]="{
+                'freq_edit mx-4':
+                  (objfrequencylst?.MarkingType == 4 &&
+                    (objfrequencylst?.DiscrepancyStatus == 1 ||
+                      objfrequencylst?.DiscrepancyStatus == null)) ||
+                      (objfrequencylst?.IsDiscrepancyExist && objfrequencylst?.DiscrepancyStatus == 2)
+              }"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <span>
+                <span
+                  class="icon_up_dec icon-discrepancy"
+                  [ngClass]="{
+                    'icon_up_dec icon-discrepancy':
+                      (objfrequencylst?.MarkingType == 4 &&
+                        (objfrequencylst?.DiscrepancyStatus == 1 ||
+                          objfrequencylst?.DiscrepancyStatus == null)) ||
+                          (objfrequencylst?.IsDiscrepancyExist && objfrequencylst?.DiscrepancyStatus == 2)
+                  }"
+                ></span>
+                {{
+                  objfrequencylst?.MarkingType == 4 &&
+                  (objfrequencylst?.DiscrepancyStatus == 1 ||
+                    objfrequencylst?.DiscrepancyStatus == null)
+                    ? ("SetUp.SemiAutomatic.Resolved" | translate)
+                    : (objfrequencylst?.IsDiscrepancyExist && objfrequencylst?.DiscrepancyStatus == 2)
+                    ? ("SetUp.SemiAutomatic.Accepted" | translate)
+                    : ""
+                }}
+
+                <span
+                title="{{ 
+                  objfrequencylst?.MarkingType == 4 &&
+                  (objfrequencylst?.DiscrepancyStatus == 1 || objfrequencylst?.DiscrepancyStatus == null)
+                    ? ('SetUp.SemiAutomatic.Resolved' | translate)
+                    : (objfrequencylst?.IsDiscrepancyExist && objfrequencylst?.DiscrepancyStatus == 2)
+                    ? ('SetUp.SemiAutomatic.Accepted' | translate)
+                    : 'SetUp.SemiAutomatic.Edit' | translate
+                }}"
+                
+                  class="icon-edit cursor"
+                  [ngClass]="{
+                    'icon-edit cursor':
+                      (objfrequencylst?.MarkingType == 4 &&
+                        (objfrequencylst?.DiscrepancyStatus == 1 ||
+                          objfrequencylst?.DiscrepancyStatus == null)) ||
+                          (objfrequencylst?.IsDiscrepancyExist && objfrequencylst?.DiscrepancyStatus == 2)
+                  }"
+                  (click)="
+                    getDescripency(
+                      objfrequencylst?.CandidatesAnswer,
+                      (Viewfrequencydistributionlst?.BlankOption)[
+                        selectedblankindex
+                      ]?.ProjectQuestionId,
+                      (Viewfrequencydistributionlst?.BlankOption)[
+                        selectedblankindex
+                      ]?.QIGId,
+                      objfrequencylst?.Id
+                    )
+                  "
+                ></span>
+              </span>
+            </div>
+          </div>
+
+
+          <div
+            class="bd-highlight col-md-3"
+            *ngIf="objfrequencylst.MarkingType == null"
+          >
+            <button
+              (click)="
+                SaveUpdateModerate(
+                  objfrequencylst.Id,
+                  objfrequencylst.MarksAwarded,
+                  objfrequencylst.CandidatesAnswer,
+                  (Viewfrequencydistributionlst?.BlankOption)[
+                    selectedblankindex
+                  ]?.ProjectQuestionId,
+                  true
+                )
+              "
+              type="button"
+              title=" {{ 'SetUp.SemiAutomatic.Moderate' | translate }}"
+              class="btn theme_button d-flex align-items-center float-end mx-0"
+            >
+              {{ "SetUp.SemiAutomatic.Moderate" | translate }}
+            </button>
+          </div>
+
+          <div
+            class="bd-highlight col-md-3 auto_sr"
+            *ngIf="objfrequencylst.MarkingType == 1"
+          >
+            <div class="status_resp text-end">
+              <span class="icon icon-completed"></span>
+              <span>{{
+                "SetUp.SemiAutomatic.ResponseAutomarked" | translate
+              }}</span>
+            </div>
+          </div>
+
+          <div
+            class="bd-highlight col-md-3 modarate_sr hide"
+            *ngIf="objfrequencylst.MarkingType == 2"
+          >
+            <div class="status_resp text-end">
+              <span class="icon icon-completed"></span>
+              <span
+                >{{ "SetUp.SemiAutomatic.ResponseModerated" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="bd-highlight col-md-3"
+            *ngIf="objfrequencylst.MarkingType == 2"
+          >
+            <button
+              [disabled]="isClosed == 3"
+              (click)="
+                SaveUpdateModerate(
+                  objfrequencylst.Id,
+                  objfrequencylst.MarksAwarded,
+                  objfrequencylst.CandidatesAnswer,
+                  (Viewfrequencydistributionlst?.BlankOption)[
+                    selectedblankindex
+                  ]?.ProjectQuestionId,
+                  false
+                )
+              "
+              type="button"
+              title=" {{ 'SetUp.SemiAutomatic.remoderate' | translate }}"
+              class="btn theme_button d-flex align-items-center float-end mx-0"
+            >
+              {{ "SetUp.SemiAutomatic.remoderate" | translate }}
+            </button>
+          </div>
+
+          <div
+            class="bd-highlight col-md-3 manule_sr"
+            *ngIf="
+              objfrequencylst.MarkingType == 3 ||
+              objfrequencylst.MarkingType == 4
+            "
+          >
+            <div class="status_resp text-end">
+              <span class="icon icon-completed"></span>
+              <span>{{
+                "SetUp.SemiAutomatic.ManualmarkingEnabled" | translate
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="viewblanksummary"
+    tabindex="-1"
+    aria-labelledby="viewblanksummary"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="exampleModalLabel">
+            {{ "SetUp.SemiAutomatic.BlankSummary" | translate }}
+          </h6>
+          <button
+            type="button"
+            title="{{ 'SetUp.SemiAutomatic.Close' | translate }}"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body overflw_y">
+          <div class="row-header_bg d-flex align-items-center">
+            <div class="col-1">
+              <strong> {{ "SetUp.SemiAutomatic.Sl" | translate }}</strong>
+            </div>
+            <div class="col-2">
+              <strong
+                >{{ "SetUp.SemiAutomatic.BlankName" | translate }}
+              </strong>
+            </div>
+            <div class="col-2">
+              <strong>{{ "SetUp.SemiAutomatic.QIGName" | translate }} </strong>
+            </div>
+            <div class="col-2">
+              <strong
+                >{{ "SetUp.SemiAutomatic.Responses" | translate }}
+              </strong>
+            </div>
+            <div class="col-3">
+              <strong>
+                {{
+                  "SetUp.SemiAutomatic.NoofResponsedtobeEvaluated" | translate
+                }}</strong
+              >
+            </div>
+            <div class="col-2">
+              <strong>
+                {{
+                  "SetUp.SemiAutomatic.ManualmarkingEnabled" | translate
+                }}?</strong
+              >
+            </div>
+            <div class="col-1 hide">
+              <strong
+                >{{
+                  "SetUp.SemiAutomatic.Standardisation" | translate
+                }}?</strong
+              >
+            </div>
+          </div>
+          <perfect-scrollbar
+            [ngClass]="
+              ViewallBlanksummarylst?.length >= 8
+                ? 'custom_scrol'
+                : 'custom_scrol1'
+            "
+          >
+            <div
+              class="row-header_wht d-flex align-items-center card_box"
+              *ngFor="
+                let objallBlanksummary of ViewallBlanksummarylst;
+                let i = index
+              "
+            >
+              <div class="col-1">{{ i + 1 }}</div>
+              <div class="col-2">{{ objallBlanksummary?.BlankName }}</div>
+              <div class="col-2">{{ objallBlanksummary?.QigName }}</div>
+              <div class="col-2">
+                {{ objallBlanksummary?.TotalNoofCandidates }}
+              </div>
+              <div class="col-3">
+                {{ objallBlanksummary?.ResponsesToBeEvaluated }}
+              </div>
+              <div class="col-2">
+                {{
+                  !objallBlanksummary?.IsManualMarkingRequired ? "No" : "Yes"
+                }}
+              </div>
+              <div class="col-1 hide">
+                {{ !objallBlanksummary?.IsS1Available ? "No" : "Yes" }}
+              </div>
+            </div>
+          </perfect-scrollbar>
+        </div>
+        <div class="modal-footer py-1 hide">
+          <button
+            type="button"
+            title="{{ 'SetUp.SemiAutomatic.Close' | translate }}"
+            data-bs-dismiss="modal"
+            class="btn theme_button d-flex align-items-center float-end mx-0"
+          >
+            <span class="icon-close-1"></span>
+            {{ "SetUp.SemiAutomatic.Close" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="EnableManual"
+    tabindex="-1"
+    aria-labelledby="EnableManual"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+      <div class="modal-content" [class.shimmer]="enablemanualmarking">
+        <div class="modal-header">
+          <h6 class="modal-title" id="exampleModalLabel">
+            {{ "SetUp.SemiAutomatic.QigDetails" | translate }}
+          </h6>
+          <button
+            type="button"
+            title="{{ 'SetUp.SemiAutomatic.Close' | translate }}"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            #closeComponentManualmarking
+          ></button>
+        </div>
+        <div class="modal-body overflw_y">
+          <div class="row align-items-center p-0 m-0 hide">
+            <div class="col-2">
+              {{ "SetUp.SemiAutomatic.Score" | translate }} :
+              <strong> {{ Score }}</strong>
+            </div>
+            <div class="col-8 status_resp justify-content-start">
+              <span class="icon icon-completed"></span>
+              <span>
+                {{ "SetUp.SemiAutomatic.CorrectAnswer" | translate }} : </span
+              >&nbsp;<strong>
+                {{ CorrectAnswer?.replace(",", ", ") }}
+              </strong>
+            </div>
+          </div>
+
+          <div class="card_box project_summary mt-0">
+            <div class="row d-flex align-items-center">
+              <div class="col-md-4">
+                <span>{{ "SetUp.SemiAutomatic.QIGName" | translate }} : </span>
+                <strong
+                  >{{
+                    ViewallBlanksummarylst &&
+                      ViewallBlanksummarylst[selectedblankindex]?.QigName
+                  }}
+                </strong>
+              </div>
+
+              <div class="col-md-4 col-xs-12">
+                <span
+                  >{{
+                    "SetUp.SemiAutomatic.NoofResponsedtobeEvaluated" | translate
+                  }}
+                  :
+                </span>
+                <strong>{{ NoOfResponses }}</strong>
+              </div>
+              <div class="col-md-4 col-xs-12">
+                <span
+                  >{{ "SetUp.SemiAutomatic.NoofAnswerKeywords" | translate }} :
+                </span>
+                <strong>{{ Noofkeyword }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="row p-0 m-0">
+            <div class="col-3 hide">
+              <div class="d-flex ">
+                <mat-slide-toggle
+                  color="primary"
+                  [disabled]="
+                    ViewallBlanksummarylst &&
+                    ViewallBlanksummarylst[selectedblankindex]
+                      ?.IsManualMarkingRequired
+                  "
+                  [(ngModel)]="Standardization"
+                  title="{{ 'SetUp.SemiAutomatic.ON/OFF' | translate }}"
+                ></mat-slide-toggle
+                >{{
+                  "SetUp.SemiAutomatic.Standardisationrequired" | translate
+                }}?
+              </div>
+            </div>
+            <div class="col-6">
+              <mat-form-field class="remarks" appearance="fill">
+                <mat-label>
+                  {{ "SetUp.SemiAutomatic.Remarks" | translate
+                  }}<span class="remarkslbl required">
+                    *
+                  </span>
+                </mat-label>
+                <textarea
+                  oncut="return false"
+                  onDrop="return false"
+                  onPaste="return false"
+                  [disabled]="
+                    ViewallBlanksummarylst &&
+                    ViewallBlanksummarylst[selectedblankindex]
+                      ?.IsManualMarkingRequired
+                  "
+                  matInput
+                  placeholder="{{ 'SetUp.SemiAutomatic.Remarks' | translate }}"
+                  class="text_ares"
+                  rows="1"
+                  cols="50"
+                  maxlength="250"
+                  [(ngModel)]="Remarks"
+                  value="{{ Remarks }}"
+                ></textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <div
+                class="sv_btin"
+                *ngIf="
+                  !(Viewfrequencydistributionlst?.BlankOption)[
+                    this.selectedblankindex
+                  ]?.IsManuallyMarkEnabled
+                "
+              >
+                <button
+                  (click)="
+                    UpdateManualMarkig(
+                      (Viewfrequencydistributionlst?.BlankOption)[
+                        selectedblankindex
+                      ]
+                    )
+                  "
+                  type="button"
+                  title="{{ 'SetUp.SemiAutomatic.Save' | translate }}"
+                  class="btn theme_button d-flex align-items-center float-end mx-0"
+                >
+                  <span class="icon-save"></span>
+                  {{ "SetUp.SemiAutomatic.Save" | translate }}
+                </button>
+              </div>
+            </div>
+
+            <div class="modal-body overflw_y">
+              <div
+                aria-describedby="rwresponse"
+                class="row-header_bg d-flex align-items-center ng-star-inserted"
+              >
+                <div scope="col" class="col-1">
+                  <strong>{{ "SetUp.SemiAutomatic.Sl" | translate }}</strong>
+                </div>
+                <div scope="col" class="col-3">
+                  <strong>{{
+                    "SetUp.SemiAutomatic.BlankName" | translate
+                  }}</strong>
+                </div>
+                <div scope="col" class="col-2">
+                  <strong>{{ "SetUp.SemiAutomatic.Score" | translate }}</strong>
+                </div>
+                <div scope="col" class="col-2">
+                  <strong>{{
+                    "SetUp.SemiAutomatic.NoResponses" | translate
+                  }}</strong>
+                </div>
+                <div scope="col" class="col-3">
+                  <strong>{{
+                    "SetUp.SemiAutomatic.ResponsestobeEvaluated" | translate
+                  }}</strong>
+                </div>
+              </div>
+              <perfect-scrollbar
+                [ngClass]="
+                  Qiglst?.length >= 5 ? 'custom_scrol3' : 'custom_scrol1'
+                "
+              >
+                <div
+                  class="row-header_wht d-flex align-items-center card_box"
+                  *ngFor="let objallBlanksummary of Qiglst; let i = index"
+                >
+                  <div class="col-1">{{ i + 1 }}</div>
+                  <div class="col-3">{{ objallBlanksummary.BlankName }}</div>
+                  <div class="col-2">{{ objallBlanksummary.BlankMarks }}</div>
+                  <div class="col-2">
+                    {{ objallBlanksummary.TotalNoofCandidates }}
+                  </div>
+                  <div class="col-3">
+                    {{ objallBlanksummary.ResponsesToBeEvaluated }}
+                  </div>
+                </div>
+              </perfect-scrollbar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

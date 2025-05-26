@@ -1,0 +1,594 @@
+<ng-template #mytemplate>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ "SetUp.Map.alrt" | translate }}</h4>
+  </div>
+  <div class="modal-body p-2 py-3">
+    <strong *ngIf="!IsS1Enabled && IsLiveMarkingEnabled">{{
+      "SetUp.Map.alert1" | translate
+      }}</strong>
+    <strong *ngIf="IsS1Enabled && !IsLiveMarkingEnabled">{{
+      "SetUp.Map.alert2" | translate
+      }}</strong>
+    <strong *ngIf="IsS1Enabled && IsLiveMarkingEnabled">{{
+      "SetUp.Map.alert3" | translate
+      }}</strong>
+    <strong *ngIf="UserDoneActivity">{{"SetUp.Map.ChangeRole.useractivity" | translate}}
+    </strong>
+  </div>
+  <div class="modal-footer">
+    <button mat-button [mat-dialog-close]="false" class="btn theme_button_light mt-1" #mytemplateclose
+      title="{{ 'shared.close' | translate }}">
+      {{ "shared.close" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<div class="container container_cust mt-3">
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+        role="tab" aria-controls="nav-home" aria-selected="true">
+        {{ "SetUp.Map.mappedusers" | translate }}
+      </button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" [routerLink]="[
+          '/projects',
+          'setup',
+          'user-management',
+          'AvaliableUsers'
+        ]" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+        {{ "SetUp.Map.avaliableusers" | translate }}
+      </button>
+    </div>
+  </nav>
+
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="heder_flx">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="row user_counts">
+              <div class="col cur-pointer">
+                <span [ngClass]="!totcountbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('', false)">
+                  {{ "SetUp.Map.totaluser" | translate }}</span>
+                <strong>
+                  <a id="totalusers" [class.shimmer]="dataloading" [ngClass]="!totcountbtnstyle ? 'anchorclick' : ''"
+                    (click)="GetFilteredRoles('', false)">{{ mappedcount }}</a></strong>
+              </div>
+              <div class="col cur-pointer">
+                <span [ngClass]="!aobtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('AO', false)">{{
+                  "SetUp.Map.ao" | translate
+                  }}</span>
+                <strong [class.shimmer]="countsloading"><a [class.shimmer]="dataloading"
+                    [ngClass]="!aobtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('AO', false)">{{ AOcount
+                    }}</a></strong>
+              </div>
+
+              <div class="col cur-pointer">
+                <span [ngClass]="!cmbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('CM', false)">{{
+                  "SetUp.Map.cm" | translate }}
+                </span>
+                <strong [class.shimmer]="countsloading"><a [class.shimmer]="dataloading"
+                    [ngClass]="!cmbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('CM', false)">{{ CMcount
+                    }}</a></strong>
+              </div>
+
+              <div class="col cur-pointer">
+                <span [ngClass]="!acmbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('ACM', false)">
+                  {{ "SetUp.Map.acm" | translate }}</span>
+                <strong [class.shimmer]="countsloading"><a [class.shimmer]="dataloading"
+                    [ngClass]="!acmbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('ACM', false)">{{ ACMcount
+                    }}</a></strong>
+              </div>
+
+              <div class="col cur-pointer">
+                <span [ngClass]="!tlbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('TL', false)">{{
+                  "SetUp.Map.tl" | translate
+                  }}</span>
+                <strong [class.shimmer]="countsloading"><a [class.shimmer]="dataloading"
+                    [ngClass]="!tlbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('TL', false)">{{ TLcount
+                    }}</a></strong>
+              </div>
+
+              <div class="col cur-pointer">
+                <span [ngClass]="!atlbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('ATL', false)">
+                  {{ "SetUp.Map.atl" | translate }}
+                </span>
+                <strong [class.shimmer]="countsloading"><a [class.shimmer]="dataloading"
+                    [ngClass]="!atlbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('ATL', false)">{{ ATLcount
+                    }}</a></strong>
+              </div>
+              <div class="col cur-pointer">
+                <span [ngClass]="!markerbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('MARKER', false)">
+                  {{ "SetUp.Map.markers" | translate }}</span>
+                <strong [class.shimmer]="countsloading"><a [ngClass]="!markerbtnstyle ? 'anchorclick' : ''"
+                    (click)="GetFilteredRoles('MARKER', false)">{{ Markerscount }}</a></strong>
+              </div>
+              <div class="col-md-3 cur-pointer">
+                <span [ngClass]="!unmappedusercountbtnstyle ? 'anchorclick' : ''" (click)="GetFilteredRoles('', true)">
+                  {{ "SetUp.Map.unmappeduserscount" | translate }}
+                </span>
+                <strong [class.shimmer]="countsloading"><a [ngClass]="!unmappedusercountbtnstyle ? 'anchorclick' : ''"
+                    (click)="GetFilteredRoles('', true)">{{ UnMappedUserscount }}</a></strong>
+              </div>
+            </div>
+          </div>
+          <div class="float-end cust-seach search_dash p-0 m-0 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "SetUp.UserManagement.search" | translate
+                }}</mat-label>
+              <input matInput title="Search Users" placeholder="Search by Login Name" [(ngModel)]="UsersValue"
+                (keyup.enter)="SearchScript()" ngDefaultControl autocomplete="off" oncut="return false"
+                onDrop="return false" />
+              <mat-icon matSuffix><span class="icon-search" title=" search Users"
+                  (click)="SearchScript()"></span></mat-icon>
+            </mat-form-field>
+
+            <button mat-button [matMenuTriggerFor]="filter_menu" class="filter_btn hide">
+              <span class="icon-filter"></span>
+            </button>
+            <mat-menu #filter_menu="matMenu" xPosition="before" class="filter_op hide">
+              <div class="selct_par">
+                <strong>{{ "SetUp.Map.role" | translate }}</strong>
+                <select name="Selc1" id="Selc1">
+                  <option value="volvo">Selc1</option>
+                  <option value="saab">Selc2</option>
+                </select>
+              </div>
+
+              <div class="selct_par">
+                <strong> Status</strong>
+                <select name="Selc1" id="Selc1">
+                  <option value="volvo">Selc1</option>
+                  <option value="saab">Selc2</option>
+                </select>
+              </div>
+
+              <div class="selct_par">
+                <strong> School</strong>
+                <select name="Selc1" id="Selc1">
+                  <option value="volvo">Selc1</option>
+                  <option value="saab">Selc2</option>
+                </select>
+              </div>
+            </mat-menu>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div class="row-header_bg card_container">
+        <div class="px-2 d-flex align-items-center col-md-12 ">
+          <div class="col-md-2  ">
+            <strong class="sortting">{{ "SetUp.Map.name" | translate }}</strong>
+            <span>
+              <span [ngClass]="
+                  sortupclicked
+                    ? 'icon-download sorticon sort_up sorton'
+                    : 'icon-download sorticon sort_up'
+                " (click)="SortList(0, 'username')"></span>
+              <span title="Low - High" [ngClass]="
+                  sortdownclicked
+                    ? 'icon-download sorticon sorton'
+                    : 'icon-download sorticon'
+                " (click)="SortList(1, 'username')"></span>
+            </span>
+          </div>
+          <div class="col-md-2 custom-right">
+            <strong>{{ "SetUp.Map.loginname" | translate }}</strong>
+          </div>
+          <div class="col-md-1 custom-right">
+            <strong class="sortting">{{ "SetUp.Map.role" | translate }}</strong>
+            <span>
+              <span [ngClass]="
+                  sortupclicked1
+                    ? 'icon-download sorticon sort_up sorton'
+                    : 'icon-download sorticon sort_up'
+                " (click)="SortList(0, 'rolecode')"></span>
+              <span title="Low - High" [ngClass]="
+                  sortdownclicked1
+                    ? 'icon-download sorticon sorton'
+                    : 'icon-download sorticon'
+                " (click)="SortList(1, 'rolecode')"></span>
+            </span>
+          </div>
+          <div class="col-md-2 custom-right">
+            <strong>{{ "SetUp.Map.schoolname" | translate }}</strong>
+          </div>
+          <div class="col-md-2">
+            <strong>{{ "SetUp.Map.nric" | translate }}</strong>
+          </div>
+          <div class="col">
+            <strong>{{ "SetUp.Map.srtdate" | translate }}</strong>
+          </div>
+          <div class="col">
+            <strong>{{ "SetUp.Map.enddate" | translate }}</strong>
+          </div>
+        </div>
+      </div>
+      <perfect-scrollbar class="table_list_scroll" [class.shimmer]="dataloading">
+        <div *ngFor="let lst of ProjectUsersSearchedList">
+          <div class="p-2 row  align-items-center col-md-12" [ngClass]="
+              !lst?.IsActive
+                ? 'row-childrow pos_rel isactivecolor'
+                : 'row-childrow pos_rel'
+            ">
+            <div class="col-md-2 word_wrpa ">
+              <span>{{ lst.Name }}</span>
+            </div>
+            <div class="col-md-2 word_wrpa custom-right">
+              <span>{{ lst.LoginName }}</span>
+            </div>
+            <div class="col-md-1 cust-pos word_wrpa">
+              <span>{{ lst.RoleName }}</span>
+            </div>
+            <div class="col-md-2 cust-pos  word_wrpa">
+              <span class="text-center" *ngIf="lst.SchooolName == undefined || lst.SchooolName == null">
+                --
+              </span>
+              <span *ngIf="lst.SchooolName != undefined || lst.SchooolName != null">
+                {{ lst.SchooolName }}
+              </span>
+            </div>
+
+            <div class="col-md-2 word_wrpa">
+              <span>{{ lst.NRIC }}</span>
+            </div>
+            <div class="col word_wrpa">
+              <span class="text-center" *ngIf="lst.StartDate == undefined || lst.StartDate == null">
+                --
+              </span>
+              <span>{{ lst.StartDate | date: "dd-MMM-YYYY" }}</span>
+            </div>
+            <div class="col word_wrpa">
+              <span class="text-center" *ngIf="lst.EndDate == undefined || lst.EndDate == null">
+                --
+              </span>
+              <span>
+                {{ lst.EndDate | date: "dd-MMM-YYYY" }}
+              </span>
+            </div>
+            <button class="mat-menu-trigger option_more" [matMenuTriggerFor]="beforeMenu" *ngIf="
+           ( usersList.currentloginrolecode != lst.RoleName ||
+            (lst.IsActive == false && lst.RoleName == 'AO') ) && (!UnmappedUserSelected ||
+            (!UnmappedUserSelected && currentloginrolecode != 'AO'))
+          "><span class="icon-options" title="More option"></span></button>
+
+            <button class="mat-menu-trigger option_more" [matMenuTriggerFor]="beforeMenu" *ngIf="
+           ( usersList.currentloginrolecode != lst.RoleName ||
+            (lst.IsActive == false && lst.RoleName == 'AO') ) && (UnmappedUserSelected && lst.RoleName != 'AO')
+          "><span class="icon-options" title="More option"></span></button>
+
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+              <a class="hide" mat-menu-item data-bs-toggle="modal" (click)="EditMappedUsers(lst.ProjectuserroleID)"
+                data-bs-target="#editModal" title="Edit">
+                Edit
+              </a>
+
+              <div *ngIf="lst?.IsActive">
+                <div *ngIf="usersList.currentloginrolecode != 'AO'">
+                  <button *ngIf="lst.RoleName == 'AO'" title="Un-Map"
+                    class="btn theme_button d-flex align-items-center " [class.shimmer]="dataloading" (click)="
+                      getUnmapProjectUserRoleID(
+                        lst.ProjectuserroleID,
+                        lst.Name,
+                        lst.RoleName,
+                        mytemplate,
+                        lst.IsS1Enabled,
+                        lst.IsLiveMarkingEnabled
+                      )
+                    ">
+                    {{ "SetUp.Map.unmap" | translate }}
+                  </button>
+                </div>
+                <div>
+                  <button class="btn theme_button d-flex align-items-center " title="Un-Map"
+                    *ngIf="lst.RoleName != 'AO'" [class.shimmer]="dataloading" (click)="
+                      UnMapMarkingpersonelUsers(
+                        lst.ProjectuserroleID,
+                        lst.RoleName,
+                        mytemplate,
+                        lst.IsS1Enabled,
+                        lst.Name,
+                        lst.IsLiveMarkingEnabled
+                      )
+                    ">
+                    {{ "SetUp.Map.unmap" | translate }}
+                  </button>
+                </div>
+              </div>
+
+              <div *ngIf="(usersList.currentloginrolecode == 'SUPERADMIN' || usersList.currentloginrolecode == 'SERVICEADMIN') && (lst.RoleName != 'AO' && !UnmappedUserSelected)">
+                <button [class.shimmer]="dataloading" id="btnChangerole" title="Change Role"
+                  class="btn theme_button m-auto align-items-center mp_btn float-end mt-2" data-bs-toggle="modal"
+                  data-bs-target="#changeRole"
+                  (click)="CheckACtivityOfUser(lst.ProjectuserroleID,lst.RoleName,mytemplate,lst?.Name)">
+                  Change Role
+                </button>
+              </div>
+
+              <div *ngIf="!lst?.IsActive">
+                <div *ngIf="lst.RoleName != 'AO'">
+                  <button [class.shimmer]="dataloading" type="button" id="btnMap"
+                    title=" {{ 'SetUp.Map.remapusers' | translate }}  "
+                    class="btn theme_button m-auto align-items-center mp_btn float-end mt-2" data-bs-toggle="modal"
+                    (click)="Onremapuserclick(lst.UserId)">
+                    {{ "SetUp.Map.remapusers" | translate }}
+                  </button>
+                </div>
+              </div>
+            </mat-menu>
+          </div>
+        </div>
+        <div class="cust-textalign  nodata_db nodata_found" *ngIf="
+            this.usersList?.allmappeduserlist.length == 0 ||
+            this.usersList?.allmappeduserlist == null ||
+            this.usersList?.allmappeduserlist == undefined
+          ">
+          {{ "SetUp.Map.nodatafnd" | translate }}
+        </div>
+      </perfect-scrollbar>
+    </div>
+
+  </div>
+  <mat-paginator [class.shimmer]="dataloading" #paginator class="demo-paginator" (page)="handlePageEvent($event)"
+    [length]="length" [pageSize]="pageSize" [disabled]="false" [showFirstLastButtons]="true"
+    [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="false" [pageIndex]="pageIndex"
+    aria-label="Select page">
+  </mat-paginator>
+
+
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editModalLabel">Edit User</h1>
+          <button type="button" title="Close" #closebutton class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>UserName</mat-label>
+                <input matInput [value]="editselectuser?.Name" placeholder="UserName" ngDefaultControl />
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>LoginName</mat-label>
+                <input matInput [value]="editselectuser?.LoginName" placeholder="LoginName" ngDefaultControl />
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="fill">
+                <mat-label>SchoolName</mat-label>
+                <input matInput [value]="editselectuser?.SchooolName" placeholder="SchoolName" ngDefaultControl />
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="fill">
+                <mat-label>RoleName</mat-label>
+                <input matInput [value]="editselectuser?.RoleName" placeholder="RoldeName" ngDefaultControl />
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field appearance="fill">
+                <mat-label>Appointment StartDate</mat-label>
+                <input matInput [value]="editselectuser?.StartDate" placeholder="Appointment StartDate"
+                  ngDefaultControl />
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="fill">
+                <mat-label>Appointment EndDate</mat-label>
+                <input matInput [value]="editselectuser?.EndDate" [(ngModel)]="picktodate" readonly
+                  [min]="tominimumdate" placeholder="Appointment EndDate" ngDefaultControl />
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>NRIC</mat-label>
+                <input matInput placeholder="NRIC" [value]="editselectuser?.NRIC" ngDefaultControl />
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput placeholder="Phone Number" [value]="editselectuser?.Phone" ngDefaultControl />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn theme_button d-flex align-items-center" title="Save">
+            <span class="icon-save-1"></span> {{ "SetUp.Map.Save" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a id="ancshowAOlist" class="hide" data-bs-toggle="modal" data-bs-target="#MapUsers">open ao</a>
+  <a id="remapuser" class="hide" data-bs-toggle="modal" data-bs-target="#ReMapUsers">
+    {{ "SetUp.Map.remapusers" | translate }}</a>
+
+  <!-- Modal -->
+  <div class="modal fade" id="MapUsers" tabindex="-1" aria-labelledby="MapUsers" aria-hidden="true"
+    [hidden]="IsmodelShow" data-target="#modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-l">
+      <div class="modal-content" [class.shimmer]="dataloading">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            {{ "SetUp.Map.unmapao" | translate }}
+          </h5>
+
+          <button type="button" title="Close" class="btn-close" (click)="Clearpopup()" data-bs-dismiss="modal"
+            aria-label="Close" #closeComponentUnmapusers></button>
+        </div>
+        <div class="modal-body">
+          <h6>{{ "SetUp.Map.plseselctaotoreplceexistingao" | translate }}</h6>          
+          <div class="card_box project_summary mt-0">
+            <div class="row-header_bg card_container">
+
+              <div class="px-2 d-flex align-items-center col-md-12 al">
+                <div class="col-md-3">
+                  <strong>{{ "SetUp.Map.maplogin" | translate }}</strong>
+                </div>
+              </div>
+              <div class="  search_dash cust_ao_search ">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{"SetUp.UserManagement.search" | translate}}</mat-label>
+                  <input matInput title="Search by Login Name" placeholder="Search by Login Name"
+                    [(ngModel)]="AvailableUsersValue" (keyup.enter)="SearchAOlist()" ngDefaultControl autocomplete="off"
+                    oncut="return false" onDrop="return false" />
+                </mat-form-field>
+              </div>
+            </div>
+            <perfect-scrollbar #perfectScroll [scrollIndicators]="true" class="main-panel table_list_scroll"
+              [config]="{ suppressScrollX: true }">
+              <div class="row-childrow pos_rel" *ngFor="let lst of ListOfOnlyAo">
+                <mat-radio-group [(ngModel)]="selectedValue">
+                  <mat-radio-button [checked]="lst.UserId" title="Select AO" [value]="lst.UserId" ngDefaultControl>
+                  </mat-radio-button>
+                  {{ lst.LoginName }}
+                </mat-radio-group>
+              </div>
+              <div class="cust-textalign  nodata_db nodata_found"
+                *ngIf="ListOfOnlyAo.length == 0 || ListOfOnlyAo == null">
+                {{ "SetUp.Map.nodatafnd" | translate }}
+              </div>
+            </perfect-scrollbar>
+          </div>
+        </div>
+        <div class="sv_btin">
+          <button type="button" title="Save" (click)="UnMapParticularAO(mytemplate)"
+            class="btn theme_button d-flex align-items-center float-end mx-0 mt-3 cust-pos-btn">
+            <span class="icon-save"></span>
+            {{ "SetUp.Map.save" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal for Mapping-->
+
+  <div class="modal fade" id="ReMapUsers" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
+    #staticBackdrop>
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">
+            {{ "SetUp.Map.remapusers" | translate }}
+          </h5>
+          <button type="button" (click)="Clearpopup()" class="btn-close" title="Close" data-bs-dismiss="modal"
+            aria-label="Close" #closeremappopup></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-2">
+            <mat-form-field appearance="fill">
+              <mat-label>{{ "SetUp.Map.choosearole" | translate }}</mat-label>
+              <mat-select #matSelect>
+                <mat-option *ngFor="let rolelt of userrolelist" [value]="rolelt.RoleCode" ngDefaultControl>
+                  {{ rolelt.RoleCode }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="mb-2">
+            <div class="col-md-12 col-xs-12 date_range">
+              <mat-form-field appearance="fill" class="pointer_disable">
+                <mat-label class="lable">{{
+                  "SetUp.Map.fromdate" | translate
+                  }}</mat-label>
+                <input tabindex="-1" #from onDrop="return false" oncut="return false" onPaste="return false" matInput
+                  [matDatepicker]="frompicker" id="FromDate" [(ngModel)]="pickfromdate" [value]="pickfromdate" readonly
+                  [min]="minimumdate" ngDefaultControl />
+                <mat-datepicker-toggle matSuffix [for]="frompicker" title="{{ 'SetUp.Map.fromdate' | translate }}"
+                  class="pointer_enable">
+                </mat-datepicker-toggle>
+                <mat-datepicker #frompicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="mb-2">
+            <mat-form-field appearance="fill" class="pointer_disable">
+              <mat-label class="lable">{{
+                "SetUp.Map.enddate" | translate
+                }}</mat-label>
+              <input tabindex="-1" #to onDrop="return false" oncut="return false" onPaste="return false" matInput
+                [matDatepicker]="toPicker" id="ToDate" [(ngModel)]="picktodate" [value]="picktodate" readonly
+                [min]="tominimumdate" ngDefaultControl />
+              <mat-datepicker-toggle matSuffix [for]="toPicker" title="{{ 'SetUp.Map.enddate' | translate }}"
+                class="pointer_enable">
+              </mat-datepicker-toggle>
+              <mat-datepicker #toPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" title="{{ 'SetUp.Map.remapusers' | translate }}" (click)="SaveReMappedUsers()"
+            class="btn theme_button align-items-center float-end mt-2">
+            {{ "SetUp.Map.remapusers" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" id="changeRole" #changeRole tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    [hidden]="!UserIsnotdoneActivity">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" [class.shimmer]="dataloading">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{ "SetUp.Map.ChangeRole.currrole" | translate }}{{changerolemodel?.currentuserrolecode}} ({{changerolemodel?.currentusername}})</h1>
+          <button type="button" title="Close" #changerolebutton class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body" [class.shimmer]="dataloading">
+          <table class="table table-striped roll_base" aria-hidden="true">
+            <tbody>
+              <tr>
+                <th scope="row">{{ "SetUp.Map.ChangeRole.newrole" | translate }}</th>
+                <td>
+                  <select (change)="OnChangRole($event)">
+                    <option [value]="0">{{ "SetUp.Map.ChangeRole.selnewrole" | translate }}</option>
+                    <option [value]="roledet?.RoleCode" ngDefaultControl
+                      *ngFor="let roledet of changerolemodel?.Roledetails">
+                      {{roledet?.RoleCode}}</option>
+                  </select>
+                </td>
+              </tr>
+              <tr *ngIf="changerolemodel?.QIGdetails?.length > 0">
+                <th scope="row">{{ "SetUp.Map.ChangeRole.qig" | translate }}</th>
+                <td><strong>{{ "SetUp.Map.ChangeRole.supervisor" | translate }}</strong></td>
+              </tr>
+              <ng-container *ngIf="changerolemodel?.QIGdetails?.length > 0">
+                <tr *ngFor="let qigdetails of changerolemodel?.QIGdetails">
+                  <td [value]="qigdetails?.ProjectQIGID">{{qigdetails?.QIGCode}}</td>
+                  <td><select (change)="OnChangSupervisorRole($event,qigdetails?.ProjectQIGID)" #qigsupervisorid [(ngModel)]="qigdetails.ReportingTo">
+                    <option value="0">{{ "SetUp.Map.ChangeRole.SelSupervisor" | translate }}</option>
+                    <option [value]="superroledet?.ProjectUserRoleID" ngDefaultControl
+                      *ngFor="let superroledet of qigdetails?.SupervisorRoledetails">{{superroledet?.FirstName}}
+                      ({{superroledet?.RoleCode}})</option>                    
+                  </select></td>
+                </tr>              
+              </ng-container>              
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" title='{{ "SetUp.Map.ChangeRole.close" | translate }}' data-bs-dismiss="modal"> {{ "SetUp.Map.ChangeRole.close" | translate }}</button>
+          <button type="button" class="btn theme_button" title='{{ "SetUp.Map.ChangeRole.save" | translate }}' (click)="UpdateChangeRoleDetails()" [disabled]="dataloading">{{ "SetUp.Map.ChangeRole.save" | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>

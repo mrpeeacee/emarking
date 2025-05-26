@@ -1,0 +1,30 @@
+
+
+.displayflexnone {
+    display: inline-flex !important;
+}
+
+.fontweight {
+    font-weight: bold;
+}
+
+.row-childrow {
+
+    padding: 10px 6px;
+}
+.pending_btn { 
+    cursor: pointer !important;
+    pointer-events: none;
+}
+
+.status_yess{ color: #2DAD00;}
+.status_nos{ color: #FF0000;}
+.status_pendings{color: #fae314;}
+
+.status_yes {
+  min-width: 125px;
+}
+
+.fnt-size{
+    font-size: 16px;
+}

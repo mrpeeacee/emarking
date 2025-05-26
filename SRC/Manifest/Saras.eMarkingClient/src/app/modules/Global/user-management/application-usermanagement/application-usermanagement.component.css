@@ -1,0 +1,154 @@
+.pos_rel {
+    position: relative;
+}
+
+.status_lagend {
+    text-indent: 10px;
+    position: relative;
+}
+
+.status_lagend::before {
+    content: " ";
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    left: -10px;
+    top: 3px;
+    border-radius: 50px;
+
+}
+.status_lagend.disabled::before{
+    background: red;
+
+}
+.status_lagend.active::before {
+    background: green
+}
+
+.status_lagend.inactive::before {
+    background: orange
+}
+
+.status_lagend.blocked::before {
+    content: " <span class=" icon-block_user"></span>";
+}
+
+.blocked span {
+    color: red;
+    font-size: 20px;
+    position: absolute;
+    left: -20px;
+}
+
+.blocked {
+    position: relative;
+    text-indent: 20px;
+}
+
+.filter_btn {
+
+    font-size: 27px;
+    margin-left:6px;
+}
+
+::ng-deep .filter_op {
+    min-width: 250px;
+}
+
+
+::ng-deep .filter_op select {
+    width: 100%;
+    padding: 6px;
+}
+
+.selct_par {
+    margin-bottom: 10px;
+}
+
+.search_dash .icon-search {
+  font-size: 30px;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+}
+
+.user_counts strong {
+    font-size: 16px;
+    cursor: default;
+    margin-left: 8px;
+}
+
+.user_counts {
+    display: flex;
+    align-items: center
+}
+
+.heder_flx {
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px 5px 0 0;
+}
+
+::ng-deep .mat-paginator-container {
+
+    justify-content: space-between !important;
+
+}
+
+::ng-deep .mat-paginator-container .mat-form-field {
+    margin-bottom: 7px;
+    width: 70px !important;
+    border: 1px solid #979797;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+::ng-deep .mat-paginator-container .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0.25px !important;
+}
+
+::ng-deep .mat-paginator {
+
+    margin: 4px 10px 5px 10px !important;
+}
+
+.body_box {
+    padding: 10px;
+    padding-bottom: 0px;
+    display: inline-block;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+::ng-deep .mat-form-field-flex {
+
+    width: 100% !important;
+}
+mat-form-field {
+    margin-bottom: 0px !important;
+}
+
+.sorticon {
+  font-size: 21px;
+  cursor: pointer;
+  margin-top: -1px;
+  margin-left: -10px;
+  font-weight: bold;
+  float: left;
+  opacity: 0.7;
+}
+
+.sort_up {
+  position: relative;
+  transform: rotate(180deg);
+}
+
+.sorton {
+  opacity: 0.7;
+  color: #3356f0;
+}
+
+.sortting {
+  float: left;
+  margin-right: 10px;
+}

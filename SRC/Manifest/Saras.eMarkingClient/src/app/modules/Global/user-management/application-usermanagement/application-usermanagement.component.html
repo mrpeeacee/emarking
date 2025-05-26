@@ -1,0 +1,209 @@
+<div class="container">
+    <div class="body_box">
+        <div class="col-md-12 mb-3 mt-2" [class.shimmer]="userslstloading">
+
+            <button type="button" title=" {{'usermanage.exportUser' | translate}}" (click)="ExcelReport();" class="btn theme_button align-items-center float-end mt-2">
+                <span class="icon-export"></span> {{'usermanage.exportUser' | translate}}
+            </button>
+            <button type="button" title="{{'usermanage.importuser' | translate}}" class="btn theme_button align-items-center float-end mt-2"
+                (click)="GotoImportuser()"><span class="icon-download float-end f30"></span>
+                {{'usermanage.importuser' | translate}}</button>
+            <button type="button" title="{{'usermanage.createuser' | translate}}" class="btn theme_button align-items-center float-end mt-2"
+                (click)="GotoCreateuser()"><span class="icon-add"></span>
+                {{'usermanage.createuser' | translate}} </button>
+            <button type="button" title="{{'usermanage.viewblockeduser' | translate}}" class="btn theme_button_light align-items-center float-end mt-2"
+                (click)="GotoBlockeduser()"><span class="icon-block_user"></span>
+                {{'usermanage.viewblockeduser' | translate}} </button>
+
+            <div class="clear"></div>
+        </div>
+
+
+        <div class="heder_flx" [class.shimmer]="userslstloading">
+            <div class="row">
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div class="row mt-2 user_counts">
+                        <div class="col">
+                            <span class="anchorclick">{{'usermanage.totalusers' | translate}} :</span>
+                            <strong class="">{{allappltnuserslst?.userscount?.Totalusers}}</strong>
+                        </div>
+                        <div class="col">
+                            <span class="anchorclick">{{'usermanage.activeusers' | translate}} : </span>
+                            <strong class="">{{allappltnuserslst?.userscount?.Activeusers}}</strong>
+                        </div>
+                        <div class="col">
+                            <span class="anchorclick">{{'usermanage.inactiveusers' | translate}} : </span>
+                            <strong class="">{{allappltnuserslst?.userscount?.InActiveusers}}</strong>
+                        </div>
+                        <div class="col">
+                            <span class="anchorclick">{{'usermanage.blockedusers' | translate}} : </span>
+                            <strong class="">{{allappltnuserslst?.userscount?.Blockedusers}}</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-end d-flex search_dash p-0 m-0 col-4">
+                    <mat-form-field appearance="outline" class="mb-0 mt-2">
+                        <mat-label>{{'usermanage.search' | translate}}</mat-label>
+                        <input matInput placeholder="{{'usermanage.searchbyname' | translate}}" [(ngModel)]="ScriptSearchValue"
+                            (keyup.enter)="SearchScript()" ngDefaultControl autocomplete="off" oncut="return false"
+                            onDrop="return false">
+                            <span title="{{'usermanage.search' | translate}}" (click)="SearchScript()" class="icon-search"></span> 
+                    </mat-form-field>
+                    <button mat-button #menutrigger [matMenuTriggerFor]="beforeMenu" class="filter_btn"><span class=" icon-filter"
+                            title="{{'usermanage.filter' | translate}}"></span></button>
+                    <mat-menu #beforeMenu="matMenu" xPosition="before" class="filter_op">
+                        <mat-form-field [formGroup]="searchUserForm">
+                            <div class="selct_par">
+                                <mat-form-field appearance="fill" (click)="$event.stopPropagation()">
+                                    <strong>{{'usermanage.role' | translate}}</strong>
+                                    
+
+                                    <mat-select #matSelectexamlevel formControlName="frole" multiple>
+                                        <mat-option *ngFor="let role of roleschooldetails?.roles" [value]="role?.RoleCode"
+                                            (onSelectionChange)="IsCheckedRole($event, role)" ngDefaultControl>
+                                            {{role?.RoleName}}</mat-option>
+
+                                    </mat-select>
+
+                                </mat-form-field>
+
+                            </div>
+                            <div class="selct_par">
+                                <mat-form-field appearance="fill" (click)="$event.stopPropagation()">
+                                    <strong>{{'usermanage.status' | translate}}</strong>
+                                   
+                                    <mat-select multiple formControlName="fuserstatus">
+                                        <mat-option *ngFor="let status of statuslst" [value]="status.Id"
+                                            (onSelectionChange)="IscheckedStatus($event, status)" ngDefaultControl>
+                                            {{status?.Text}}</mat-option>
+
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+
+                            <div class="selct_par">
+
+                                <mat-form-field appearance="fill" (click)="$event.stopPropagation()">
+                                    <strong>{{'usermanage.school' | translate}}</strong>
+
+                                    <mat-select #matSelectexamlevel1 multiple formControlName="fschool">
+                                        <mat-option *ngFor="let school of roleschooldetails?.schools" [value]="school?.SchoolCode"
+                                            (onSelectionChange)="IscheckedSchool($event, school)" ngDefaultControl>
+                                            {{school?.SchoolName}}</mat-option>
+
+                                    </mat-select>
+
+                                </mat-form-field>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3"> <button mat-button class="btn btn-primary" title="{{'usermanage.filter' | translate}}"  type="button" (click)="Filter();$event.stopPropagation()">{{'usermanage.filter' | translate}}</button></div>
+                                <div class="col-md-3"> <button class="btn btn-primary" type="button" title="{{'usermanage.clear' | translate}}" (click)="Clear();$event.stopPropagation()">{{'usermanage.clear' | translate}}</button></div>
+                                <div class="col-md-3"> <button class="btn btn-primary" type="button" (click)="close();$event.stopPropagation()" title="Close">close</button></div>
+                            </div>
+
+
+                        </mat-form-field>
+
+                    </mat-menu>
+
+
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="row-header_bg card_container" [class.shimmer]="userslstloading">
+            <div class="p-2 d-flex align-items-center col-md-12 al">
+                <div class="col-md-2">
+                    <strong class="sortting">{{'usermanage.name' | translate}}</strong>
+                    <span>
+                        <span [ngClass]="sortupclicked ? 'icon-download sorticon sort_up sorton' : 'icon-download sorticon sort_up'"
+                            (click)="SortList(0)"></span>
+                        <span [ngClass]="sortdownclicked ? 'icon-download sorticon sorton' : 'icon-download sorticon'" (click)="SortList(1)"></span>
+                    </span>                   
+                </div>
+                <div class="col-md-2"><strong>{{'usermanage.login' | translate}}</strong></div>
+                <div class="col-md-1"><strong>{{'usermanage.role' | translate}}</strong></div>
+                <div class="col-md-2"><strong>{{'usermanage.schoolname' | translate}}</strong></div>
+                <div class="col-md-1"><strong>{{'usermanage.nric' | translate}}</strong></div>
+                <div class="col-md-2"><strong>{{'usermanage.phone' | translate}}</strong></div>
+                <div class="col-md-2"><strong>{{'usermanage.status' | translate}}</strong></div>
+            </div>
+        </div>
+
+        <perfect-scrollbar class="table_list_scroll">
+            <div class="row-childrow pos_rel" *ngFor="let userlist of allappltnuserslst?.getAllUsersModel">
+                <div class="p-2 row col-md-12 pad10" [class.shimmer]="userslstloading">
+                    <div class="col-md-2 text-break">{{userlist?.Name}}</div>
+                    <div class="col-md-2 text-break">{{userlist?.LoginName}}</div>
+                    <div class="col-md-1 text-break">{{userlist?.RoleCode == 'MARKINGPERSONNEL' ? 'MP'
+                        :userlist?.RoleCode}}</div>
+                    <div class="col-md-2 text-break">{{userlist?.RoleCode == 'MARKINGPERSONNEL' ? userlist?.SchooolName
+                        : 'NA'}}</div>
+                    <div class="col-md-1 text-break">{{userlist?.NRIC}}</div>
+                    <div class="col-md-2">{{userlist?.Phone == null ? ' - ' : userlist?.Phone}}</div>
+                    <div class="col-md-2">
+                        <div class="status_lagend active" *ngIf="userlist?.isactive && !userlist?.isDisable">
+                            {{'usermanage.active' | translate}}
+                        </div>
+                        <div class="status_lagend disabled" *ngIf="userlist?.isactive && userlist?.isDisable || !userlist?.isactive && userlist?.isDisable">
+                            {{'usermanage.disabled'
+                            | translate}}
+                        </div>
+                        <div class="status_lagend inactive" *ngIf="!userlist?.isactive && !userlist?.isDisable">
+                            {{'usermanage.inactive' |
+                            translate}}</div>
+                        <div class="blocked" *ngIf="userlist?.isblocked"> <span class="icon-block_user"></span>{{'usermanage.blocked'
+                            | translate}}
+                        </div>
+                    </div>
+                    <button class="mat-menu-trigger option_more" [matMenuTriggerFor]="Menuoptions" *ngIf="(userlist?.ApplicationLevel >= allappltnuserslst?.userscount?.ApplicationLevelOfLoginUserID && userlist?.UserId != userlist?.CuurentloggedinUserId)"><span
+                            title="{{'usermanage.moreoption' | translate}}" class="icon-options" (click)="StatusOfRemove(userlist?.UserId)"></span></button>
+                    <mat-menu #Menuoptions="matMenu" xPosition="before">
+                        <div [class.shimmer]="Changestatusloading">
+                            <button mat-menu-item title="{{'usermanage.edit' | translate}}" (click)="Edituser(userlist?.UserId)">{{'usermanage.edit'
+                                |
+                                translate}}</button>
+                            <button mat-menu-item title="{{'usermanage.resetpwd' | translate}}" (click)="ResetPwd(userlist)"
+                                [disabled]="(userlist?.isblocked || userlist?.isDisable || !userlist?.isactive)">{{'usermanage.resetpwd'
+                                |
+                                translate}}</button>
+                            
+                                <button mat-menu-item *ngIf="!userlist?.isactive" title="{{'usermanage.active' | translate}}"
+                                    [disabled]="userlist?.isblocked || userlist?.isDisable" (click)="ConfirmationForChangestatus(userlist.UserId,ChangeStatus.Active,'Active',userlist?.isactive,userlist?.isDisable, userlist?.LoginName)">{{'usermanage.active'
+                                    | translate}}</button>
+
+                                <button mat-menu-item *ngIf="userlist?.isactive" title="{{'usermanage.inactive' | translate}}"
+                                    [disabled]="userlist?.isblocked || userlist?.isDisable" (click)="ScriptExists(userlist.UserId,ChangeStatus.InActive,'Inactive',userlist?.isactive,userlist?.isDisable, userlist?.LoginName)">{{'usermanage.inactive'
+                                    | translate}}</button>
+
+                                <button mat-menu-item *ngIf="userlist?.isDisable" title="{{'usermanage.enable' | translate}}"
+                                    [disabled]="userlist?.isblocked" (click)="ConfirmationForChangestatus(userlist.UserId,ChangeStatus.Enable,'Enable',userlist?.isactive,userlist?.isDisable, userlist?.LoginName)">{{'usermanage.enable'
+                                    | translate}}</button>
+
+                                <button mat-menu-item *ngIf="!userlist?.isDisable" title="{{'usermanage.disable' | translate}}"
+                                    [disabled]="userlist?.isblocked" (click)="ScriptExists(userlist.UserId,ChangeStatus.Disable,'Disable',userlist?.isactive,userlist?.isDisable, userlist?.LoginName)">{{'usermanage.disable'
+                                    | translate}}</button>
+
+                                <button mat-menu-item *ngIf="RemoveEnable" title="{{'usermanage.remove' | translate}}"
+                                     (click)="ScriptExists(userlist.UserId,ChangeStatus.Remove,'remove', userlist?.isactive,userlist?.isDisable,userlist?.LoginName)">{{'usermanage.remove'
+                                    | translate}}</button>
+                            
+                        </div>
+                    </mat-menu>
+                </div>
+            </div>
+            <div class="card_box nodatafound" *ngIf="allappltnuserslst?.getAllUsersModel?.length == 0 && !userslstloading">
+                {{'usermanage.norecords' | translate}}
+            </div>
+        </perfect-scrollbar>
+    </div>
+
+    <mat-paginator [class.shimmer]="userslstloading" #paginator class="demo-paginator" (page)="handlePageEvent($event)"
+        [length]="length" [pageSize]="pageSize" [disabled]="false" [showFirstLastButtons]="true" [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+        [hidePageSize]="false" [pageIndex]="pageIndex" aria-label="Select page">
+    </mat-paginator>

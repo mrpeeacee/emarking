@@ -1,0 +1,101 @@
+.nav-tabs {
+  border-bottom: none !important;
+}
+
+.project_summary h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.Key_pers .hd {
+  background: #ebebeb;
+  font-weight: bold;
+}
+
+.Key_pers {
+  padding: 10px;
+  line-height: 30px
+}
+
+.icon-remove_2 {
+  font-size: 20px;
+}
+
+.scroll_roles {
+  width: 100%;
+  height: 180px;
+}
+
+.scroll_roles_confi {
+  width: 100%;
+  height: 250px;
+}
+
+.searchbox_st input {
+  width: 100%;
+  padding: 5px;
+  padding-left: 30px;
+  border: 1px solid #000;
+}
+
+.searchbox_st .icon-search {
+  position: absolute;
+  font-size: 25px;
+  left: 4px;
+  top: 4px;
+  width: 20px;
+}
+
+.col-2 {
+  width: 20%;
+}
+
+.theme_button span {
+  margin-top: -1px;
+  display: flex;
+  align-items: center;
+}
+
+.tarreached {
+  font-size: 16px !important;
+  color: #fa4040;
+  padding-bottom: 5px;
+}
+
+.ip-width {
+  width: 75px !important;
+}
+
+.stng {
+  font-size: 16px !important;
+}
+
+.row-header_bg {
+  font-weight: bold;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.mr-2{
+  margin-right: 10px;
+}
+
+.span_ref{
+  color: #513a8d;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+input[type=number]{
+  -moz-appearance: textfield;
+  text-align: center;
+  border-radius: 2px;
+}

@@ -1,0 +1,135 @@
+<div class="container">
+  <emarking-qig-tab (selectQigEvent)="getQigDetails($event)">
+  </emarking-qig-tab>
+  <div class="row" *ngIf="!IsS1Available" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+    <div class="col-md-12 bd-highligh">
+      <div class="card_box" role="alert" ngDefaultControl>
+        <div class="no_std_req"> <strong class="icon-info-1"></strong>
+          <span>{{'com.stdreq' | translate}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="" *ngIf="IsS1Available" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+
+    <div class="card_box project_summary pt-4">
+
+      <div class="row d-flex align-items-center">
+
+
+        <div class="col-md-12 col-xs-12">
+          <div class="row">
+            <div class="col-md-4 col-xs-12" *ngIf="ApprovalStatusDetls?.ScriptCount != null">
+              <span>
+                {{'s2s3app.s2s3Script' | translate}}
+              </span><strong>{{ApprovalStatusDetls?.ScriptCount}}</strong>
+            </div>
+            <div class="col-md-4 col-xs-12" *ngIf="ApprovalStatusDetls?.ScriptCount == null">
+              <span>
+                {{'s2s3app.s2s3Script' | translate}}
+              </span><strong>0</strong>
+            </div>
+
+            <div class="col-md-4 col-xs-12" *ngIf="ApprovalStatusDetls?.ToleranceCount != null">
+              <span>
+                {{'s2s3app.tolcount' | translate}}
+              </span><strong>{{ApprovalStatusDetls?.ToleranceCount}}</strong>
+            </div>
+            <div class="col-md-4 col-xs-12" *ngIf="ApprovalStatusDetls?.ToleranceCount == null">
+              <span>
+                {{'s2s3app.tolcount' | translate}}
+              </span><strong>0</strong>
+            </div>
+
+            <div class="col-md-4 col-xs-12 text-end" *ngIf="ApprovalStatusDetls?.ApprovalType == 1">
+              <span>
+                {{'s2s3app.apptype' | translate}}
+              </span><strong>{{'s2s3app.manual' | translate}}</strong>
+            </div>
+            <div class="col-md-4 col-xs-12 text-end" *ngIf="ApprovalStatusDetls?.ApprovalType == 2">
+              <span>
+                {{'s2s3app.apptype' | translate}}
+              </span><strong>{{'s2s3app.automatic' | translate}}</strong>
+            </div>
+            <div class="col-md-4 col-xs-12 text-end" *ngIf="ApprovalStatusDetls?.ApprovalType == null">
+              <span>
+                {{'s2s3app.apptype' | translate}}
+              </span><strong>---</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card_box">
+      <div class="row d-flex align-items-center mt-1 mb-1">
+        <div class="col-md-2 pos_rel">
+          <emarking-marker-tree-view (selectTreeNodeEvent)="getMarkingDetails($event)">
+          </emarking-marker-tree-view>
+        </div>
+
+        <div class="col-md-2 srchleft">
+          <h6 class="mt-2 mx-2" *ngIf="selectedmarkerdata != null && selectedmarkerdata != undefined">
+            <strong> {{selectedmarkerdata?.item}} </strong> :
+            <span>
+              {{selectedmarkerdata?.role}}
+            </span>
+          </h6>
+        </div>
+        <div class="col-md-2 srchrigth">
+          <div class="search_dash">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'s2s3app.search' | translate}}</mat-label>
+              <input matInput title="{{'s2s3app.search' | translate}}" placeholder="{{'s2s3app.srchnm' | translate}}"
+                [(ngModel)]="SearchName" (keyup.enter)="SearchMPName();" autocomplete="off">
+              <mat-icon matSuffix title=""><span title="{{'s2s3app.search' | translate}}"
+                  class="icon-search" (click)="SearchMPName()"></span></mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row-header_bg mt-2">
+        <div class="col-2">{{'s2s3app.mpname' | translate}}</div>
+        <div class="col-2">{{'s2s3app.role' | translate}}</div>
+        <div class="col-2">{{'s2s3app.supervisor' | translate}}</div>
+        <div class="col-1">{{'s2s3app.outtol' | translate}}</div>
+        <div class="col-1">{{'s2s3app.addstdscp' | translate}}</div>
+        <div class="col-2">{{'s2s3app.appsts' | translate}}</div>
+        <div class="col-1">{{'s2s3app.appby' | translate}}</div>
+      </div>
+
+      <div class="row-childrow_em card_box" *ngIf="PersonalDetails != null">
+        <div class="row-childrow d-flex px-0" *ngFor="let perDtls of PersonalDetails">
+          <div class="col-2"><span>{{perDtls?.MPName}}</span></div>
+          <div class="col-2">{{perDtls?.Role}}</div>
+          <div class="col-2">{{perDtls?.Supervisor}}</div>
+          <div class="col-1">{{perDtls?.OutOfTolerance}}</div>
+
+          <div class="col-1" *ngIf="perDtls?.Result == 1">{{perDtls?.S2S3AddScript}}</div>
+          <div class="col-1" *ngIf="perDtls?.Result == 0">NA</div>
+
+          <div class="col-2" *ngIf="perDtls?.ApprovalStatus == 'Pending'">
+            <div class="status_nos">Pending Review</div>
+          </div>
+          <div class="col-2" *ngIf="perDtls?.ApprovalStatus == 'Approved'">
+            <div class="status_yess">Live Marking</div>
+          </div>
+          <div class="col-2 appr_by" *ngIf="perDtls?.ApprovalBy != null ">{{perDtls?.ApprovalBy}}</div>
+          <div class="col-1 posleft" *ngIf="perDtls?.ApprovalBy == null "> - </div>
+          <div class="view_btn">
+            <button mat-button class="cus_btn_thme" title="{{'s2s3app.dtls' | translate}}"
+              (click)="Redirection(perDtls?.UserRoleId)">
+              <span class="icon-view"></span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+      <div class="text-center mt-1 card_box nodatafound" *ngIf="PersonalDetails == null || PersonalDetails.length <= 0">
+        {{'markcomp.norcd' | translate}}
+      </div>
+    </div>
+  </div>
+
+</div>

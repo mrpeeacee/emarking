@@ -1,0 +1,71 @@
+<div class="card_box_sticky">
+  <div class="d-flex justify-content-between">
+    <h2 class="pr_hd pos mt-2">{{ "profile.Profiletitle" | translate }}</h2>
+
+    <button type="button" title="{{ 'profile.Close' | translate }}" (click)="clickMethod()"
+      class="btn theme_button_light d-flex align-items-center">
+      <span class="icon-close"></span>{{ "profile.Close" | translate }}
+    </button>
+  </div>
+  <hr />
+  <p>{{ "profile.profiledesc" | translate }}</p>
+</div>
+
+<div class="container">
+  <div class="card_box">
+    <div class="col-lg-8 bdr_pr">
+      <div class="row profile_cont">
+        <div class="col-lg-4 col-md-12 text-break">
+          <span>{{ "profile.UserName" | translate }}</span>
+          <strong>{{
+            objMyprofile?.firstName ? objMyprofile?.firstName : "--"
+            }}</strong>
+        </div>
+
+        <div class="col-lg-4 col-md-12 text-break">
+          <span>{{ "profile.LoginName" | translate }}</span>
+          <strong>{{
+            objMyprofile?.Loginname ? objMyprofile?.Loginname : "--"
+            }}</strong>
+        </div>
+
+
+        <div class="col-lg-4 col-md-12 text-break">
+          <span>{{ "profile.Role" | translate }}</span>
+          <strong>{{
+            objMyprofile?.RoleName ? objMyprofile?.RoleName : "--"
+            }}</strong>
+        </div>
+
+        <div class="col-lg-4 col-md-12 text-break">
+          <span>Project Role</span>
+          <strong>{{
+            objMyprofile?.ProjectRoleName ? objMyprofile?.ProjectRoleName : "--"
+            }}</strong>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+          <span>{{ "profile.NRIC" | translate }}</span>
+          <strong>{{ objMyprofile?.Nric ? objMyprofile?.Nric : "--" }}</strong>
+        </div>
+
+        <div class="col-lg-4 col-md-12 text-break">
+          <span>{{ "profile.SchoolName" | translate }}</span>
+          <strong>{{
+            objMyprofile?.SchoolName ? objMyprofile?.SchoolName : "--"
+            }}</strong>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+          <span>{{ "profile.PhoneNumber" | translate }}</span>
+          <strong>{{
+            objMyprofile?.PhoneNum ? objMyprofile?.PhoneNum : "--"
+            }}</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

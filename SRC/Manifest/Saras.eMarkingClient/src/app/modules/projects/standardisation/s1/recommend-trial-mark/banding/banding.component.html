@@ -1,0 +1,99 @@
+<div [ngClass]="{'bndpop-disable': recminhide == true}">
+    <div class="d-flex justify-content-between" mat-dialog-title>
+        <div class="row col-12">
+            <div class="col-8 d-flex justify-content-start">
+                <div class="col-4" title="{{'Std.band.Qname' | translate}}"> {{'Std.band.Qname' | translate}}: <strong>
+                        {{recmdata.QigName}} </strong> </div>
+                <div class="col-4" title="{{'Std.band.ScName' | translate}}"> {{'Std.band.ScName' | translate}}:
+                    <strong>{{recmdata.ScriptName}} </strong>
+                </div>
+                <div *ngIf="IsQigLevel == true" class="col-4" title="{{'Std.band.Bnd' | translate}}">
+                    {{'Std.band.Bnd' | translate}}:
+                    <select [disabled]="recmdata.IsViewMode || IsBandEnable" #qigbndSelect class="form-select deflt_bond_sel"
+                        aria-label="Select Band" (change)="onQigBandSelected(qigbndSelect.value)">
+                        <option value="0" selected>{{'Std.band.Selct' | translate}}</option>
+                        <option *ngFor="let band of DefaultBands" [selected]="band.IsSelected" [value]="band.BandId">
+                            {{band.BandName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="!recmdata.IsViewMode" class="col-4 d-flex justify-content-end">
+                <button [disabled]="IsRecProcessing" *ngIf="scripresponses.length > 0" type="button"
+                    title=" {{'Std.band.Recnd' | translate}}" class="btn theme_button d-flex align-items-center"
+                    (click)="recommend($event)"> <span [disabled]="IsRecProcessing" class="icon-mail_ack"></span>
+                    {{'Std.band.Recnd' | translate}}</button>
+                <button mat-dialog-close type="button" class="btn theme_button_light d-flex align-items-center"
+                    (click)="recommendCancel($event)" title="{{'Std.band.Cancel' | translate}}"><span
+                        class="icon-close"></span>
+                    {{'Std.band.Cancel' |
+                    translate}}
+                </button>
+            </div>
+
+            <div *ngIf="recmdata.IsViewMode" class="col-4 d-flex justify-content-end">
+                <button mat-dialog-close type="button" class="btn theme_button_light d-flex align-items-center"
+                    title="{{'Std.band.Close' | translate}}"><span class="icon-close"></span>{{'Std.band.Close' |
+                    translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="rec_tabs d-flex justify-content-start">
+        <a *ngFor="let resp of scripresponses" [class.active]="resp.IsActive" (click)="getQnsResponse(resp)">
+            <div class="col-12" title="{{'Std.band.Qns' | translate}}">{{'Std.band.Qns' | translate}}: <strong
+                    title="{{resp.QuestionCode}}"> {{resp.QuestionCode}} </strong> </div>
+            <div class="col-12" title="{{'Std.band.Bnd' | translate}}"> {{'Std.band.Bnd' | translate}}: <ng-container>
+                    <strong *ngIf="!IsQigLevel">{{resp.RecommendedBand == null || resp.RecommendedBand == undefined
+                        ? '-' : getBandName(resp.RecommendedBand)}}</strong>
+                    <strong *ngIf="IsQigLevel">{{resp.RecommendedBand == null || resp.RecommendedBand == undefined
+                        ? '-' : resp.RecommendedBand?.BandName}}</strong>
+                </ng-container>
+            </div>
+        </a>
+    </div>
+    <div *ngIf="!recmdata.IsViewMode && !IsQigLevel" class="col-12 mat-dialog-content">
+        <div class="col-2 d-flex justify-content-start" title="{{'Std.band.Bnd' | translate}}">
+            <strong> {{'Std.band.Bnd' | translate}}</strong>
+            <select #bndSelect [disabled]="" class="form-select bond_sel" aria-label="Select Band"
+                (change)="onBandSelected(bndSelect.value)">
+                <option value="0" selected>{{'Std.band.Selct' | translate}}</option>
+                <option *ngFor="let band of activeresponse?.Bands" [selected]="band.IsSelected" [value]="band.BandId">
+                    {{band.BandName}}
+                </option>
+            </select>
+        </div>
+
+    </div>
+
+    <mat-dialog-content class="mat-typography">
+        <perfect-scrollbar class="scroll_respns"
+            [config]="{useBothWheelAxes: true, suppressScrollX: true, suppressScrollY: false}">
+            <h3> <strong> {{'Std.band.Qns' | translate}}</strong></h3>
+            <p  [innerHTML]="activeresponse?.QuestionText"></p>
+
+            <h3> <strong>{{'Std.band.StResp' | translate}}</strong></h3>
+            <div class="stuent_resp" *ngIf="activeresponse?.IsNullResponse!=true">
+                <p [innerHTML]="activeresponse?.ResponseText"> </p>
+            </div>
+            <div class="stuent_resp" *ngIf="activeresponse?.IsNullResponse==true">
+                <p>-No Response(NR)-</p>
+            </div>
+        </perfect-scrollbar>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <div class="d-flex">
+            <button type="button" class="btn theme_button d-flex align-items-center"
+                [disabled]="activeresponseindex <= 0" (click)="Previousresponse()"
+                title="{{'Std.band.Prev' | translate}}">
+                <span class="icon-arrow_back"></span>{{'Std.band.Prev' | translate}} </button>
+            <button type="button" class="btn theme_button d-flex align-items-center" (click)="nextresponse()"
+                [disabled]="activeresponseindex >= scripresponses.length -1 "
+                title="{{'Std.band.Nxt' | translate}}"><span class="icon-pointed_arrow"></span>{{'Std.band.Nxt' |
+                translate}}
+            </button>
+        </div>
+    </mat-dialog-actions>
+</div>

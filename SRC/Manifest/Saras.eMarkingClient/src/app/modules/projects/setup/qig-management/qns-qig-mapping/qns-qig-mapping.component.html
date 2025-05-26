@@ -1,0 +1,225 @@
+<div class="project_summary card_box_sticky btm_shadow">
+  <div class="row">
+    <div class="col-7">
+      <div class="row">
+        <div class="col-3 d-flex align-items-center">
+          <span class="mx-2">{{ 'qigmanagement.qns-qig-mapping.noqigs' | translate}}</span>
+          <span class=""> <strong [class.shimmer]="compostionloading"> : {{activeQig?.length}}</strong></span>
+        </div>
+
+        <div class="col-5 d-flex align-items-center" title="Select QIG">
+          <span class="mx-2">{{ 'qigmanagement.qns-qig-mapping.show' | translate}}</span>
+          <span>
+            <mat-form-field appearance="fill">
+              <mat-label>Select QIG</mat-label>
+              <mat-select [class.shimmer]="compostionloading" placeholder="Select QIG" #matSelect
+                (selectionChange)="onQIGChange($event)">
+                <mat-option [value]="0">Show All</mat-option>
+                <mat-option *ngFor="let qig of activeQig" [value]="qig?.QigId" ngDefaultControl>
+                  {{qig?.QigName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-5">
+      <div class="search_ex col-6 float-end hide">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'qigmanagement.qns-qig-mapping.search' | translate}}</mat-label>
+          <input autocomplete="off" oncut="return false" onDrop="return false" ngDefaultControl onPaste="return false"
+            matInput placeholder="" type="search">
+          <span title="{{'qigmanagement.qns-qig-mapping.search' | translate}}" class="icon-search ng-tns-c266-2"></span>
+        </mat-form-field>
+      </div>
+      <button type="button" routerLink="manage-qig"
+        class="btn p-2 theme_button d-flex align-items-center float-end mt-1 mx-4"
+        title="{{'qigmanagement.qns-qig-mapping.manageqig' | translate}}"> <span class="icon-qig_settings"></span>
+        {{'qigmanagement.qns-qig-mapping.manageqig' | translate}} </button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" title="{{'qigmanagement.qns-qig-mapping.composition'
+      |
+      translate}}" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab"
+        aria-controls="home-tab-pane" aria-selected="true"
+        (click)="Getqigquestions(3,1)">{{'qigmanagement.qns-qig-mapping.composition'
+        |
+        translate}}</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" title="{{'qigmanagement.qns-qig-mapping.noncomposition'
+      |
+      translate}}" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab"
+        aria-controls="profile-tab-pane" aria-selected="false"
+        (click)="Getqigquestions(2,2)">{{'qigmanagement.qns-qig-mapping.noncomposition'
+        |
+        translate}}</button>
+    </li>
+  </ul>
+  <div class="card_box">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"
+        [class.shimmer]="compostionloading">
+        <div class="row-header_bg d-flex align-items-center" [class.shimmer]="compostionloading">
+          <div class="col-2">{{'qigmanagement.qns-qig-mapping.qnslabel' | translate}}</div>
+          <div class="col-2">{{'qigmanagement.qns-qig-mapping.totmarks' | translate}}</div>
+          <div class="col-2">{{'qigmanagement.qns-qig-mapping.qigname' | translate}}</div>
+          <div class="col-2">{{'qigmanagement.qns-qig-mapping.tolerance' | translate}}t</div>
+          <div class="col-2"></div>
+        </div>
+        <div class="row-childrow d-flex align-items-center card_box ng-star-inserted"
+          *ngFor="let qigqns of Qigquestions" [class.shimmer]="compostionloading">
+          <div class="col-2">{{qigqns?.QuestionCode}}</div>
+          <div class="col-2">{{qigqns?.QuestionMarks}}</div>
+          <div class="col-2"><a href="#" data-bs-toggle="modal" (click)="getqigdetails(qigqns?.ProjectQigId)"
+              title="View Details" data-bs-target="#qig_viewdetails">{{qigqns?.QigName}}</a></div>
+          <div class="col-2">{{qigqns?.TolerenceLimit}}</div>
+          <div class="col-4">
+            <button (click)="openDialog('0ms', '0ms',qigqns)" type="button"
+              class="btn p-2 theme_button d-flex align-items-center float-end " title="Tag/Move QIG"><span
+                class="icon-tag"></span></button>
+            <button type="button" (click)="ViewQuestion(qigqns?.ProjectQigId,qigqns?.ProjectQuestionId,mytemplate)"
+              class="btn  theme_button_light d-flex align-items-center float-end "
+              title="{{'qigmanagement.qns-qig-mapping.viewquestion' | translate}}">{{'qigmanagement.qns-qig-mapping.viewquestion'
+              | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #mytemplate>
+        <div class="modal-header">
+          <h4 class="modal-title">View Question</h4>
+        </div>
+        <div class="modal-body p-2 py-3">
+          <div [innerHTML]="Questiontxt.QuestionText"></div>
+        </div>
+        <div class="modal-footer">
+          <button mat-button [mat-dialog-close]="false" class="btn theme_button_light mt-1"
+            title="{{'shared.close' | translate}}">Close</button>
+        </div>
+      </ng-template>
+
+      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+          tabindex="0" [class.shimmer]="compostionloading">
+          <div class="row-header_bg d-flex align-items-center" [class.shimmer]="compostionloading">
+            <div class="col-2">{{'qigmanagement.qns-qig-mapping.qnslabel' | translate}}</div>
+            <div class="col-2">{{'qigmanagement.qns-qig-mapping.totmarks' | translate}}</div>
+            <div class="col-2">{{'qigmanagement.qns-qig-mapping.qigname' | translate}}</div>
+            <div class="col-2">{{'qigmanagement.qns-qig-mapping.tolerance' | translate}}t</div>
+            <div class="col-2"></div>
+          </div>
+          <div class="row-childrow d-flex align-items-center card_box ng-star-inserted"
+            *ngFor="let qigqns of Qigquestions" [class.shimmer]="compostionloading">
+            <div class="col-2">{{qigqns?.QuestionCode}}</div>
+            <div class="col-2">{{qigqns?.QuestionMarks}}</div>
+            <div class="col-2"><a href="#" data-bs-toggle="modal" (click)="getqigdetails(qigqns?.ProjectQigId)"
+                title="View Details" data-bs-target="#qig_viewdetails">{{qigqns?.QigName}}</a></div>
+            <div class="col-2">{{qigqns?.TolerenceLimit}}</div>
+            <div class="col-4">
+
+              <button (click)="openDialog('0ms', '0ms',qigqns)" type="button"
+                class="btn p-2 theme_button d-flex align-items-center float-end " title="Tag/Move QIG"><span
+                  class="icon-tag"></span></button>
+              <button type="button" (click)="ViewQuestion(qigqns?.ProjectQigId,qigqns?.ProjectQuestionId,mytemplate)"
+                class="btn  theme_button_light d-flex align-items-center float-end "
+                title="{{'qigmanagement.qns-qig-mapping.viewquestion' | translate}}">{{'qigmanagement.qns-qig-mapping.viewquestion'
+                | translate}}</button>
+              <button type="button" (click)="ViewBlank(qigqns?.ProjectQuestionId)" *ngIf="qigqns?.QuestionType == 20"
+                class="btn  theme_button_light d-flex align-items-center float-end " title="View Blank">View
+                Blank</button>
+            </div>
+          </div>
+        </div>
+        <ng-template #mytemplate>
+          <div class="modal-header">
+            <h4 class="modal-title">View Question</h4>
+          </div>
+          <div class="modal-body p-2 py-3">
+            <div [innerHTML]="Questiontxt.QuestionText"></div>
+          </div>
+          <div class="modal-footer">
+            <button mat-button [mat-dialog-close]="false" class="btn theme_button_light mt-1"
+              title="{{'shared.close' | translate}}">Close</button>
+          </div>
+        </ng-template>
+      </div>
+      <div class="info_note mt-4">
+        <strong>{{'qigmanagement.qns-qig-mapping.note' | translate}}</strong> <span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut
+        </span>
+      </div>
+      <div class="example-form mt-4 col-6">
+        <mat-form-field class="example-full-width text_area">
+          <mat-label>{{'qigmanagement.qns-qig-mapping.comment' | translate}}</mat-label>
+          <textarea matInput placeholder="Comment" [(ngModel)]="Qigquestions[0].remarks"
+            disabled="Qigquestions[0].remarks != null"></textarea>
+        </mat-form-field>
+      </div>
+      <button type="button" class="btn p-2 theme_button d-flex align-items-center float-start mt-3 mx-0"
+        title="{{'qigmanagement.qns-qig-mapping.save' | translate}}" (click)="SaveQigQuestions(remarks)"
+        disabled="Qigquestions[0].remarks != null">
+        <span class="icon-save-1"></span>{{'qigmanagement.qns-qig-mapping.save' | translate}}</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="qig_viewdetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          title="{{'shared.close' | translate}}"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-4">
+          <div class="col-3">
+            <span class="">{{'qigmanagement.qns-qig-mapping.qigname' | translate}}</span>
+            <span class="col-12 d-block"><strong> {{Qigdetails?.QigName}}</strong></span>
+          </div>
+          <div class="col-3">
+            <span class="">{{'qigmanagement.qns-qig-mapping.noqns' | translate}}</span>
+            <span class="col-12 d-block"><strong> {{Qigdetails?.NoOfQuestions}}</strong></span>
+          </div>
+          <div class="col-3">
+            <span class="">{{'qigmanagement.qns-qig-mapping.totmarks' | translate}}</span>
+            <span class="col-12 d-block"><strong> {{Qigdetails?.TotalMarks}}</strong></span>
+          </div>
+          <div class="col-3 ">
+            <span class="">{{'qigmanagement.qns-qig-mapping.markingtype' | translate}}</span>
+            <span class="col-12 d-block"><strong> {{Qigdetails?.MarkingType}}</strong></span>
+          </div>
+        </div>
+        <div class="row-header_bg d-flex align-items-center">
+          <div class="col-8">{{'qigmanagement.qns-qig-mapping.qnslabel' | translate}}</div>
+          <div class="col-4"> {{'qigmanagement.qns-qig-mapping.marks' | translate}}</div>
+        </div>
+        <div class="row-childrow d-flex align-items-center card_box ng-star-inserted"
+          *ngFor="let questions of Qigdetails?.qigQuestions">
+          <div class="col-8">{{questions?.QigQuestionName}}</div>
+          <div class="col-4">{{questions?.TotalMarks}}</div>
+        </div>
+      </div>
+      <div class="modal-footer_dil">
+        <div class="float-start mt-2">{{'qigmanagement.qns-qig-mapping.mandatoryqns' | translate}}
+          <input type="number" min="0" [max]="Qigdetails?.qigQuestions.length" onKeyDown="return false"
+            [value]="Qigdetails?.MandatoryQuestion" (ngModel)="Qigdetails?.MandatoryQuestion" name="StepValue"
+            oncut="return false" onDrop="return false" onPaste="return false" />
+        </div>
+        <button type="button" class="btn p-2 theme_button d-flex align-items-center float-end mt-3 mx-0"
+          (click)="SaveQigdetails(Qigdetails);" title="{{'qigmanagement.qns-qig-mapping.save' | translate}}">
+          <span class="icon-save-1"></span>{{'qigmanagement.qns-qig-mapping.save' |
+          translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

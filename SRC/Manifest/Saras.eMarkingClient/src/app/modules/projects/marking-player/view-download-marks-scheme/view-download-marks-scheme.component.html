@@ -1,0 +1,87 @@
+<div class="card_box_sticky">
+  <div class="row p-0 m-0">
+
+    <div class="d-flex justify-content-end m-auto">
+      <button type="button" title="Download" class="btn theme_button_light d-flex align-items-center hide"
+        (click)="onExport()">
+        <span class="icon-download"></span>
+        Download
+      </button>
+      <button type="button" title="Cancel" (click)="clickMethod($event)"
+        class="btn theme_button_light d-flex align-items-center">
+        <span class="icon-close"></span>Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="container" id="content">
+
+  <div class="row mb-2">
+    <div class="col-6 mb-2">
+      <h3>Mark Scheme</h3>
+      <div *ngIf="downloadMarkschemeModel?.MarkschemeType == 1">
+        <span> <strong>Mark Scheme Type:</strong></span> Question Level
+      </div>
+      <div *ngIf="downloadMarkschemeModel?.MarkschemeType == 2">
+        <span> <strong>Mark Scheme Type:</strong> </span> Scoring Component
+      </div>
+    </div>
+  </div>
+  <div *ngIf="downloadMarkschemeModel != null">
+
+    <div *ngFor="let scheme of downloadMarkschemeModel.MarkSchemes" class="mb-5">
+
+      <div *ngIf="downloadMarkschemeModel.MarkschemeType == 2 && scheme.ProjectQuestionId!=null" class="mb-2 caption">
+        <span> <strong>Component Name:</strong> {{scheme.SchemeCode}}</span>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="pb-1">
+            <span><strong>Scheme Name: </strong> </span> {{scheme.SchemeName}}
+          </div>
+          <div class="pb-1">
+            <span> <strong>Marks:</strong> </span> {{scheme.Marks}}
+          </div>
+        </div>
+        <div class="col-md-6 displaycontent">
+          <span> <strong>Description: </strong></span> {{scheme.SchemeDescription}}
+        </div>
+        <div>
+          <h4 class="fileheaderfont">Mark Scheme Files:</h4>
+          <emarking-file-upload [files]="scheme.filedetails" [viewmode]="true"></emarking-file-upload>
+        </div>
+      </div>
+      <div class="row-header_new">
+        <div class="d-flex">
+          <div class="col-md-3">Band Name</div>
+          <div class="col-md-3">Band Range</div>
+          <div class="col-md-6">Band Details</div>
+        </div>
+      </div>
+
+      <div class="row-childrow card_box " *ngFor="let band of scheme.Bands">
+        <div class="col-3">
+          <div [(ngModel)]="band.BandName" [innerHtml]="band.BandName" ngDefaultControl></div>
+        </div>
+        
+        <div class="col-3">
+          <div> {{band.BandFrom}} - {{band.BandTo}} </div>
+        </div>
+        <div class="col-6">
+          <div [(ngModel)]="band.BandDescription" [innerHtml]="band.BandDescription != null ? band.BandDescription : '---' | safeHtml" ngDefaultControl
+            (click)="openeditor(band)">
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="scheme.Bands?.length <= 0" class="text-center mt-2">
+        No Records Found
+      </div>
+
+    </div>
+
+    <br>
+  </div>
+</div>

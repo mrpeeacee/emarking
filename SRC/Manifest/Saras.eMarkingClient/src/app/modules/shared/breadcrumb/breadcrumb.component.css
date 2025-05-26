@@ -1,0 +1,19 @@
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    display: inline;
+}
+
+ul li:before {
+    content: ">";
+    margin: 0 6px;
+}
+
+ul li:first-child:before {
+    content: "";
+    margin: 0;
+}

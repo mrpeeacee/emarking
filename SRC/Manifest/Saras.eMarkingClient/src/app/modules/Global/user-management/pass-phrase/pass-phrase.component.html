@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="body_box">
+        <div class="row mt-3" [class.shimmer]="isloading">
+            <div class="col-md-4">
+                <label class="mb-2">{{'usermanage.EnterPassphrase' |translate}}<span class="shade">{{'usermanage.MinimumCharacters' |translate}}</span> </label>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'usermanage.Newpassphrase' |translate}}</mat-label>
+                    <input matInput placeholder="{{'usermanage.EnterPassphrase' |translate}}" [(ngModel)]="passphrase" required maxlength="8"
+                        onDrop="return false" onPaste="return false" minlength="8"
+                        (keydown.space)="$event.preventDefault();">
+                </mat-form-field>
+            </div>
+            <div class="col-md-5 mt-4">
+                <button type="button" title="{{'usermanage.save' |translate}}" class="btn theme_button align-items-center float-start mt-3"
+                    style="margin-right:5px" (click)="AddPassPhraseUsers(passphrase)"><span
+                        class="icon-save"></span>{{'usermanage.save' |translate}}</button>
+
+                <button type="button" id="cancel" class="btn theme_button_light mt-3 mx-2 d-flex align-items-center "
+                    title="{{'usermanage.CancelBtn' |translate}}" [routerLink]="['/userManagement/ApplicationUsermanagement']">
+                    <span class="icon-close"></span>{{'usermanage.CancelBtn' |translate}}</button>
+            </div>
+
+
+
+        </div>
+        <div class="container">
+            <div class="row-header_bg card_container">
+                <div class="p-2 d-flex align-items-center col-md-12 al" [class.shimmer]="isloading">
+                    <div class="col-md-3 f_b">{{'usermanage.passphrasetitle' |translate}}</div>
+                    <div class="col-md-3 f_b">{{'usermanage.status' |translate}}</div>
+                    <div class="col-md-3 f_b">{{'usermanage.ModifiedBy' |translate}} </div>
+                    <div class="col-md-3 f_b">{{'usermanage.ModifiedDate' |translate}}</div>
+                </div>
+            </div>
+            <div [class.shimmer]="isloading">
+                <div class="row-childrow pos_rel" *ngFor="let passPhrase of PassPhraseList">
+                    <div class="p-2 d-flex col-md-12 pad10">
+                        <div class="col-md-3">{{passPhrase.PassPharseCode}}</div>
+                        <div class="col-md-3" *ngIf='passPhrase.IsActive==true'><span class="status_lagend active">{{'usermanage.active' |translate}}</span>
+                            </div>
+                        <div class="col-md-3" *ngIf='passPhrase.IsActive==false'><span class="status_lagend inactive">{{'usermanage.inactive' |translate}}</span></div>
+                        <div class="col-md-3">{{passPhrase.ModifiedLoginId}}</div>
+                        <div class="col-md-3">{{passPhrase.ModifiedDate | date: 'dd MMM YYYY'}}</div>
+                    </div>
+                </div>
+                <div class="card_box nodatafound" *ngIf="PassPhraseList?.length == 0 && !isloading">
+                    {{'usermanage.norecords' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>

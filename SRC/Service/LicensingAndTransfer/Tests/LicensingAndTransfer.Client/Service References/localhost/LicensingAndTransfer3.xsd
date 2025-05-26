@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LicensingAndTransfer.DataContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="ServerTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ControllerOfExamination" />
+      <xs:enumeration value="DataExchangeServer" />
+      <xs:enumeration value="TestCenter" />
+      <xs:enumeration value="DataServer" />
+      <xs:enumeration value="DataCenterDistributed" />
+      <xs:enumeration value="DataCenterCentralized" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ServerTypes" nillable="true" type="tns:ServerTypes" />
+  <xs:simpleType name="Operations">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="QPackTransfer" />
+      <xs:enumeration value="QPackFetch" />
+      <xs:enumeration value="RPackTransfer" />
+      <xs:enumeration value="RPackFetch" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Operations" nillable="true" type="tns:Operations" />
+  <xs:simpleType name="TransferMedium">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FTP" />
+      <xs:enumeration value="SharedPath" />
+      <xs:enumeration value="HTTP" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TransferMedium" nillable="true" type="tns:TransferMedium" />
+  <xs:simpleType name="PackageOperation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="PackageReGenerate" />
+      <xs:enumeration value="PackageReTransfer" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PackageOperation" nillable="true" type="tns:PackageOperation" />
+</xs:schema>

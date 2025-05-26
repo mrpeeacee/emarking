@@ -1,0 +1,148 @@
+<div class="container">
+  <div class="mt-2">
+
+    <div class="card_box project_summary pt-4">
+
+      <div class="row d-flex align-items-center">
+
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4" *ngIf="!IsProjectSame">
+              <mat-form-field appearance="fill" class="selct_sel float-end" title="{{'QuaCheck.SelProj' | translate}}">
+                <mat-label>{{'QuaCheck.SelProj' | translate}}</mat-label>
+                <mat-select #matSelect (selectionChange)="Isprojchecked($event)">
+                  <div>
+                    <mat-option [value]="0" selected>--- {{'QuaCheck.Select' | translate}} ---</mat-option>
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Search" [(ngModel)]="ProjectSearchValue" (keyup)="SearchProjects()" (blur)="clearSearch()">
+                      <mat-icon matSuffix title="Search"><span class="icon-search"
+                          (click)="SearchProjects()"></span></mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <mat-option *ngFor="let proj of projectList" [value]="proj?.ProjectId"
+                    ngDefaultControl>{{proj?.ProjectName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="IsProjectSame">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'QuaCheck.SelProj' | translate}}</mat-label>
+                <input matInput *ngFor="let proj of projectList" [value]="proj?.ProjectName" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="fill" class="selct_sel float-end" title="Select Project">
+                <mat-label>{{'QuaCheck.SelRep' | translate}}</mat-label>
+                <mat-select #matReport>
+                  <mat-option value="0" selected>--- {{'QuaCheck.Select' | translate}} ---</mat-option>
+                  <mat-option value="1">{{'QuaCheck.Rc1' | translate}}</mat-option>
+                  <mat-option value="2">{{'QuaCheck.Rc2' | translate}}</mat-option>
+                  <mat-option value="3">{{'QuaCheck.Adhoc' | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-2">
+              <button type="button" title="{{'QuaCheck.Submit' | translate}}" (click)="getQualityCheck(matReport.value)"
+                class="btn theme_button">{{'QuaCheck.Submit' | translate}}</button>
+              <button type="button" title="{{'QuaCheck.Export' | translate}}" class="btn theme_button"
+                (click)="download()"><span class="icon-download m-0"></span>{{'QuaCheck.Export' | translate}}</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box" *ngIf="reportCode == 1">
+      <div class="flex-grow-1 breadcrumbs ng-tns-c258-0">
+        <strong class="ng-tns-c258-0">{{'QuaCheck.Rc1' | translate}}</strong>
+      </div>
+      <div class="row-header_bg mt-2">
+        <div class="col-1">{{'QuaCheck.Slno' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.QigName' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.TotScript' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.TotInProg' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.ChkScript' | translate}}</div>
+        <div class="col-1">{{'QuaCheck.TotCompleted' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.CompRate' | translate}}</div>
+      </div>
+      <perfect-scrollbar class="table_list_scroll">
+        <div class="row-childrow_em card_box" *ngIf="getQualityCheckList.rc1report != null">
+          <div class="row-childrow d-flex px-0" *ngFor="let rc1 of getQualityCheckList.rc1report; let i = index">
+            <div class="col-1">{{i+1}}</div>
+            <div class="col-2 word_wrpa">{{rc1?.QIGName}}</div>
+            <div class="col-2 word_wrpa">{{rc1?.TotalScript}}</div>
+            <div class="col-2 word_wrpa">{{rc1?.TotalInProgressScript}}</div>
+            <div class="col-2 word_wrpa">{{rc1?.CheckOutScripts}}</div>
+            <div class="col-1 word_wrpa">{{rc1?.TotalCompleted}}</div>
+            <div class="col-2 word_wrpa">{{rc1?.CompletionRateInPercentage}}</div>
+          </div>
+        </div>
+        <div class="text-center mt-1 card_box nodatafound"
+          *ngIf="projectId == 0 || reportCode == 0 || getQualityCheckList.rc1report == null || getQualityCheckList.rc1report.length <= 0">
+          {{'QuaCheck.NoRecAlt' | translate}}
+        </div>
+      </perfect-scrollbar>
+    </div>
+
+    <div class="card_box" *ngIf="reportCode == 2">
+      <div class="flex-grow-1 breadcrumbs ng-tns-c258-0">
+        <strong class="ng-tns-c258-0">{{'QuaCheck.Rc2' | translate}}</strong>
+      </div>
+      <div class="row-header_bg mt-2">
+        <div class="col-1">{{'QuaCheck.Slno' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.QigName' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.TotScript' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.TotInProg' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.ChkScript' | translate}}</div>
+        <div class="col-1">{{'QuaCheck.TotCompleted' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.CompRate' | translate}}</div>
+      </div>
+      <div class="row-childrow_em card_box" *ngIf="getQualityCheckList.rc2report != null">
+        <div class="row-childrow d-flex px-0" *ngFor="let rc2 of getQualityCheckList.rc2report; let i = index">
+          <div class="col-1">{{i+1}}</div>
+          <div class="col-2 word_wrpa">{{rc2?.QIGName}}</div>
+          <div class="col-2 word_wrpa">{{rc2?.TotalScript}}</div>
+          <div class="col-2 word_wrpa">{{rc2?.TotalInProgressScript}}</div>
+          <div class="col-2 word_wrpa">{{rc2?.CheckOutScripts}}</div>
+          <div class="col-1 word_wrpa">{{rc2?.TotalCompleted}}</div>
+          <div class="col-2 word_wrpa">{{rc2?.CompletionRateInPercentage}}</div>
+        </div>
+      </div>
+      <div class="text-center mt-1 card_box nodatafound"
+        *ngIf="projectId == 0 || reportCode == 0 || getQualityCheckList.rc2report == null || getQualityCheckList.rc2report.length <= 0">
+        {{'QuaCheck.NoRecAlt' | translate}}
+      </div>
+    </div>
+
+    <div class="card_box" *ngIf="reportCode == 3">
+      <div class="flex-grow-1 breadcrumbs ng-tns-c258-0">
+        <strong class="ng-tns-c258-0">{{'QuaCheck.Adhoc' | translate}}</strong>
+      </div>
+      <div class="row-header_bg mt-2">
+        <div class="col-1">{{'QuaCheck.Slno' | translate}}</div>
+        <div class="col-3">{{'QuaCheck.QigName' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.TotScript' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.ChkScript' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.TotCompleted' | translate}}</div>
+        <div class="col-2">{{'QuaCheck.CompRate' | translate}}</div>
+      </div>
+      <div class="row-childrow_em card_box" *ngIf="getQualityCheckList.adhocreport != null">
+        <div class="row-childrow d-flex px-0" *ngFor="let adhoc of getQualityCheckList.adhocreport; let i = index">
+          <div class="col-1">{{i+1}}</div>
+          <div class="col-3 word_wrpa">{{adhoc?.QIGName}}</div>
+          <div class="col-2 word_wrpa">{{adhoc?.TotalScript}}</div>
+          <div class="col-2 word_wrpa">{{adhoc?.CheckOutScripts}}</div>
+          <div class="col-2 word_wrpa">{{adhoc?.TotalCompleted}}</div>
+          <div class="col-2 word_wrpa">{{adhoc?.CompletionRateInPercentage}}</div>
+        </div>
+      </div>
+      <div class="text-center mt-1 card_box nodatafound"
+        *ngIf="projectId == 0 || reportCode == 0 || getQualityCheckList.adhocreport == null || getQualityCheckList.adhocreport.length <= 0">
+        {{'QuaCheck.NoRecAlt' | translate}}
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,42 @@
+/* .container {
+   width:80%; 
+} */
+
+#txt {
+    margin-top: 550px;
+    padding-top: 150px;
+    font-size:18px ;
+}
+
+.head_search {
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.head_search .input_sr{
+     float: left;
+     width: 300px;
+     
+}
+
+.head_search button{  
+    float: left;
+    margin-left: 20px;
+    height:36px;
+}
+
+#list{
+    margin-top: 40px;
+}
+
+#button{
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border: 1px solid #472C8A;
+    font-size: 12px;
+}
+
+.fontstyle{
+    font-size: 13px;
+}

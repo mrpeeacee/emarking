@@ -1,0 +1,157 @@
+<!-- Modal [Start]-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex justify-content-between w100p maxheigth">
+                    <h2>{{'mark.avlqns' | translate}}</h2>
+                    <button type="button" class="btn theme_button d-flex align-items-center"
+                        title="{{'mark.save' | translate}}" (click)="TagQnsToMarkScheme()">
+                        <span class="icon-save-1"></span>{{'mark.save' | translate}}</button>
+                </div>
+                <button type="button" #qnspopmodel class="btn-close" data-bs-dismiss="modal"
+                    title="{{'mark.cls' | translate}}" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="project_summary">
+                    <div class="row-header_bg">
+                        <div class="col-5">{{'mark.qnslbl' | translate}}</div>
+                        <div class="col-2">{{'mark.maxmrk' | translate}}</div>
+                        <div class="col-3">Component Name</div>
+                        <div class="col-2"> </div>
+
+                    </div>
+
+                    <perfect-scrollbar class="scroll_roles">
+                        <ng-container *ngFor="let available_qu of question">
+                            <div class="row-childrow card_box ">
+                                <div class="col-5 mb-3">
+                                    <mat-checkbox [checked]="available_qu.IsTagged == true"
+                                        [(ngModel)]="available_qu.IsTagged" class="example-margin"
+                                        (change)="selectQuestion(available_qu);">
+                                        {{available_qu.QuestionCode}}</mat-checkbox>
+                                </div>
+                                <div class="col-2 mb-2 ">{{available_qu.MaxMark}}</div>
+                                <div class="col-3 mb-3" *ngIf="available_qu.IsScoringComponentExist == true">
+                                    {{available_qu.ComponentName}}</div>
+                                <div class="col-3 mb-3" *ngIf="available_qu.IsScoringComponentExist == false">NA</div>
+                                <div class="col-2 mb-2">
+                                    <div class="bd-highlight d-flex justify-content-end">
+                                        <button *ngIf="available_qu.PanelOpenState == false" type="button"
+                                            title="{{'mark.view' | translate}}"
+                                            class="btn theme_button_light d-flex align-items-center"
+                                            (click)="getQuestionText(available_qu.ProjectQuestionId); expandavlquestions(); available_qu.PanelOpenState = true;"><span
+                                                class="icon-show"></span>{{'mark.view' | translate}}</button>
+
+                                        <button *ngIf="available_qu.PanelOpenState == true" type="button"
+                                            title="{{'mark.cls' | translate}}"
+                                            class="btn theme_button_light d-flex align-items-center"
+                                            (click)="available_qu.PanelOpenState = false"><span
+                                                class="icon-close clsicn"></span>{{'mark.cls'
+                                            |
+                                            translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-body" *ngIf="available_qu.PanelOpenState">
+                                <h3> <strong> {{'Std.band.Qns' | translate}}</strong></h3>
+                                <p>{{questionText?.QuestionText}}</p>
+                            </div>
+
+                        </ng-container>
+                        <div class="text-center mt-1 card_box nodatafound"
+                            *ngIf="question == null || question.length == 0">
+                            {{'General.NotFound' | translate}}
+                        </div>
+                    </perfect-scrollbar>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal [End]-->
+
+<div class="container">
+
+    <div class="col-md-12 bd-highlight mt-4">
+        <div class="d-flex justify-content-between mb-4">
+            <div class="mb-3"> </div>
+            <div class="d-flex">
+                <button type="button" [disabled]="isClosed == 3" title="{{'mark.crtnew' | translate}}"
+                    class="btn theme_button d-flex align-items-center" [routerLink]="['create']"> <span
+                        class="icon-add"></span> {{'mark.crtnew' | translate}}</button>
+                <button (click)="deleteMarkScheme();" [disabled]="isClosed == 3" type="button" title="{{'mark.delsch' | translate}}"
+                    class="btn theme_button_light d-flex align-items-center"><span
+                        class="icon-delete"></span>{{'mark.delsch' |
+                    translate}}</button>
+            </div>
+        </div>
+
+
+        <div class="clear"></div>
+        <div class="project_summary">
+
+            <div class="view_selected">
+                <div class="row">
+
+                    <div class="col-6 d-flex justify-content-start align-items-center">
+                        <div class="text_delux">
+                            <span>{{'mark.tot' | translate}}: {{markSchemes?.length}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-header_bg">
+                    <div class="col-3 fontbold">{{'mark.schnm' | translate}}</div>
+                    <div class="col-2 fontbold">{{'mark.mark' | translate}}</div>
+                    <div class="col-2 fontbold">{{'mark.noqsntag' | translate}}</div>
+                    <div class="col-3 fontbold">Mark Scheme Type</div>
+                    <div class="col-2"></div>
+            </div>
+            <div class="row-childrow_em card_box" *ngFor="let values of markSchemes">
+                <div class="row">
+                    <div class="col-3 mb-2">
+                        <div *ngIf="values.CountOfTaggedQuestions > 0">
+                            <div class="d-flex word_break">
+                                <mat-checkbox class="example-margin" [disabled]="isClosed == 3 || values.CountOfTaggedQuestions > 0" title="{{'mark.mapmrksch' | translate}}" disabled>
+                                </mat-checkbox>
+                                &nbsp;<div class="toppd3px" title="{{values.SchemeName}}">
+                                    {{values.SchemeName}}</div>
+                            </div>
+                        </div>
+                        <div *ngIf="values.CountOfTaggedQuestions == 0">
+                            <div class="d-flex">
+                                <mat-checkbox class="example-margin margin" [disabled]="isClosed == 3 || values.CountOfTaggedQuestions > 0" [(ngModel)]="values.Selected"
+                                    [value]="values.Selected" [checked]="values.Selected"
+                                    title="{{'mark.unmapmrksch' | translate}}"></mat-checkbox>&nbsp;<div
+                                    class="toppd3px" title="{{values.SchemeName}}">{{values.SchemeName}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 mb-1 ">{{values.Marks}}</div>
+                    <div class="col-2 mb-2 ">
+                        <div [ngClass]="values.CountOfTaggedQuestions == 0 ? 'status_no_nw' : 'status_yes_nw'"><span [ngClass]="values.CountOfTaggedQuestions == 0 ? 'icon-close-1' : 'icon-complete'"></span></div>
+                    </div>
+                    <div class="col-3 mb-2" *ngIf="values.MarkScheme == 2"> Scoring Component </div>
+                    <div class="col-3 mb-2" *ngIf="values.MarkScheme == 1"> Question </div>
+                    <div class="col-2 mb-2">
+                        <div class="bd-highlight d-flex justify-content-end">
+                            <button type="button" [disabled]="isClosed == 3" class="btn theme_button d-flex align-items-center float-end"
+                                title="{{'mark.view' | translate}}" [routerLink]="[values.ProjectMarkSchemeId]"> <span
+                                    class="icon-show"></span>{{'mark.view' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-1 card_box nodatafound" *ngIf="markSchemes == null || markSchemes.length == 0">
+                {{'General.NotFound' | translate}}
+            </div>
+        </div>
+
+    </div>
+</div>
+<br /><br /><br /><br />

@@ -1,0 +1,157 @@
+<div class="container">
+
+  <div class="head_container mt-2">
+    <div class="row p-0 m-0 align-items-center">
+
+      <div class="col-md-2 col-xs-12">
+        <h2>Overview</h2>
+      </div>
+
+      <div class="col-md-3 col-xs-12">
+        <div class="d-flex flex-row bd-highlight align-items-center">
+          <div class="p-2 bd-highlight"> <span>Exam Year</span> </div>
+          <div class="p-2 bd-highlight flex-grow-1">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Exam Year</mat-label>
+              <mat-select #selyear (selectionChange)="onExamYearSelected(selyear.value);">
+                <mat-option [value]="0">Select Exam Year</mat-option>
+                <mat-option *ngFor="let year of examYearList" [selected]="year.IsSelected" [value]="year.Year">{{year.Year}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-xs-12">
+        <div class="d-flex flex-row bd-highlight align-items-center">
+          <div class="p-2 bd-highlight"> <span>Projects</span> </div>
+          <div class="p-2 bd-highlight flex-grow-1">
+            <mat-form-field appearance="fill">
+              <mat-label >Select Project</mat-label>
+              <mat-select [disabled]="!IsSelected" #prjct (selectionChange)="onProjectSelected(prjct.value);">
+                <mat-option [value]="0">Select Project</mat-option>
+                <mat-option *ngFor="let project of projectList" [value]="project.ProjectID">{{project.ProjectName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-12">
+        <div class="d-flex flex-row bd-highlight align-items-center">
+          <div class="p-2 bd-highlight"> <span>School</span> </div>
+          <div class="p-2 bd-highlight flex-grow-1">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Schools</mat-label>
+              <mat-select>
+                <mat-option [value]="0">Select Schools</mat-option>
+                <mat-option *ngFor="let school of LtSchools" [value]="school.SchoolId">{{school.SchoolName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-12">
+        <div class="d-flex flex-row bd-highlight align-items-center">
+          <div class="p-2 bd-highlight"> <span>QIG/s</span> </div>
+          <div class="p-2 bd-highlight flex-grow-1">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Qig</mat-label>
+              <mat-select>
+                <mat-option [value]="0">Select Qig</mat-option>
+                <mat-option *ngFor="let qig of Ltqigs" [value]="qig.QigId">{{qig.QigName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-1 col-xs-12 d-flex justify-content-end">
+        <button type="button" title="Save" (click)="GetMarkerDetails()" class="btn theme_button d-flex align-items-center">Submit</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card_box project_summary mt-2">
+    <div class="row d-flex align-items-center">
+      <div class="col-3"><span class="anchorclick"> Total Markers</span><strong><a class="anchorclick">MarkerPerformanceStatistics.TotalMarkerCount</a></strong></div>
+      <div class="col-3"><span class="anchorclick"> Total Schools</span><strong><a class="anchorclick">MarkerPerformanceStatistics.TotalSchoolCount</a></strong></div>
+    </div>
+  </div>
+
+  <div class="head_container_filter mt-0">
+    <div class="row p-0 m-0 align-items-center">
+
+
+      <div class="col-md-4 col-xs-12 p-0">
+
+        <div class="d-flex flex-row bd-highlight align-items-center">
+          <div class="bd-highlight"> <span>Filter By Markers Name</span> </div>
+          <div class="p-2 bd-highlight flex-grow-1">
+            <mat-form-field appearance="fill">
+              <mat-label>Select an option</mat-label>
+              <mat-select>
+                <mat-option>None</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12">
+
+        <div class="d-flex flex-row bd-highlight align-items-center">
+          <div class="p-2 bd-highlight"> <span>Filter By School</span> </div>
+          <div class="p-2 bd-highlight flex-grow-1">
+            <mat-form-field appearance="fill">
+              <mat-label>Select an option</mat-label>
+              <mat-select>
+                <mat-option>None</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+  <div class="mt-2 row-header card_container">
+    <div class="p-2 d-flex row bd-highlight align-items-center col-md-12 al">
+      <div class="col-md-2">Markers Name</div>
+      <div class="col-md-3">School</div>
+      <div class="col-md-2">Total Scripts</div>
+      <div class="col-md-1">RC1</div>
+      <div class="col-md-1">RC2</div>
+      <div class="col-md-1">Adhoc</div>
+      <div class="col-md-2">Reallocated</div>
+
+    </div>
+  </div>
+
+  <div class="mt-2" *ngIf="markerperformance != null">
+    <div class="p-2 d-flex row  align-items-center col-md-12 al card_box" *ngFor="let report of markerperformance">
+      <!-- justify-content-between -->
+      <div class="col-md-2"><a href="" class="atg_link">{{report.MarkerName}}</a></div>
+      <div class="col-md-3">{{report.School}}</div>
+      <div class="col-md-2">{{report.TotalScripts}}</div>
+      <div class="col-md-1">{{report.RC1}}</div>
+      <div class="col-md-1">{{report.RC2}}</div>
+      <div class="col-md-1">{{report.Adhoc}}</div>
+      <div class="col-md-2">{{report.RealLocated}}</div>
+    </div>
+  </div>
+
+
+</div>

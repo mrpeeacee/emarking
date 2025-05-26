@@ -1,0 +1,114 @@
+<div class="container">
+    <div class="body_box">
+        <div class="candidatindex"> Candidate Index : {{ candidateindex }}</div>
+        <div class="float-end mx-2 mb-2">
+            <button type="button" class="btn theme_button_light float-end align-items-center" title="Cancel"
+                [routerLink]="['/projects/setup/user-management/UserWithdraw']">
+                <span class="icon-close"></span>Cancel</button><button title="DownloadPdf" (click)="downloadPdf()"
+                class="btn theme_button d-flex align-items-center">Download
+                As PDF</button>
+        </div>
+        <div #divUserResponse id="exportthis">
+
+            <table *ngFor="let objUserResponse of UserResponses; let i = index;" class="table_question"
+                aria-hidden="true">
+                <tr>
+                    <td style="width:50px" rowspan="2">
+                        <div
+                            style="width: 100%;text-align: center;font-size: 15px;font-weight: bold;border: 1px solid #000;">
+                            {{objUserResponse.QuestionCode}}</div>
+                    </td>
+
+                    <td>
+                        <div [innerHTML]="objUserResponse.QuestionText"></div>
+                    </td>
+                </tr>
+                <tr *ngIf="objUserResponse.QuestionType==10 || objUserResponse.QuestionType==154">
+
+                    <td>
+                        <div style="margin-bottom:10px">{{objUserResponse.ResponseText}}</div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="(objUserResponse.QuestionType==11) && objUserResponse?.Choices?.length>0">
+                    <td>
+                        <div *ngFor="let objchoices of objUserResponse?.Choices; let c = index;">
+                            <div class="d-flex">
+                                <div id="bloc2"
+                                    [innerHTML]="c+1==objUserResponse.ResponseText == true ? objchoices?.OptionText : NA">
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr *ngIf="(objUserResponse.QuestionType === 12) && objUserResponse?.Choices?.length > 0">
+                    <td>
+                        <div *ngFor="let objchoices of objUserResponse.Choices; let c = index;">
+                            
+                                <div class="d-flex">
+                                    <div id="bloc2" *ngIf="isChoiceSelected(objUserResponse.ResponseText, c + 1)">
+                                      <P [innerHTML]="objchoices?.OptionText "></P>
+                                    </div>
+                                </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div   #divUserResponses id="exportthis" hidden>
+
+            <table *ngFor="let objUserResponse of UserResponsespdf; let i = index;" class="table_question"
+                aria-hidden="true">
+                <tr>
+                    <td style="width:50px" rowspan="2">
+                        <div
+                            style="width: 100%;text-align: center;font-size: 15px;font-weight: bold;border: 1px solid #000;">
+                            {{objUserResponse.QuestionCode}}</div>
+                    </td>
+
+                    <td  *ngIf="objUserResponse.QuestionType!=10 && objUserResponse.QuestionType!=154">
+                        <div [innerHTML]="objUserResponse.QuestionText"></div>
+                    </td>
+                </tr>
+                <tr *ngIf="objUserResponse.QuestionType==10 || objUserResponse.QuestionType==154">
+
+                    <td>
+                        <div style="margin-bottom:10px">{{objUserResponse.ResponseText}}</div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="(objUserResponse.QuestionType==11) && objUserResponse?.Choices?.length>0">
+                    <td>
+                        <div *ngFor="let objchoices of objUserResponse?.Choices; let c = index;">
+                            <div class="d-flex">
+                                <div id="bloc2"
+                                    [innerHTML]="c+1==objUserResponse.ResponseText == true ? objchoices?.OptionText : NA">
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr *ngIf="(objUserResponse.QuestionType === 12) && objUserResponse?.Choices?.length > 0">
+                    <td>
+                        <div *ngFor="let objchoices of objUserResponse.Choices; let c = index;">
+                            
+                                <div class="d-flex">
+                                    <div id="bloc2" *ngIf="isChoiceSelected(objUserResponse.ResponseText, c + 1)">
+                                      <P [innerHTML]="objchoices?.OptionText "></P>
+                                    </div>
+                                </div>
+                        </div>
+                    </td>
+                </tr>
+                
+            </table>
+
+        </div>
+    </div>
+</div>

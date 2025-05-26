@@ -1,0 +1,11 @@
+﻿{
+"AS008":{"Choice":0, "ChoiceText":0, "OptionText":0},
+"AS009":{"Choice":0, "ChoiceText":1, "OptionText":0},
+"AS010":{"Choice":0, "ChoiceText":1, "OptionText":0},
+"AS012":{"Choice":1, "ChoiceText":1, "OptionText":1},
+"AS013":{"Choice":1, "ChoiceText":1, "OptionText":1},
+"AS112":{"Choice":1, "ChoiceText":1, "OptionText":1},
+"AS113":{"Choice":1, "ChoiceText":1, "OptionText":1},
+"VIDEOMARKING":{"Choice":0,"ChoiceText":1,"OptionText":1},
+"TEXTQUESTION":{"Choice":0,"ChoiceText":0,"OptionText":0}
+}

@@ -1,0 +1,12 @@
+.anchorclick {
+    color: #0d6efd;
+}
+
+a.disabled {
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+}
+.user_counts span {
+  display: inline-block;
+  cursor: pointer;
+}

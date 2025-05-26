@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- During packaging of the build, this file should be under jobs folder and Jobs.xml,  and 
+    placed in the working directory of the Saras.Quartznet.Server.exe -->
+<!--
+TriggerType=1  Minutly Trigger Deafult
+TriggerType=2  Daily Trigger
+-->
+<quartz>
+	<job>
+		<job-detail>
+			<name>UserSyncScheduler</name>
+			<group>UserSyncScheduler</group>
+			<description>UserSyncScheduler</description>
+			<job-type>Saras.eMarking.RCScheduler.Jobs.UserSyncScheduler, Saras.eMarking.RCScheduler.Jobs</job-type>
+			<durable>true</durable>
+			<recover>true</recover>
+		</job-detail>
+		<trigger id ="UserSyncScheduler">
+			<simple>
+				<name>UserSyncSchedulerJobTrigger</name>
+				<group>UserSyncSchedulerJobTrigger</group>
+				<description>UserSyncSchedulerJobTrigger</description>
+				<job-name>UserSyncScheduler</job-name>
+				<job-group>UserSyncJob</job-group>
+				<TriggerType>1</TriggerType>
+				<TriggerHr>00</TriggerHr>
+				<TriggerMin>00</TriggerMin>
+				<TimeInterval>30</TimeInterval>
+			</simple>
+		</trigger>
+	</job>
+
+	<job>
+		<job-detail>
+			<name>QRLpackStaticsScheduler</name>
+			<group>QRLpackStaticsScheduler</group>
+			<description>QRLpackStaticsScheduler</description>
+			<job-type>Saras.eMarking.RCScheduler.Jobs.QRLpackStaticsScheduler, Saras.eMarking.RCScheduler.Jobs</job-type>
+			<durable>true</durable>
+			<recover>true</recover>
+		</job-detail>
+		<trigger id ="QRLpackStaticsScheduler">
+			<simple>
+				<name>QRLpackStaticsSchedulerJobTriggers</name>
+				<group>QRLpackStaticsSchedulerJobTriggers</group>
+				<description>QRLpackStaticsSchedulerJobTriggers</description>
+				<job-name>QRLpackStaticsScheduler</job-name>
+				<job-group>QRLpackStaticsJob</job-group>
+				<TriggerType>1</TriggerType>
+				<TriggerHr>00</TriggerHr>
+				<TriggerMin>00</TriggerMin>
+				<TimeInterval>30</TimeInterval>
+			</simple>
+		</trigger>
+	</job>
+
+	<job>
+		<job-detail>
+			<name>SendEmailScheduler</name>
+			<group>SendEmailScheduler</group>
+			<description>SendEmailScheduler</description>
+			<job-type>Saras.eMarking.RCScheduler.Jobs.SendEmailScheduler, Saras.eMarking.RCScheduler.Jobs</job-type>
+			<durable>true</durable>
+			<recover>true</recover>
+		</job-detail>
+		<trigger id ="SendEmailScheduler">
+			<simple>
+				<name>SendEmailSchedulerJobTrigger</name>
+				<group>SendEmailSchedulerJobTrigger</group>
+				<description>SendEmailSchedulerJobTrigger</description>
+				<job-name>SendEmailScheduler</job-name>
+				<job-group>SendEmailSchedulerJob</job-group>
+				<TriggerType>1</TriggerType>
+				<TriggerHr>00</TriggerHr>
+				<TriggerMin>00</TriggerMin>
+				<TimeInterval>30</TimeInterval>
+			</simple>
+		</trigger>
+	</job>
+
+	<job>
+		<job-detail>
+			<name>OutboundReportsScheduler</name>
+			<group>OutboundReportsScheduler</group>
+			<description>OutboundReportsScheduler</description>
+			<job-type>Saras.eMarking.RCScheduler.Jobs.OutboundReportsScheduler, Saras.eMarking.RCScheduler.Jobs</job-type>
+			<durable>true</durable>
+			<recover>true</recover>
+		</job-detail>
+		<trigger id ="OutboundReportsScheduler">
+			<simple>
+				<name>OutboundReportsSchedulerTrigger</name>
+				<group>OutboundReportsSchedulerTrigger</group>
+				<description>OutboundReportsSchedulerTrigger</description>
+				<job-name>OutboundReportsScheduler</job-name>
+				<job-group>OutboundReportsSchedulerJob</job-group>
+				<TriggerType>1</TriggerType>
+				<TriggerHr>00</TriggerHr>
+				<TriggerMin>00</TriggerMin>
+				<TimeInterval>30</TimeInterval>
+			</simple>
+		</trigger>
+	</job>
+
+	<job>
+		<job-detail>
+			<name>SendUserActivityStatusScheduler</name>
+			<group>SendUserActivityStatusScheduler</group>
+			<description>SendUserActivityStatusScheduler</description>
+			<job-type>Saras.eMarking.RCScheduler.Jobs.SendUserActivityStatusScheduler, Saras.eMarking.RCScheduler.Jobs</job-type>
+			<durable>true</durable>
+			<recover>true</recover>
+		</job-detail>
+		<trigger id ="SendUserActivityStatusScheduler">
+			<simple>
+				<name>SendUserActivityStatusSchedulerTrigger</name>
+				<group>SendUserActivityStatusSchedulerTrigger</group>
+				<description>SendUserActivityStatusSchedulerTrigger</description>
+				<job-name>SendUserActivityStatusScheduler</job-name>
+				<job-group>SendUserActivityStatusSchedulerJob</job-group>
+				<TriggerType>2</TriggerType>
+				<TriggerHr>08</TriggerHr>
+				<TriggerMin>00</TriggerMin>
+				<TimeInterval>00</TimeInterval>
+			</simple>
+		</trigger>
+	</job>
+	
+</quartz>

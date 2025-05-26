@@ -1,0 +1,401 @@
+<div *ngIf="IsQIGVal">
+  <ng-template #mytemplate>
+    <div class="modal-header">
+      <h4 class="modal-title">{{'SetUp.UserManagement.alert' | translate}}</h4>
+    </div>
+    <div class="modal-body p-2 py-3">
+      <strong *ngIf="S1started">{{this.intMessages.s1error}}</strong>
+      <strong *ngIf="Livemarkingstarted">{{this.intMessages.live}}</strong>
+    </div>
+    <div class="modal-footer">
+      <button mat-button [mat-dialog-close]="false" class="btn theme_button_light mt-1"
+        title="{{'shared.close' | translate}}">
+        {{'shared.close' | translate}}
+      </button>
+    </div>
+  </ng-template>
+
+  <a id="apopup" class="hide" data-bs-toggle="modal" data-bs-target="#suspend">{{'SetUp.UserManagement.openao' |
+    translate}}</a>
+
+  <a id="aretagpopup" class="hide" data-bs-toggle="modal" data-bs-target="#retag">{{'SetUp.UserManagement.openao' |
+    translate}}</a>
+
+  <button type="button" class="btn-close hide" data-bs-dismiss="modal" title="{{'shared.close' | translate}}"
+    aria-label="Close" #closesuspendmodal data-bs-target="#retag"></button>
+
+
+  <button type="button" class="btn-close hide" data-bs-dismiss="modal" title="{{'shared.close' | translate}}"
+    aria-label="Close" #untapopupclose data-bs-target="#suspend"></button>
+
+
+  <div class="qig_tabs mt-1 row">
+    <div class="col-md-5 col-xs-12">
+      <div class="d-flex align-items-center ng-tns-c270-30" style="background: #472c8a;"
+        *ngIf="showhide || dataviewshowhide">
+        <button
+          [ngClass]="databtnstylechange ? 'btn flex-fill theme_toggle p-2' : 'btn flex-fill theme_toggle_light p-2'"
+          (click)="ShowDataView(true)" title="{{'SetUp.UserManagement.dataview' | translate}}">
+          <span class="icon-menu"></span> {{'SetUp.UserManagement.dataview' | translate}}
+        </button>
+        <button
+          [ngClass]="hierachybtnstylechange ? 'btn flex-fill theme_toggle p-2' : 'btn flex-fill theme_toggle_light p-2'"
+          (click)="ShowHierarchyView(true)" title="{{'SetUp.UserManagement.hierarchialview' | translate}}">
+          <span class="icon-team_structure"></span> {{'SetUp.UserManagement.hierarchialview' | translate}}
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-7 d-flex justify-content-end" *ngIf="showhide">
+      <form action="/action_page.php">
+        <button type="button" class="btn theme_button align-items-center float-end mt-2" (click)="GotoUploadComp()"
+          title="{{'SetUp.UserManagement.upload' | translate}}">
+          {{ 'SetUp.UserManagement.upload' | translate }}<span class="icon-pointed_arrow"></span>
+        </button>
+
+        <button class="btn theme_button align-items-center float-end mt-2" (click)="CopyMarkingTeam();"
+          title="{{ 'SetUp.UserManagement.copyteam' | translate }}" [disabled]="dataloading == true"
+          *ngIf="qigusersdataviewlist?.length <= 1">
+          <span class="icon-copy "></span> {{ 'SetUp.UserManagement.copyteam' | translate }}
+        </button>
+
+        <button class="btn theme_button align-items-center float-end mt-2" (click)="MoveMarkingTeam();"
+          title="{{ 'SetUp.UserManagement.moveteam' | translate }}" [disabled]="dataloading == true"
+          *ngIf="qigusersdataviewlist?.length > 1">
+          <span class="icon-copy "></span> {{ 'SetUp.UserManagement.moveteam' | translate }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="strip_thead mt-3" *ngIf="showhide">
+    <div class="float-start">
+      <div class="text_delux">
+        <span>
+          {{'SetUp.UserManagement.total' | translate}}:
+          {{ProjectUsersSearchedList?.length}}
+        </span>
+      </div>
+    </div>
+    <div class="float-end d-flex justify-content-end">
+      <div class="searchbox_st col-10">
+        <span (click)="SearchAvailableUsers()" class="icon-search ng-tns-c270-9"
+          title="{{'SetUp.UserManagement.search' | translate}}"></span>
+        <input autocomplete="off" oncut="return false" onDrop="return false" class="mat-input-element ng-tns-c270-9"
+          ngDefaultControl matInput placeholder="{{'SetUp.UserManagement.searchusers' | translate}}" type="text"
+          [(ngModel)]="AvailableUsersValue" (keyup.enter)="SearchAvailableUsers()">
+      </div>
+      <button mat-icon-button mat-button class="filter_btn hide" [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu">
+        <span class="icon-filter"></span>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before" class="hide">
+      </mat-menu>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+
+
+
+  <div class="data_view" *ngIf="showhide">
+    <div class="row-header_bg ">
+      <div class="row w-100">
+        <div class="col-2 mb-2"> {{'SetUp.UserManagement.loginname' | translate}} </div>
+        <div class="col-2 mb-2"> {{'SetUp.UserManagement.role' | translate}}</div>
+        <div class="col-2 mb-2"> {{'SetUp.UserManagement.name' | translate}}</div>
+        <div class="col-2 mb-2"> {{'SetUp.UserManagement.reportingto' | translate}} </div>
+        <div class="col-2">{{'SetUp.UserManagement.appoitmentstartdate' | translate}}</div>
+        <div class="col-2"> {{'SetUp.UserManagement.appoitmentenddate' | translate}} </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="col-md-12 col-xs-12 nodata_db nodata_found" *ngIf="ProjectUsersSearchedList?.length == 0">
+        {{'SetUp.UserManagement.norecords' | translate}}
+      </div>
+      <perfect-scrollbar class="table_list_scroll">
+        <div class="pos_rel rows_container pt-2 pb-2" [class.shimmer]="dataloading"
+          *ngFor="let dataviewuserlist of ProjectUsersSearchedList">
+          <div class="row w-100">
+            <div class="col-2 text-break">{{dataviewuserlist?.LoginName}}</div>
+            <div class="col-2">{{dataviewuserlist?.RoleID}}</div>
+            <div class="col-2 text-break">{{dataviewuserlist?.UserName}}</div>
+            <div class="col-2 text-break">{{dataviewuserlist?.ReportingTousernamename == null ? '-' :
+              dataviewuserlist?.ReportingTousernamename}}</div>
+            <div class="col-2">{{dataviewuserlist?.AppointStartDate == null || dataviewuserlist?.AppointStartDate ==
+              undefined || dataviewuserlist?.AppointStartDate == '0001-01-01T05:30:00' || dataviewuserlist?.RoleID ==
+              'AO' ? '-' : dataviewuserlist?.AppointStartDate |
+              date:'d MMM y' | uppercase}}</div>
+            <div class="col-2">{{dataviewuserlist?.AppointEndDate == null || dataviewuserlist?.AppointEndDate ==
+              undefined || dataviewuserlist?.AppointEndDate == '0001-01-01T05:30:00' || dataviewuserlist?.RoleID == 'AO'
+              ? '-' : dataviewuserlist?.AppointEndDate |
+              date:'d MMM y' | uppercase}}</div>
+          </div>
+
+          <span *ngIf="!dataviewuserlist?.Isactive" title="{{'SetUp.UserManagement.untagged' | translate}}"
+            class="icon-untag untagicon"></span>
+
+          <button class="option_more" [matMenuTriggerFor]="beforeMenu" aria-label="">
+
+            <span class="icon-options" title="{{'SetUp.UserManagement.Moreoption' | translate}}"></span>
+          </button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before" class="mat_menu_custom">
+
+            <a mat-menu-item data-bs-toggle="modal" data-bs-target="#editModal"
+              title="{{'SetUp.UserManagement.edit' | translate}}" (click)="getQigUsersById(dataviewuserlist,mytemplate)"
+              *ngIf="dataviewuserlist?.RoleID != 'AO'">
+              {{
+              'SetUp.UserManagement.edit'
+              | translate
+              }}
+            </a>
+            <a mat-menu-item (click)="DeleteUsers(dataviewuserlist?.ProjectUserRoleID,mytemplate);callcountcomponent()"
+              *ngIf="dataviewuserlist?.RoleID == 'MARKER1'" title="{{'SetUp.UserManagement.delete' | translate}}">
+              {{
+              'SetUp.UserManagement.delete'
+              | translate
+              }}
+            </a>
+
+
+            <a *ngIf="(dataviewuserlist?.RoleID != 'AO' && dataviewuserlist?.Isactive)"
+              title="{{'SetUp.UserManagement.delete' | translate}}" mat-menu-item data-bs-toggle="modal"
+              (click)="getUsers(dataviewuserlist)">
+              {{'SetUp.UserManagement.delete' | translate}}
+            </a>
+
+
+            <a *ngIf="(dataviewuserlist?.RoleID != 'AO' && !dataviewuserlist?.Isactive)"
+              title="{{'SetUp.UserManagement.Retag' | translate}}" mat-menu-item
+              (click)="GetRetagUser(dataviewuserlist)">
+              {{'SetUp.UserManagement.Retag' | translate}}
+            </a>
+
+
+
+
+            <a mat-menu-item (click)="DownloadUser(dataviewuserlist);"
+              title="{{'SetUp.UserManagement.heirarchy' | translate}}">
+              {{'SetUp.UserManagement.heirarchy' | translate}}
+            </a>
+          </mat-menu>
+        </div>
+      </perfect-scrollbar>
+    </div>
+
+    <div class="col-md-12 col-xs-12 nodata_db nodata_found hide" *ngIf="qigusersdataviewlist?.length == 0">
+      {{'SetUp.UserManagement.norecords' | translate}}
+    </div>
+
+    <div class="col-md-12 col-xs-12 nodata_db nodata_found hide" *ngIf="ProjectUsersSearchedList?.length == 0">
+      {{'SetUp.UserManagement.nousers' | translate}}
+    </div>
+  </div>
+
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true"
+    *ngIf="!S1started && !Livemarkingstarted">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" [class.shimmer]="formloading">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editModalLabel">{{'SetUp.UserManagement.edituser' | translate}}</h1>
+          <button type="button" title="{{'SetUp.UserManagement.close' | translate}}" #closebutton class="btn-close"
+            data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'SetUp.UserManagement.username' | translate}}</mat-label>
+                <input matInput placeholder="{{'SetUp.UserManagement.username' | translate}}"
+                  [value]="Qiguserslist?.UserName" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'SetUp.UserManagement.loginname' | translate}}</mat-label>
+                <input matInput placeholder="{{'SetUp.UserManagement.loginname' | translate}}"
+                  [ngModel]="Qiguserslist?.LoginName" title="{{Qiguserslist?.LoginName}}" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'SetUp.UserManagement.schoolname' | translate}}</mat-label>
+                <input matInput placeholder="{{'SetUp.UserManagement.schoolname' | translate}}"
+                  [ngModel]="Qiguserslist?.SendingSchoolID" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'SetUp.UserManagement.role' | translate}}</mat-label>
+                <input matInput placeholder="{{'SetUp.UserManagement.role' | translate}}"
+                  [ngModel]="Qiguserslist?.RoleName" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'SetUp.UserManagement.appoitmentstartdate' | translate}}</mat-label>
+                <input matInput placeholder="{{'SetUp.UserManagement.appoitmentstartdate' | translate}}"
+                  [ngModel]="Qiguserslist?.AppointStartDate | date:'d MMM y'" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'SetUp.UserManagement.appoitmentenddate' | translate}}</mat-label>
+                <input matInput placeholder="{{'SetUp.UserManagement.appoitmentenddate' | translate}}"
+                  [ngModel]="Qiguserslist?.AppointEndDate | date:'d MMM y'" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'SetUp.UserManagement.nric' | translate}}</mat-label>
+                <input matInput placeholder="{{'SetUp.UserManagement.nric' | translate}}" [ngModel]="Qiguserslist?.NRIC"
+                  disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'SetUp.UserManagement.email' | translate}}</mat-label>
+                <input matInput placeholder="{{'SetUp.UserManagement.email' | translate}}"
+                  [ngModel]="Qiguserslist?.Email" disabled ngDefaultControl title="{{Qiguserslist?.Email}}">
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'SetUp.UserManagement.phone' | translate}}</mat-label>
+                <input matInput placeholder="{{'SetUp.UserManagement.phone' | translate}}"
+                  [ngModel]="Qiguserslist?.Phone" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'SetUp.UserManagement.reportingto' | translate}}</mat-label>
+                <mat-select placeholder="{{'SetUp.UserManagement.reportingto' | translate}}" #matSelect
+                  [value]="Qiguserslist?.ReportingToID">
+                  <mat-option *ngFor="let userslist of Qiguserslist?.ReportingToIds"
+                    [value]="userslist?.ProjectUserRoleID" ngDefaultControl>
+                    {{ userslist?.ReportingToName }} ({{ userslist?.RoleCode }})
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="UpdateQigUsersById()" class="btn theme_button d-flex align-items-center"
+            title="{{'SetUp.UserManagement.save' | translate}}">
+            <span class="icon-save-1"></span>{{
+            'SetUp.UserManagement.save'
+            | translate
+            }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="suspend" tabindex="-1" aria-labelledby="suspendLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h1 class="modal-title fs-5" id="suspendLabel">{{'SetUp.UserManagement.Untag' | translate}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" title="{{'shared.close' | translate}}"
+            aria-label="Close" #closesuspendmodal></button>
+        </div>
+
+        <div class="modal-body" [class.shimmer]="Suspendloading">
+          <h5>{{'SetUp.UserManagement.ReplacementSupervisor' | translate}}</h5>
+
+          <mat-radio-group class="example-radio-group" [(ngModel)]="value">
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <mat-radio-button title="Default User" [(ngModel)]="rbvalue" (change)="DefaultUser();rbvalue = 1"
+                  [value]="true" ngDefaultControl>
+                  <!-- Immediate Supervisor   -->
+                  {{'SetUp.UserManagement.ImmediateSupervisor' | translate}} ({{reportingname}})
+                </mat-radio-button>
+              </div>
+              <div class="col-md-6">
+                <mat-radio-button title="Replacement by another user" [(ngModel)]="rbvalue" [value]="false"
+                  ngDefaultControl (change)="ReplaceAnotherUser();rbvalue = 2">
+                  {{'SetUp.UserManagement.ReplacementSupervisor' | translate}}
+                </mat-radio-button>
+              </div>
+            </div>
+          </mat-radio-group>
+
+          <div class="row mb-4" *ngIf="hideuders">
+            <div class="col-md-6">
+              <mat-label>
+                {{'SetUp.UserManagement.SelectSupervisor' | translate}}
+              </mat-label>
+              <mat-select #taguser class="form-control" (selectionChange)="GetReportingUser($event)" ngDefaultControl
+                [(ngModel)]="selectedValueOption">
+                <mat-option value="0">select user</mat-option>
+                <mat-option *ngFor="let user of SuspendUserDetails" [value]="user?.ProjectUserRoleID">
+                  {{user?.FirstName}} ({{user?.roleCode}})
+                </mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-6" *ngIf="tempreportingmngrdisabled">
+              <mat-label>
+                {{'SetUp.UserManagement.Reportingto' | translate}}
+              </mat-label>
+              <mat-select #reportinguser class="form-control" [(ngModel)]="selected" [disabled]="reportingmngrdisabled">
+                <mat-option *ngFor="let user of ReportingUsers" [value]="user.ProjectUserRoleID" ngDefaultControl>
+                  {{user.FirstName}} {{user.ProjectUserRoleID == 0 ? '' : (user.roleCode)}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <button type="button" class="btn theme_button" (click)="ReplaceWithNewUser()"
+                title="{{'SetUp.UserManagement.untag' | translate}}"> {{'SetUp.UserManagement.untag' |
+                translate}}</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer" [class.shimmer]="Suspendloading">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="retag" tabindex="-1" aria-labelledby="retagLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="retagLabel">{{'SetUp.UserManagement.selectdirectsupervisor' | translate}}
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" title="{{'shared.close' | translate}}"
+            aria-label="Close" #closesuspendmodal></button>
+        </div>
+        <div class="modal-body" [class.shimmer]="Suspendloading">
+
+          <mat-select #retagreportingroleid class="form-control" ngDefaultControl [(ngModel)]="selectedValueOption">
+            <mat-option value="0">{{'SetUp.UserManagement.selectUser' | translate}}</mat-option>
+            <mat-option *ngFor="let user of RetagUsers" [value]="user.ProjectUserRoleID">
+              {{user.FirstName}} ({{user.roleCode}})
+            </mat-option>
+          </mat-select>
+        </div>
+        <div class="modal-footer" [class.shimmer]="Suspendloading">
+          <button type="button" class="btn theme_button" (click)="RetagUser()"
+            title="{{'SetUp.UserManagement.Retag' | translate}}">{{'SetUp.UserManagement.Retag' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+.upload {
+    padding: 7px;
+}
+.wraptext{
+    word-wrap:break-word
+}
+.gcolour{
+    color: green;
+}
+.rcolour{
+    color: red;
+}
+.card{
+margin-bottom: 0px !important;
+}
+
+.main-panel{
+    height: 43vh;
+}
+.cust-ml{
+    position: relative;
+    left: 20px;
+}
+.c_pr_20{
+    padding-right:50px
+}

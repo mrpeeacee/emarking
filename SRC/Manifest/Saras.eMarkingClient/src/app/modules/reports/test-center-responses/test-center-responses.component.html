@@ -1,0 +1,135 @@
+<div class="container" [class.shimmer]="stasticsloading" >
+        <div class="body_box">
+                <div class="card_box_sticky">
+                        <div class="row p-0 ">
+                            <div class="col-md-3 col-xs-12">
+                                <div class="d-flex flex-row bd-highlight align-items-center">
+        
+                                       
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Select Testcentre</mat-label>
+                                        <mat-select [(ngModel)]="selectedtestcenterid">
+                                            <mat-option value="0">
+                                                    Select Testcentre
+                                            </mat-option>
+                                            <mat-option  *ngFor="let itm of _testcentredet"  [value]="itm.id">
+                                                    {{ itm.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+        
+                                </div>
+                            </div>
+                           
+        
+                            <div class="col-md-3 col-xs-12">
+                                <div class="d-flex flex-row bd-highlight align-items-center">
+                                        <input id="schedularid"  
+                                        [(ngModel)]="_scheduleid"   type="text" />
+        
+                                    
+        
+        
+                                </div>
+                            </div>
+        
+                            <div class="col-md-6 col-xs-12 mt-1">
+                                <div class="row p-0 ">
+                                    <div class="col-md-3 col-xs-12 mt-1">
+                                    <button (click)="viewcandidaterespone()" class="btn theme_button d-flex align-items-center">View
+                              </button>
+                              </div>
+                              <div class="col-md-6 col-xs-12 mt-1">
+                              <button (click)="downloadPdf()" class="btn theme_button d-flex align-items-center">Download as pdf
+                                </button>
+                                </div>
+                                </div>
+                            </div>
+                            
+        
+                        </div>
+        
+                    </div>
+               
+               
+        </div>
+    <div class="body_box" *ngFor="let item of result; let i = index;" >
+        <div class="candidatindex"> Candidate Index : {{ item.candidateindex }}</div>
+       
+        <div #divUserResponse id="exportthis" >
+
+            <table  *ngFor="let objUserResponse of item.values; let i = index;" class="table_question" aria-hidden="true">
+                <tr >
+                       
+                    <td style="width:50px" rowspan="2">
+                        <div  style="width: 100%;text-align: center;font-size: 15px;font-weight: bold;border: 1px solid #000;">{{objUserResponse.QuestionCode}}</div>
+                        
+                    </td>
+                    <td *ngIf="objUserResponse.QuestionType !=10">
+                        <div [innerHTML]="objUserResponse.QuestionText"></div>
+                    </td>
+                   
+                  
+                </tr>
+                <tr *ngIf="objUserResponse.QuestionType==10">
+
+                    <td>
+                        <div style="margin-bottom:10px">{{objUserResponse.ResponseText}}</div>
+                    </td>
+                    
+                </tr>
+
+                <tr *ngIf="objUserResponse.QuestionType==11 && objUserResponse?.Choices?.length>0">
+                    <td>
+                        <div *ngFor="let objchoices of objUserResponse?.Choices; let c = index;">
+                            <ul class="choice">
+                                <li>
+                                    <div class="d-flex">
+                                            <input type="checkbox" disabled [checked]="c+1==objUserResponse.ResponseText" />
+                   
+                                        <div id="chkChoices{{c+1}}" class="numbers">{{c+1}}.</div>
+                                        <div id="bloc2" [innerHTML]="objchoices?.OptionText"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr >
+                    <td >
+                       
+                        </td>
+                        <td colspan="2" style="float:right">
+                                <button (click)="viewquestion(objUserResponse.QuestionID)" class="btn theme_button d-flex align-items-center float-start" [disabled]="disaplepassage" title="View Stimulus" data-bs-toggle="modal" data-bs-target="#view_stimulus"> <span class="icon-view_items"></span> View Question </button>
+                       
+                                   
+                                </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="view_stimulus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+             
+              <div class="modal-body">
+                  <strong style="padding-left:16px">Question</strong>
+              <button type="button" class="btn-close" title="Close" style="float: right" data-bs-dismiss="modal" aria-label="Close"></button>
+              <perfect-scrollbar #perfectScrollp [scrollIndicators]="true" class="scroll_respns_passage">
+              <div >
+              <div style="margin-top:5px; padding:26px" [innerHTML] = "questiontext"  class="row"></div>
+            </div>
+            </perfect-scrollbar>  
+   
+   
+              </div>
+           
+            </div>
+          </div>
+      
+ 
+      </div>

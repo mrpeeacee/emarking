@@ -1,0 +1,9 @@
+<div class="container mt-1">
+    <h3>Data Report</h3>
+    <div class="card_box" [class.shimmer]="archiveloading">
+        <button type="button" title="Click here to download report in CSV" (click)="TextReport()"
+            class="btn theme_button">Click here to download report in CSV</button>
+        <button type="button" title="Click here to download report in Excel" (click)="ExcelReport()"
+            class="btn theme_button">Click here to download report in Excel</button>
+    </div>
+</div>

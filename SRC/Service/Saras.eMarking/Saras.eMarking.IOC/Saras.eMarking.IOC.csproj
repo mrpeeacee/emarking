@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TokenUser.cs~RFa3a705f.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Saras.eMarking.Business\Saras.eMarking.Business.csproj" />
+    <ProjectReference Include="..\Saras.eMarking.Domain\Saras.eMarking.Domain.csproj" />
+    <ProjectReference Include="..\Saras.eMarking.Infrastructure\Saras.eMarking.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Banding\" />
+    <Folder Include="Project\Standardisation\StdThree\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
+  </ItemGroup>
+
+</Project>

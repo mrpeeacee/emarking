@@ -1,0 +1,125 @@
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+.nav-tabs .nav-link {
+
+    min-width: auto;
+}
+
+.qutstion_no_strip {
+
+    width: 100%;
+    padding: 8px;
+    background: #F0EAFF;
+
+}
+
+.row-header {
+    font-weight: normal;
+
+}
+
+.btn-close {
+    color: #ffff;
+    opacity: 1;
+    font-size: 24px;
+}
+
+.btn-close:hover {
+    color: #ffff;
+}
+
+.container_box {
+
+    padding: 0px
+}
+
+.aligncenter {
+    text-align: center;
+}
+
+.pd0 {
+    padding: 0px;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.marbot0 {
+    margin-bottom: 0px;
+}
+
+.filter_content .mat-checkbox {
+    margin-right: 0px;
+}
+
+::ng-deep .filter_content .mat-checkbox label {
+    margin-top: -2px !important;
+}
+
+.tm_card_overide{ max-height: 200px;
+    min-height: 200px;}
+
+.row-childrow {
+  padding: 5px;
+}
+.marked {
+    background: #06CF02;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50px;
+}
+.mtl-25
+{
+    margin-top: 2px;
+    margin-left: 5px;
+}
+
+.card_box{
+
+    max-height: 160px;
+    min-height: 160px;
+    margin-bottom: 0px;
+}
+
+.pl{ padding-left: 0px;}
+.pr{ padding-right: 0px;}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0 10px 5px!important;
+}
+
+.smry span{ margin-right: 20px;}
+
+.smry{ float:left; width:50%;}
+
+.legd_trail{width: 25px;
+    height: 16px;
+    position: relative;
+    float: left;
+    margin-top: 3px;
+    margin-left: 2px;
+    margin-right: 10px!important;}
+
+.lg_col_1 {
+  background-color: #f597ab
+}
+
+
+.lg_col_2{
+    background-color:#86c7f3
+}
+
+.lg_col_3{
+    background-color:#f1384b
+}
+
+.bor_r{    border-right: 1px solid #cccc;}
+
+::ng-deep .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+    display: initial!important;
+  
+}

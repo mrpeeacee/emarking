@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content [innerHtml] = "data.message" ></div>
+
+<div *ngIf="data.hasEnable" class="mt-2">
+  <input type="checkbox" [(ngModel)]="isChecked"> <label class="mx-2"> {{data.messageButton}}</label>
+</div>
+<div mat-dialog-actions>
+  
+  <button mat-button [mat-dialog-close]="true" class="btn theme_button"
+    title="{{'shared.confirm' | translate}}">{{'shared.confirm' | translate}}</button>
+  <button mat-button [mat-dialog-close]="false" class="btn theme_button_light"
+    title="{{'shared.close' | translate}}">{{'shared.close' | translate}}</button>
+</div>

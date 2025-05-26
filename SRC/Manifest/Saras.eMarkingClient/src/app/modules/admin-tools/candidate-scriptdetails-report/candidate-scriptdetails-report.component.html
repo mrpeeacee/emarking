@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="mt-2">
+
+    <div class="card_box project_summary pt-4">
+
+      <div class="row d-flex align-items-center">
+
+
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4" *ngIf="!IsProjectSame">
+              <mat-form-field appearance="fill" class="selct_sel float-end"
+                title="{{'CandidateScp.SelProj' | translate}}">
+                <mat-label>{{'CandidateScp.SelProj' | translate}}</mat-label>
+                <mat-select #matSelect (selectionChange)="Ischecked($event)">
+                  <div>
+                    <mat-option [value]='0' selected>--- {{'CandidateScp.Select' | translate}} ---</mat-option>
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Search" [(ngModel)]="ProjectSearchValue" (keyup)="SearchProjects()" (blur)="clearSearch()">
+                      <mat-icon matSuffix title="Search"><span class="icon-search"
+                          (click)="SearchProjects()"></span></mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <mat-option *ngFor="let proj of projectList" [value]="proj?.ProjectId"
+                    ngDefaultControl>{{proj?.ProjectName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="IsProjectSame">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'CandidateScp.SelProj' | translate}}</mat-label>
+                <input matInput *ngFor="let proj of projectList" [value]="proj?.ProjectName" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <button type="button"  title="{{'CandidateScp.Submit' | translate}}" (click)="getCandidateScriptDetails();"
+                class="btn theme_button" *ngIf="!IsProjectSame">{{'CandidateScp.Submit' | translate}}</button>
+              <button type="button" title="{{'CandidateScp.Export' | translate}}" class="btn theme_button"
+                (click)="download()"><span class="icon-download m-0"></span>{{'CandidateScp.Export' |
+                translate}}</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="getCandidateScriptDetailsList != null && getCandidateScriptDetailsList.length > 0">
+      <div class="card_box">
+        <div class="search_dash mt-1 m-0 col-4">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'CandidateScp.search' | translate}}</mat-label>
+            <input matInput title="{{'CandidateScp.search' | translate}}"
+              placeholder="{{'CandidateScp.srchbyscp' | translate}}" [(ngModel)]="ScriptSearchValue" 
+              (keyup.enter)="SearchScript()" ngDefaultControl autocomplete="off" oncut="return false"
+              onDrop="return false">
+            <mat-icon matSuffix title=""><span title="{{'CandidateScp.search' | translate}}" class="icon-search"
+                (click)="SearchScript()"></span></mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="row-header_bg mt-2">
+          <div class="col-2">{{'CandidateScp.Slno' | translate}}</div>
+          <div class="col-4">{{'CandidateScp.LoginName' | translate}}</div>
+          <div class="col-3">{{'CandidateScp.QigName' | translate}}</div>
+          <div class="col-3">{{'CandidateScp.ScpName' | translate}}</div>
+        </div>
+        <perfect-scrollbar class="table_list_scroll">
+          <div class="row-childrow_em card_box"
+            *ngIf="getCandidateScriptDetailsList != null && getCandidateScriptDetailsList.length > 1 && (FilterQigScriptsData == null || !IsFilter)">
+            <div class="row-childrow d-flex px-0" *ngFor="let cand of getCandidateScriptDetailsList; let i=index">
+              <div class="col-2">{{pageindex + i}}</div>
+              <div class="col-4 word_wrpa">{{cand?.LoginName}}</div>
+              <div class="col-3 word_wrpa">{{cand?.QIGName}}</div>
+              <div class="col-3 word_wrpa">{{cand?.ScriptName}}</div>
+            </div>
+          </div>
+          <div class="row-childrow_em card_box" *ngIf="IsFilter">
+            <div class="row-childrow d-flex px-0" *ngFor="let cand of FilterQigScriptsData; let i=index">
+              <div class="col-2">{{i + 1}}</div>
+              <div class="col-4 word_wrpa">{{cand?.LoginName}}</div>
+              <div class="col-3 word_wrpa">{{cand?.QIGName}}</div>
+              <div class="col-3 word_wrpa">{{cand?.ScriptName}}</div>
+            </div>
+          </div>
+          <div class="text-center mt-1 card_box nodatafound"
+            *ngIf="projectId == 0 || getCandidateScriptDetailsList == null || getCandidateScriptDetailsList.length <= 0">
+            {{'CandidateScp.NoRecAlt' | translate}}
+          </div>
+        </perfect-scrollbar>
+
+        <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
+          [pageSize]="pageSize" [disabled]="false" [showFirstLastButtons]="true"
+          [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="false" [pageIndex]="pageIndex"
+          aria-label="Select page">
+        </mat-paginator> 
+      </div>
+    </div>
+  </div>
+
+</div>

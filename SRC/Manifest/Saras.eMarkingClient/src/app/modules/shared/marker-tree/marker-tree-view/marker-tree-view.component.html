@@ -1,0 +1,50 @@
+<button type="button" class="btn theme_button margin-left0" (click)="leftmenuopen(1, $event)" title="Filter"><span class="icon-menu"></span>
+    Filter</button>
+<div class="drop_dwn_filter" [@event_pop]="state" data-bs-dismiss="modal" (click)="$event.stopPropagation()">
+    <perfect-scrollbar class="scroll_roles" useBothWheelAxes="true">
+        <div class="left_filter">
+            <div class="pb-5">
+                <div class="tree_hirerc" [class.shimmer]="heirarchyviewloading">
+                    <mat-card *ngIf="showhideval">
+                        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                            <mat-nested-tree-node (click)="activeNode = node;" *matTreeNodeDef="let node">
+                                <ol>
+                                    <div class="mat-tree-node">
+                                        <div class="final_node cursor"
+                                            [ngClass]="ProjectuserroleId == node.ProjectUserRoleID ? 'trnodehighlights' : ''">
+                                            <strong (click)="getNodeDetails(node, $event)">{{node.item}}
+                                                ({{node.role}})</strong>
+                                        </div>
+                                    </div>
+                                </ol>
+                            </mat-nested-tree-node>
+
+                            <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildren">
+                                <ol class="example-tree-container">
+                                    <div class="mat-tree-node"
+                                        [ngClass]="ProjectuserroleId == node.ProjectUserRoleID ? 'trnodehighlights' : ''">
+                                        <button mat-icon-button matTreeNodeToggle class="mat-icon-button"
+                                            [matTreeNodeToggleRecursive]="recursive"
+                                            [attr.aria-label]="'toggle ' + node.filename">
+                                            <mat-icon>
+                                                {{treeControl.isExpanded(node) ? 'remove' : 'add'}}
+                                            </mat-icon>
+                                        </button>
+
+                                        <strong class="cursor" (click)="getNodeDetails(node, $event)">{{node.item}}
+                                            ({{node.role}})</strong>
+                                    </div>
+                                    <ul class="example-tree-nested-node">
+                                        <div *ngIf="treeControl.isExpanded(node)">
+                                            <ng-container matTreeNodeOutlet></ng-container>
+                                        </div>
+                                    </ul>
+                                </ol>
+                            </mat-nested-tree-node>
+                        </mat-tree>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>

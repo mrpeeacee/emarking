@@ -1,0 +1,214 @@
+#block_container {
+  text-align: center;
+}
+
+#bloc1,
+#bloc2 {
+  display: inline;
+}
+
+.slno-lft {
+  left: -4px;
+  position: relative;
+}
+
+.note {
+  font-weight: bold;
+  text-align: center;
+  font-size: 20px;
+}
+
+.qnsmarks {
+  float: right;
+}
+
+/* drag and drop */
+::ng-deep .blankDiv {
+  cursor: move;
+  border: 2px solid #bebebe;
+  opacity: 0.8;
+  padding: 2px 0 2px 6px;
+  margin: 0 4px;
+  text-align: center;
+  min-height: 20px;
+  min-width: 150px;
+  display: inline-block;
+  border-radius: 5px;
+  margin-top: 3px;
+  vertical-align: middle;
+}
+
+::ng-deep .optionsArea {
+  margin-top: 20px;
+}
+::ng-deep .stimuluspopup {
+  height: 350px;
+  overflow: auto;
+}
+::ng-deep .OptionsArea {
+  border: 1px solid #666666;
+  border-radius: 5px 5px 5px 5px;
+  float: left;
+  margin: 10px 0;
+  min-height: 35px;
+  min-width: 100px;
+  padding: 10px;
+  width: 100% !important;
+}
+
+::ng-deep .optionDiv {
+  background-color: #CCEAFF;
+  border: 1px solid #666666;
+  border-radius: 5px 5px 5px 5px;
+  float: left;
+  margin: 10px;
+  min-width: 100px;
+  padding: 3px;
+  vertical-align: bottom;
+  min-height: 20px;
+}
+
+::ng-deep .ui-draggable-handle {
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+::ng-deep .divdrag {
+  background-color: #FFFFFF;
+  cursor: move;
+  padding: 2px;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+::ng-deep .highlighted-text {
+  background-color: yellow;
+  font-weight: bold;
+}
+
+.statusresp {
+  display: flex;
+  align-items: center;
+}
+/* Add this CSS to your stylesheet */
+.styled-table {
+  border-collapse: collapse; /* Ensures borders are merged */
+  width: 100%; /* Makes sure the table takes up the full width */
+}
+
+.styled-table th,
+.styled-table td {
+  border: 1px solid #000; /* Adds border to table cells */
+  padding: 8px; /* Adds padding inside table cells */
+  text-align: left; /* Aligns text to the left */
+}
+
+.styled-table th {
+  background-color: #f2f2f2; /* Adds a background color to table headers */
+}
+
+.styled-table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Adds a background color to even rows */
+}
+.container {
+  padding: 20px;
+}
+
+.matrix-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.matrix-content {
+  display: flex;
+}
+
+.matrix-rows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .matching-container {
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .question-text {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+::ng-deep .matching-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep .matching-left,
+::ng-deep .matching-right {
+  width: 45%;
+}
+
+::ng-deep .matching-left {
+  border-right: 2px solid #ddd;
+  padding-right: 10px;
+}
+
+::ng-deep .matching-right {
+  padding-left: 10px;
+}
+
+::ng-deep .matching-row,
+::ng-deep .matching-column {
+  padding: 10px;
+  border: 1px solid #7b64e4;
+  margin-bottom: 5px;
+}
+
+::ng-deep .matching-row:hover,
+::ng-deep .matching-column:hover {
+  background-color: #e0e0e0;
+}
+::ng-deep .styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: small;
+}
+
+::ng-deep.styled-table th, .styled-table td {
+  padding: 10px;
+  border: 1px solid #f7e6e6;
+}
+
+::ng-deep.styled-table th {
+  background-color: #f4f4f4;
+}
+
+::ng-deep .styled-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.styled-table td {
+  text-align: center;
+}
+::ng-deep .SectionStyleRep{
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+::ng-deep .pointedSpan {
+  position: absolute;
+  border-radius: 15px;
+  border: 2px solid #ccc;
+  width: 26px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 3px 4px 1px;
+  color: #ffffff;
+}

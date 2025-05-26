@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saras.eMarking.RCScheduler.Server", "Saras.eMarking.RCScheduler.Server\Saras.eMarking.RCScheduler.Server.csproj", "{0C394D8E-7683-494A-8108-C8D0A40C4781}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saras.Scheduler.Facade", "Saras.Scheduler.Facade\Saras.Scheduler.Facade.csproj", "{177F41A6-7F3E-4CC0-B358-2D211B287BAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saras.eMarking.RCScheduler.Jobs", "Saras.eMarking.RCScheduler.Jobs\Saras.eMarking.RCScheduler.Jobs.csproj", "{959F04B9-BEDD-4BC1-B71C-06536CABB54D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C394D8E-7683-494A-8108-C8D0A40C4781}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C394D8E-7683-494A-8108-C8D0A40C4781}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C394D8E-7683-494A-8108-C8D0A40C4781}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C394D8E-7683-494A-8108-C8D0A40C4781}.Release|Any CPU.Build.0 = Release|Any CPU
+		{177F41A6-7F3E-4CC0-B358-2D211B287BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{177F41A6-7F3E-4CC0-B358-2D211B287BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{177F41A6-7F3E-4CC0-B358-2D211B287BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{177F41A6-7F3E-4CC0-B358-2D211B287BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{959F04B9-BEDD-4BC1-B71C-06536CABB54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{959F04B9-BEDD-4BC1-B71C-06536CABB54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{959F04B9-BEDD-4BC1-B71C-06536CABB54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{959F04B9-BEDD-4BC1-B71C-06536CABB54D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {894C056A-4A77-4E9D-8AD8-FE0B12B6542F}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://estfs.excelindia.com/tfs/saras
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\Saras.eMarking.RCScheduler.Jobs\\Saras.eMarking.RCScheduler.Jobs.csproj
+		SccProjectName1 = ../Saras.eMarking.RCScheduler.Jobs
+		SccLocalPath1 = ..\\Saras.eMarking.RCScheduler.Jobs
+		SccProjectUniqueName2 = Saras.eMarking.RCScheduler.Server.csproj
+		SccLocalPath2 = .
+		SccProjectUniqueName3 = ..\\Saras.Scheduler.Facade\\Saras.Scheduler.Facade.csproj
+		SccProjectName3 = ../Saras.Scheduler.Facade
+		SccLocalPath3 = ..\\Saras.Scheduler.Facade
+	EndGlobalSection
+EndGlobal

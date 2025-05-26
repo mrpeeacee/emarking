@@ -1,0 +1,10 @@
+.errorppage{    text-align: center;
+    position: relative;
+    top: 10%;}
+
+.errorppage img{  min-width: 25%;
+    max-width: 100%;}
+.errorppage h2{margin-top: 40px;
+    font-size: 25px;
+    margin-bottom: 20px;
+   }

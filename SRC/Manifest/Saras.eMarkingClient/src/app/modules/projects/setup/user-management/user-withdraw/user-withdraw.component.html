@@ -1,0 +1,147 @@
+<div class="container" [class.shimmer]="userslstloading">
+  <div class="mt-2 mx-2">
+    <button type="button" class="btn theme_button_light float-end align-items-center" title="Cancel"
+      [routerLink]="['/projects/dashboards/ao-cm']">
+      
+      <span class="icon-close"></span>{{'SetUp.UserManagement.cancel' | translate}}</button>
+    <button type="button" (click)="UserWithdraw()" class="btn theme_button align-items-center float-end " [disabled]="WithdrawUsers?.UserWithdraw.length==0 || WithdrawUsers?.UserWithdraw.length==null"
+      title="{{'SetUp.UserManagement.UserWithdraw' | translate}}">{{'SetUp.UserManagement.UserWithdraw' |
+      translate}}</button>
+    <button type="button" (click)="AllUserRespones()" class="btn theme_button align-items-center float-end hide" [disabled]="WithdrawUsers?.UserWithdraw.length==0 || WithdrawUsers?.UserWithdraw.length==null"
+            title="All User Responses">
+      All User Responses
+    </button>
+  </div>
+  <div class="body_box">
+    <div class="strip_thead mt-2 ps-3">
+      <div class="float-start">
+        <div class="text_delux mt-2">
+          <span>
+            {{'SetUp.UserManagement.total' | translate}}:
+            {{WithdrawUsers?.TotalUserCount}}
+          </span>
+
+          <span class="ps-5">
+            {{'SetUp.UserManagement.Withdrawn' | translate}}:
+            {{WithdrawUsers?.TotalWithdrawnCount}}
+          </span>
+        </div>
+      </div>
+      <div class="float-end d-flex justify-content-end">
+        <div class="search_dash mt-1 m-0">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'SetUp.UserManagement.search' | translate}}</mat-label>
+            <input matInput title="{{'SetUp.UserManagement.search' | translate}}"
+              placeholder="{{'SetUp.UserManagement.SearchCandidate' | translate}}" [(ngModel)]="UsersValue"
+              (keyup.enter)="SearchAvailableUserslist()" ngDefaultControl autocomplete="off" oncut="return false"
+              onDrop="return false">
+            <mat-icon matSuffix title=""><span class="icon-search"  (click)="SearchAvailableUserslist()"
+                title="{{'SetUp.UserManagement.search' | translate}}"></span></mat-icon>
+          </mat-form-field>
+        </div>
+        <button mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu" class="btn filter filet_cm filter_btn"><span
+            class=" icon-filter" title="{{'SetUp.UserManagement.Filter' | translate}}"></span></button>
+
+        <mat-menu #beforeMenu="matMenu" xPosition="before" class="filter_op">
+          <mat-form-field [formGroup]="searchCandidateUserForm" class="selct_bx">
+
+            <mat-form-field appearance="fill" (click)="$event.stopPropagation()" class="selct_bx">
+              <strong
+                title="{{'SetUp.UserManagement.CandidateStatus' | translate}}">{{'SetUp.UserManagement.CandidateStatus'
+                | translate}}</strong>
+              <mat-select #matSelectUsers formControlName="fcandidatestatus" multiple>
+                <mat-option *ngFor="let Candidatestatus of CheckedCandidateStatustypes.slice(0,2)"
+                  [value]="Candidatestatus?.Id" (onSelectionChange)="IscheckedCanditateStatus($event, Candidatestatus)"
+                  ngDefaultControl>
+                  {{Candidatestatus?.Text}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" (click)="$event.stopPropagation()">
+              <strong title="{{'SetUp.UserManagement.status' | translate}}">{{'SetUp.UserManagement.status' |
+                translate}}</strong>
+              <mat-select #matSelectUsers1 formControlName="fcandidatestatus" multiple>
+                <mat-option *ngFor="let Candidatestatus of CheckedCandidateStatustypes.slice(2,4)"
+                  [value]="Candidatestatus?.Id" (onSelectionChange)="IscheckedCanditateStatus($event, Candidatestatus)"
+                  ngDefaultControl>
+                  {{Candidatestatus?.Text}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="row">
+              <div class="col-md-12"> <button class="btn btn theme_button m-0" type="button"
+                  (click)="Filter();$event.stopPropagation()"
+                  title="{{'SetUp.UserManagement.Filter' | translate}}">{{'SetUp.UserManagement.Filter' |
+                  translate}}</button> <button class="btn theme_button_light ms-3" type="button"
+                  (click)="Clear();$event.stopPropagation()"
+                  title="{{'SetUp.UserManagement.clear' | translate}}">{{'SetUp.UserManagement.clear' |
+                  translate}}</button></div>
+
+            </div>
+          </mat-form-field>
+        </mat-menu>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="data_view">
+      <div class="row-header_bg">
+        <div class="row w-100">
+          <div class="col_b mx-1">
+            <mat-checkbox title="{{'SetUp.UserManagement.SelectAll' | translate}}" [(ngModel)]="selectAll"
+              (change)="SelectAllUsers($event)" class="ml_5x" *ngIf="!selectallCheckBox"></mat-checkbox>
+            <mat-checkbox title="{{'SetUp.UserManagement.SelectAll' | translate}}" class="ml_5x no_allowd_cursor "
+              *ngIf="selectallCheckBox" [disabled]="true"></mat-checkbox>
+          </div>
+          <div class="col-md-4"><strong>{{'SetUp.UserManagement.IndexNumber' | translate}}</strong></div>
+          <div class="col-md-2"><strong>{{'SetUp.UserManagement.status' | translate}}</strong></div>
+          <div class="col-md-2"><strong>{{'SetUp.UserManagement.CandidateStatus' | translate}}</strong></div>
+          <div class="col-md-2"><strong>{{'SetUp.UserManagement.Response' | translate}}</strong></div>
+        </div>
+      </div>
+      <div class="card_box table_list_scroll">
+        <div class="col-md-12 col-xs-12 nodata_db nodata_found"
+          *ngIf="WithdrawUsers?.UserWithdraw.length==0 || WithdrawUsers?.UserWithdraw.length==null">
+          {{'SetUp.UserManagement.norecords' | translate}}
+        </div>
+        <perfect-scrollbar class="table_list_scroll">
+          <div *ngIf="WithdrawUsers?.UserWithdraw.length !=0">
+            <div class="pos_rel rows_container pt-2 pb-2 " *ngFor="let user of WithdrawUsers?.UserWithdraw">
+              <div class="row w-100">
+                <div class="col_b mx-1" *ngIf="!user.IsWithDrawn">
+                  <mat-checkbox [(ngModel)]="user.selected" [checked]="user.selected"
+                    (change)="user.selected;storecheckedvalues(user,$event);"></mat-checkbox>
+                </div>
+                <div class="col_b mx-1" *ngIf="user.IsWithDrawn">
+                  <mat-checkbox [disabled]="true" class="no_allowd_cursor "></mat-checkbox>
+                </div>
+                <div class="col-md-4 ">{{user.LoginName}}</div>
+                <div class="col-md-2 " *ngIf="user.Status"><span class="green">{{'SetUp.UserManagement.Present'
+                    | translate}}</span></div>
+                <div class="col-md-2 " *ngIf="!user.Status"><span class="red">{{'SetUp.UserManagement.Absent'
+                    | translate}}</span></div>
+
+                <div class="col-md-2 " *ngIf="user.IsWithDrawn"><span class="red">{{'SetUp.UserManagement.Withdrawn'
+                    | translate}}</span></div>
+                <div class="col-md-2 " *ngIf="!user.IsWithDrawn"><strong>---</strong></div>
+                <div class="col-md-2 " *ngIf="!WithdrawUsers.IseOral">
+                  <a *ngIf="!user.IsWithDrawn && user.Status "
+                    [routerLink]="['/reports', user.ID, 'user-response']"
+                    routerLink="/reports/{{user.Id}}/user-response"
+                    title="{{'SetUp.UserManagement.ViewResponse' | translate}}">{{'SetUp.UserManagement.ViewResponse'
+                    | translate}}</a>
+                  <div *ngIf="user.IsWithDrawn || !user.Status"><strong>---</strong></div>
+                </div>
+                <div class="col-md-2 " *ngIf="WithdrawUsers.IseOral"><strong>---</strong></div>
+              </div>
+            </div>
+          </div>
+        </perfect-scrollbar>
+      </div>
+      <mat-paginator [class.shimmer]="userslstloading" #paginator class="demo-paginator"
+        (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize" [disabled]="false"
+        [showFirstLastButtons]="true" [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+        [hidePageSize]="false" [pageIndex]="pageIndex" aria-label="Select page">
+      </mat-paginator>
+    </div>

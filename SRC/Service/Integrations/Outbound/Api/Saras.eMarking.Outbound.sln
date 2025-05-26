@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iExam.Security", "iExamSecurity\iExam.Security.csproj", "{053106A7-44DD-43FB-81E6-18B61B3EC9B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.Outbound", "Saras.eMarking.Outbound.Api\Saras.eMarking.Outbound.csproj", "{068B281E-2CD4-442D-BC4D-1EA476AC617F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saras.eMarking.Outbound.Services", "Saras.eMarking.Outbound.Services\Saras.eMarking.Outbound.Services.csproj", "{A8AEB5D1-44F8-491C-8378-F1E1CA046AEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{053106A7-44DD-43FB-81E6-18B61B3EC9B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{053106A7-44DD-43FB-81E6-18B61B3EC9B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{053106A7-44DD-43FB-81E6-18B61B3EC9B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{053106A7-44DD-43FB-81E6-18B61B3EC9B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{068B281E-2CD4-442D-BC4D-1EA476AC617F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068B281E-2CD4-442D-BC4D-1EA476AC617F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068B281E-2CD4-442D-BC4D-1EA476AC617F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068B281E-2CD4-442D-BC4D-1EA476AC617F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8AEB5D1-44F8-491C-8378-F1E1CA046AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8AEB5D1-44F8-491C-8378-F1E1CA046AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8AEB5D1-44F8-491C-8378-F1E1CA046AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8AEB5D1-44F8-491C-8378-F1E1CA046AEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {001046A0-3361-4493-9110-14A174FEE274}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://estfs.excelindia.com/tfs/saras
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = iExamSecurity\\iExam.Security.csproj
+		SccProjectName1 = iExamSecurity
+		SccLocalPath1 = iExamSecurity
+		SccProjectUniqueName2 = Saras.eMarking.Outbound.Api\\Saras.eMarking.Outbound.csproj
+		SccProjectName2 = Saras.eMarking.Outbound.Api
+		SccLocalPath2 = Saras.eMarking.Outbound.Api
+		SccProjectUniqueName3 = Saras.eMarking.Outbound.Services\\Saras.eMarking.Outbound.Services.csproj
+		SccProjectName3 = Saras.eMarking.Outbound.Services
+		SccLocalPath3 = Saras.eMarking.Outbound.Services
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,62 @@
+.search_dash {
+  margin: 0 0px;
+   float: right !important;
+}
+
+.count_in_btn {
+  position: absolute;
+  right: -25px;
+  padding: 3px 10px;
+  background: red;
+  border-radius: 50px;
+}
+
+.card_box {
+  background: #fff;
+  padding: 5px;
+}
+
+.status_yes, .status_no {
+  display: inline-block;
+}
+
+.status_yess{
+   color: #2DAD00;
+  line-height: 16px;
+}
+.status_nos{  
+  color: #FF0000;
+  line-height: 16px;
+}
+.status_pendings{
+  color: #fae314;
+  line-height: 16px;}
+.srchrigth{
+  justify-content: right; 
+  position: relative;
+  left: 50%;
+}
+.srchleft{
+  justify-content: left; 
+  position: relative;
+  right: 9%;
+}
+.row-header_bg { 
+  font-weight: bold!important;
+}
+.posleft{
+  position: relative;
+  left: 30px;
+}
+
+.view_btn {
+  position: absolute;
+    right: 0;
+    top: -1px;
+}
+.appr_by{ padding-right:50px; word-wrap:break-word}
+
+.row-childrow {
+  
+  position: relative;
+}

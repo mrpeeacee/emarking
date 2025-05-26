@@ -1,0 +1,16 @@
+{
+  "Login": {
+    "Title": "eMarking Login System",
+    "EmailLabel": "Login Name",
+    "EmailPlaceHolder": "Enter email",
+    "PwdLabel": "Password",
+    "PwdPlaceHolder": "Enter password",
+    "SubmitLabel": "Login",
+    "Copyright": "Copyright © 2022 Excelsoft Technologies Pvt. Ltd. All rights reserved",
+    "BuildVersion": "Build Version : ",
+    "errormsg": "Please enter the valid login credentials."
+  },
+    "Header": {
+        "ServDteTime": "Server date and time"
+    }
+}

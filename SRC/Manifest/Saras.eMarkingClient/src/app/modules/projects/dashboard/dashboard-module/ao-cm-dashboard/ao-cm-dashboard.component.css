@@ -1,0 +1,66 @@
+.nav-tabs {
+    border-bottom: none;
+}
+.project_summary strong {
+  display: inline-block;
+  float: right;
+  margin-bottom: 10px;
+  padding: 2px 10px;
+  min-width: 60px;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 2px;
+}
+
+.theme_button_light {
+  background: #fff;
+  border-radius: 2px;
+  color: #472C8A;
+  transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  margin-left: 10px;
+  font-size: 15px;
+  border: none;
+  width: 95%;
+  text-align: left;
+  padding: 8px !important;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+}
+
+.quick-links ul {
+  padding: 0px;
+  float: left;
+  width: 100%;
+}
+
+.today_ovrviw {
+  /*background: #e6dffb;*/
+}
+.tody_dte {
+  background: #3ecd4f;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: #fff;
+  top: 11px;
+  right: 9px;
+}
+
+.today_ovrviw strong{ background:#fff}
+
+.theme_button_light:hover{ transform:scale(1.05)}
+
+.icon-pointed_arrow {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+}
+.card_box h3 {
+  
+  font-size: 16px;
+ 
+}
+.dspn{
+  width: 83%;
+  display: inline-block;
+}

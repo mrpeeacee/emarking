@@ -1,0 +1,184 @@
+<div class="container">
+
+
+  <div class="card_box mt-3 project_summary">
+
+    <div class="search_ex">
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{'SetUp.ResolutionCOI.Searchmarker' | translate}} </mat-label>
+        <input autocomplete="off" oncut="return false" onDrop="return false" ngDefaultControl onPaste="return false"
+          [(ngModel)]="SearchMarkerValue" (keyup.enter)="SearchSelectedMarkers()" matInput
+          placeholder="{{'SetUp.ResolutionCOI.Searchmarker' | translate}}" type="search">
+        <span title="{{'SetUp.ResolutionCOI.Search' | translate}}" (click)="SearchSelectedMarkers()" class="icon-search ng-tns-c266-2"></span>
+
+      </mat-form-field>
+
+    </div>
+    <div class="mt-2 row-header card_container">
+      <div class="p-2 d-flex row bd-highlight align-items-center col-md-12 al w-98">
+
+        <div class="col-md-1">{{'SetUp.ResolutionCOI.slno' | translate}}</div>
+        <div class="col-md-2 pl-15">{{'SetUp.ResolutionCOI.Marker' | translate}}</div>
+        <div class="col-md-4">{{'SetUp.ResolutionCOI.SendingSchool' | translate}}</div>
+        <div class="col-md-3">{{'SetUp.ResolutionCOI.DefualtschoolNamecode' | translate}}</div>
+        <div class="col-md-2">{{'SetUp.ResolutionCOI.ExceptionSchools' | translate}}</div>
+
+      </div>
+    </div>
+    <div *ngFor="let objresolution of [1,2,3,4];">
+      <div class="p-2 d-flex row bd-highlight align-items-center col-md-12 al shimmer"
+        *ngIf=" coisLoading || scoolsLoading">
+        <div class="col-md-1"><span>{{'SetUp.ResolutionCOI.slno' | translate}}</span></div>
+        <div class="col-md-2"><span>{{'SetUp.ResolutionCOI.UserName' | translate}}</span></div>
+        <div class="col-md-3"><span>{{'SetUp.ResolutionCOI.SendingSchool' | translate}}</span></div>
+        <div class="col-md-4">
+          <span> {{'SetUp.ResolutionCOI.UserName' | translate}}</span>
+        </div>
+        <div class="col-md-2">
+          <span>{{'SetUp.ResolutionCOI.SchoolList' | translate}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 col-xs-12 mt-5 mb-5 nodata_db" style="text-align: center;"
+      *ngIf="resolutionofcoilst?.length <= 0 && coisLoading == false && scoolsLoading == false">
+      {{'SetUp.ResolutionCOI.NotFound' |translate}}
+    </div>
+    <div *ngIf="coisLoading == false && scoolsLoading == false">
+      <div class="coi_contaoner" *ngFor="let objresolution of resolutionofcoilst; let i = index;">
+        <mat-accordion>
+          <mat-expansion-panel [ngClass]="isExpansionDisabled(objresolution.SchoolList.length < 2)"
+            (opened)="objresolution.panelOpenState = true" [hideToggle]="objresolution.SchoolList.length < 2"
+            (closed)="objresolution.panelOpenState = false" [expanded]="indexExpanded == i"
+            title="{{( objresolution.panelOpenState == true  ? 'Collapse' : 'Expand') | translate }}">
+            <mat-expansion-panel-header (click)="togglePanels(i)">
+              <mat-panel-title>
+                <div class="p-2 d-flex row bd-highlight align-items-center col-md-12 al">
+                  <div class="col-md-1">{{i+1}}</div>
+
+                  <div class="col-md-2">{{ objresolution.UserName}}</div>
+
+                  <div class="col-md-4 cl_lft">
+                    <div class="el_text">
+                      {{
+                      objresolution?.SendingSchoolName
+                      }} <br /><span class="code scl_nme">
+                        {{
+                        objresolution?.SendingSchoolCode
+                        }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 cl_lft">
+                    <div *ngIf="objresolution.SchoolList.length>0">
+                      <div class="el_text">
+                        {{
+                        objresolution.SchoolList[0].SchoolName
+                        }} <br /><span class="code scl_nme">
+                          {{
+                          objresolution.SchoolList[0].SchoolCode
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <div class="number_bx" [ngClass]="objresolution.SchoolList.length < 2 ? 'number_bx_disb' :''">
+                      {{objresolution.SchoolList.length}}
+                    </div>
+                  </div>
+
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="p-2 d-flex row bd-highlight align-items-center col-md-12 al w-98 ">
+              <div class="col-md-3 offset-md-7 ">
+
+                <div *ngFor="let school of objresolution.SchoolList;let i= index;">
+                  <div *ngIf="objresolution.SchoolList.length>1" class="hr_brdbtn">
+                    <div *ngIf="i!=0" class="mb-2 ">
+                      {{ school.SchoolName }} <br /><span class="code scl_nme">
+                        {{
+                        school.SchoolCode
+                        }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div>
+          <button title="{{'SetUp.ResolutionCOI.Addschools' | translate}}" class="add_nmr"
+            (click)="checkSchools(objresolution.SchoolList,objresolution.ProjectUserRoleID,objresolution.SendingSchoolID);"
+            data-bs-toggle="modal" data-bs-target="#myModal2">
+            <span class="icon-add"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade right" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+  style="display: none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close_sidemenu" data-bs-dismiss="modal" aria-label="Close">
+          <span (click)="CloseFn(schoolselectedlst)" class="icon-close-1" aria-hidden="true"
+            title="{{'SetUp.ResolutionCOI.Close' | translate}}"></span>
+        </button>
+        <h4>{{'SetUp.ResolutionCOI.Schools' | translate}}</h4>
+        <button *ngIf="schoolselectedlst?.length>0" type="button"
+          class="btn sav_btn theme_button mt-1 p-2 d-flex align-items-center" (click)="SaveUpdateResolutionofCOI()"
+          title="{{'General.Save' | translate}}">
+          <span class="icon-save"></span>
+          {{
+          'General.Save' |
+          translate
+          }}
+        </button>
+        <button type="button" id="closeComponentCoi" data-bs-dismiss="modal" class="btn sav_btn theme_button hide">
+        </button>
+
+        <div class="search_ex col-8">
+
+          <mat-form-field appearance="outline">
+            <mat-label>
+              {{'SetUp.ResolutionCOI.SearchSchools' | translate}}
+            </mat-label>
+            <input autocomplete="off" oncut="return false" onDrop="return false" ngDefaultControl onPaste="return false"
+              [(ngModel)]="SearchSelectedValue" (keyup.enter)="SearchSelectedSchools()" matInput
+              placeholder="{{'SetUp.ResolutionCOI.SearchSchools' | translate}}" type="search">
+            <span title="{{'SetUp.ResolutionCOI.Search' | translate}}"  (click)="SearchSelectedSchools()" class="icon-search ng-tns-c266-2"></span>
+
+          </mat-form-field>
+
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <perfect-scrollbar class="scroll_roles">
+          <div class="row-childrow" *ngFor="let objschoollst of schoolselectedlst">
+            <mat-checkbox [value]="objschoollst.IsSelectedSchool" [(ngModel)]="objschoollst.IsSelectedSchool"
+              class="example-margin">
+
+            </mat-checkbox>
+            <span
+              [ngClass]="objschoollst.IsSendingSchool ? 'myOwnBg + Default School' :''">{{objschoollst.SchoolName}}<br />{{objschoollst.SchoolCode}}
+              <span *ngIf="objschoollst.IsSendingSchool">{{'SetUp.ResolutionCOI.DefaultSchool' |
+                translate}}</span></span>
+          </div>
+          <div class="col-md-12 col-xs-12 mt-5 mb-5 nodata_db" style="text-align: center;"
+            *ngIf="schoolselectedlst?.length == 0 && coisLoading == false && scoolsLoading == false">
+            {{'SetUp.ResolutionCOI.NotFound' |translate}}
+          </div>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </div>
+</div>

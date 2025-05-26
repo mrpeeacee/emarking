@@ -1,0 +1,57 @@
+<button type="button" title="{{'RptOutbound.cancel' | translate}}" (click)="clickMethod($event)"
+    class="btn theme_button_light mx-3 mt-3 d-flex align-items-center float-end">
+    <span class="icon-close"></span>{{'RptOutbound.cancel' | translate}}
+</button>
+
+<div class="container-fluid" id="content">
+    <div class="row mb-2">
+        <div class="col-6 mb-2 mt-3">
+            <h3>{{ApiName}} {{'RptOutbound.log' | translate}}</h3>
+        </div>
+    </div>
+    <div class="row-header_new" [class.shimmer]="Dwnldloading == true">
+        <div class="d-flex">
+            <div class="col-md-2"><strong>{{'RptOutbound.correlation' | translate}}</strong></div>
+            <div class="col-md-1"><strong>{{'RptOutbound.requestby' | translate}}</strong></div>
+            <div class="col-md-1"><strong>{{'RptOutbound.request' | translate}}</strong></div>
+            <div class="col-md-1"><strong>{{'RptOutbound.page' | translate}}</strong></div>
+            <div class="col-md-3"><strong>{{'RptOutbound.file' | translate}}</strong></div>
+            <div class="col-md-1"><strong>{{'RptOutbound.processed' | translate}}</strong></div>
+            <div class="col-md-1"><strong>{{'RptOutbound.status' | translate}}</strong></div>
+            <div class="col-md-2"><strong>{{'RptOutbound.remarks' | translate}}</strong></div>
+        </div>
+    </div>
+    <div class="row-childrow_em p-0 mb-5 card_box" *ngIf="ApiLogs != null && ApiLogs.length > 0">
+
+        <perfect-scrollbar class="scrol_th">
+
+            <div class="row-childrow d-flex" *ngFor="let logs of ApiLogs">
+                <div class="col-md-2" title="{{logs?.CorrelationId}}"> {{logs?.CorrelationId}}</div>
+                <div class="col-md-1" title="{{logs?.RequestedBy}}"> {{(logs?.RequestedBy?.length>10)?
+                    (logs?.RequestedBy
+                    | slice:0:10)+'...':(logs?.RequestedBy)}}</div>
+                <div class="col-md-1"> {{logs?.RequestDate == null || logs?.RequestDate == undefined ? '--' :
+                    logs?.RequestDate | date: 'dd-MMM-YYYY h:mm:ssa'}}</div>
+                <div class="col-md-1"> {{logs?.PageIndex}}</div>
+                <div class="col-md-3" *ngIf="logs?.FileName != null">
+                    <div class="word_wrpa_all w-90" title="{{logs?.FileName}}">{{logs?.FileName}}</div>
+                    <button type="button" class="btn dwnlod p-2 theme_button d-flex align-items-center float-start"
+                       (click)="DownloadOutboundLogs(logs?.CorrelationId, logs?.FileName, logs?.ProcessedOn)"  title="Download Text">
+                        <span class="icon-download"></span> {{'RptOutbound.download' | translate}}
+                    </button>
+                </div>
+                <div class="col-md-3" *ngIf="logs?.FileName == null">---</div>
+                <div class="col-md-1">{{logs?.ProcessedOn == null || logs?.ProcessedOn == undefined ? '--' :
+                    logs?.ProcessedOn | date: 'dd-MMM-YYYY h:mm:ssa'}}</div>
+                <div class="col-md-1"> <span>{{Getoutbundstatus(logs?.Status)}}
+                    </span></div>
+                <div class="col-md-2"> {{logs?.Remark}}</div>
+            </div>
+        </perfect-scrollbar>
+
+
+    </div>
+    <div *ngIf="(ApiLogs == null || ApiLogs?.length == 0) && Dwnldloading == false" class="text-center mt-2">
+        {{'RptOutbound.norec' | translate}}
+    </div>
+</div>

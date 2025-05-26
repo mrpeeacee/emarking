@@ -1,0 +1,45 @@
+<div class="container cust-container" >
+
+  <h1 mat-dialog-title><strong>{{'SetUp.UserManagement.CopyTeam' | translate}}</strong></h1>
+  <form class="form-horizontal" [formGroup]="CopyForm">
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{'SetUp.UserManagement.selectqig' | translate}}</mat-label>
+      <mat-select formControlName="Qigs">
+        <mat-option *ngFor="let qig of LtBlankQigIds" [value]="qig?.QigIds" ngDefaultControl>{{qig?.QigName}}</mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="CopyForm.get('Qigs')?.errors">
+        <mat-error *ngIf="CopyForm.get('Qigs')?.errors.required" class="login_err">
+          {{'SetUp.UserManagement.Qigrequired' | translate}}
+        </mat-error>
+        <mat-error *ngIf="CopyForm.get('Qigs').errors?.cannotContainSpace" class="login_err">
+          {{'SetUp.UserManagement.Rolecontainspace' | translate}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+
+    <div class="row" *ngIf="LtBlankQigIds.length <= 0">
+      <span>{{'SetUp.UserManagement.NoQIGfound' | translate}}</span>
+    </div>
+
+
+    <div mat-dialog-actions>
+      <button mat-button class="btn theme_button" (click)="MoveExistingMarkingTeamToEmptyQig();"
+              title="{{'shared.confirm' | translate}}" [disabled]="IsLoading">
+        {{
+'shared.confirm'
+      | translate
+        }}
+      </button>
+      <button mat-button [mat-dialog-close]="false" [disabled]="IsLoading" class="btn theme_button_light" title="{{'shared.close' | translate}}">
+        {{
+'shared.close'
+      | translate
+        }}
+      </button>
+    </div>
+  </form>
+</div>
+

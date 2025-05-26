@@ -1,0 +1,257 @@
+
+.theme_toggle:hover {
+    color: #fff;
+}
+
+.theme_toggle_light {
+    background: #fff;
+    border-radius: 0px;
+    color: var(--theme-dark);
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    font-size: 12px;
+    padding: 2px 5px;
+    border: 1px solid #ccc;
+}
+
+.toggle_menu .theme_toggle_light:hover {
+    color: #000 !important;
+}
+
+
+.qig_create{ border: 1px solid #d9d3d3;
+    padding: 10px;margin-bottom: 6px;
+    border-radius: 3px;}
+
+
+.lbl_span{position: relative;
+    top: 3px;}
+
+    ::ng-deep .mat-form-field {
+        margin-bottom: 0px!important;
+      
+    }
+
+ input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+ 
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.poslet{
+    position:relative; left:1px;
+}
+.posrht{
+    position:relative; right:1px;
+}
+
+.number_inp {
+  padding: 5px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.left_qig_creation{
+  background: #fff;
+  padding-top: 10px;
+  padding-bottom:20px;
+}
+
+  .left_qig_creation strong {
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+
+.qut_hed {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+.fib_show{
+    display: block;
+    padding: 15px;
+}
+.hide
+{
+    display: none;
+}
+
+.theme_toggle {
+ 
+  font-size: 12px;
+  padding: 2px 5px;
+}
+
+.matspinnercenter {
+    margin: 0 auto;
+}
+.filter_content .mat-checkbox {
+    margin-right: 0px;
+}
+.ml-4
+{
+    margin-left: -4px;
+}
+.ml0
+{
+    margin-left: 0px !important;
+}
+
+::ng-deep .blankDiv {
+    cursor: move;
+    border: 2px solid #bebebe;
+    opacity: 0.8;
+    padding: 2px 0 2px 2px;
+    margin: 0 4px;
+    text-align: center;
+    min-height: 20px;
+    min-width: 150px;
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: 3px;
+    vertical-align: middle;
+}
+
+.custom-viewquestion-popup{
+    position: relative;
+    max-height: 500px;
+}
+.word_wrpa{
+    word-wrap: break-word;    
+}
+.cust-right{
+    position: relative;
+    right: 30px;
+}
+.styled-table {
+    border-collapse: collapse; 
+    width: 100%; 
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    border: 1px solid #000; 
+    padding: 8px; 
+    text-align: left;
+  }
+  
+  .styled-table th {
+    background-color: #f2f2f2; 
+  }
+  
+  .styled-table tr:nth-child(even) {
+    background-color: #f9f9f9; 
+  }
+  .container {
+    padding: 20px;
+  }
+  
+  .matrix-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .matrix-content {
+    display: flex;
+  }
+  
+  .matrix-rows {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  ::ng-deep .matching-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  ::ng-deep .question-text {
+    margin-bottom: 15px;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  
+  ::ng-deep .matching-content {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  ::ng-deep .matching-left
+  {
+    width: 30%;
+  }
+  ::ng-deep .matching-right {
+    width: 30%;
+    margin-right: 200px;
+  }
+  
+  /* ::ng-deep .matching-left {
+    border-right: 2px solid #ddd;
+    padding-left: 50px;
+  }
+   */
+  ::ng-deep .matching-right {
+    padding-left: 10px;
+  }
+  
+  ::ng-deep .matching-row,
+  ::ng-deep .matching-column {
+    padding: 10px;
+    border: 1px solid #7b64e4;
+    margin-bottom: 5px;
+    text-wrap: pretty;
+  }
+  
+  ::ng-deep .matching-row:hover,
+  ::ng-deep .matching-column:hover {
+    background-color: #e0e0e0;
+  }
+  ::ng-deep .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: small;
+  }
+  
+  ::ng-deep.styled-table th, .styled-table td {
+    padding: 10px;
+    border: 1px solid #f7e6e6;
+  }
+  
+  ::ng-deep.styled-table th {
+    background-color: #f4f4f4;
+  }
+  
+  ::ng-deep .styled-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .styled-table td {
+    text-align: center;
+  }
+  ::ng-deep .SectionStyleRep{
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  ::ng-deep .pointedSpan {
+    position: absolute;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    width: 26px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 3px 4px 1px;
+    color: #ffffff;
+  }

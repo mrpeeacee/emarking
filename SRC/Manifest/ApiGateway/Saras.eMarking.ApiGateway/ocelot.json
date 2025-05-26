@@ -1,0 +1,16 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "https://slsapp.excelindia.com/emarkingapi/{everything}",
+      "UpstreamPathTemplate": "http://localhost:5208/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PATCH", "PUT", "DELETE" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "slsapp.excelindia.com",
+          "Port": 5208
+        }
+      ]
+    }
+  ]
+}

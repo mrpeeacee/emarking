@@ -1,0 +1,59 @@
+.martop2
+{
+margin-top: 2px;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.radm_card{   
+  padding: 5px;
+  border-radius: 5px;}
+
+.radm_card span{ margin-bottom: 10px}
+.badge{
+  padding: 10px;
+  font-size: 20px;
+  background-color: #b79d37!important;
+}
+.font18
+{
+  font-size: 18px;
+}
+.rc-1{
+  margin-top: 10px;
+}
+.rc-2{
+  margin-top: 45px;
+}
+.project_summary1 strong {
+  font-size: 18px;
+  display: block
+}
+
+.d-content{     display: contents;}
+
+.paddingdn{
+  padding-top: 26px;
+}
+
+.rc2_c{    position: absolute;
+  margin-left: 52px;
+  margin-top: 120px;}
+
+.rc1_c{       position: absolute;
+  margin-top: 42px;
+  margin-left: 52px;}
+
+  .flor_r{    margin-right: 60px;}
+  .randm_che{height:150px;
+
+  }

@@ -1,0 +1,369 @@
+.searchbox_st {
+    position: relative;
+    top: 5px;
+    margin: 0px 0px 0px 7px;
+}
+
+.searchbox_st input {
+    width: 83%;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 11px 11px 11px 30px !important
+}
+
+.searchbox_st .icon-search {
+    position: absolute;
+    font-size: 25px;
+    left: 4px;
+    top: 10px;
+}
+
+.close_sidemenu h4 {
+    font-size: 16px;
+}
+
+.row-childrow {
+
+    font-size: 14px;
+}
+
+.addScool .modal-dialog {
+    top: -30px;
+    position: fixed;
+    right: 0;
+    height: 100%;
+    width: 350px;
+    background: #fff;
+}
+
+.modal-header {
+    background: #fff;
+    padding: 10px;
+    color: #000;
+
+    width: 100%;
+    z-index: 999999;
+    display: inline-block;
+}
+
+.sav_btn {
+    float: right;
+    margin: 12px 0px 0px 0px;
+}
+
+
+.close_sidemenu {
+    border: none;
+    background: transparent;
+    top: 15px;
+}
+
+.addScool {
+    height: auto;
+}
+
+.scroll_roles {
+    max-height: 70vh;
+    height: 60vh;
+    margin-top: 0px;
+}
+
+.scl_nme {
+    font-size: 15px;
+    font-weight: bold
+}
+
+.offset-md-4 {
+    margin-left: 33%;
+}
+
+.hr_brdbtn {
+    border-bottom: 1px solid #ccc;
+}
+
+.pl-15 {
+    padding-left: 16.5px;
+}
+
+.search_ex {
+    margin: 0px 10px -1px 0px;
+    background: #fff;
+}
+
+#StepValue::-webkit-inner-spin-button,
+#StepValue::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.row-child_cb {
+    display: flex;
+    background: #fff;
+    padding: 10px;
+}
+
+
+
+.row-childrow_head {
+    border-radius: 5px !important;
+    border: #ACB9FF solid 1px !important;
+    background: #fff;
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.row-childrow_parent {
+    border: #ACB9FF solid 1px;
+    background: #fff;
+}
+
+.accordian_expand {
+    background: #ffffff;
+    padding: 10px;
+    margin-bottom: 1px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.mat-radio-button {
+    display: block;
+    padding: 5px 0px;
+}
+
+.question_lable {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.question_lable strong {
+    display: inline-block;
+    font-size: 15px;
+}
+
+.adon_input {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 11px;
+}
+
+.martopqtag {
+    margin-top: 23px;
+}
+
+.colrgrey {
+    color: grey;
+}
+
+.disinlblock {
+    display: inline-block;
+}
+
+::ng-deep .stimuluspopup {
+    height: 350px;
+    overflow: auto;
+}
+
+.matspinnercenter {
+    margin: 0 auto;
+}
+
+.mt2 {
+    margin-top: 2px;
+}
+
+.mr3 {
+    margin-right: 3px;
+}
+
+.ml3 {
+    margin-left: 3px;
+}
+
+::ng-deep .highlighted-text {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+
+.note {
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+::ng-deep .SF_highlight {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+::ng-deep .spanSF {
+    position: relative;
+    float: left;
+    width: 100%;
+    font-size: medium;
+    margin-bottom: 5px;
+}
+
+::ng-deep .numberSF {
+    float: right;
+    margin-right: 10px;
+    position: relative;
+    top: -1px;
+    line-height: 35px;
+    width: 200px;
+}
+
+::ng-deep .ans {
+    line-height: 35px;
+    width: 20px;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.icon-show, .icon-hide {
+    position: relative;
+    top: 0;
+  }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.theme_button_tags{
+    font-size:15px;
+}
+.pdd-btn{
+    position: relative; 
+    
+    left: 180px; 
+}
+
+.view_btn_qig{
+    border: none;
+    margin-left: 10px;
+    background: #d7d7d7;
+    font-weight: bold;
+    border-radius: 2px;
+    display: flex;
+
+}
+::ng-deep .mat-radio-label {
+    white-space: initial!important; 
+}
+.scro_comp1 input {
+    width: 100%;
+    padding: 7px;
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    color: #000000;
+    opacity: 0.7;
+  }
+
+  .spanlivedisabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    color: #000000;
+    opacity: 0.7;
+  }
+  
+
+/* drag and drop classes */
+
+::ng-deep .Questionarea {
+    float: left;
+}
+
+::ng-deep .QuestionScoreAlign {
+    float: left;
+    margin: 1px 0 0 5px;
+    width: 88%;
+    line-height: 23px;
+}
+
+::ng-deep .blankDiv {
+    cursor: move;
+    border: 2px solid #bebebe;
+    opacity: 0.8;
+    padding: 2px 0 2px 6px;
+    margin: 0 4px;
+    text-align: center;
+    min-height: 20px;
+    min-width: 150px;
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: 3px;
+    vertical-align: middle;
+}
+::ng-deep .optionsArea {
+    margin-top: 20px;
+}
+
+::ng-deep .OptionsArea {
+    border: 1px solid #666666;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    margin: 10px 0;
+    min-height: 35px;
+    min-width: 100px;
+    padding: 10px;
+    width: 100% !important;
+}
+
+::ng-deep .optionDiv {
+    background-color: #CCEAFF;
+    border: 1px solid #666666;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    margin: 10px;
+    min-width: 100px;
+    padding: 3px;
+    vertical-align: bottom;
+    min-height: 20px;
+}
+
+::ng-deep .ui-draggable-handle {
+    -ms-touch-action: none;
+    touch-action: none;
+}
+
+::ng-deep .divdrag {
+    background-color: #FFFFFF;
+    cursor: move;
+    padding: 2px;
+    text-align: center;
+    word-wrap: break-word;
+}
+/*Right*/
+.modal.right.fade .modal-dialog {
+    top: -30px;
+    position: fixed;
+    right: 0;
+    height: 100%;
+    width: 350px;
+    background: #fff;
+    /* right: -320px; */
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+       -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+         -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+            transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+}
+
+::ng-deep .bgc{
+    background: yellow;
+}

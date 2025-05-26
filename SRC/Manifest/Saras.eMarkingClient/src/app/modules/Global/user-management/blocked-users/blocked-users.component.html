@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field appearance="outline" class="cust-search">
+        <mat-label>Search by Login Name</mat-label>
+        <input matInput
+               title="Search by LoginName"
+               placeholder="Search by Login Name"
+               ngDefaultControl
+               autocomplete="off"
+               [(ngModel)]="avaliablesearchusers"
+               (keyup.enter)="SearchBlockedUsers()"
+               oncut="return false"
+               onDrop="return false" />
+        <mat-icon matSuffix title="">
+          <span class="icon-search"
+                (click)="SearchBlockedUsers()"
+                title="Search by Login Name"></span>
+        </mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-md-8">
+      <div class="mt-4 float-end">
+        <button type="button" (click)="unBlockSubmit()" class="btn theme_button align-items-center float-start mx-2"
+                title="{{'usermanage.Unblock' | translate}}" id="ublock" [disabled]="blockUsersList?.length == 0" [class.shimmer]="blockUsersloading">
+
+          <span class="icon-block_user"></span>{{'usermanage.Unblock' | translate}}
+        </button>
+        <button type="button" id="cancel" class="btn theme_button_light d-flex align-items-center " title="{{'usermanage.CancelBtn' | translate}}"
+                [routerLink]="['/userManagement/ApplicationUsermanagement']">
+          <span class="icon-close"></span>{{'usermanage.CancelBtn' | translate}}
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="body_box">
+    <div id="container">
+      <div class="row-header_bg card_container">
+        <div class="p-2 d-flex align-items-center col-md-11 al" [class.shimmer]="blockUsersloading">
+          <div class="col-md-1 mx-2">
+            <mat-checkbox title="{{'usermanage.SelectAll' | translate}}" [(ngModel)]="selectAll" (change)="SelectAllUsers()"
+                          [disabled]="blockUsersList?.length == 0"></mat-checkbox>
+          </div>
+          <div class="col-md-2"><strong>{{'usermanage.name' | translate}}</strong></div>
+          <div class="col-md-2"><strong>{{'usermanage.login' | translate}}</strong></div>
+          <div class="col-md-2"><strong>{{'usermanage.role' | translate}}</strong></div>
+          <div class="col-md-3"><strong>{{'usermanage.schoolname' | translate}}</strong></div>
+          <div class="col-md-2"><strong>{{'usermanage.nric' | translate}}</strong></div>
+          <div class="col-md-2"><strong>{{'usermanage.phone' | translate}}</strong></div>
+        </div>
+      </div>
+      <div class="row-childrow" *ngFor="let user of blockUsersList">
+        <div class="p-2 d-flex col-md-11 pad10" [class.shimmer]="blockUsersloading" *ngIf="blockUsersList?.length != 0">
+          <div class="col-md-1 mx-2">
+            <mat-checkbox [(ngModel)]="user.selected" (change)="SelectSingleUsers()" [value]="user.value">
+            </mat-checkbox>
+          </div>
+          <div class="col-md-2 marauto text-break">{{user.Name}}</div>
+          <div class="col-md-2 marauto text-break pr-2">{{user.LoginName}}</div>
+          <div class="col-md-2 marauto">{{user.RoleCode}}</div>
+          <div class="col-md-3 marauto text-break">{{user.SchooolName}}</div>
+          <div class="col-md-2 marauto">{{user.NRIC}}</div>
+          <div class="col-md-2 marauto">{{user.Phone}}</div>
+        </div>
+      </div>
+      <div class="card_box nodatafound" *ngIf="blockUsersList?.length == 0 && !blockUsersloading">
+        {{'usermanage.norecords' | translate}}
+      </div>
+    </div>
+  </div>
+</div>

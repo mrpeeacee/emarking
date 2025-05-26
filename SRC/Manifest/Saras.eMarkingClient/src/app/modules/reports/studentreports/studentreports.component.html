@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="card_box">
+    <div class="mt-2">
+      <div class="row p-0 m-0 align-items-center">
+
+        <div class="col-md-2 col-xs-12">
+          <h2>{{'StdDetails.ovrviw' | translate}}</h2>
+        </div>
+        <div class="col-md-4 col-xs-12">
+
+          <div class="d-flex flex-row bd-highlight align-items-center">
+            <div class="p-2 bd-highlight"> <span>{{'StdDetails.exmyr' | translate}}</span> </div>
+            <div class="p-2 bd-highlight flex-grow-1">
+              <select [disabled]="Singleproject" class="form-select deflt_bond_sel" #selyear>
+                <option *ngFor="let year of projectList" [selected]="year.IsSelected" [value]="year.Year">{{year.Year}}
+                </option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+
+          <div class="d-flex flex-row bd-highlight align-items-center">
+            <div class="p-2 bd-highlight"> <span>{{'StdDetails.proj' | translate}}</span> </div>
+            <div class="p-2 bd-highlight flex-grow-1">
+              <select [disabled]="Singleproject || !IsSelected" class="form-select deflt_bond_sel" #selproj
+                (change)="GetStudentResultDetails(selyear.value, {Check: true})">
+                  <option *ngFor="let project of projectList" [value]="project.ProjectName">{{project.ProjectName != "" ? project.ProjectName : 'Select'}}
+                  </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="head_container_filter mt-0">
+      <div class="row p-0 m-0 align-items-center">
+
+        <div class="col-md-3 col-xs-12 p-0">
+          <div class="d-flex flex-row bd-highlight align-items-center">
+            <div class="bd-highlight"> <span>{{'StdDetails.srchstdid' | translate}}</span> </div>
+            <div class="p-2 bd-highlight flex-grow-1">
+              <input class="form-control" #filstd placeholder="Search" maxlength="50" oncut="return false"
+                onDrop="return false" autocomplete="off">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-3 col-xs-12">
+          <div class="d-flex flex-row bd-highlight align-items-center">
+
+            <div class="p-2 bd-highlight"> <span>{{'StdDetails.srchsch' | translate}}</span> </div>
+            <div class="p-2 bd-highlight flex-grow-1">
+              <input class="form-control" #filsch placeholder="Search" maxlength="50" oncut="return false"
+                onDrop="return false" autocomplete="off">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-4 col-xs-12 justify-content-end">
+          {{'StdDetails.mrkrange' | translate}}
+          <ngx-slider [(value)]="Markfrom" [(highValue)]="MaxMark == null ? MarkTo : MaxMark" [options]="options">
+          </ngx-slider>
+        </div>
+
+        <div class="col-md-2 col-xs-12">
+          <button type="button" title="{{'StdDetails.submit' | translate}}" 
+            (click)="GetStudentsResult(selyear.value, {StudentId: filstd.value, SchoolCode: filsch.value, Markfrom: Markfrom, MarkTo: MaxMark == null ? MarkTo : MaxMark, pageNumber: 1, pageSize: 10})"
+            class="btn theme_button d-flex align-items-center">{{'StdDetails.submit' | translate}}</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="card_box mt-2">
+    <div class="row d-flex align-items-center">
+      <div class="col-md-12 col-xs-12">
+        <div class="row">
+          <div class="col-md-4 col-xs-12"><span class="anchorclick mt-0">{{'StdDetails.totstds' | translate}} :</span>
+            <span [class.shimmer]="Countstdloading"><strong>{{Countstdloading ? 'Total Students' : TotalStudent}}</strong></span>
+          </div>
+          <div class="col-md-4 col-xs-12"><span class="anchorclick mt-0">{{'StdDetails.totsch' | translate}} :</span>
+              <span [class.shimmer]="Countstdloading"><strong>{{Countstdloading ? 'Total Schools' : TotalSchool}}</strong></span>
+          </div>
+          <div class="col-md-4 col-xs-12"><span class="anchorclick mt-0">{{'StdDetails.maxmark' | translate}} :</span>
+              <span [class.shimmer]="Countstdloading"><strong>{{Countstdloading ? 'Max Marks' : TotalMark}}</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-2 row-header card_container">
+    <div class="p-2 d-flex row justify-content-between bd-highlight align-items-center col-md-12 al">
+      <div class="col-md-2">{{'StdDetails.stdId' | translate}}</div>
+      <div class="col-md-4">{{'StdDetails.school' | translate}}</div>
+      <div class="col-md-2">{{'StdDetails.marksec' | translate}}</div>
+
+    </div>
+  </div>
+  <div *ngIf="studentsResult != null && studentsResult.length > 0 && studentsResult != undefined">
+    <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll({StudentId: filstd.value, SchoolCode: filsch.value, Markfrom: Markfrom, MarkTo: MaxMark == null ? MarkTo : MaxMark})"
+      [scrollWindow]="false">
+      <div [class.shimmer]="Stdrptloading" class="mt-2 row-childrow_bg card_box"
+        *ngFor="let stdDetails of studentsResult">
+        <div class="p-2 d-flex row justify-content-between bd-highlight align-items-center col-md-12 al">
+          <div class="col-md-2">{{stdDetails.StudentId}}</div>
+          <div class="col-md-4">{{stdDetails.SchoolName}}</div>
+          <div class="col-md-2">{{stdDetails.SecuredMark}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-1 card_box nodatafound"
+    *ngIf="studentsResult == null || studentsResult.length <= 0 || studentsResult == undefined">
+    {{'StdDetails.norec' | translate}}
+  </div>
+</div>

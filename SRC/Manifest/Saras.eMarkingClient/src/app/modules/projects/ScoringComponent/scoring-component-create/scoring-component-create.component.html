@@ -1,0 +1,88 @@
+
+<div class="container">
+  <div class="col-md-12 bd-highlight mt-4">
+    <!-- Scoring Component Library Name -->
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <div class="card_box d-flex align-items-center">
+          <mat-form-field appearance="outline" class="flex-grow-1">
+            <mat-label>Scoring Component Library Name</mat-label>
+            <input [(ngModel)]="ScoringComponent.ComponentName" matInput maxlength="50" required oncut="return false" />
+          </mat-form-field>         
+          <!-- Add margin to label to create space between name and marks -->
+          <h5 class="ml-4 labelclass">TotalMarks:{{totalMarks}}</h5> 
+        </div>
+      </div>
+    </div>
+    
+    <!-- Component Row (this part renders rows dynamically for components) -->
+    <div class="project_summary">
+      <div>
+        <div class="row-header_new">
+          <div class="row">
+            <div class="col-3">Order</div>
+            <div class="col-3">Component Name</div>
+            <div class="col-2">Marks</div>
+          </div>
+        </div>
+    
+        <!-- Dynamically generated rows using ngFor -->
+        <div *ngFor="let component of ScoringComponent.ScoringComponentDetails; let i = index">
+          <div class="row-childrow card_box">
+            <div class="col-3 mb-2">
+              <div class="pad10">
+                <mat-form-field appearance="outline">
+                  <mat-label>Order</mat-label>
+                  <input matInput [value]="i + 1" readonly />
+                  <!-- <input matInput [(ngModel)]="component.Order"  oncut="return false"  required/> -->
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-3 mb-2">
+              <div class="pad10">
+                <mat-form-field appearance="outline">
+                  <mat-label>Component Name</mat-label>
+                  <input matInput [(ngModel)]="component.ScoringComponentName"  oncut="return false"  required/>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-2 mb-2">
+              <div class="pad10">
+                <mat-form-field appearance="outline">
+                  <mat-label>Marks</mat-label>
+                  <input matInput [(ngModel)]="component.Marks" type="number" min="0" max="100"  required/>
+                </mat-form-field>
+              </div>
+            </div>
+    
+            <div class="col-1 mb-2">
+              <div class="pad10">
+                <button type="button" class="btn delet_al" (click)="onDeleteRow(i)">
+                  <span class="icon-delete"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="d-flex justify-content-between w-100 mt-3">
+          <div class="d-flex">
+            <button type="button" class="btn theme_button" (click)="onAddScoringComponent()">
+              <span class="icon-add"></span> Add
+            </button>
+          </div>
+          <div class="d-flex">
+            <button type="button" class="btn theme_button_light"  [routerLink]="['/projects','ScoringComponent']">
+              <span class="icon-close"></span> Cancel
+            </button>
+            <button type="button" class="btn theme_button" (click)="SaveScoringCompponent()">
+              <span class="icon-save-1"></span> Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+

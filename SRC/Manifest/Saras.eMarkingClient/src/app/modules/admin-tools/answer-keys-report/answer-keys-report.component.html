@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="mt-1">
+    <div class="card_box project_summary">
+      <div class="row d-flex align-items-center">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4" *ngIf="!IsProjectSame">
+              <mat-form-field appearance="fill" class="selct_sel float-end"
+                title="{{'CandidateScp.SelProj' | translate}}">
+                <mat-label>{{'CandidateScp.SelProj' | translate}}</mat-label>
+                <mat-select #matSelect (selectionChange)="Ischecked($event)">
+                  <div>
+                    <mat-option [value]='0' selected>--- {{'CandidateScp.Select' | translate}} ---</mat-option>
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Search by Project" [(ngModel)]="ProjectSearchValue"
+                        (keyup)="SearchProjects()" (blur)="clearSearch()">
+                      <mat-icon matSuffix title="Search by Project"><span class="icon-search"
+                          (click)="SearchProjects()"></span></mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <mat-option *ngFor="let proj of projectList" [value]="proj?.ProjectId"
+                    ngDefaultControl>{{proj?.ProjectName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="IsProjectSame">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'CandidateScp.SelProj' | translate}}</mat-label>
+                <input matInput *ngFor="let proj of projectList" [value]="proj?.ProjectName" disabled ngDefaultControl>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <button type="button" title="{{'CandidateScp.Submit' | translate}}" (click)="GetAllAnswerKeysReport();"
+                class="btn theme_button" *ngIf="!IsProjectSame">{{'CandidateScp.Submit' | translate}}</button>
+
+              <button type="button" [disabled]="answerlst == null || answerlst == undefined || answerlst.length == 0"
+                title="{{'CandidateScp.Export' | translate}}" class="btn theme_button" (click)="ExcelReport()">
+                <span class="icon-download m-0"></span>{{'CandidateScp.Export' | translate}}</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-1 card_box nodatafound"
+      *ngIf="projectId == 0 && (answerlst == null || answerlst.length <= 0)">
+      {{'CandidateScp.NoRecAlt' | translate}}
+    </div>
+    <div *ngIf="answerlst != null">
+      <div class="card_box">
+        <div class="search_dash mt-1 m-0 col-4">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'CandidateScp.search' | translate}}</mat-label>
+            <input matInput title="{{'CandidateScp.search' | translate}}" placeholder="Search by QuestionCode"
+              [(ngModel)]="ScriptSearchValue" (keyup.enter)="SearchScript()" ngDefaultControl autocomplete="off"
+              oncut="return false" onDrop="return false">
+            <mat-icon matSuffix title=""><span title="{{'CandidateScp.search' | translate}}" class="icon-search"
+                (click)="SearchScript()"></span></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="row-header_bg mt-2">
+          <div class="col-2">{{'AllAnswerKeys.QuestionCode' | translate}}</div>
+          <div class="col-2">{{'AllAnswerKeys.BlankCode' | translate}}</div>
+          <div class="col-2">{{'AllAnswerKeys.QuestionMarks' | translate}}</div>
+          <div class="col-2">{{'AllAnswerKeys.QuestionType' | translate}}</div>
+          <div class="col-2">{{'AllAnswerKeys.ChoiceText' | translate}}</div>
+          <div class="col-2">{{'AllAnswerKeys.OptionText' | translate}}</div>
+        </div>
+        <div class="row-childrow_em card_box">
+          <perfect-scrollbar class="table_list_scroll">
+            <div class="row-childrow " *ngFor="let cand of answerlst;">
+              <div class="col-2 word_wrpa">{{cand?.ParentQuestionCode}}</div>
+              <div class="col-2 word_wrpa">
+                <span *ngIf="cand?.QuestionType == 11">
+                  NA
+                </span>
+                <span *ngIf="cand?.QuestionType != 11">
+                  {{cand?.QuestionCode}}
+                </span>
+              </div>
+              <div class="col-2 word_wrpa">{{cand?.QuestionMarks}}</div>
+              <div class="col-2 word_wrpa">{{cand?.QuestionName}}</div>
+              <div class="col-2 word_wrpa" [innerHTML]="cand?.ChoiceText"></div>
+              <div class="col-2 word_wrpa" [innerHTML]="cand?.OptionText"></div>
+            </div>
+            <div class="text-center nodatafound" *ngIf="projectId == 0 || answerlst == null || answerlst.length <= 0">
+              {{'CandidateScp.NoRecAlt' | translate}}
+            </div>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

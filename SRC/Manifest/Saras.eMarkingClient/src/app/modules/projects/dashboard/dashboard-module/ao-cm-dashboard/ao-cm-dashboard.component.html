@@ -1,0 +1,232 @@
+<div class="container">
+  <div>
+    <emarking-qig-tab (selectQigEvent)="getQigDetails($event)">
+    </emarking-qig-tab>
+    <div class="card_box" [ngClass]="{'hide' : activeQig?.QigId <= 0 }">
+      <div class="row">
+        <div class="col-8">
+          <div class="row" *ngIf="IsS1Required">
+            <h3>{{'SetUp.dashboard.StandardisationOverview'| translate }}</h3>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="card_box_inner border_rt project_summary pad10" *ngIf="IsS1Required"> 
+                <div class="row">
+
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="OverviewLoading">
+                    <span>{{'SetUp.dashboard.TotalScripts'| translate }}</span>
+                    <strong>{{StandardisationOverview?.TotalScripts}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="OverviewLoading">
+                    <span>{{'SetUp.dashboard.CategorisedScripts'| translate }}</span>
+                    <strong>{{StandardisationOverview?.CategorisedScripts}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="OverviewLoading">
+                    <span>{{'SetUp.dashboard.StandardisedScripts'| translate }}</span>
+                    <strong>{{StandardisationOverview?.StandardisedScripts}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="OverviewLoading">
+                    <span>{{'SetUp.dashboard.BenchmarkedScripts'| translate }}</span>
+                    <strong>{{StandardisationOverview?.BenchmarkedScripts}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="OverviewLoading">
+                    <span>{{'SetUp.dashboard.AdditionalStandardisedScript'| translate }}</span>
+                    <strong>{{StandardisationOverview?.AddStandardisedScripts}}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="card_box_inner p-0 project_summary ">
+                <div class="d-flex justify-content-between">
+                  <h3>{{'SetUp.dashboard.TeamManagement'| translate }} </h3> <span class="pt-3">
+                  </span>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="ApprovalsLoading">
+                    <span>{{'SetUp.dashboard.MarkersclearedStandardisation'| translate }}</span>
+                    <strong>{{StandardisationApprovals?.S3Cleared}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="ApprovalsLoading">
+                    <span>{{'SetUp.dashboard.clearedStandardisation'| translate }}</span>
+                    <strong *ngIf="StandardisationApprovals?.IsS2available">{{StandardisationApprovals?.S2Cleared}}</strong>
+                    <strong *ngIf="!StandardisationApprovals?.IsS2available">NA</strong>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-xs-12 " [class.shimmer]="ApprovalsLoading">
+                    <span >{{'SetUp.dashboard.StandardisationapprovalpendingforMarkers'| translate }}</span>
+                    <strong>{{StandardisationApprovals?.S3ApprovalsPending}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12 " [class.shimmer]="ApprovalsLoading">
+                    <span >{{'SetUp.dashboard.StandardisationapprovalpendingforTLATL'| translate }}</span>
+                    <strong *ngIf="StandardisationApprovals?.IsS2available">{{StandardisationApprovals?.S2ApprovalsPending}}</strong>
+                    <strong *ngIf="!StandardisationApprovals?.IsS2available">{{'SetUp.dashboard.NA'| translate }}</strong>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <hr />
+          </div>
+
+          <div class="row">
+            <h3>{{'SetUp.dashboard.LiveMarkingOverview'| translate }}</h3>
+
+            <div class="col-md-6 col-sm-12 col-xs-12 hide">
+              
+              <div class="card_box_inner project_summary ">
+                <div class="row">
+                  
+                  <div class="col-md-12 d-flex align-items-center" onKeyDown="return false">
+                    <label>{{'SetUp.dashboard.DailyQuota'| translate }}: &nbsp; </label>
+                    <div class="input_number">
+                      <input type="number" value="10" min="0" max="60" oncut="return false" onDrop="return false"
+                        onPaste="return false" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 d-flex align-items-center" onKeyDown="return false">
+                    <mat-checkbox class="mat-lable mb-1" [checked]="true">
+                      {{'SetUp.dashboard.ShowDailyQuotainMarkerDashboard'| translate }}
+                    </mat-checkbox>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn theme_button d-flex align-items-center">
+                      <span class="icon-pointed_arrow"></span> Save {{'General.Save'| translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="card_box_inner border_rt mt-1 project_summary">
+
+                <div class="row">
+
+
+                  <div class="col-md-12 col-xs-8">
+                    <div class="row">
+                      <div *ngIf="curntrole!=null && curntrole[0] != 'ACM'" class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.LivePool'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.LivePool}}</strong>
+                      </div>
+                      <div class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.Response'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.NoResponseCount}}</strong>
+                      </div>
+                      <div *ngIf="LiveMarkingOverviews?.QuestionType == 20" class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.AutoModerated'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.AutoModerated}}</strong>
+                      </div>
+                      <div class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.Downloaded'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.Downloaded}}</strong>
+                      </div>
+                      <div class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.Submitted'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.Submitted}}</strong>
+                      </div>
+                      <div class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.Approved'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.Approved}}</strong>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.RCDone'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.RcDone}}</strong>
+                      </div>
+                      <div class="col-md-12 col-xs-4 hide" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.ToBeRCed'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.ToBeRcd}}</strong>
+                      </div>
+                      <div class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span> {{'SetUp.dashboard.RequiredAction'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.Reallocated}}</strong>
+                      </div>
+                      <div class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.AdhocChecked'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.Adhoc}}</strong>
+                      </div>
+                      <div class="col-md-12 col-xs-4" [class.shimmer]="LiveMarkingLoading">
+                        <span>{{'SetUp.dashboard.InGracePeriod'| translate }}</span>
+                        <strong>{{LiveMarkingOverviews?.InGracePeriod}}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="card_box_inner p-0 today_ovrviw mt-1 project_summary">
+                <div class="row">
+                  <div class="d-flex justify-content-between">
+                    <h3>{{'SetUp.dashboard.TodayOverview'| translate }} </h3> <span class="tody_dte status_con">
+                      [{{
+                      TodayOverviews?.TodayOverview?.Today |date:'d-MMM-y' | uppercase
+                      }}]
+                    </span>
+                  </div>
+
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="mrkoverviewloading">
+                    <span>{{'SetUp.dashboard.Downloaded'| translate }}</span>
+                    <strong>{{TodayOverviews?.TodayOverview?.Downloaded}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="mrkoverviewloading">
+                    <span>{{'SetUp.dashboard.Submitted'| translate }}</span>
+                    <strong>{{TodayOverviews?.TodayOverview?.Submitted}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="mrkoverviewloading">
+                    <span>{{'SetUp.dashboard.RCDone'| translate }}</span>
+                    <strong>{{TodayOverviews?.TodayOverview?.RCDone}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="mrkoverviewloading">
+                    <span>{{'SetUp.dashboard.RequiredAction'| translate }}</span>
+                    <strong>{{TodayOverviews?.TodayOverview?.Reallocated}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12" [class.shimmer]="mrkoverviewloading">
+                    <span>{{'SetUp.dashboard.InGracePeriod'| translate }}</span>
+                    <strong>{{TodayOverviews?.TodayOverview?.InGracePeriod}}</strong>
+                  </div>
+                  <div class="col-md-12 col-xs-12 hide" [class.shimmer]="mrkoverviewloading">
+                    <span>{{'SetUp.dashboard.PendingSubmission'| translate }}</span>
+                    <strong>{{TodayOverviews?.TodayOverview?.PendingSubmission}}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="currentloggedinRole != 'SUPERADMIN' && currentloggedinRole != 'SERVICEADMIN' && currentloggedinRole != 'EO' &&  'SERVICEADMIN' && currentloggedinRole != 'EM' " class="col-md-4 col-sm-12 col-xs-12">
+          <div   class="card_box_inner quick_over mt-1 project_summary pt-0">
+            <div class="quick-links mt-3">
+              <strong class="float-start">{{'SetUp.dashboard.QuickLinks'| translate }}</strong>
+              <ul>
+                <li [class.shimmer]="linksloading" class="mt-2 d-flex ml-0 custom-ml" *ngFor="let qlink of quicklinks">
+                  <button type="button" *ngIf="qlink.PrivilegeCode == 'QL_LIVEMARKING' || qlink.PrivilegeCode == 'QL_QUALITYCHECK'"
+                    title="{{qlink?.Name}}" class="btn theme_button_light  ml-0 mr-2" (click)="navtoQuickLink(qlink)"
+                    [disabled]="isClosed == 3 || !TodayOverviews?.IsLiveMarkingStart || IsQigPause">
+                    <span class="icon-pointed_arrow"></span>{{qlink?.Name}}
+                  </button>
+
+                  <button type="button" *ngIf="qlink.PrivilegeCode == 'QL_APPROVALS' && IsS1Required" title="{{qlink?.Name}}"
+                    class="btn theme_button_light  ml-0 mr-2" (click)="navtoQuickLink(qlink)">
+                    <span class="icon-pointed_arrow"></span>{{qlink?.Name}}
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

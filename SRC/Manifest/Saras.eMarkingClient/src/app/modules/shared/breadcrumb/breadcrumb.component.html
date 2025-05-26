@@ -1,0 +1,11 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" *ngFor="let breadcrumb of (breadcrumbs$ | async) as totlbrcount;  index as i">
+            <a (click)="$event.preventDefault();GetProfileData(breadcrumb.url)" title="{{breadcrumb.label}}" *ngIf=" i + 1 < totlbrcount?.length"
+                [routerLink]="breadcrumb.url">{{
+                breadcrumb.label }}</a>
+            <a (click)="$event.preventDefault();GetProfileData(breadcrumb.url)" title="{{breadcrumb.label}}" *ngIf=" i + 1 >= totlbrcount?.length">{{
+                breadcrumb.label }}</a>
+        </li>
+    </ol>
+</nav>

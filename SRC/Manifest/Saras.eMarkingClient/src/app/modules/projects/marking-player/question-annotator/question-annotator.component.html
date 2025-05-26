@@ -1,0 +1,68 @@
+<div class="annotate_header" [ngClass]="{'bndpop-disable': recminhide == true}">
+  <div class="row d-flex align-items-center">
+    <div class="col-md-3 col-xs-12">
+      <strong class="lable">QIG Name:</strong>
+      <span  ngDefaultControl  [(ngModel)]="qidname"> {{ qidname}}</span></div>
+
+    <div class="col-md-2 col-xs-12">
+      <strong class="lable">Script:</strong>
+     <span ngDefaultControl  [(ngModel)]="scriptname"> {{ scriptname}}</span>
+    </div>
+
+    <div class="col-md-2 col-xs-12">
+      <strong class="lable">Max. Marks: </strong>
+      
+        <span ngDefaultControl  [(ngModel)]="totalmarks">{{
+          totalmarks }}</span></div>
+    <div class="col-md-2 col-xs-12">
+      <strong class="lable">Marks Awarded: </strong>
+      <span ngDefaultControl  [(ngModel)]="awardedmarks">{{
+          awardedmarks }}</span></div>
+    <div class="col-md-3 col-xs-12 d-flex justify-content-end">
+      <button ngDefaultControl type="button" title="Cancel" (click)="cancel($event)" 
+     class="btn theme_button_light d-flex align-items-center"><span class="icon-close"></span>Cancel</button>
+
+      <button ngDefaultControl type="button" [disabled]="isDisabledsubmit" (click)="onsubmitclick()" title="Submit"
+        class="btn theme_button"><span class="icon-complete no_bg"></span> Submit </button>
+    </div>
+
+
+  </div>
+</div>
+
+
+<div class="top_band" [ngClass]="{'bndpop-disable': recminhide == true}">
+  <button ngDefaultControl (click)="getPrevelement()" title="Previous" [disabled] = "prevdisabled" mat-button class="pre_btn"><span class="icon-arrow_back"></span></button>
+  <div class="numbers">
+
+      <button  ngDefaultControl mat-button [disabled]="isquestiondet" class="navgate_number active_button" [id]="item.id"
+              *ngFor="let item of questiondet; let i = index;" [class.active_button]="selectedIndex  === i"
+              (click)="getResponsetText($event)">
+
+        <div  class="correct_symbole_1">
+          <div  class="correct_anser">
+            
+            <span class="icon-complete" [style.background] ="item.markedtype == '3' ? '#FFA500' : 'gray'"  [id]="item.id + 'S'">  </span>
+          </div>
+
+
+        </div>
+        <span class="num_count">{{ item.name }}</span>
+      </button>
+     
+    
+  </div>
+  <button ngDefaultControl (click)="getnextelement()" title="Next" [disabled] = "nxtdisabled" mat-button class="next_btn"><span class="icon-pointed_arrow"></span></button>
+</div>
+
+
+  <div class="plyer_data" [class.shimmer]="stasticsloading"  >
+    <emarking-marking-player    ></emarking-marking-player>
+  </div>
+
+
+
+
+
+
+

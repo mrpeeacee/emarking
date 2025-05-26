@@ -1,0 +1,117 @@
+.example-tree-progress-bar {
+  margin-left: 30px;
+}
+
+.example-tree-nested-node {
+  padding-left: 30px;
+}
+
+mat-tree {
+  margin-left: 40px;
+}
+
+.mat-tree-node {
+  padding: 0;
+  border-bottom: 0px solid var(--theme-dark);
+}
+
+.mat-nested-tree-node {
+  top: -13px;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ol.example-tree-container {
+  border-bottom: 0;
+  top: -6px;
+}
+
+ul {
+  padding-left: 40px;
+}
+
+ol {
+  padding-left: 40px;
+  border: 2px solid var(--theme-dark);
+  border-width: 0 0 1px 1px;
+  position: relative;
+  /*top: -10px !important;*/
+}
+
+ol.mat-tree-node,
+ol div {
+  margin: 0;
+  position: relative;
+  top: 1px;
+  padding-bottom: 10px;
+  padding-top: 4px;
+}
+
+.data_tree {
+  margin-bottom: 120px;
+}
+
+ol ul {
+  border-top: 2px solid var(--theme-dark);
+  margin-left: -40px;
+  padding-left: 60px;
+}
+
+.mat-nested-tree-node:last-child ul {
+  border-left: 1px solid white;
+  margin-left: -41px;
+}
+
+.mat-icon-button {
+  z-index: 100;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding-top: 7px;
+  background: #fff;
+}
+
+.anchorclick {
+  color: var(--theme-dark);
+}
+
+
+.tree_hirerc {
+  background: #fff;
+  width: 100%;
+  margin-bottom: 30px;
+  padding-bottom: 70px;
+  padding-top: 2px;
+}
+
+.final_node {
+  padding-top: 12px;
+  padding-left: 21px !important;
+}
+
+.steps_icon {
+  margin-right: 15px !important;
+}
+
+.test_border {
+  border-left: 1px solid #000 !important
+}
+
+.row-childrow {
+  font-weight: bold;
+}
+
+.hir_row_list {
+
+  width: 102px;
+}
+
+.nodata_found {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 50px;
+}

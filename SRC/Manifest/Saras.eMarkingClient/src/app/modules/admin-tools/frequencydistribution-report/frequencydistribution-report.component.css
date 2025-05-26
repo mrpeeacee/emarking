@@ -1,0 +1,39 @@
+.word_wrpa{
+    word-wrap: break-word; 
+    padding-right: 8px; 
+    padding-left: 1px;  
+}
+
+::ng-deep .mat-paginator-container {
+
+    justify-content: space-between !important;
+
+}
+
+::ng-deep .mat-paginator-container .mat-form-field {
+    margin-bottom: 7px;
+    width: 70px !important;
+    border: 1px solid #979797;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+::ng-deep .mat-paginator-container .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0.25px !important;
+}
+
+::ng-deep .mat-paginator {
+
+    margin: 4px 10px 5px 10px !important;
+}
+
+.table_list_scroll {
+    height: auto !important;
+}
+
+.Remarks_menu{
+    width: 220px;
+    max-width: 250px;
+    max-height: 75px;
+    overflow: auto;
+}

@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="body_box">
+       <div class="head_search">
+           <div  class="input_sr">             
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'View-Script.label' | translate }}</mat-label>
+                <input matInput placeholder="{{ 'View-Script.entername' | translate }}" 
+                [(ngModel)]="searchString"
+                 onDrop="return false" 
+                 #searchInput
+                 (keyup.enter)="GetScriptDetails(0,0)"  autocomplete="off" maxlength="100">
+              </mat-form-field>
+            </div>
+
+              <button type="button" class="btn theme_button d-flex align-items-center"  (click)="GetScriptDetails(0,0)" 
+                title="{{ 'View-Script.search' | translate }}"><span class="icon-search"></span>{{ 'View-Script.search' | translate }}
+              </button>
+                
+        </div>
+
+        <div *ngIf="ViewScripts?.length != 0" id="list">
+        <div  class="row-header_bg d-flex align-items-center col-md-12  mt-4" >
+           <div class="col-md-2 ps-1 fontstyle"><strong>{{ 'View-Script.scripts' | translate }}</strong></div>       
+           <div class="col-md-3 fontstyle"><strong>Candidate Index Number</strong></div> 
+            <div class="col-md-5 fontstyle"><strong>{{ 'View-Script.qig' | translate }}</strong></div>                              
+        </div> 
+        
+        
+        <div  class="row-childrow d-flex align-items-center card_box" *ngFor="let script of ViewScripts">
+
+          <div  class="col-md-2" ><span>{{script?.ScriptName}}</span> </div>
+          <div  class="col-md-3 " style="padding-left: 4rem;"><span>{{script?.LoginName}}</span> </div>
+          <div  class="col-md-5 ps-1" ><span>{{script?.QIGName}}</span> </div>
+         
+   
+           <div class="bd-highlight col-md-2 d-flex" >
+            <button id="button" type="button" class="btn theme_button_light d-flex align-items-center float-end" 
+            [routerLink]="['/projects', 'view-script', 'view-script-details']" (click)="GetScriptDetails(script,1)"
+             title="{{ 'View-Script.script' | translate }}" [disabled]="Loader"> <strong>{{ 'View-Script.script' | translate }}</strong></button>
+           </div>
+           
+         </div>       
+        </div>
+
+        <div *ngIf="ViewScripts?.length == 0 && touchedSearchBox" id="txt" class="text-center mt-3">
+          <Strong>{{'View-Script.noscriptfound' | translate}}</Strong>
+       </div>
+
+     </div>
+    </div>

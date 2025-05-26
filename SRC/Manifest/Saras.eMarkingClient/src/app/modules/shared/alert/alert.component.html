@@ -1,0 +1,11 @@
+<ng-container *ngFor="let alert of alerts">
+    <div class="alert_bx">
+        <div class="alert-dismissible fade show " class="{{cssClass(alert)}}" role="alert">
+            <div [innerHtml]="alert?.message"></div>
+            <button mat-button type="button" class="close" (click)="removeAlert(alert)" data-dismiss="alert"
+                aria-label="Close">
+                <span class="icon-close"></span>
+            </button>
+        </div>
+    </div>
+</ng-container>

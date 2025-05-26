@@ -1,0 +1,42 @@
+.searchbox_st input {
+  float: right;
+  background: #fff;
+}
+
+
+
+
+.nodata_found {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 50px;
+}
+
+.row-childrow {
+  padding: 10px 6px;
+}
+
+.anchorclick {
+  color: var(--theme-dark);
+}
+
+
+
+
+.row-header_bg {
+  background: #ebebeb;
+  padding: 5px 15px 5px 5px;
+  display: flex;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.card_box {
+  
+  padding: 6px;
+
+}
+
+.rows_container{
+  border-bottom: 1px solid #ccc;
+}

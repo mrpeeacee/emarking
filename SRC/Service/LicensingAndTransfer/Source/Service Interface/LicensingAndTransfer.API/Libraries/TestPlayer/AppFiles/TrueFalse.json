@@ -1,0 +1,19 @@
+{
+  "ItemDetails": {
+    "GUID": "1e7c9c26-8974-457f-9983-fd444b788039",
+    "Choice": [
+      {
+        "Ident": "T",
+        "CorrectScore": 1.0000,
+        "WrongScore": 0.0000,
+        "IsCorrect": 1
+      },
+      {
+        "Ident": "F",
+        "CorrectScore": 0.0000,
+        "WrongScore": 0.0000,
+        "IsCorrect": 0
+      }
+    ]
+  }
+}

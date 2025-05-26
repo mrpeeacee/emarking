@@ -1,0 +1,95 @@
+.searchbox_st input {
+  /* width: 84%; */
+  padding-right: 30px;
+  border: 1px solid #000;
+  background: #fff;
+  margin-top: 1px;
+  float: right;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.nodata_found {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 50px;
+}
+
+.anchorclick {
+  color: var(--theme-dark);
+}
+
+.theme_toggle {
+  background: var(--theme-dark);
+  border-radius: 0px;
+  color: #fff;
+  transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  font-size: 15px;
+  padding: 2px 20px;
+  position: relative;
+}
+
+  .theme_toggle:hover {
+    color: #fff;
+  }
+
+.theme_toggle_light {
+  background: #fff;
+  border-radius: 0px;
+  color: var(--theme-dark);
+  transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  font-size: 15px;
+  padding: 2px 20px;
+  border: 1px solid #ccc;
+}
+
+.theme_toggle:focus {
+  color: #fff;
+  background: var(--theme-dark);
+}
+
+.row-header_bg {
+  font-weight: bold;
+}
+
+.card_box {
+  
+  padding: 6px;
+
+}
+
+.rows_container{
+  border-bottom: 1px solid #ccc;
+}
+
+.option_more {
+  
+  top: 7px;
+}
+
+
+.modal-header {
+  background: #fff;
+  color: #000;
+  border-bottom: 1px solid #ccc !important;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e6!important;
+  
+}
+
+.scroll_roles {
+  height: 400px;
+}
+
+.untagicon{
+  top: 10%;
+  right: 5%;
+  font-size: 30px;
+  position: absolute;
+}

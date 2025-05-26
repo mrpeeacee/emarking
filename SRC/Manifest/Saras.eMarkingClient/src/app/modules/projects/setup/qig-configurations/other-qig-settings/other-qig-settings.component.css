@@ -1,0 +1,11 @@
+.required {
+  color: red;
+}
+
+.text_are {
+  width: 100%;
+  padding: 4px;
+  border-radius: 5px;
+  max-height: 100px;
+  height: 100px !important;
+}

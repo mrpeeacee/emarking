@@ -1,0 +1,88 @@
+<div class="container-fluid">
+    <div class="body_box"> 
+
+     <div *ngIf="objectList?.length != 0" class="head_search" >
+       <button id="back" type="button" class="btn theme_button d-flex align-items-center float-start"  (click)="GoToScriptsList()"
+       title="{{ 'View-ScriptDetails.back' | translate }}">
+         <span class="icon-arrow_back"></span>
+       </button> 
+       <p *ngIf="objectList?.length != 0" id="text"><strong>{{ 'View-ScriptDetails.history' | translate }} : {{objectList[0].ScriptName}}</strong></p>
+     </div>
+
+     <div  *ngIf="objectList?.length == 0" class="head_search1" >
+        <button id="back" type="button" class="btn theme_button d-flex align-items-center float-start"  (click)="GoToScriptsList()"
+        title="{{ 'View-ScriptDetails.back' | translate }}">
+          <span class="icon-arrow_back"></span><strong>{{ 'View-ScriptDetails.back' | translate }}</strong>
+        </button> 
+        <p id="txt"><strong>{{ 'View-ScriptDetails.selectscript' | translate }} </strong></p>
+      </div>
+    
+     <div *ngFor="let obj of displayList" class="row-childrowRandom row-childrow" id="page" >
+       <div class="d-flex bd-highlight col-md-12 align-items-center">
+        
+        <div class="bd-highlight col-md-2 marauto">
+         <div>{{ 'View-ScriptDetails.phase' | translate }}</div>
+           <div *ngIf="obj.WorkFlowStatusID == 2 && obj.Phase == 0 && obj.SelectAsDefinitive == false">           
+              <strong>Trial Marking</strong>            
+           </div>
+           <div *ngIf="obj.SelectAsDefinitive == true || obj.WorkFlowStatusID == 3 && obj.Phase == 0">           
+            <strong>Categorisation</strong>            
+         </div>
+            <div  *ngIf="obj.WorkFlowStatusID != 2 && obj.WorkFlowStatusID != 3 &&  obj.Phase == 0">
+                 <strong>-----</strong> 
+            </div>  
+             
+            <div *ngIf="obj?.Phase == 1">
+             <strong>{{ 'View-ScriptDetails.livemarking' | translate }}</strong>
+            </div>
+            <div *ngIf="obj?.Phase == 2">
+             <strong>{{ 'View-ScriptDetails.rc1' | translate }}</strong> 
+            </div>
+            <div *ngIf="obj?.Phase == 3">
+             <strong>{{ 'View-ScriptDetails.rc2' | translate }}</strong> 
+            </div>
+            <div *ngIf="obj?.Phase == 4">
+              <strong>{{ 'View-ScriptDetails.adhoc' | translate }}</strong>
+            </div>
+            <div *ngIf="obj?.Phase == 5">
+              <strong>{{ 'View-ScriptDetails.escalate' | translate }}</strong>
+            </div>
+         </div>
+
+         <div class="bd-highlight col-md-2 marauto">
+          <div *ngIf="obj.MarksAwarded==null && obj.Phase != 0 ">{{ 'View-ScriptDetails.dwlnby' | translate }}</div>
+            <div  *ngIf="obj.MarksAwarded !=null && obj.Phase != 1">{{ 'View-ScriptDetails.chckby' | translate }}</div>
+            <div  *ngIf="obj.MarksAwarded !=null && obj.Phase == 1">{{ 'View-ScriptDetails.markedby' | translate }}</div>
+            <div  *ngIf="obj?.MarksAwarded == null && obj.Phase == 0">{{ 'View-ScriptDetails.markedby' | translate }}</div>
+            <div ><strong *ngIf="obj.MarkerName != null">{{ obj.MarkerName }} ({{obj.RoleCode}})</strong>
+                  <strong *ngIf="obj.MarkerName == null"> -----</strong></div>
+          </div>
+
+        <div class="bd-highlight col-md-2 marauto">
+          <div>{{ 'View-ScriptDetails.marks' | translate }}</div>
+          <div class="ps-2" *ngIf="obj.MarksAwarded != null"><strong >{{ obj.MarksAwarded }}</strong></div>
+          <div *ngIf="obj.MarksAwarded == null"><strong>-----</strong></div>
+        </div>
+  
+       <div class="bd-highlight col-md-4 marauto">
+        <div *ngIf="obj.MarksAwarded==null && obj.Phase != 0 ">{{ 'View-ScriptDetails.dwnlded' | translate }}</div>
+         <div *ngIf="obj.MarksAwarded !=null && obj.Phase != 1">{{ 'View-ScriptDetails.chck' | translate }} </div>
+         <div  *ngIf="obj.MarksAwarded !=null && obj.Phase == 1">{{ 'View-ScriptDetails.markeddate' | translate }}</div>
+         <div *ngIf="obj.MarksAwarded ==null && obj.Phase == 0">{{ 'View-ScriptDetails.markeddate' | translate }} </div>
+          <div><strong *ngIf="obj.MarkedDate != null">{{ obj.MarkedDate | date: 'dd-MMM-YYYY h:mm:ss a' }}</strong>
+              <strong *ngIf="obj.MarkedDate == null">-----</strong></div>
+       </div> 
+  
+        <div class="bd-highlight col-md-2 marauto ">
+          <div class="bd-highlight " >
+            <button id="button" type="button" class="btn theme_button_light  d-flex align-items-center float-end" 
+             (click)="NavigateToMarkingPlayer({ ScriptId: obj.ScriptID, IsViewMode:true, Workflowid: obj.WorkFlowStatusID, Markedby: obj.MarkedBy, UserScriptMarkingRefId: obj.UserScriptMarkingRefID,  PhaseStatusTrackingId: obj.ScriptPhaseTrackingID})"
+             title="{{ 'View-ScriptDetails.view' | translate }}" [disabled]="Loader"> <strong>{{ 'View-ScriptDetails.view' | translate }}</strong></button>
+          </div>
+        </div>
+     </div>
+    </div>
+  </div>
+</div>
+
+  

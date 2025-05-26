@@ -1,0 +1,28 @@
+.row-childrow {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 5px;
+    background: #fff;
+}
+
+.col-md-1 {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+::ng-deep .mat-icon {
+    font-size: 23px !important
+}
+
+.pr-2 {
+    padding-right: 20px;
+}
+
+.nodatafound {
+    margin-top: 0px;
+}
+.cust-search{
+    position: relative;
+    top: 16px;
+    left: 574px;
+}
